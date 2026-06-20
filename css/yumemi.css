@@ -8,13 +8,13 @@
 ==========================================*/
 
 body{
-    background:#fff2f7 !important;
- background-image: url("../images/bgs/bloss.jpg");
+    background:
+        url("/images/bgs/cbloss.jpg") repeat,
+        #fff2f7 !important;
 
-    background-repeat: repeat;
-    color:#4f3568 !important;
+    background-size:auto !important;
+    background-attachment:fixed !important;
 }
-
 
 /*==========================================
   HEADER
