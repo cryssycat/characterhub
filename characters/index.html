@@ -550,7 +550,7 @@ async function loadCharacter() {
             return;
         }
 
-        fillCharacter(character);
+        fillCharacter(character) loadCustomCss(character.customCss);;
 
     } catch (err) {
         console.error(err);
@@ -563,7 +563,16 @@ setupTabs();
 setupLightbox();
 
 document.getElementById("revealAllNsfw").addEventListener("click", revealAllNSFW);
+    
+function loadCustomCss(path) {
+    if (!path) return;
 
+    const link = document.createElement("link");
+    link.rel = "stylesheet";
+    link.href = getImage(path);
+    document.head.appendChild(link);
+}
+    
 loadCharacter();
 </script>
 
