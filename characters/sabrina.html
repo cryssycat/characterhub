@@ -4,254 +4,45 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Sabrina | StarSundae Character Hub</title>
+<title>StarSundae Character Hub</title>
 
-<link rel="stylesheet" href="../style.css">
-
-<style>
-/* Page-specific safety styles for Sabrina profile */
-.character-header {
-    text-align: center;
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 42px 20px 28px;
-}
-
-.character-header h1 {
-    color: #ffd6f4;
-    font-size: 3rem;
-    margin-bottom: 8px;
-}
-
-.character-header p {
-    color: #ddd9ff;
-}
-
-.back-button {
-    display: inline-block;
-    margin-bottom: 24px;
-    padding: 12px 22px;
-    border-radius: 999px;
-    text-decoration: none;
-    color: white;
-    background: rgba(255,255,255,.10);
-    border: 1px solid rgba(255,255,255,.14);
-    transition: .2s ease;
-}
-
-.back-button:hover {
-    transform: translateY(-2px);
-    background: rgba(255,214,244,.20);
-}
-
-.profile-page {
-    width: 92%;
-    max-width: 1250px;
-    margin: 0 auto 80px;
-}
-
-.profile-card {
-    display: grid;
-    grid-template-columns: 420px 1fr;
-    gap: 40px;
-    align-items: start;
-    background: rgba(255,255,255,.08);
-    border: 1px solid rgba(255,255,255,.10);
-    border-radius: 35px;
-    padding: 40px;
-    backdrop-filter: blur(14px);
-}
-
-.main-ref {
-    width: 100%;
-    height: 600px;
-    object-fit: cover;
-    border-radius: 25px;
-    display: block;
-    background: rgba(255,255,255,.08);
-}
-
-.profile-info {
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
-}
-
-.profile-section {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.profile-section h2 {
-    color: #fff;
-    font-size: 1.5rem;
-}
-
-.profile-section p {
-    color: #f3efff;
-    line-height: 1.5;
-}
-
-.info-list p {
-    margin-bottom: 4px;
-}
-
-.tag-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-}
-
-.tag {
-    display: inline-block;
-    padding: 8px 16px;
-    border-radius: 999px;
-    background: rgba(255,214,244,.18);
-    color: #ffe0f6;
-    border: 1px solid rgba(255,255,255,.12);
-    font-size: .95rem;
-}
-
-.tag.empty {
-    opacity: .75;
-}
-
-.gallery-section {
-    margin-top: 40px;
-    background: rgba(255,255,255,.08);
-    border: 1px solid rgba(255,255,255,.10);
-    border-radius: 35px;
-    padding: 35px;
-    backdrop-filter: blur(14px);
-}
-
-.gallery-section h2 {
-    text-align: center;
-    margin-bottom: 30px;
-}
-
-.gallery-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit,minmax(240px,1fr));
-    gap: 22px;
-    justify-items: center;
-}
-
-.gallery-grid img {
-    width: 100%;
-    height: 280px;
-    object-fit: cover;
-    border-radius: 20px;
-    background: rgba(255,255,255,.08);
-}
-
-@media(max-width: 900px) {
-    .profile-card {
-        grid-template-columns: 1fr;
-    }
-
-    .main-ref {
-        height: auto;
-        max-height: 650px;
-        object-fit: contain;
-    }
-
-    .character-header h1 {
-        font-size: 2.3rem;
-    }
-}
-</style>
+<link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<header class="character-header">
-    <a class="back-button" href="../index.html">← Back to Hub</a>
+<header class="site-header centered-header">
+    <h1>⭐ StarSundae Character Hub ⭐</h1>
+    <p class="tagline">Characters, stories, and memories.</p>
 
-    <h1 id="characterName">Loading...</h1>
-    <p id="characterSpecies"></p>
+    <div class="hub-description">
+        <p>
+            Welcome to my cozy little character archive — a soft StarSundae space for references,
+            profiles, galleries, lore, relationships, and all the characters I love most.
+        </p>
+    </div>
 </header>
 
-<main class="profile-page">
+<div class="search-container">
+    <input type="text" id="searchInput" placeholder="Search characters...">
+</div>
 
-    <section class="profile-card">
-        <img id="mainRef" class="main-ref" src="../images/placeholder.png" alt="Character reference">
-
-        <div class="profile-info">
-
-            <div class="profile-section info-list">
-                <h2>Profile</h2>
-                <p><strong>Species:</strong> <span id="species">—</span></p>
-                <p><strong>Gender:</strong> <span id="gender">—</span></p>
-                <p><strong>Age:</strong> <span id="age">—</span></p>
-                <p><strong>Occupation:</strong> <span id="occupation">—</span></p>
-                <p><strong>Folder:</strong> <span id="folder">—</span></p>
-            </div>
-
-            <div class="profile-section">
-                <h2>Introduction</h2>
-                <p id="introduction">—</p>
-            </div>
-
-            <div class="profile-section">
-                <h2>Summary</h2>
-                <p id="summary">—</p>
-            </div>
-
-            <div class="profile-section">
-                <h2>Personality</h2>
-                <p id="personality">—</p>
-            </div>
-
-            <div class="profile-section">
-                <h2>Likes</h2>
-                <div id="likes" class="tag-list"></div>
-            </div>
-
-            <div class="profile-section">
-                <h2>Dislikes</h2>
-                <div id="dislikes" class="tag-list"></div>
-            </div>
-
-            <div class="profile-section">
-                <h2>Hobbies</h2>
-                <div id="hobbies" class="tag-list"></div>
-            </div>
-
-            <div class="profile-section">
-                <h2>Fears</h2>
-                <div id="fears" class="tag-list"></div>
-            </div>
-
-            <div class="profile-section">
-                <h2>Trivia</h2>
-                <p id="trivia">—</p>
-            </div>
-
-            <div class="profile-section">
-                <h2>Quote</h2>
-                <p id="quotes">—</p>
-            </div>
-
-        </div>
-    </section>
-
-    <section class="gallery-section">
-        <h2>Gallery</h2>
-        <div id="gallery" class="gallery-grid">
-            <p>Loading gallery...</p>
-        </div>
-    </section>
-
+<main>
+    <div class="character-grid" id="characterGrid">
+        <p class="loading">Loading characters...</p>
+    </div>
 </main>
 
 <script>
 const API_URL = "https://charahub.crysthigpen.workers.dev";
-const SLUG = "sabrina";
+
+const grid = document.getElementById("characterGrid");
+const searchInput = document.getElementById("searchInput");
+
+let allCharacters = [];
 
 function getImage(path) {
-    if (!path) return "../images/placeholder.png";
+    if (!path) return "images/placeholder.png";
 
     path = String(path).trim();
 
@@ -264,130 +55,79 @@ function getImage(path) {
     return window.location.origin + "/" + path;
 }
 
-function setText(id, value, fallback = "—") {
-    const element = document.getElementById(id);
-    if (!element) return;
-    element.textContent = value && String(value).trim() ? value : fallback;
-}
-
-function renderTags(id, items) {
-    const container = document.getElementById(id);
-    if (!container) return;
-
-    container.innerHTML = "";
-
-    if (!items || !Array.isArray(items) || items.length === 0) {
-        const empty = document.createElement("span");
-        empty.className = "tag empty";
-        empty.textContent = "—";
-        container.appendChild(empty);
-        return;
-    }
-
-    items.forEach(item => {
-        const tag = document.createElement("span");
-        tag.className = "tag";
-        tag.textContent = item;
-        container.appendChild(tag);
-    });
-}
-
-async function loadCharacter() {
+async function loadCharacters() {
     try {
-        const response = await fetch(`${API_URL}/character/${SLUG}`);
-        const character = await response.json();
+        const response = await fetch(API_URL);
+        const data = await response.json();
 
-        if (character.error) {
-            setText("characterName", "Character not found");
-            setText("characterSpecies", character.error);
+        if (!Array.isArray(data)) {
+            grid.innerHTML = "<p class='loading'>The API loaded, but did not return a character list.</p>";
             return;
         }
 
-        document.title = `${character.name || "Sabrina"} | StarSundae Character Hub`;
-
-        setText("characterName", character.name, "Unnamed Character");
-        setText("characterSpecies", character.species, "");
-
-        setText("species", character.species);
-        setText("gender", character.gender);
-        setText("age", character.age);
-        setText("occupation", character.occupation);
-        setText("folder", character.folder);
-
-        setText("introduction", character.introduction, "No introduction yet.");
-        setText("summary", character.summary, "No summary yet.");
-        setText("personality", character.personality, "No personality notes yet.");
-        setText("trivia", character.trivia, "No trivia yet.");
-        setText("quotes", character.quotes, "No quote yet.");
-
-        renderTags("likes", character.likes);
-        renderTags("dislikes", character.dislikes);
-        renderTags("hobbies", character.hobbies);
-        renderTags("fears", character.fears);
-
-        const mainRef = document.getElementById("mainRef");
-        mainRef.src = getImage(character.mainRef || character.icon || "images/placeholder.png");
-        mainRef.alt = `${character.name || "Character"} reference`;
-
-        const gallery = document.getElementById("gallery");
-        gallery.innerHTML = "";
-
-        if (character.gallery && character.gallery.length > 0) {
-            character.gallery.forEach(image => {
-      const img = document.createElement("img");
-img.src = getImage(image);
-img.alt = `${character.name || "Character"} gallery image`;
-img.className = "gallery-clickable";
-
-img.addEventListener("click", () => {
-    openLightbox(getImage(image));
-});
-
-gallery.appendChild(img);
-            });
-        } else {
-            gallery.innerHTML = "<p>No gallery images yet.</p>";
-        }
+        allCharacters = data;
+        renderCharacters(allCharacters);
 
     } catch (error) {
-        console.error("Character page error:", error);
-        setText("characterName", "Unable to load character");
-        setText("characterSpecies", "Check your Worker URL or Notion data.");
-        document.getElementById("gallery").innerHTML = "<p>Gallery could not load.</p>";
+        console.error("Character loading error:", error);
+        grid.innerHTML = "<p class='loading'>Could not load characters.</p>";
     }
 }
 
-    function openLightbox(src) {
-    document.getElementById("lightboxImage").src = src;
-    document.getElementById("lightbox").classList.add("active");
+function renderCharacters(characters) {
+    grid.innerHTML = "";
+
+    if (!characters || characters.length === 0) {
+        grid.innerHTML = "<p class='loading'>No characters found.</p>";
+        return;
+    }
+
+    characters.forEach(character => {
+        const name = character.name || "Unnamed";
+        const slug = character.slug || "";
+        const species = character.species || "Unknown Species";
+        const icon = getImage(character.icon);
+
+        const card = document.createElement("a");
+        card.className = "character-card";
+        card.href = `characters/${slug}.html`;
+
+        card.innerHTML = `
+            ${character.favorite ? `<span class="favorite-badge">⭐ Favorite</span>` : ""}
+            <img src="${icon}" alt="${name}">
+            <h2>${name}</h2>
+            <p>${species}</p>
+            ${character.folder ? `<span class="folder-pill">${character.folder}</span>` : ""}
+        `;
+
+        grid.appendChild(card);
+    });
 }
 
-function closeLightbox() {
-    document.getElementById("lightbox").classList.remove("active");
-    document.getElementById("lightboxImage").src = "";
-}
+searchInput.addEventListener("input", () => {
+    const value = searchInput.value.toLowerCase();
 
-document.addEventListener("DOMContentLoaded", () => {
-    document.getElementById("lightboxClose").addEventListener("click", closeLightbox);
+    const filtered = allCharacters.filter(character => {
+        const name = (character.name || "").toLowerCase();
+        const species = (character.species || "").toLowerCase();
+        const slug = (character.slug || "").toLowerCase();
+        const folder = (character.folder || "").toLowerCase();
+        const tags = Array.isArray(character.tags) ? character.tags.join(" ").toLowerCase() : "";
 
-    document.getElementById("lightbox").addEventListener("click", event => {
-        if (event.target.id === "lightbox") {
-            closeLightbox();
-        }
+        return (
+            name.includes(value) ||
+            species.includes(value) ||
+            slug.includes(value) ||
+            folder.includes(value) ||
+            tags.includes(value)
+        );
     });
 
-    document.addEventListener("keydown", event => {
-        if (event.key === "Escape") {
-            closeLightbox();
-        }
-    });
+    renderCharacters(filtered);
 });
-    
-loadCharacter();
+
+loadCharacters();
 </script>
-<div id="lightbox" class="lightbox">
-    <button id="lightboxClose" class="lightbox-close">×</button>
-    <img id="lightboxImage" src="" alt="Full-size gallery image">
-</div>
+
 </body>
 </html>
