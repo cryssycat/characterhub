@@ -1,42 +1,69 @@
 /* ===========================
-   WISP CHARACTER THEME
+   WISP NIGHT SKY THEME
+   For characters/index.html
 =========================== */
 
 :root{
-  --bg1: #efe8f6;
-  --bg2: #f9edf2;
+  --bg-dark: #314987;
+  --bg-light: #5876b8;
 
-  --card: rgba(255,248,252,.82);
-  --card-border: rgba(198,180,220,.5);
+  --text: #fff8ff;
+  --text-soft: #dce8ff;
+  --text-muted: #bfd0f5;
 
-  --text: #384E8E;
-  --text-light: #5D73AE;
+  --pink: #f5c4d7;
+  --mint: #a6ece9;
+  --lavender: #d8c5eb;
+  --blue-soft: #8fb5e8;
 
-  --heading: #384E8E;
+  --card: rgba(255,255,255,.09);
+  --card-hover: rgba(255,255,255,.14);
+  --border: rgba(255,255,255,.16);
 
-  --pink: #F3C4D8;
-  --lavender: #D9C4EA;
-  --mint: #A8EBE8;
-  --white: #ffffff;
-
-  --shadow:
-    0 8px 25px rgba(140,140,180,.15);
+  --shadow: 0 12px 35px rgba(0,0,0,.22);
+  --radius: 24px;
 }
 
 /* ===========================
-   BODY
+   BASE PAGE
 =========================== */
 
+*{
+  box-sizing: border-box;
+}
+
+html{
+  min-height: 100%;
+}
+
 body{
-  background:
-    linear-gradient(135deg,var(--bg1),var(--bg2));
+  margin: 0;
+  min-height: 100vh;
+  font-family: "Inter", "Nunito", "Segoe UI", Arial, sans-serif;
   color: var(--text);
+
+  background:
+    repeating-linear-gradient(
+      135deg,
+      rgba(255,255,255,.05) 0px,
+      rgba(255,255,255,.05) 2px,
+      transparent 2px,
+      transparent 26px
+    ),
+    linear-gradient(
+      135deg,
+      var(--bg-dark) 0%,
+      var(--bg-light) 100%
+    );
+
+  background-attachment: fixed;
 }
 
 /* ===========================
    GENERAL TEXT
 =========================== */
 
+body,
 p,
 li,
 span,
@@ -44,146 +71,329 @@ div{
   color: var(--text);
 }
 
-strong{
-  color: var(--heading);
+p,
+li{
+  line-height: 1.65;
 }
 
-h1,h2,h3,h4,h5{
-  color: var(--heading);
+strong,
+b{
+  color: var(--mint);
+  font-weight: 800;
 }
 
-/* ===========================
-   HEADER CARD
-=========================== */
-
-.character-header{
-  background: rgba(255,255,255,.3);
-  border: 1px solid rgba(255,255,255,.4);
-  box-shadow: var(--shadow);
+h1,
+h2,
+h3,
+h4,
+h5{
+  color: var(--pink);
+  margin-top: 0;
+  font-weight: 900;
 }
 
-.character-header h1{
-  color: var(--heading);
-}
-
-.character-header .subtitle{
-  color: var(--text-light);
-}
-
-/* ===========================
-   INFO CARD
-=========================== */
-
-.info-card{
-  background: var(--card);
-  border: 1px solid var(--card-border);
-  box-shadow: var(--shadow);
-  backdrop-filter: blur(16px);
-}
-
-.quick-facts h2{
-  color: var(--heading);
-}
-
-.quick-facts strong{
-  color: var(--heading);
-}
-
-/* ===========================
-   SECTION TITLES
-=========================== */
-
-.section-title{
-  color: var(--heading);
-}
-
-/* ===========================
-   TABS
-=========================== */
-
-.tab-button{
-  background: rgba(255,255,255,.55);
-  border: 1px solid rgba(255,255,255,.5);
-  color: var(--text);
-  border-radius: 999px;
-  transition: .25s;
-  box-shadow: var(--shadow);
-}
-
-.tab-button:hover{
-  transform: translateY(-2px);
-}
-
-.tab-button.active{
-  background:
-    linear-gradient(
-      135deg,
-      var(--mint),
-      var(--lavender)
-    );
-  color: var(--heading);
+a{
+  color: var(--mint);
+  text-decoration: none;
   font-weight: 700;
 }
 
+a:hover{
+  color: var(--pink);
+}
+
 /* ===========================
-   TAG PILLS
+   MAIN WRAPPER
 =========================== */
 
+.page,
+.character-page,
+.container,
+main{
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+/* ===========================
+   HEADER
+=========================== */
+
+.character-header,
+.header-card{
+  background: rgba(255,255,255,.08);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(18px);
+  padding: 2rem;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.character-header h1,
+.header-card h1{
+  color: var(--pink);
+  text-shadow: 0 2px 12px rgba(0,0,0,.15);
+  margin-bottom: .25rem;
+}
+
+.character-header .subtitle,
+.header-card .subtitle{
+  color: var(--text-soft);
+}
+
+/* ===========================
+   TOP INFO CARD
+=========================== */
+
+.info-card,
+.profile-card,
+.character-card{
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(20px);
+  padding: 2rem;
+}
+
+.character-top,
+.profile-top{
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+/* ===========================
+   MAIN IMAGE
+=========================== */
+
+.character-image,
+.main-image,
+.ref-image{
+  width: 100%;
+  border-radius: 22px;
+  overflow: hidden;
+  background: rgba(255,255,255,.08);
+  box-shadow: 0 8px 25px rgba(0,0,0,.18);
+}
+
+.character-image img,
+.main-image img,
+.ref-image img{
+  width: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+/* ===========================
+   QUICK FACTS
+=========================== */
+
+.quick-facts h2,
+.facts h2{
+  color: var(--pink);
+}
+
+.quick-facts p,
+.facts p{
+  color: var(--text-soft);
+  margin: .45rem 0;
+}
+
+.quick-facts strong,
+.facts strong{
+  color: var(--mint);
+}
+
+/* ===========================
+   TAGS / PILLS
+=========================== */
+
+.tags{
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem;
+  margin-top: .75rem;
+}
+
 .tag-pill,
-.credit-pill{
+.credit-pill,
+.pill{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
   background:
     linear-gradient(
       135deg,
       var(--mint),
       var(--pink)
     );
-  color: var(--heading);
+
+  color: var(--bg-dark);
+  border: none;
   border-radius: 999px;
-  padding: .4rem .9rem;
-  font-weight: 600;
+  padding: .4rem .85rem;
+  font-size: .8rem;
+  font-weight: 900;
+  box-shadow: 0 5px 15px rgba(0,0,0,.12);
 }
 
 /* ===========================
-   LINKS
+   TABS
 =========================== */
 
-a{
-  color: var(--heading);
-  transition: .2s;
+.tabs,
+.tab-buttons{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: .65rem;
+  margin: 1.6rem 0;
 }
 
-a:hover{
-  color: #5d73ae;
+.tab-button,
+.tabs button,
+.tab{
+  background: rgba(255,255,255,.09);
+  color: var(--text-soft);
+  border: 1px solid rgba(255,255,255,.16);
+  border-radius: 999px;
+  padding: .8rem 1.25rem;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(0,0,0,.12);
+  transition: .25s ease;
 }
 
-/* ===========================
-   GALLERY IMAGES
-=========================== */
-
-.gallery img{
-  border-radius: 20px;
-  box-shadow: var(--shadow);
-  transition: .25s;
+.tab-button:hover,
+.tabs button:hover,
+.tab:hover{
+  background: rgba(255,255,255,.15);
+  transform: translateY(-2px);
 }
 
-.gallery img:hover{
-  transform: translateY(-4px);
+.tab-button.active,
+.tabs button.active,
+.tab.active{
+  background:
+    linear-gradient(
+      135deg,
+      rgba(166,236,233,.32),
+      rgba(245,196,215,.32)
+    );
+  color: #ffffff;
+  border: 1px solid rgba(255,255,255,.26);
 }
 
 /* ===========================
    CONTENT SECTIONS
 =========================== */
 
-.tab-content{
-  color: var(--text);
+.tab-content,
+.content-card,
+.section-card{
+  background: rgba(255,255,255,.075);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(18px);
+  padding: 2rem;
+  margin-bottom: 1.5rem;
 }
 
-.overview-section,
-.favorites-section,
-.relationships-section,
-.references-section,
-.gallery-section{
-  background: transparent;
+.section-title{
+  color: var(--pink);
+}
+
+.tab-content p,
+.content-card p,
+.section-card p{
+  color: var(--text-soft);
+}
+
+/* ===========================
+   GALLERY
+=========================== */
+
+.gallery,
+.gallery-grid{
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 1rem;
+}
+
+.gallery img,
+.gallery-grid img{
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 20px;
+  box-shadow: 0 8px 24px rgba(0,0,0,.18);
+  transition: .25s ease;
+}
+
+.gallery img:hover,
+.gallery-grid img:hover{
+  transform: translateY(-4px);
+}
+
+/* ===========================
+   BUTTONS
+=========================== */
+
+button,
+.button,
+.btn{
+  background:
+    linear-gradient(
+      135deg,
+      rgba(166,236,233,.35),
+      rgba(245,196,215,.35)
+    );
+  color: white;
+  border: 1px solid rgba(255,255,255,.2);
+  border-radius: 999px;
+  padding: .75rem 1.2rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: .25s ease;
+}
+
+button:hover,
+.button:hover,
+.btn:hover{
+  background:
+    linear-gradient(
+      135deg,
+      rgba(166,236,233,.5),
+      rgba(245,196,215,.5)
+    );
+  transform: translateY(-2px);
+}
+
+/* ===========================
+   SMALL DETAILS
+=========================== */
+
+hr{
+  border: none;
+  border-top: 1px solid rgba(255,255,255,.15);
+  margin: 1.5rem 0;
+}
+
+blockquote{
+  border-left: 4px solid var(--mint);
+  padding-left: 1rem;
+  color: var(--text-soft);
+}
+
+::selection{
+  background: var(--pink);
+  color: var(--bg-dark);
 }
 
 /* ===========================
@@ -191,17 +401,61 @@ a:hover{
 =========================== */
 
 ::-webkit-scrollbar{
-  width:10px;
+  width: 10px;
 }
 
 ::-webkit-scrollbar-track{
-  background:#ece5f2;
+  background: var(--bg-dark);
 }
 
 ::-webkit-scrollbar-thumb{
-  background:linear-gradient(
-      var(--lavender),
-      var(--mint)
-  );
-  border-radius:999px;
+  background:
+    linear-gradient(
+      var(--mint),
+      var(--pink)
+    );
+  border-radius: 999px;
+}
+
+/* ===========================
+   MOBILE
+=========================== */
+
+@media(max-width: 800px){
+  .page,
+  .character-page,
+  .container,
+  main{
+    padding: 1rem;
+  }
+
+  .character-top,
+  .profile-top{
+    grid-template-columns: 1fr;
+  }
+
+  .character-header,
+  .header-card,
+  .info-card,
+  .profile-card,
+  .character-card,
+  .tab-content,
+  .content-card,
+  .section-card{
+    padding: 1.25rem;
+  }
+
+  .tabs,
+  .tab-buttons{
+    justify-content: flex-start;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding-bottom: .5rem;
+  }
+
+  .tab-button,
+  .tabs button,
+  .tab{
+    white-space: nowrap;
+  }
 }
