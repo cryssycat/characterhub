@@ -78,7 +78,18 @@ async function loadCharacter() {
         gallery.innerHTML = "<p>No gallery images yet.</p>";
     }
 }
+function getImage(path) {
+    if (!path) return "../images/placeholder.png";
+    if (path.startsWith("http")) return path;
 
+    path = path.trim();
+
+    if (path.startsWith("/")) {
+        return window.location.origin + path;
+    }
+
+    return window.location.origin + "/" + path;
+}
 loadCharacter();
 </script>
 
