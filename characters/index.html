@@ -6,7 +6,7 @@
 
 <title>Character | StarSundae Character Hub</title>
 
-<link rel="stylesheet" href="../style.css?v=100">
+<link rel="stylesheet" href="../style.css?v=110">
 </head>
 
 <body>
@@ -154,7 +154,7 @@
     <section id="credits" class="tab-panel">
         <div class="content-grid">
             <div class="content-card wide-card">
-                <h2>Art Credits</h2>
+                <h2>Character Credits</h2>
                 <div id="creditsPills" class="credit-pills credit-pills-left"></div>
             </div>
 
@@ -287,6 +287,33 @@ function renderTags(id, items) {
     });
 }
 
+function creditIcon(role) {
+    const lower = String(role || "").toLowerCase();
+
+    if (lower.includes("artist")) return "🎨";
+    if (lower.includes("base")) return "📐";
+    if (lower.includes("design")) return "✨";
+    if (lower.includes("color")) return "🖌️";
+    if (lower.includes("commission")) return "💌";
+    if (lower.includes("gift")) return "🎁";
+
+    return "🏷️";
+}
+
+function makeCreditPill(role, name, link = "") {
+    const pill = document.createElement(link ? "a" : "span");
+    pill.className = "credit-pill image-credit-pill";
+    pill.textContent = `${creditIcon(role)} ${role}: ${name}`;
+
+    if (link) {
+        pill.href = link;
+        pill.target = "_blank";
+        pill.rel = "noopener noreferrer";
+    }
+
+    return pill;
+}
+
 function renderCreditPills(containerId, credits) {
     const box = document.getElementById(containerId);
     if (!box) return;
@@ -319,11 +346,28 @@ function renderCreditPills(containerId, credits) {
 
 function normalizeImageItem(item) {
     if (!item) return null;
-    if (typeof item === "string") return { url: item, label: "" };
+    if (typeof item === "string") return { url: item, label: "", credits: [] };
     return {
         url: item.url || item.src || "",
-        label: item.label || item.type || ""
+        label: item.label || item.type || "",
+        credits: Array.isArray(item.credits) ? item.credits : []
     };
+}
+
+function renderImageCreditPills(card, item) {
+    if (!item.credits || !item.credits.length) return;
+
+    const creditBox = document.createElement("div");
+    creditBox.className = "image-credit-pills";
+
+    item.credits.forEach(credit => {
+        if (!credit.name) return;
+        creditBox.appendChild(makeCreditPill(credit.role || "Credit", credit.name, credit.link || ""));
+    });
+
+    if (creditBox.children.length) {
+        card.appendChild(creditBox);
+    }
 }
 
 function renderImages(id, images, name) {
@@ -353,9 +397,12 @@ function renderImages(id, images, name) {
 
         if (item.label) {
             const caption = document.createElement("p");
+            caption.className = "image-title";
             caption.textContent = item.label;
             card.appendChild(caption);
         }
+
+        renderImageCreditPills(card, item);
 
         grid.appendChild(card);
     });
@@ -397,11 +444,16 @@ function renderNSFWImages(images, name) {
 
         if (item.label) {
             const caption = document.createElement("p");
+            caption.className = "image-title";
             caption.textContent = item.label;
             card.appendChild(caption);
         }
 
-        card.addEventListener("click", () => {
+        renderImageCreditPills(card, item);
+
+        card.addEventListener("click", event => {
+            if (event.target.closest("a")) return;
+
             if (!card.classList.contains("revealed")) {
                 card.classList.add("revealed");
                 return;
@@ -643,9 +695,7 @@ document.addEventListener("DOMContentLoaded", () => {
     setupLightbox();
 
     const revealButton = document.getElementById("revealAllNsfw");
-    if (revealButton) {
-        revealButton.addEventListener("click", revealAllNSFW);
-    }
+    if (revealButton) revealButton.addEventListener("click", revealAllNSFW);
 
     loadCharacter();
 });
