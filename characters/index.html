@@ -567,6 +567,20 @@ function setupPrevNext() {
 }
 
 function fillCharacter(character) {
+document.body.classList.remove(
+    "layout-default",
+    "layout-classic",
+    "layout-visual-novel",
+    "layout-magazine",
+    "layout-minimal"
+);
+
+const layoutClass = "layout-" + (character.layout || "Default")
+    .toLowerCase()
+    .replaceAll(" ", "-");
+
+document.body.classList.add(layoutClass);
+    
     currentCharacter = character;
 
     loadCustomCss(character.customCss);
