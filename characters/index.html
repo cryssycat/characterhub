@@ -6,7 +6,7 @@
 
 <title>Character | StarSundae Character Hub</title>
 
-<link rel="stylesheet" href="../style.css?v=110">
+<link rel="stylesheet" href="../style.css?v=130">
 </head>
 
 <body>
@@ -301,8 +301,19 @@ function creditIcon(role) {
 }
 
 function makeCreditPill(role, name, link = "") {
+    const lower = String(role || "").toLowerCase();
+
+    let cls = "credit-pill image-credit-pill";
+
+    if (lower.includes("artist")) cls += " artist-pill";
+    else if (lower.includes("base")) cls += " base-pill";
+    else if (lower.includes("design")) cls += " designer-pill";
+    else if (lower.includes("color")) cls += " colorist-pill";
+    else if (lower.includes("commission")) cls += " commissioner-pill";
+    else if (lower.includes("gift")) cls += " gift-pill";
+
     const pill = document.createElement(link ? "a" : "span");
-    pill.className = "credit-pill image-credit-pill";
+    pill.className = cls;
     pill.textContent = `${creditIcon(role)} ${role}: ${name}`;
 
     if (link) {
@@ -337,10 +348,6 @@ function renderCreditPills(containerId, credits) {
         credits.baseMakers.forEach(base => {
             addPill("📐 Base:", base, "base-pill");
         });
-    }
-
-    if (!box.children.length) {
-        box.innerHTML = '<span class="credit-pill empty-pill">No credits listed.</span>';
     }
 }
 
@@ -519,7 +526,7 @@ function renderAuTabs(character) {
     }
 
     character.auGalleries.forEach((au, index) => {
-        if (!au.images || !au.images.length) return;
+        if (!au || !au.images || !Array.isArray(au.images) || au.images.length === 0) return;
 
         const tabId = `au-${index}`;
 
@@ -542,23 +549,25 @@ function renderAuTabs(character) {
         `;
 
         profilePage.insertBefore(section, profileNav);
-
         renderImages(`${tabId}Grid`, au.images, character.name);
     });
 }
-    
+
 function setupTabs() {
     const buttons = document.querySelectorAll(".tab-button");
-    const panels = document.querySelectorAll(".tab-panel");
 
     buttons.forEach(button => {
+        if (button.dataset.bound === "true") return;
+        button.dataset.bound = "true";
+
         button.addEventListener("click", () => {
             const target = button.dataset.tab;
 
-            buttons.forEach(btn => btn.classList.remove("active"));
-            panels.forEach(panel => panel.classList.remove("active"));
+            document.querySelectorAll(".tab-button").forEach(btn => btn.classList.remove("active"));
+            document.querySelectorAll(".tab-panel").forEach(panel => panel.classList.remove("active"));
 
             button.classList.add("active");
+
             const panel = document.getElementById(target);
             if (panel) panel.classList.add("active");
         });
@@ -688,14 +697,14 @@ function fillCharacter(character) {
     }
 
 renderImages("galleryGrid", character.gallery, character.name);
-renderImages("referencesGrid", character.references, character.name);
-renderNSFWImages(character.nsfwGallery, character.name);
-renderRelationships(character.relationships);
+    renderImages("referencesGrid", character.references, character.name);
+    renderNSFWImages(character.nsfwGallery, character.name);
+    renderRelationships(character.relationships);
 
-renderAuTabs(character);
-setupTabs();
+    renderAuTabs(character);
+    setupTabs();
 
-setupPrevNext();
+    setupPrevNext();
 }
 
 async function loadCharacter() {
@@ -707,9 +716,11 @@ async function loadCharacter() {
         }
 
         const listResponse = await fetch(API_URL);
-        allCharacters = await listResponse.json();
+        const listData = await listResponse.json();
 
-        const response = await fetch(`${API_URL}/character/${SLUG}`);
+        allCharacters = Array.isArray(listData) ? listData : [];
+
+        const response = await fetch(`${API_URL}/character/${encodeURIComponent(SLUG)}`);
         const character = await response.json();
 
         if (character.error) {
@@ -717,23 +728,6 @@ async function loadCharacter() {
             setText("characterSpecies", `No character found for slug: ${SLUG}`);
             return;
         }
-
-        fillCharacter(character);
-
-    } catch (err) {
-        console.error("Character page error:", err);
-        setText("characterName", "Unable to load character");
-        setText("characterSpecies", "Check the browser console for the exact error.");
-    }
-}
-        fillCharacter(character);
-
-    } catch (err) {
-        console.error("Character page error:", err);
-        setText("characterName", "Unable to load character");
-        setText("characterSpecies", "Check the browser console for the exact error.");
-    }
-}
 
 document.addEventListener("DOMContentLoaded", () => {
     setupTabs();
