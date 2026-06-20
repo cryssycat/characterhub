@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>StarSundae Character Hub</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="site-header">
+    <div class="sparkle">✦</div>
+    <h1>⭐ StarSundae Character Hub ⭐</h1>
+    <p>Characters, stories, references, and galleries.</p>
+</header>
+
+<main>
+    <section class="toolbar">
+        <input type="text" id="searchInput" placeholder="Search characters..." onkeyup="searchCharacters()">
+    </section>
+
+    <section class="character-grid" id="characterGrid">
+        <a class="character-card" href="characters/sabrina.html">
+            <img src="images/sabrina/icon.png" alt="Sabrina icon" onerror="this.src='https://placehold.co/400x400/f7c7e8/2a2044?text=Sabrina'">
+            <h2>Sabrina</h2>
+            <p>Anthro Leopard</p>
+            <span class="tag">Barista</span>
+        </a>
+
+        <a class="character-card" href="characters/rowan.html">
+            <img src="images/rowan/icon.png" alt="Rowan icon" onerror="this.src='https://placehold.co/400x400/bbd7ff/2a2044?text=Rowan'">
+            <h2>Rowan</h2>
+            <p>Panther</p>
+            <span class="tag">Main Cast</span>
+        </a>
+
+        <a class="character-card" href="characters/alyssa.html">
+            <img src="images/alyssa/icon.png" alt="Alyssa icon" onerror="this.src='https://placehold.co/400x400ffd6f4/2a2044?text=Alyssa'">
+            <h2>Alyssa</h2>
+            <p>Black Cat</p>
+            <span class="tag">Cozy</span>
+        </a>
+    </section>
+</main>
+
+<footer>
+    <p>Made with sugar, stars, and soft little dreams.</p>
+</footer>
+
+<script>
+function searchCharacters() {
+    const input = document.getElementById("searchInput");
+    const filter = input.value.toUpperCase();
+    const cards = document.getElementsByClassName("character-card");
+
+    for (let i = 0; i < cards.length; i++) {
+        const text = cards[i].innerText;
+        cards[i].style.display = text.toUpperCase().includes(filter) ? "" : "none";
+    }
+}
+</script>
+</body>
+</html>
