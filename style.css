@@ -530,3 +530,32 @@ body::before {
     opacity: 0;
     pointer-events: none;
 }
+
+/* Creator database image credit pills */
+
+.image-credit-pills {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.image-credit-pill {
+    text-decoration: none;
+    font-size: .82rem;
+    padding: 7px 12px;
+}
+
+.image-credit-pill:hover {
+    background: rgba(255,214,244,.26);
+    transform: translateY(-1px);
+}
+
+.image-title {
+    text-align: center;
+    margin-top: 10px;
+    color: #ffe0f6;
+    font-weight: 700;
+}
+
