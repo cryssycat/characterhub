@@ -1,6 +1,6 @@
+```css
 /* ==========================================
    CHARACTER PAGE CUSTOM CSS
-   Only affects this character
 ========================================== */
 
 
@@ -9,15 +9,9 @@
 ==========================================*/
 
 body{
-    /* Background image or color */
-    background: #2f2456 !important;
+    background:#fff2f7 !important;
 
-    /* Optional background image */
-    /* background-image:url("/images/bg.jpg") !important; */
-    /* background-size:cover; */
-    /* background-attachment:fixed; */
-
-    color:white;
+    color:#4f3568 !important;
 }
 
 
@@ -26,11 +20,11 @@ body{
 ==========================================*/
 
 .character-header h1{
-    color:#ffd6f4 !important;
+    color:#4f3568 !important;
 }
 
 .character-header p{
-    color:#ddd9ff !important;
+    color:#7b6592 !important;
 }
 
 
@@ -39,13 +33,13 @@ body{
 ==========================================*/
 
 .profile-card{
-    background:rgba(255,255,255,.08) !important;
+    background:rgba(255,255,255,.7) !important;
 
-    border:1px solid rgba(255,255,255,.15) !important;
+    border:1px solid rgba(210,190,220,.5) !important;
 
     border-radius:30px !important;
 
-    box-shadow:0 10px 30px rgba(0,0,0,.25) !important;
+    box-shadow:0 10px 30px rgba(95,70,120,.1) !important;
 }
 
 
@@ -56,7 +50,7 @@ body{
 .main-ref{
     border-radius:20px !important;
 
-    border:4px solid #ffd6f4 !important;
+    border:4px solid #ffd9ea !important;
 }
 
 
@@ -65,11 +59,11 @@ body{
 ==========================================*/
 
 .quick-facts h2{
-    color:#ffd6f4 !important;
+    color:#4f3568 !important;
 }
 
 .quick-facts strong{
-    color:white !important;
+    color:#4f3568 !important;
 }
 
 
@@ -78,15 +72,19 @@ body{
 ==========================================*/
 
 .tab-button{
-    background:rgba(255,255,255,.08) !important;
+    background:#ffe7f1 !important;
 
-    color:white !important;
+    color:#4f3568 !important;
+
+    border:1px solid #f5d4e5 !important;
+
+    border-radius:999px !important;
 }
 
 .tab-button.active{
-    background:#ffd6f4 !important;
+    background:#ffd2e5 !important;
 
-    color:#5b427d !important;
+    color:#4f3568 !important;
 }
 
 
@@ -95,13 +93,17 @@ body{
 ==========================================*/
 
 .content-card{
-    background:rgba(255,255,255,.08) !important;
+    background:rgba(255,255,255,.7) !important;
+
+    border:1px solid rgba(210,190,220,.4) !important;
 
     border-radius:25px !important;
+
+    box-shadow:0 8px 20px rgba(95,70,120,.08) !important;
 }
 
 .content-card h2{
-    color:#ffd6f4 !important;
+    color:#4f3568 !important;
 }
 
 
@@ -110,9 +112,9 @@ body{
 ==========================================*/
 
 .tag{
-    background:#e8ddff !important;
+    background:#f9e5f5 !important;
 
-    color:#5b427d !important;
+    color:#4f3568 !important;
 }
 
 
@@ -121,33 +123,33 @@ body{
 ==========================================*/
 
 .artist-pill{
-    background:#ffd7ef !important;
-    color:#9b4772 !important;
+    background:#ffdce9 !important;
+    color:#4f3568 !important;
 }
 
 .base-pill{
-    background:#d9e8ff !important;
-    color:#4a6ea8 !important;
+    background:#f0e4ff !important;
+    color:#4f3568 !important;
 }
 
 .designer-pill{
-    background:#e8ddff !important;
-    color:#7256a8 !important;
+    background:#eadcff !important;
+    color:#4f3568 !important;
 }
 
 .colorist-pill{
-    background:#d8fff0 !important;
-    color:#4f9980 !important;
+    background:#f8dceb !important;
+    color:#4f3568 !important;
 }
 
 .commissioner-pill{
-    background:#fff0cf !important;
-    color:#aa8543 !important;
+    background:#ffe8ef !important;
+    color:#4f3568 !important;
 }
 
 .gift-pill{
-    background:#ffe2d2 !important;
-    color:#b46b4c !important;
+    background:#ffe2ec !important;
+    color:#4f3568 !important;
 }
 
 
@@ -156,7 +158,7 @@ body{
 ==========================================*/
 
 .image-card{
-    background:rgba(255,255,255,.05) !important;
+    background:rgba(255,255,255,.55) !important;
 
     border-radius:20px !important;
 }
@@ -164,7 +166,7 @@ body{
 .image-card img{
     border-radius:15px !important;
 
-    border:2px solid rgba(255,255,255,.1) !important;
+    border:2px solid rgba(220,200,230,.4) !important;
 }
 
 
@@ -173,9 +175,11 @@ body{
 ==========================================*/
 
 .relationship-card{
-    background:rgba(255,255,255,.08) !important;
+    background:rgba(255,255,255,.65) !important;
 
     border-radius:20px !important;
+
+    border:1px solid rgba(210,190,220,.3) !important;
 }
 
 
@@ -185,18 +189,18 @@ body{
 
 .back-button,
 .profile-nav a{
-    background:rgba(255,255,255,.08) !important;
+    background:#ffe7f1 !important;
 
-    color:white !important;
+    color:#4f3568 !important;
 
     border-radius:999px !important;
 }
 
 .back-button:hover,
 .profile-nav a:hover{
-    background:#ffd6f4 !important;
+    background:#ffd2e5 !important;
 
-    color:#5b427d !important;
+    color:#4f3568 !important;
 }
 
 
@@ -205,45 +209,16 @@ body{
 ==========================================*/
 
 .lightbox{
-    background:rgba(0,0,0,.85) !important;
+    background:rgba(50,30,60,.9) !important;
 }
 
 
 /*==========================================
-  CUSTOM FONT
+  SOFT GLOW
 ==========================================*/
 
-/*
-@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&display=swap');
-
-body{
-    font-family:'Caveat', cursive !important;
-}
-*/
-
-
-/*==========================================
-  CUSTOM EFFECTS
-==========================================*/
-
-/* Remove stars */
-/*
-body::before{
-    display:none !important;
-}
-*/
-
-/ Rounded everything /
-/
-{
-    border-radius:25px !important;
-}
-/
-
-/* Soft glow */
-/*
 .content-card,
 .profile-card{
-    box-shadow:0 0 25px rgba(255,214,244,.25)!important;
+    box-shadow:0 0 20px rgba(255,210,229,.3) !important;
 }
-*/
+```
