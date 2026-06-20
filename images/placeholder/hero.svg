@@ -1,8 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000">
-  <defs><linearGradient id="g" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#fff7fc"/><stop offset=".5" stop-color="#dff2ff"/><stop offset="1" stop-color="#fff8d7"/></linearGradient></defs>
-  <rect width="1000" height="1000" rx="90" fill="url(#g)"/>
-  <circle cx="500" cy="420" r="180" fill="#fff" opacity=".78"/>
-  <path d="M245 880c58-190 148-285 255-285s197 95 255 285" fill="#fff" opacity=".8"/>
-  <text x="500" y="485" text-anchor="middle" font-size="150" fill="#ff9bd4">🍨</text>
-  <text x="500" y="920" text-anchor="middle" font-family="Trebuchet MS" font-size="48" fill="#352b57">Character Art</text>
-</svg>
