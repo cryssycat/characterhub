@@ -6,7 +6,7 @@
 
 <title>StarSundae Character Hub</title>
 
-<link rel="stylesheet" href="style.css?v=40">
+<link rel="stylesheet" href="style.css?v=50">
 </head>
 
 <body>
@@ -30,7 +30,7 @@
 </div>
 
 <main>
-    <div class="character-grid" id="characterGrid">
+    <div id="folderContainer" class="folder-container">
         <p class="loading">Loading characters...</p>
     </div>
 </main>
@@ -38,7 +38,7 @@
 <script>
 const API_URL = "https://charahub.crysthigpen.workers.dev";
 
-const grid = document.getElementById("characterGrid");
+const folderContainer = document.getElementById("folderContainer");
 const searchInput = document.getElementById("searchInput");
 const characterCount = document.getElementById("characterCount");
 
@@ -71,13 +71,41 @@ function updateCount(showing, total) {
     }
 }
 
+function groupByFolder(characters) {
+    const folders = {};
+
+    characters.forEach(character => {
+        const folderName = character.folder && String(character.folder).trim()
+            ? character.folder
+            : "Unsorted";
+
+        if (!folders[folderName]) {
+            folders[folderName] = [];
+        }
+
+        folders[folderName].push(character);
+    });
+
+    return folders;
+}
+
+function sortFolderNames(folderNames) {
+    return folderNames.sort((a, b) => {
+        if (a === "Favorites") return -1;
+        if (b === "Favorites") return 1;
+        if (a === "Unsorted") return 1;
+        if (b === "Unsorted") return -1;
+        return a.localeCompare(b);
+    });
+}
+
 async function loadCharacters() {
     try {
         const response = await fetch(API_URL);
         const data = await response.json();
 
         if (!Array.isArray(data)) {
-            grid.innerHTML = "<p class='loading'>The API loaded, but did not return a character list.</p>";
+            folderContainer.innerHTML = "<p class='loading'>The API loaded, but did not return a character list.</p>";
             characterCount.textContent = "Could not count characters.";
             return;
         }
@@ -88,39 +116,67 @@ async function loadCharacters() {
 
     } catch (error) {
         console.error(error);
-        grid.innerHTML = "<p class='loading'>Could not load characters.</p>";
+        folderContainer.innerHTML = "<p class='loading'>Could not load characters.</p>";
         characterCount.textContent = "Could not load character count.";
     }
 }
 
+function createCharacterCard(character) {
+    const name = character.name || "Unnamed";
+    const slug = character.slug || "";
+    const species = character.species || "Unknown Species";
+    const icon = getImage(character.icon);
+
+    const card = document.createElement("a");
+    card.className = "character-card";
+    card.href = `characters/index.html?slug=${encodeURIComponent(slug)}`;
+
+    card.innerHTML = `
+        ${character.favorite ? `<span class="favorite-badge">⭐ Favorite</span>` : ""}
+        <img src="${icon}" alt="${name}">
+        <h2>${name}</h2>
+        <p>${species}</p>
+        ${character.folder ? `<span class="folder-pill">${character.folder}</span>` : ""}
+    `;
+
+    return card;
+}
+
 function renderCharacters(characters) {
-    grid.innerHTML = "";
+    folderContainer.innerHTML = "";
 
     if (!characters || characters.length === 0) {
-        grid.innerHTML = "<p class='loading'>No characters found.</p>";
+        folderContainer.innerHTML = "<p class='loading'>No characters found.</p>";
         updateCount(0, allCharacters.length);
         return;
     }
 
-    characters.forEach(character => {
-        const name = character.name || "Unnamed";
-        const slug = character.slug || "";
-        const species = character.species || "Unknown Species";
-        const icon = getImage(character.icon);
+    const folders = groupByFolder(characters);
+    const folderNames = sortFolderNames(Object.keys(folders));
 
-        const card = document.createElement("a");
-        card.className = "character-card";
-        card.href = `characters/index.html?slug=${encodeURIComponent(slug)}`;
+    folderNames.forEach(folderName => {
+        const section = document.createElement("section");
+        section.className = "folder-section";
 
-        card.innerHTML = `
-            ${character.favorite ? `<span class="favorite-badge">⭐ Favorite</span>` : ""}
-            <img src="${icon}" alt="${name}">
-            <h2>${name}</h2>
-            <p>${species}</p>
-            ${character.folder ? `<span class="folder-pill">${character.folder}</span>` : ""}
+        const heading = document.createElement("div");
+        heading.className = "folder-heading";
+
+        heading.innerHTML = `
+            <h2>${folderName}</h2>
+            <span>${folders[folderName].length} character${folders[folderName].length === 1 ? "" : "s"}</span>
         `;
 
-        grid.appendChild(card);
+        const grid = document.createElement("div");
+        grid.className = "character-grid";
+
+        folders[folderName].forEach(character => {
+            grid.appendChild(createCharacterCard(character));
+        });
+
+        section.appendChild(heading);
+        section.appendChild(grid);
+
+        folderContainer.appendChild(section);
     });
 
     updateCount(characters.length, allCharacters.length);
