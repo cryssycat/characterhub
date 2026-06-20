@@ -178,9 +178,13 @@ function renderCharacters(characters) {
         heading.className = "folder-heading";
 
         heading.innerHTML = `
-            <h2>${folderName}</h2>
-            <span>${folders[folderName].length} character${folders[folderName].length === 1 ? "" : "s"}</span>
-        `;
+    <div class="folder-title">
+        <span class="folder-arrow">▼</span>
+        <h2>${folderName}</h2>
+    </div>
+
+    <span>${folders[folderName].length} character${folders[folderName].length === 1 ? "" : "s"}</span>
+`;
 
         const grid = document.createElement("div");
         grid.className = "character-grid";
@@ -189,7 +193,17 @@ function renderCharacters(characters) {
             grid.appendChild(createCharacterCard(character));
         });
 heading.addEventListener("click", () => {
+
     section.classList.toggle("collapsed");
+
+    const arrow = heading.querySelector(".folder-arrow");
+
+    if (section.classList.contains("collapsed")) {
+        arrow.textContent = "▶";
+    } else {
+        arrow.textContent = "▼";
+    }
+
 });
 
 section.appendChild(heading);
