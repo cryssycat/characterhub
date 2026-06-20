@@ -251,7 +251,7 @@ body{
 .character-header h1{
     display:inline-block;
 
-    background:rgba(255,255,255,.7);
+    background:rgba(255,255,255,1);
 
     border:2px solid rgba(255,255,255,.5);
 
@@ -270,7 +270,7 @@ body{
 .character-header p{
     display:inline-block;
 
-    background:rgba(255,255,255,.5);
+    background:rgba(255,255,255,1);
 
     border-radius:999px;
 
