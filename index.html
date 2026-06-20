@@ -3,60 +3,108 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>StarSundae Character Hub</title>
+
 <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-<header class="site-header">
-    <div class="sparkle">✦</div>
+
+<header>
     <h1>⭐ StarSundae Character Hub ⭐</h1>
-    <p>Characters, stories, references, and galleries.</p>
+    <p>Characters, stories, and memories.</p>
 </header>
 
+<div class="search-container">
+    <input
+        type="text"
+        id="searchInput"
+        placeholder="Search characters..."
+    >
+</div>
+
 <main>
-    <section class="toolbar">
-        <input type="text" id="searchInput" placeholder="Search characters..." onkeyup="searchCharacters()">
-    </section>
-
-    <section class="character-grid" id="characterGrid">
-        <a class="character-card" href="characters/sabrina.html">
-            <img src="images/sabrina/icon.png" alt="Sabrina icon" onerror="this.src='https://placehold.co/400x400/f7c7e8/2a2044?text=Sabrina'">
-            <h2>Sabrina</h2>
-            <p>Anthro Leopard</p>
-            <span class="tag">Barista</span>
-        </a>
-
-        <a class="character-card" href="characters/rowan.html">
-            <img src="images/rowan/icon.png" alt="Rowan icon" onerror="this.src='https://placehold.co/400x400/bbd7ff/2a2044?text=Rowan'">
-            <h2>Rowan</h2>
-            <p>Panther</p>
-            <span class="tag">Main Cast</span>
-        </a>
-
-        <a class="character-card" href="characters/alyssa.html">
-            <img src="images/alyssa/icon.png" alt="Alyssa icon" onerror="this.src='https://placehold.co/400x400ffd6f4/2a2044?text=Alyssa'">
-            <h2>Alyssa</h2>
-            <p>Black Cat</p>
-            <span class="tag">Cozy</span>
-        </a>
-    </section>
+    <div class="character-grid" id="characterGrid">
+        <p class="loading">Loading characters...</p>
+    </div>
 </main>
 
-<footer>
-    <p>Made with sugar, stars, and soft little dreams.</p>
-</footer>
-
 <script>
-function searchCharacters() {
-    const input = document.getElementById("searchInput");
-    const filter = input.value.toUpperCase();
-    const cards = document.getElementsByClassName("character-card");
+const API_URL = "https://charahub.crysthigpen.workers.dev";
 
-    for (let i = 0; i < cards.length; i++) {
-        const text = cards[i].innerText;
-        cards[i].style.display = text.toUpperCase().includes(filter) ? "" : "none";
+const grid = document.getElementById("characterGrid");
+const searchInput = document.getElementById("searchInput");
+
+let allCharacters = [];
+
+async function loadCharacters() {
+    try {
+        const response = await fetch(API_URL);
+        allCharacters = await response.json();
+
+        renderCharacters(allCharacters);
+
+    } catch (error) {
+        grid.innerHTML = `
+            <p class="loading">
+                Could not load characters. Check your Worker URL.
+            </p>
+        `;
+        console.error(error);
     }
 }
+
+function renderCharacters(characters) {
+    grid.innerHTML = "";
+
+    if (!characters.length) {
+        grid.innerHTML = `
+            <p class="loading">
+                No public characters found.
+            </p>
+        `;
+        return;
+    }
+
+    characters.forEach(character => {
+        const card = document.createElement("a");
+
+        card.className = "character-card";
+
+        card.href = `characters/${character.slug}.html`;
+
+        card.innerHTML = `
+            <img 
+                src="${character.icon || "images/placeholder.png"}" 
+                alt="${character.name}"
+            >
+
+            <h2>${character.name}</h2>
+
+            <p>${character.species || "Unknown Species"}</p>
+        `;
+
+        grid.appendChild(card);
+    });
+}
+
+searchInput.addEventListener("input", () => {
+    const searchTerm = searchInput.value.toLowerCase();
+
+    const filtered = allCharacters.filter(character => {
+        return (
+            character.name.toLowerCase().includes(searchTerm) ||
+            character.species.toLowerCase().includes(searchTerm) ||
+            character.slug.toLowerCase().includes(searchTerm)
+        );
+    });
+
+    renderCharacters(filtered);
+});
+
+loadCharacters();
 </script>
+
 </body>
 </html>
