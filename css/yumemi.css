@@ -20,13 +20,58 @@ body{
   HEADER
 ==========================================*/
 
+```css
+/*==========================================
+  HEADER
+==========================================*/
+
+.character-header{
+    display:flex !important;
+    flex-direction:column !important;
+    align-items:center !important;
+    justify-content:center !important;
+}
+
 .character-header h1{
+    display:inline-block !important;
+
+    background:rgba(255,255,255,.78);
+
+    border:1px solid rgba(255,255,255,.7);
+
+    border-radius:999px;
+
+    padding:.35em 1em;
+
+    margin-bottom:.5rem;
+
     color:#4f3568 !important;
+
+    box-shadow:
+        0 6px 20px rgba(80,50,100,.15);
+
+    backdrop-filter:blur(10px);
 }
 
 .character-header p{
+    display:inline-block !important;
+
+    background:rgba(255,232,243,.7);
+
+    border:1px solid rgba(255,255,255,.5);
+
+    border-radius:999px;
+
+    padding:.2em .9em;
+
+    margin:0;
+
     color:#7b6592 !important;
+
+    box-shadow:
+        0 4px 12px rgba(80,50,100,.08);
 }
+```
 
 
 /*==========================================
