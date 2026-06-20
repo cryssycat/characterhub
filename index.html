@@ -37,9 +37,17 @@ let allCharacters = [];
 
 /* PUT IT HERE */
 function getImage(path) {
-    return `${window.location.origin}/${path}`;
-}
+    if (!path) return "../images/placeholder.png";
+    if (path.startsWith("http")) return path;
 
+    path = path.trim();
+
+    if (path.startsWith("/")) {
+        return window.location.origin + path;
+    }
+
+    return window.location.origin + "/" + path;
+}
 async function loadCharacters() {
 
     const response = await fetch(API_URL);
