@@ -441,3 +441,11 @@ body::before {
         text-align: center;
     }
 }
+
+.folder-heading {
+    cursor: pointer;
+}
+
+.folder-section.collapsed .character-grid {
+    display: none;
+}
