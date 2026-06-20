@@ -425,23 +425,30 @@ function renderRelationships(relationships) {
         return;
     }
 
-    relationships.forEach(rel => {
-        const name = rel.name || "Unnamed";
-        const type = rel.type || "Connection";
-        const notes = rel.notes || "";
-        const slug = rel.slug || "";
+   relationships.forEach(rel => {
+    const linkedCharacter = allCharacters.find(c => c.slug === rel.slug);
 
-        const card = document.createElement("div");
-        card.className = "relationship-card";
-        card.innerHTML = `
-            <h3>${name}</h3>
-            <p class="relationship-type">${type}</p>
-            <p>${notes || "No notes yet."}</p>
-            ${slug ? `<a href="index.html?slug=${encodeURIComponent(slug)}">View Profile →</a>` : ""}
-        `;
+    const name = linkedCharacter?.name || rel.name || "Unnamed";
+    const species = linkedCharacter?.species || "";
+    const icon = linkedCharacter?.icon || "";
+    const type = rel.type || "Connection";
+    const notes = rel.notes || "";
+    const slug = rel.slug || "";
 
-        grid.appendChild(card);
-    });
+    const card = document.createElement("div");
+    card.className = "relationship-card relationship-preview-card";
+
+    card.innerHTML = `
+        ${icon ? `<img src="${getImage(icon)}" alt="${name}">` : ""}
+        <h3>${name}</h3>
+        ${species ? `<p>${species}</p>` : ""}
+        <span class="relationship-type">${type}</span>
+        <p>${notes || "No notes yet."}</p>
+        ${slug ? `<a href="index.html?slug=${encodeURIComponent(slug)}">View Profile →</a>` : ""}
+    `;
+
+    grid.appendChild(card);
+});
 }
 
 function renderAuTabs(character) {
