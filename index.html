@@ -11,9 +11,16 @@
 
 <body>
 
-<header>
+<header class="site-header centered-header">
     <h1>⭐ StarSundae Character Hub ⭐</h1>
-    <p>Characters, stories, and memories.</p>
+    <p class="tagline">Characters, stories, and memories.</p>
+
+    <div class="hub-description">
+        <p>
+            Welcome to my cozy little character archive — a soft StarSundae space for references,
+            profiles, galleries, and all the characters I love most.
+        </p>
+    </div>
 </header>
 
 <div class="search-container">
@@ -27,7 +34,6 @@
 </main>
 
 <script>
-
 const API_URL = "https://charahub.crysthigpen.workers.dev";
 
 const grid = document.getElementById("characterGrid");
@@ -35,12 +41,12 @@ const searchInput = document.getElementById("searchInput");
 
 let allCharacters = [];
 
-/* PUT IT HERE */
 function getImage(path) {
-    if (!path) return "../images/placeholder.png";
-    if (path.startsWith("http")) return path;
+    if (!path) return "images/placeholder.png";
 
-    path = path.trim();
+    path = String(path).trim();
+
+    if (path.startsWith("http")) return path;
 
     if (path.startsWith("/")) {
         return window.location.origin + path;
@@ -48,42 +54,73 @@ function getImage(path) {
 
     return window.location.origin + "/" + path;
 }
+
 async function loadCharacters() {
+    try {
+        const response = await fetch(API_URL);
+        const data = await response.json();
 
-    const response = await fetch(API_URL);
+        if (!Array.isArray(data)) {
+            grid.innerHTML = "<p class='loading'>The API loaded, but did not return a character list.</p>";
+            return;
+        }
 
-    allCharacters = await response.json();
+        allCharacters = data;
+        renderCharacters(allCharacters);
 
-    renderCharacters(allCharacters);
-
+    } catch (error) {
+        console.error("Character loading error:", error);
+        grid.innerHTML = "<p class='loading'>Could not load characters.</p>";
+    }
 }
 
 function renderCharacters(characters) {
-
     grid.innerHTML = "";
 
+    if (!characters || characters.length === 0) {
+        grid.innerHTML = "<p class='loading'>No characters found.</p>";
+        return;
+    }
+
     characters.forEach(character => {
+        const name = character.name || "Unnamed";
+        const slug = character.slug || "";
+        const species = character.species || "Unknown Species";
+        const icon = getImage(character.icon);
 
         const card = document.createElement("a");
-
         card.className = "character-card";
-
-        card.href = `characters/${character.slug}.html`;
+        card.href = `characters/${slug}.html`;
 
         card.innerHTML = `
-            <img src="${getImage(character.icon)}">
-            <h2>${character.name}</h2>
-            <p>${character.species}</p>
+            <img src="${icon}" alt="${name}">
+            <h2>${name}</h2>
+            <p>${species}</p>
         `;
 
         grid.appendChild(card);
-
     });
-
 }
 
-loadCharacters();
+searchInput.addEventListener("input", () => {
+    const value = searchInput.value.toLowerCase();
 
+    const filtered = allCharacters.filter(character => {
+        const name = (character.name || "").toLowerCase();
+        const species = (character.species || "").toLowerCase();
+        const slug = (character.slug || "").toLowerCase();
+
+        return (
+            name.includes(value) ||
+            species.includes(value) ||
+            slug.includes(value)
+        );
+    });
+
+    renderCharacters(filtered);
+});
+
+loadCharacters();
 </script>
 
 </body>
