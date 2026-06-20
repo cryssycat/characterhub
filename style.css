@@ -589,18 +589,3 @@ body::before {
     color:#b46b4c;
 }
 
-
-.gallery-grid {
-    grid-template-columns: repeat(auto-fit, minmax(280px, 280px));
-    justify-content: center;
-}
-
-.image-card {
-    width: 280px;
-}
-
-.image-card img {
-    width: 280px;
-    height: 280px;
-    object-fit: cover;
-}
