@@ -90,12 +90,29 @@ function groupByFolder(characters) {
 }
 
 function sortFolderNames(folderNames) {
+    const folderOrder = [
+        "Mains",
+        "Mascots",
+        "Wife Designs",
+        "Comfort Characters",
+        "Primary",
+        "Secondary",
+        "Tertiary",
+        "Unsorted"
+    ];
+
     return folderNames.sort((a, b) => {
-        if (a === "Favorites") return -1;
-        if (b === "Favorites") return 1;
-        if (a === "Unsorted") return 1;
-        if (b === "Unsorted") return -1;
-        return a.localeCompare(b);
+        const indexA = folderOrder.indexOf(a);
+        const indexB = folderOrder.indexOf(b);
+
+        if (indexA === -1 && indexB === -1) {
+            return a.localeCompare(b);
+        }
+
+        if (indexA === -1) return 1;
+        if (indexB === -1) return -1;
+
+        return indexA - indexB;
     });
 }
 
@@ -171,9 +188,12 @@ function renderCharacters(characters) {
         folders[folderName].forEach(character => {
             grid.appendChild(createCharacterCard(character));
         });
+heading.addEventListener("click", () => {
+    section.classList.toggle("collapsed");
+});
 
-        section.appendChild(heading);
-        section.appendChild(grid);
+section.appendChild(heading);
+section.appendChild(grid);
 
         folderContainer.appendChild(section);
     });
