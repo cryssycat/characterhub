@@ -1,0 +1,65 @@
+[
+  {
+    "id": "sabrina",
+    "name": "Sabrina",
+    "subtitle": "Confident • Cozy • Star-kissed",
+    "species": "Anthro Leopard",
+    "pronouns": "She/Her",
+    "role": "Barista & Performer",
+    "status": "Main Character",
+    "palette": ["#ffd6ef", "#b7dcff", "#fff4b8", "#2f2757"],
+    "tags": ["Starbrew", "Cafe", "Feminine", "Main"],
+    "quote": "Sweetness is a kind of magic.",
+    "avatar": "images/placeholder/avatar.svg",
+    "heroImage": "images/placeholder/hero.svg",
+    "profile": {
+      "introduction": "Sabrina is a soft but confident character with a dreamy cafe-inspired aesthetic. She loves warm lights, pretty drinks, gentle attention, and moments that feel like they belong inside a pastel notebook. Her style blends cute details with a little sparkle and a lot of personality.",
+      "favorites": {
+        "Food": "Strawberry shortcake",
+        "Drink": "Iced vanilla latte",
+        "Color": "Pastel pink",
+        "Season": "Spring nights",
+        "Scent": "Vanilla sugar"
+      },
+      "likes": ["Cafe dates", "Cute outfits", "Soft blankets", "Star charms", "Late-night music"],
+      "dislikes": ["Harsh lighting", "Being rushed", "Bitter coffee", "Messy plans", "Cold mornings"],
+      "notes": "Replace this sample text with your real Toyhouse-style profile details."
+    },
+    "gallery": [
+      {"src": "images/placeholder/gallery-1.svg", "title": "Reference Sheet", "credit": "Art by StarSundae"},
+      {"src": "images/placeholder/gallery-2.svg", "title": "Icon", "credit": "Art by StarSundae"},
+      {"src": "images/placeholder/gallery-3.svg", "title": "Outfit Sheet", "credit": "Art by StarSundae"}
+    ]
+  },
+  {
+    "id": "alyssa",
+    "name": "Alyssa",
+    "subtitle": "Gentle • Dreamy • Moonlit",
+    "species": "Anthro Cat",
+    "pronouns": "She/Her",
+    "role": "Character Hub Sample",
+    "status": "Secondary Character",
+    "palette": ["#cde8ff", "#f8c8ff", "#ffffff", "#38315f"],
+    "tags": ["Soft", "Pastel", "Comfort"],
+    "quote": "Even quiet stars still shine.",
+    "avatar": "images/placeholder/avatar.svg",
+    "heroImage": "images/placeholder/hero.svg",
+    "profile": {
+      "introduction": "Alyssa is a calm, affectionate character with a soft pastel style. She is perfect for gentle storylines, emotional scenes, and cozy artwork collections.",
+      "favorites": {
+        "Food": "Macarons",
+        "Drink": "Milk tea",
+        "Color": "Baby blue",
+        "Season": "Winter",
+        "Scent": "Fresh laundry"
+      },
+      "likes": ["Plushies", "Quiet rooms", "Cloudy skies", "Pretty journals", "Soft sweaters"],
+      "dislikes": ["Loud crowds", "Arguments", "Scratchy fabric", "Clutter", "Being ignored"],
+      "notes": "This is another sample character. Duplicate this object to add more."
+    },
+    "gallery": [
+      {"src": "images/placeholder/gallery-1.svg", "title": "Reference", "credit": "Art by StarSundae"},
+      {"src": "images/placeholder/gallery-2.svg", "title": "Headshot", "credit": "Art by StarSundae"}
+    ]
+  }
+]
