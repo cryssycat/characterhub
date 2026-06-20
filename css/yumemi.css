@@ -1,0 +1,213 @@
+/* ===========================
+   STRAWBERRY DREAM THEME
+=========================== */
+
+:root{
+  --bg1: #f8eef5;
+  --bg2: #fbe4ef;
+  --bg3: #f4d9e9;
+
+  --text: #4f3568;
+  --text-soft: #6d5587;
+  --heading: #5b2d68;
+
+  --pink: #f4bfd9;
+  --pink-light: #ffdceb;
+  --lavender: #e9d6f6;
+  --card: rgba(255,255,255,.65);
+  --border: rgba(190,160,205,.35);
+
+  --shadow: 0 10px 30px rgba(110,80,130,.12);
+
+  --radius: 24px;
+}
+
+/* ===========================
+   BODY
+=========================== */
+
+body{
+  background:
+    repeating-linear-gradient(
+      135deg,
+      rgba(255,255,255,.25) 0px,
+      rgba(255,255,255,.25) 2px,
+      transparent 2px,
+      transparent 28px
+    ),
+    linear-gradient(
+      135deg,
+      var(--bg1),
+      var(--bg2),
+      var(--bg3)
+    );
+
+  background-attachment: fixed;
+  color: var(--text);
+}
+
+/* ===========================
+   TEXT
+=========================== */
+
+body,
+p,
+span,
+li{
+  color: var(--text);
+}
+
+h1,h2,h3,h4,h5{
+  color: var(--heading);
+  font-weight: 800;
+}
+
+strong{
+  color: var(--heading);
+}
+
+/* ===========================
+   GLASS CARDS
+=========================== */
+
+.character-header,
+.info-card,
+.tab-content,
+.content-card{
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+
+  backdrop-filter: blur(18px);
+
+  box-shadow: var(--shadow);
+}
+
+/* ===========================
+   LINKS
+=========================== */
+
+a{
+  color: #7b4d8d;
+}
+
+a:hover{
+  color: #c47ca6;
+}
+
+/* ===========================
+   TAB BUTTONS
+=========================== */
+
+.tab-button{
+  background: rgba(255,255,255,.5);
+
+  border: 1px solid rgba(255,255,255,.4);
+
+  color: var(--text);
+
+  border-radius: 999px;
+
+  transition: .25s;
+}
+
+.tab-button:hover{
+  transform: translateY(-2px);
+
+  background: rgba(255,255,255,.75);
+}
+
+.tab-button.active{
+  background:
+    linear-gradient(
+      135deg,
+      var(--pink-light),
+      var(--lavender)
+    );
+
+  color: var(--heading);
+
+  font-weight: 700;
+}
+
+/* ===========================
+   TAG PILLS
+=========================== */
+
+.tag-pill,
+.credit-pill{
+  background:
+    linear-gradient(
+      135deg,
+      #ffd6ea,
+      #e7d4f5
+    );
+
+  color: var(--heading);
+
+  border-radius: 999px;
+
+  font-weight: 700;
+
+  padding: .4rem .9rem;
+}
+
+/* ===========================
+   IMAGES
+=========================== */
+
+.gallery img,
+.main-image img{
+  border-radius: 20px;
+
+  box-shadow: var(--shadow);
+
+  transition: .25s;
+}
+
+.gallery img:hover{
+  transform: translateY(-3px);
+}
+
+/* ===========================
+   BUTTONS
+=========================== */
+
+button{
+  background:
+    linear-gradient(
+      135deg,
+      #ffdceb,
+      #ecd8f7
+    );
+
+  color: var(--heading);
+
+  border: none;
+
+  border-radius: 999px;
+
+  font-weight: 700;
+}
+
+/* ===========================
+   SCROLLBAR
+=========================== */
+
+::-webkit-scrollbar{
+  width: 10px;
+}
+
+::-webkit-scrollbar-track{
+  background: #f7edf6;
+}
+
+::-webkit-scrollbar-thumb{
+  background:
+    linear-gradient(
+      #ffcfe5,
+      #e2cff5
+    );
+
+  border-radius: 999px;
+}
