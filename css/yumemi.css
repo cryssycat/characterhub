@@ -305,24 +305,4 @@ body{
 }
 
 
-.profile-nav{
-    display:flex !important;
-    flex-direction:row !important;
-    justify-content:center !important;
-    align-items:center !important;
-    gap:14px !important;
-    margin-top:35px !important;
-}
 
-.profile-nav a{
-    display:inline-flex !important;
-    align-items:center !important;
-    justify-content:center !important;
-
-    width:auto !important;
-    height:auto !important;
-    min-height:unset !important;
-
-    padding:12px 24px !important;
-    border-radius:999px !important;
-}
