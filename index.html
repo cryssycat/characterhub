@@ -18,7 +18,7 @@
     <div class="hub-description">
         <p>
             Welcome to my cozy little character archive — a soft StarSundae space for references,
-            profiles, galleries, and all the characters I love most.
+            profiles, galleries, lore, relationships, and all the characters I love most.
         </p>
     </div>
 </header>
@@ -93,9 +93,11 @@ function renderCharacters(characters) {
         card.href = `characters/${slug}.html`;
 
         card.innerHTML = `
+            ${character.favorite ? `<span class="favorite-badge">⭐ Favorite</span>` : ""}
             <img src="${icon}" alt="${name}">
             <h2>${name}</h2>
             <p>${species}</p>
+            ${character.folder ? `<span class="folder-pill">${character.folder}</span>` : ""}
         `;
 
         grid.appendChild(card);
@@ -109,11 +111,15 @@ searchInput.addEventListener("input", () => {
         const name = (character.name || "").toLowerCase();
         const species = (character.species || "").toLowerCase();
         const slug = (character.slug || "").toLowerCase();
+        const folder = (character.folder || "").toLowerCase();
+        const tags = Array.isArray(character.tags) ? character.tags.join(" ").toLowerCase() : "";
 
         return (
             name.includes(value) ||
             species.includes(value) ||
-            slug.includes(value)
+            slug.includes(value) ||
+            folder.includes(value) ||
+            tags.includes(value)
         );
     });
 
