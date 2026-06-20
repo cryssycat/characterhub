@@ -877,3 +877,38 @@ body.layout-minimal .content-grid {
     border:0;
     cursor:pointer;
 }
+/* Admin tab tools */
+
+.admin-generator{
+    max-width:700px;
+    margin:30px auto;
+    padding:25px;
+    border-radius:25px;
+    background:rgba(255,255,255,.08);
+    text-align:center;
+}
+
+.admin-generator input,
+.admin-generator textarea{
+    width:100%;
+    margin:8px 0;
+    padding:12px 16px;
+    border-radius:15px;
+    border:1px solid rgba(255,255,255,.15);
+}
+
+.admin-generator textarea{
+    min-height:80px;
+}
+
+.admin-generator button{
+    margin:8px;
+    padding:10px 18px;
+    border-radius:999px;
+    border:0;
+    cursor:pointer;
+}
+
+#adminMessage{
+    margin-top:10px;
+}
