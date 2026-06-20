@@ -301,9 +301,43 @@ function creditIcon(role) {
 }
 
 function makeCreditPill(role, name, link = "") {
+
+    const lower = role.toLowerCase();
+
+    let cls = "credit-pill image-credit-pill";
+
+    if (lower.includes("artist"))
+        cls += " artist-pill";
+
+    else if (lower.includes("base"))
+        cls += " base-pill";
+
+    else if (lower.includes("design"))
+        cls += " designer-pill";
+
+    else if (lower.includes("color"))
+        cls += " colorist-pill";
+
+    else if (lower.includes("commission"))
+        cls += " commissioner-pill";
+
+    else if (lower.includes("gift"))
+        cls += " gift-pill";
+
     const pill = document.createElement(link ? "a" : "span");
-    pill.className = "credit-pill image-credit-pill";
+
+    pill.className = cls;
+
     pill.textContent = `${creditIcon(role)} ${role}: ${name}`;
+
+    if (link) {
+        pill.href = link;
+        pill.target = "_blank";
+        pill.rel = "noopener noreferrer";
+    }
+
+    return pill;
+}
 
     if (link) {
         pill.href = link;
