@@ -65,7 +65,11 @@ async function loadCharacter() {
     document.getElementById("introduction").textContent = character.introduction || "No introduction yet.";
     document.getElementById("summary").textContent = character.summary || "No summary yet.";
 
-    document.getElementById("mainRef").src = character.mainRef || character.icon || "../images/placeholder.png";
+character.gallery.forEach(image => {
+    gallery.innerHTML += `
+        <img src="${getImage(image)}" alt="${character.name} gallery image">
+    `;
+});
 
     const gallery = document.getElementById("gallery");
     gallery.innerHTML = "";
