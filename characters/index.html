@@ -504,7 +504,49 @@ function renderRelationships(relationships) {
         grid.appendChild(card);
     });
 }
+function renderAuTabs(character) {
+    const tabs = document.getElementById("tabs");
+    const profilePage = document.querySelector(".profile-page");
+    const profileNav = document.querySelector(".profile-nav");
 
+    if (!tabs || !profilePage || !profileNav) return;
+
+    document.querySelectorAll(".au-tab-button").forEach(button => button.remove());
+    document.querySelectorAll(".au-tab-panel").forEach(panel => panel.remove());
+
+    if (!character.auGalleries || !Array.isArray(character.auGalleries) || character.auGalleries.length === 0) {
+        return;
+    }
+
+    character.auGalleries.forEach((au, index) => {
+        if (!au.images || !au.images.length) return;
+
+        const tabId = `au-${index}`;
+
+        const button = document.createElement("button");
+        button.className = "tab-button au-tab-button";
+        button.dataset.tab = tabId;
+        button.textContent = au.name || `AU Gallery ${index + 1}`;
+        tabs.appendChild(button);
+
+        const section = document.createElement("section");
+        section.id = tabId;
+        section.className = "tab-panel au-tab-panel";
+
+        section.innerHTML = `
+            <div class="section-title">
+                <h2>${au.name || `AU Gallery ${index + 1}`}</h2>
+                <p>Alternate universe gallery.</p>
+            </div>
+            <div id="${tabId}Grid" class="gallery-grid"></div>
+        `;
+
+        profilePage.insertBefore(section, profileNav);
+
+        renderImages(`${tabId}Grid`, au.images, character.name);
+    });
+}
+    
 function setupTabs() {
     const buttons = document.querySelectorAll(".tab-button");
     const panels = document.querySelectorAll(".tab-panel");
@@ -645,10 +687,13 @@ function fillCharacter(character) {
         mainRef.alt = `${character.name || "Character"} reference`;
     }
 
-    renderImages("galleryGrid", character.gallery, character.name);
-    renderImages("referencesGrid", character.references, character.name);
-    renderNSFWImages(character.nsfwGallery, character.name);
-    renderRelationships(character.relationships);
+renderImages("galleryGrid", character.gallery, character.name);
+renderImages("referencesGrid", character.references, character.name);
+renderNSFWImages(character.nsfwGallery, character.name);
+renderRelationships(character.relationships);
+
+renderAuTabs(character);
+setupTabs();
 
     setupPrevNext();
 }
