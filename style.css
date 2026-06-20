@@ -62,3 +62,47 @@ footer{ text-align:center; color:#cfd5ff; padding:20px; opacity:.85; }
     .profile-card{ grid-template-columns:1fr; padding:20px; }
     .character-card img{ width:150px; height:150px; }
 }
+.profile-page {
+    width: 90%;
+    max-width: 1200px;
+    margin: auto;
+    padding-bottom: 60px;
+}
+
+.profile-card {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+    background: rgba(255,255,255,.08);
+    border-radius: 30px;
+    padding: 30px;
+}
+
+.main-ref {
+    max-width: 420px;
+    width: 100%;
+    border-radius: 25px;
+}
+
+.profile-info {
+    flex: 1;
+    min-width: 280px;
+}
+
+.gallery-section {
+    margin-top: 30px;
+    background: rgba(255,255,255,.08);
+    border-radius: 30px;
+    padding: 30px;
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
+    gap: 20px;
+}
+
+.gallery-grid img {
+    width: 100%;
+    border-radius: 20px;
+}
