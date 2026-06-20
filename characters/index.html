@@ -6,7 +6,7 @@
 
 <title>Character | StarSundae Character Hub</title>
 
-<link rel="stylesheet" href="../style.css?v=140">
+<link rel="stylesheet" href="../style.css?v=150">
 </head>
 
 <body>
@@ -51,6 +51,7 @@
         <button class="tab-button" data-tab="credits">Credits</button>
         <button class="tab-button" data-tab="lore">Lore</button>
         <button class="tab-button" data-tab="nsfw">🔞 Mature Gallery</button>
+        <button class="tab-button" data-tab="admin">🔧 Admin</button>
     </nav>
 
     <section id="overview" class="tab-panel active">
@@ -134,18 +135,32 @@
         </div>
         <div id="nsfwGalleryGrid" class="gallery-grid"><p>No mature images yet.</p></div>
     </section>
-<section class="admin-generator">
-  <h2>Gallery Line Generator</h2>
+<section id="admin" class="tab-panel">
+        <div class="section-title">
+            <h2>🔧 Admin Tools</h2>
+            <p>Enter your admin password to unlock the gallery line generator.</p>
+        </div>
 
-  <input id="genTitle" placeholder="Image title">
-  <input id="genPath" placeholder="images/character/file.png">
-  <input id="genCredits" placeholder="Artist:Name;Base:Name">
+        <div id="adminLock" class="admin-generator">
+            <input id="adminPassword" type="password" placeholder="Admin password">
+            <button id="unlockAdmin">Unlock</button>
+            <p id="adminMessage"></p>
+        </div>
 
-  <button id="generateLine">Generate Line</button>
+        <div id="adminTools" class="admin-generator" style="display:none;">
+            <h2>Gallery Line Generator</h2>
 
-  <textarea id="generatedLine" readonly></textarea>
-  <button id="copyLine">Copy Line</button>
-</section>
+            <input id="genTitle" placeholder="Image title">
+            <input id="genPath" placeholder="images/character/file.png">
+            <input id="genCredits" placeholder="Artist:Name;Base:Name">
+
+            <button id="generateLine">Generate Line</button>
+
+            <textarea id="generatedLine" readonly></textarea>
+            <button id="copyLine">Copy Line</button>
+        </div>
+    </section>
+
     <div class="profile-nav">
         <a id="prevCharacter" href="../index.html">← Previous</a>
         <a href="../index.html">Back to Hub</a>
@@ -700,15 +715,78 @@ async function loadCharacter() {
     }
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-    setupTabs();
-    setupLightbox();
+
+async function checkAdminPassword(password) {
+    const response = await fetch(`${API_URL}/admin-login`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ password })
+    });
+
+    const data = await response.json();
+
+    return data && data.ok === true;
+}
+
+function setupAdminTools() {
+    const unlockButton = document.getElementById("unlockAdmin");
+    const passwordInput = document.getElementById("adminPassword");
+    const message = document.getElementById("adminMessage");
+    const adminLock = document.getElementById("adminLock");
+    const adminTools = document.getElementById("adminTools");
+
+    if (!unlockButton || !passwordInput || !adminLock || !adminTools) return;
+
+    function unlock() {
+        adminLock.style.display = "none";
+        adminTools.style.display = "block";
+        sessionStorage.setItem("starhubAdminUnlocked", "true");
+    }
+
+    if (sessionStorage.getItem("starhubAdminUnlocked") === "true") {
+        unlock();
+    }
+
+    unlockButton.addEventListener("click", async () => {
+        const password = passwordInput.value.trim();
+
+        if (!password) {
+            if (message) message.textContent = "Please enter a password.";
+            return;
+        }
+
+        unlockButton.disabled = true;
+        unlockButton.textContent = "Checking...";
+
+        try {
+            const ok = await checkAdminPassword(password);
+
+            if (ok) {
+                unlock();
+            } else {
+                if (message) message.textContent = "Wrong password.";
+            }
+        } catch (err) {
+            console.error("Admin unlock error:", err);
+            if (message) message.textContent = "Could not check password.";
+        }
+
+        unlockButton.disabled = false;
+        unlockButton.textContent = "Unlock";
+    });
+
+    passwordInput.addEventListener("keydown", event => {
+        if (event.key === "Enter") {
+            unlockButton.click();
+        }
+    });
+
     setupLineGenerator();
-    const revealButton = document.getElementById("revealAllNsfw");
-    if (revealButton) revealButton.addEventListener("click", revealAllNSFW);
+}
 
-
-    function setupLineGenerator() {
+function setupLineGenerator() {
     const title = document.getElementById("genTitle");
     const path = document.getElementById("genPath");
     const credits = document.getElementById("genCredits");
@@ -717,7 +795,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const generateButton = document.getElementById("generateLine");
     const copyButton = document.getElementById("copyLine");
 
-    if (!generateButton || !copyButton) return;
+    if (!title || !path || !credits || !output || !generateButton || !copyButton) return;
 
     generateButton.addEventListener("click", () => {
         const line = `${title.value.trim()}|${path.value.trim()}|${credits.value.trim()}`;
@@ -726,12 +804,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
     copyButton.addEventListener("click", async () => {
         if (!output.value) return;
+
         await navigator.clipboard.writeText(output.value);
+
         copyButton.textContent = "Copied!";
         setTimeout(() => copyButton.textContent = "Copy Line", 1200);
     });
 }
-    
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    setupTabs();
+    setupLightbox();
+    setupAdminTools();
+
+    const revealButton = document.getElementById("revealAllNsfw");
+    if (revealButton) revealButton.addEventListener("click", revealAllNSFW);
+
     loadCharacter();
 });
 </script>
