@@ -334,10 +334,16 @@ async function loadCharacter() {
 
         if (character.gallery && character.gallery.length > 0) {
             character.gallery.forEach(image => {
-                const img = document.createElement("img");
-                img.src = getImage(image);
-                img.alt = `${character.name || "Character"} gallery image`;
-                gallery.appendChild(img);
+      const img = document.createElement("img");
+img.src = getImage(image);
+img.alt = `${character.name || "Character"} gallery image`;
+img.className = "gallery-clickable";
+
+img.addEventListener("click", () => {
+    openLightbox(getImage(image));
+});
+
+gallery.appendChild(img);
             });
         } else {
             gallery.innerHTML = "<p>No gallery images yet.</p>";
@@ -351,6 +357,32 @@ async function loadCharacter() {
     }
 }
 
+    function openLightbox(src) {
+    document.getElementById("lightboxImage").src = src;
+    document.getElementById("lightbox").classList.add("active");
+}
+
+function closeLightbox() {
+    document.getElementById("lightbox").classList.remove("active");
+    document.getElementById("lightboxImage").src = "";
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    document.getElementById("lightboxClose").addEventListener("click", closeLightbox);
+
+    document.getElementById("lightbox").addEventListener("click", event => {
+        if (event.target.id === "lightbox") {
+            closeLightbox();
+        }
+    });
+
+    document.addEventListener("keydown", event => {
+        if (event.key === "Escape") {
+            closeLightbox();
+        }
+    });
+});
+    
 loadCharacter();
 </script>
 <div id="lightbox" class="lightbox">
