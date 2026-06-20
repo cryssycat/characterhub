@@ -392,3 +392,52 @@ body::before {
     color: #ffe0f6;
     font-weight: 700;
 }
+
+
+/* Folder grouping additions */
+
+.folder-container {
+    width: 92%;
+    max-width: 1450px;
+    margin: 0 auto;
+    padding-bottom: 80px;
+}
+
+.folder-section {
+    margin-bottom: 55px;
+}
+
+.folder-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+
+    max-width: 1180px;
+    margin: 0 auto 22px;
+
+    padding: 18px 24px;
+
+    background: rgba(255,255,255,.08);
+    border: 1px solid rgba(255,255,255,.10);
+    border-radius: 24px;
+
+    backdrop-filter: blur(14px);
+}
+
+.folder-heading h2 {
+    color: #ffd6f4;
+    font-size: 1.8rem;
+}
+
+.folder-heading span {
+    color: #ddd9ff;
+    font-weight: 700;
+}
+
+@media(max-width: 700px) {
+    .folder-heading {
+        flex-direction: column;
+        text-align: center;
+    }
+}
