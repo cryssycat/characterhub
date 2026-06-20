@@ -589,3 +589,28 @@ body::before {
     color:#b46b4c;
 }
 
+
+
+body.layout-default {
+    /* normal current layout */
+}
+
+body.layout-classic .profile-card {
+    max-width: 900px;
+    display: block;
+}
+
+body.layout-visual-novel .profile-card {
+    display: grid;
+    grid-template-columns: 45% 55%;
+}
+
+body.layout-magazine .content-grid {
+    grid-template-columns: 1fr 1fr;
+}
+
+body.layout-minimal .profile-card {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+}
