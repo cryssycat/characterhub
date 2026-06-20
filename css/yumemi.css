@@ -221,4 +221,25 @@ body{
 .profile-card{
     box-shadow:0 0 20px rgba(255,210,229,.3) !important;
 }
-```
+
+
+body,
+body p,
+body span,
+body div,
+body li,
+body a,
+body strong,
+body h1,
+body h2,
+body h3,
+body h4,
+body h5,
+.content-card *,
+.profile-card *,
+.relationship-card *,
+.quick-facts *,
+.tab-content *,
+.character-header *{
+    color: #4f3568 !important;
+}
