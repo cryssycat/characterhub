@@ -134,7 +134,18 @@
         </div>
         <div id="nsfwGalleryGrid" class="gallery-grid"><p>No mature images yet.</p></div>
     </section>
+<section class="admin-generator">
+  <h2>Gallery Line Generator</h2>
 
+  <input id="genTitle" placeholder="Image title">
+  <input id="genPath" placeholder="images/character/file.png">
+  <input id="genCredits" placeholder="Artist:Name;Base:Name">
+
+  <button id="generateLine">Generate Line</button>
+
+  <textarea id="generatedLine" readonly></textarea>
+  <button id="copyLine">Copy Line</button>
+</section>
     <div class="profile-nav">
         <a id="prevCharacter" href="../index.html">← Previous</a>
         <a href="../index.html">Back to Hub</a>
@@ -692,10 +703,35 @@ async function loadCharacter() {
 document.addEventListener("DOMContentLoaded", () => {
     setupTabs();
     setupLightbox();
-
+    setupLineGenerator();
     const revealButton = document.getElementById("revealAllNsfw");
     if (revealButton) revealButton.addEventListener("click", revealAllNSFW);
 
+
+    function setupLineGenerator() {
+    const title = document.getElementById("genTitle");
+    const path = document.getElementById("genPath");
+    const credits = document.getElementById("genCredits");
+    const output = document.getElementById("generatedLine");
+
+    const generateButton = document.getElementById("generateLine");
+    const copyButton = document.getElementById("copyLine");
+
+    if (!generateButton || !copyButton) return;
+
+    generateButton.addEventListener("click", () => {
+        const line = `${title.value.trim()}|${path.value.trim()}|${credits.value.trim()}`;
+        output.value = line;
+    });
+
+    copyButton.addEventListener("click", async () => {
+        if (!output.value) return;
+        await navigator.clipboard.writeText(output.value);
+        copyButton.textContent = "Copied!";
+        setTimeout(() => copyButton.textContent = "Copy Line", 1200);
+    });
+}
+    
     loadCharacter();
 });
 </script>
