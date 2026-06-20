@@ -1,14 +1,11 @@
 body {
-    background:
-        radial-gradient(circle at top, rgba(255, 214, 244, .18), transparent 55%),
-        linear-gradient(180deg, #2b1838, #51326f);
+    background: red !important;
 }
 
 .character-header h1 {
-    color: #ffc4ee;
+    color: cyan !important;
 }
 
-.content-card,
 .profile-card {
-    background: rgba(255, 214, 244, .10);
+    border: 5px solid hotpink !important;
 }
