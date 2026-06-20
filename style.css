@@ -827,3 +827,24 @@ body.layout-minimal .content-grid {
         object-fit: contain;
     }
 }
+.relationship-preview-card{
+    text-align:center;
+}
+
+.relationship-preview-card img{
+    width:110px;
+    height:110px;
+    object-fit:cover;
+    border-radius:50%;
+    margin:0 auto 14px;
+    display:block;
+    border:4px solid rgba(255,214,244,.7);
+}
+
+.relationship-preview-card .relationship-type{
+    display:inline-block;
+    margin:8px 0;
+    padding:6px 12px;
+    border-radius:999px;
+    background:rgba(255,214,244,.18);
+}
