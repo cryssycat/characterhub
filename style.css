@@ -591,26 +591,239 @@ body::before {
 
 
 
-body.layout-default {
-    /* normal current layout */
+/* ==========================================
+   CHARACTER PAGE LAYOUT SYSTEM
+   Notion Layout Select options:
+   Default, Classic, Visual Novel, Magazine, Minimal
+========================================== */
+
+
+/* =========================
+   DEFAULT
+   Your normal current layout.
+========================= */
+
+body.layout-default .profile-card {
+    display: grid;
+    grid-template-columns: minmax(280px, 1fr) minmax(260px, 420px);
+    gap: 30px;
+    align-items: start;
+}
+
+body.layout-default .content-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 22px;
+}
+
+
+/* =========================
+   CLASSIC
+   Toyhouse-ish stacked profile.
+   Image on top, facts underneath.
+========================= */
+
+body.layout-classic .profile-page {
+    max-width: 1000px;
 }
 
 body.layout-classic .profile-card {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center;
+    text-align: center;
     max-width: 900px;
-    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+body.layout-classic .main-ref-wrap {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+body.layout-classic .main-ref {
+    max-width: 650px;
+    width: 100%;
+}
+
+body.layout-classic .quick-facts {
+    width: 100%;
+    max-width: 700px;
+}
+
+body.layout-classic .content-grid {
+    grid-template-columns: 1fr;
+}
+
+
+/* =========================
+   VISUAL NOVEL
+   Big character art + text panel.
+========================= */
+
+body.layout-visual-novel .profile-page {
+    max-width: 1300px;
 }
 
 body.layout-visual-novel .profile-card {
+    display: grid !important;
+    grid-template-columns: minmax(300px, 48%) minmax(280px, 52%);
+    gap: 35px;
+    align-items: center;
+}
+
+body.layout-visual-novel .main-ref {
+    max-height: 680px;
+    width: 100%;
+    object-fit: contain;
+}
+
+body.layout-visual-novel .quick-facts {
+    min-height: 420px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+body.layout-visual-novel #overview .content-grid {
+    grid-template-columns: 1.4fr .8fr;
+}
+
+body.layout-visual-novel #introduction,
+body.layout-visual-novel #summary {
+    font-size: 1.05rem;
+    line-height: 1.8;
+}
+
+
+/* =========================
+   MAGAZINE
+   Editorial / scrapbook layout.
+========================= */
+
+body.layout-magazine .profile-page {
+    max-width: 1450px;
+}
+
+body.layout-magazine .profile-card {
+    display: grid !important;
+    grid-template-columns: 420px 1fr;
+    gap: 30px;
+    align-items: stretch;
+}
+
+body.layout-magazine .main-ref {
+    height: 100%;
+    max-height: 560px;
+    object-fit: cover;
+}
+
+body.layout-magazine .quick-facts {
     display: grid;
-    grid-template-columns: 45% 55%;
+    align-content: center;
 }
 
 body.layout-magazine .content-grid {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, minmax(280px, 1fr));
+    gap: 26px;
+}
+
+body.layout-magazine .wide-card {
+    grid-column: 1 / -1;
+}
+
+body.layout-magazine .gallery-grid {
+    grid-template-columns: repeat(auto-fit, minmax(260px, 260px));
+    justify-content: center;
+}
+
+
+/* =========================
+   MINIMAL
+   Clean, airy, low decoration.
+========================= */
+
+body.layout-minimal {
+    background: #151225 !important;
+}
+
+body.layout-minimal::before {
+    display: none !important;
+}
+
+body.layout-minimal .profile-card,
+body.layout-minimal .content-card,
+body.layout-minimal .section-title,
+body.layout-minimal .quick-facts {
+    background: rgba(255,255,255,.04) !important;
+    border: 1px solid rgba(255,255,255,.08) !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
 }
 
 body.layout-minimal .profile-card {
-    background: transparent;
-    border: none;
-    box-shadow: none;
+    display: flex !important;
+    flex-direction: column;
+    max-width: 850px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+body.layout-minimal .main-ref {
+    max-width: 520px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+body.layout-minimal .tabs {
+    gap: 8px;
+}
+
+body.layout-minimal .tab-button {
+    background: transparent !important;
+    border: 1px solid rgba(255,255,255,.12) !important;
+}
+
+body.layout-minimal .tab-button.active {
+    background: rgba(255,255,255,.12) !important;
+}
+
+body.layout-minimal .content-grid {
+    grid-template-columns: 1fr;
+    max-width: 850px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+/* =========================
+   MOBILE SAFETY
+========================= */
+
+@media (max-width: 850px) {
+    body.layout-default .profile-card,
+    body.layout-visual-novel .profile-card,
+    body.layout-magazine .profile-card,
+    body.layout-classic .profile-card,
+    body.layout-minimal .profile-card {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center;
+    }
+
+    body.layout-visual-novel #overview .content-grid,
+    body.layout-magazine .content-grid,
+    body.layout-default .content-grid {
+        grid-template-columns: 1fr;
+    }
+
+    body.layout-magazine .main-ref,
+    body.layout-visual-novel .main-ref {
+        height: auto;
+        max-height: none;
+        object-fit: contain;
+    }
 }
