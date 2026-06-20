@@ -599,7 +599,7 @@ function setupPrevNext() {
 
 function fillCharacter(character) {
     currentCharacter = character;
-
+    renderAuTabs(character);
     loadCustomCss(character.customCss);
 
     document.title = `${character.name || "Character"} | StarSundae Character Hub`;
