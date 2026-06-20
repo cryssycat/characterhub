@@ -52,7 +52,6 @@
         <button class="tab-button" data-tab="credits">Credits</button>
         <button class="tab-button" data-tab="lore">Lore</button>
         <button class="tab-button" data-tab="nsfw">🔞 Mature Gallery</button>
-        <nav class="tabs" id="tabs">
     </nav>
 
     <section id="overview" class="tab-panel active">
@@ -302,19 +301,8 @@ function creditIcon(role) {
 }
 
 function makeCreditPill(role, name, link = "") {
-    const lower = role.toLowerCase();
-
-    let cls = "credit-pill image-credit-pill";
-
-    if (lower.includes("artist")) cls += " artist-pill";
-    else if (lower.includes("base")) cls += " base-pill";
-    else if (lower.includes("design")) cls += " designer-pill";
-    else if (lower.includes("color")) cls += " colorist-pill";
-    else if (lower.includes("commission")) cls += " commissioner-pill";
-    else if (lower.includes("gift")) cls += " gift-pill";
-
     const pill = document.createElement(link ? "a" : "span");
-    pill.className = cls;
+    pill.className = "credit-pill image-credit-pill";
     pill.textContent = `${creditIcon(role)} ${role}: ${name}`;
 
     if (link) {
@@ -352,7 +340,7 @@ function renderCreditPills(containerId, credits) {
     }
 
     if (!box.children.length) {
-        box.innerHTML = '<span class="credit-pill empty-pill"></span>';
+        box.innerHTML = '<span class="credit-pill empty-pill">No credits listed.</span>';
     }
 }
 
@@ -599,7 +587,7 @@ function setupPrevNext() {
 
 function fillCharacter(character) {
     currentCharacter = character;
-    renderAuTabs(character);
+
     loadCustomCss(character.customCss);
 
     document.title = `${character.name || "Character"} | StarSundae Character Hub`;
