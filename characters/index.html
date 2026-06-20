@@ -6,7 +6,7 @@
 
 <title>Character | StarSundae Character Hub</title>
 
-<link rel="stylesheet" href="../style.css?v=40">
+<link rel="stylesheet" href="../style.css?v=60">
 </head>
 
 <body>
@@ -48,6 +48,7 @@
         <button class="tab-button" data-tab="favorites">Favorites</button>
         <button class="tab-button" data-tab="credits">Credits</button>
         <button class="tab-button" data-tab="lore">Lore</button>
+        <button class="tab-button" data-tab="nsfw">🔞 Mature Gallery</button>
     </nav>
 
     <section id="overview" class="tab-panel active">
@@ -109,7 +110,6 @@
             <h2>Gallery</h2>
             <p>Click any image to view it full size.</p>
         </div>
-
         <div id="galleryGrid" class="gallery-grid">
             <p>Loading gallery...</p>
         </div>
@@ -120,7 +120,6 @@
             <h2>References</h2>
             <p>Main reference, outfit sheets, item sheets, expression sheets, and design notes.</p>
         </div>
-
         <div id="referencesGrid" class="gallery-grid">
             <p>No references yet.</p>
         </div>
@@ -131,7 +130,6 @@
             <h2>Relationships</h2>
             <p>Friends, partners, family, rivals, and important connections.</p>
         </div>
-
         <div id="relationshipsGrid" class="relationship-grid">
             <p>No relationships yet.</p>
         </div>
@@ -139,79 +137,25 @@
 
     <section id="favorites" class="tab-panel">
         <div class="content-grid">
-            <div class="content-card">
-                <h2>Favorite Food</h2>
-                <p id="favFood">—</p>
-            </div>
-
-            <div class="content-card">
-                <h2>Favorite Drink</h2>
-                <p id="favDrink">—</p>
-            </div>
-
-            <div class="content-card">
-                <h2>Favorite Color</h2>
-                <p id="favColor">—</p>
-            </div>
-
-            <div class="content-card">
-                <h2>Favorite Season</h2>
-                <p id="favSeason">—</p>
-            </div>
-
-            <div class="content-card">
-                <h2>Favorite Flower</h2>
-                <p id="favFlower">—</p>
-            </div>
-
-            <div class="content-card">
-                <h2>Favorite Scent</h2>
-                <p id="favScent">—</p>
-            </div>
-
-            <div class="content-card">
-                <h2>Favorite Music</h2>
-                <p id="favMusic">—</p>
-            </div>
-
-            <div class="content-card">
-                <h2>Favorite Animal</h2>
-                <p id="favAnimal">—</p>
-            </div>
+            <div class="content-card"><h2>Favorite Food</h2><p id="favFood">—</p></div>
+            <div class="content-card"><h2>Favorite Drink</h2><p id="favDrink">—</p></div>
+            <div class="content-card"><h2>Favorite Color</h2><p id="favColor">—</p></div>
+            <div class="content-card"><h2>Favorite Season</h2><p id="favSeason">—</p></div>
+            <div class="content-card"><h2>Favorite Flower</h2><p id="favFlower">—</p></div>
+            <div class="content-card"><h2>Favorite Scent</h2><p id="favScent">—</p></div>
+            <div class="content-card"><h2>Favorite Music</h2><p id="favMusic">—</p></div>
+            <div class="content-card"><h2>Favorite Animal</h2><p id="favAnimal">—</p></div>
         </div>
     </section>
 
     <section id="credits" class="tab-panel">
         <div class="content-grid">
-            <div class="content-card">
-                <h2>Owner</h2>
-                <p id="owner">—</p>
-            </div>
-
-            <div class="content-card">
-                <h2>Designer</h2>
-                <p id="designer">—</p>
-            </div>
-
-            <div class="content-card">
-                <h2>Artist</h2>
-                <p id="artist">—</p>
-            </div>
-
-            <div class="content-card wide-card">
-                <h2>Permissions</h2>
-                <p id="permissions">—</p>
-            </div>
-
-            <div class="content-card">
-                <h2>Trade Status</h2>
-                <p id="tradeStatus">—</p>
-            </div>
-
-            <div class="content-card">
-                <h2>Resale Status</h2>
-                <p id="resaleStatus">—</p>
-            </div>
+            <div class="content-card"><h2>Owner</h2><p id="owner">—</p></div>
+            <div class="content-card"><h2>Designer</h2><p id="designer">—</p></div>
+            <div class="content-card"><h2>Artist</h2><p id="artist">—</p></div>
+            <div class="content-card wide-card"><h2>Permissions</h2><p id="permissions">—</p></div>
+            <div class="content-card"><h2>Trade Status</h2><p id="tradeStatus">—</p></div>
+            <div class="content-card"><h2>Resale Status</h2><p id="resaleStatus">—</p></div>
         </div>
     </section>
 
@@ -231,6 +175,18 @@
                 <h2>Lore</h2>
                 <p id="loreText">—</p>
             </div>
+        </div>
+    </section>
+
+    <section id="nsfw" class="tab-panel">
+        <div class="section-title">
+            <h2>🔞 Mature Gallery</h2>
+            <p>Images are blurred by default. Click an image once to reveal it, then click again to view full size.</p>
+            <button id="revealAllNsfw" class="reveal-button">Reveal All</button>
+        </div>
+
+        <div id="nsfwGalleryGrid" class="gallery-grid">
+            <p>No mature images yet.</p>
         </div>
     </section>
 
@@ -299,10 +255,7 @@ function normalizeImageItem(item) {
     if (!item) return null;
 
     if (typeof item === "string") {
-        return {
-            url: item,
-            label: ""
-        };
+        return { url: item, label: "" };
     }
 
     return {
@@ -348,6 +301,67 @@ function renderImages(id, images, name) {
     if (!grid.children.length) {
         grid.innerHTML = "<p>No images yet.</p>";
     }
+}
+
+function renderNSFWImages(images, name) {
+    const grid = document.getElementById("nsfwGalleryGrid");
+    if (!grid) return;
+
+    grid.innerHTML = "";
+
+    if (!images || !Array.isArray(images) || images.length === 0) {
+        grid.innerHTML = "<p>No mature images yet.</p>";
+        return;
+    }
+
+    images.forEach(rawItem => {
+        const item = normalizeImageItem(rawItem);
+        if (!item || !item.url) return;
+
+        const card = document.createElement("div");
+        card.className = "image-card nsfw-card";
+
+        const img = document.createElement("img");
+        img.src = getImage(item.url);
+        img.alt = `${name || "Character"} mature gallery image`;
+
+        const overlay = document.createElement("div");
+        overlay.className = "nsfw-overlay";
+        overlay.innerHTML = `
+            <strong>🔞 Mature Content</strong>
+            <small>Click to reveal</small>
+        `;
+
+        card.appendChild(img);
+        card.appendChild(overlay);
+
+        if (item.label) {
+            const caption = document.createElement("p");
+            caption.textContent = item.label;
+            card.appendChild(caption);
+        }
+
+        card.addEventListener("click", () => {
+            if (!card.classList.contains("revealed")) {
+                card.classList.add("revealed");
+                return;
+            }
+
+            openLightbox(getImage(item.url));
+        });
+
+        grid.appendChild(card);
+    });
+
+    if (!grid.children.length) {
+        grid.innerHTML = "<p>No mature images yet.</p>";
+    }
+}
+
+function revealAllNSFW() {
+    document.querySelectorAll(".nsfw-card").forEach(card => {
+        card.classList.add("revealed");
+    });
 }
 
 function renderRelationships(relationships) {
@@ -503,6 +517,7 @@ function fillCharacter(character) {
 
     renderImages("galleryGrid", character.gallery, character.name);
     renderImages("referencesGrid", character.references, character.name);
+    renderNSFWImages(character.nsfwGallery, character.name);
     renderRelationships(character.relationships);
 
     setupPrevNext();
@@ -546,6 +561,9 @@ async function loadCharacter() {
 
 setupTabs();
 setupLightbox();
+
+document.getElementById("revealAllNsfw").addEventListener("click", revealAllNSFW);
+
 loadCharacter();
 </script>
 
