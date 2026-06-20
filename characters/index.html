@@ -349,11 +349,10 @@ function renderCreditPills(containerId, credits) {
             addPill("📐 Base:", base, "base-pill");
         });
     }
-}
 
     if (!box.children.length) {
-    return;
-}
+        box.innerHTML = '<span class="credit-pill empty-pill">No credits listed.</span>';
+    }
 }
 
 function normalizeImageItem(item) {
