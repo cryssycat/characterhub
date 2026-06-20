@@ -232,3 +232,22 @@ body{
 .character-header *{
     color: #4f3568 !important;
 }
+
+.character-header h1{
+    display:inline-block;
+
+    background:rgba(255,255,255,.7);
+
+    border:2px solid rgba(255,255,255,.5);
+
+    border-radius:999px;
+
+    padding:.4em 1em;
+
+    color:#4f3568 !important;
+
+    box-shadow:
+        0 5px 20px rgba(80,50,100,.15);
+
+    backdrop-filter:blur(10px);
+}
