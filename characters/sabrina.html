@@ -6,7 +6,7 @@
 
 <title>Sabrina | StarSundae Character Hub</title>
 
-<link rel="stylesheet" href="../style.css?v=20">
+<link rel="stylesheet" href="../style.css?v=30">
 </head>
 
 <body>
@@ -24,9 +24,13 @@
 
         <aside class="quick-facts">
             <h2>Quick Facts</h2>
+
             <p><strong>Species:</strong> <span id="species">—</span></p>
             <p><strong>Gender:</strong> <span id="gender">—</span></p>
+            <p><strong>Pronouns:</strong> <span id="pronouns">—</span></p>
             <p><strong>Age:</strong> <span id="age">—</span></p>
+            <p><strong>Birthday:</strong> <span id="birthday">—</span></p>
+            <p><strong>Height:</strong> <span id="height">—</span></p>
             <p><strong>Occupation:</strong> <span id="occupation">—</span></p>
             <p><strong>Folder:</strong> <span id="folder">—</span></p>
             <p><strong>Status:</strong> <span id="status">—</span></p>
@@ -61,6 +65,21 @@
             <div class="content-card">
                 <h2>Personality</h2>
                 <p id="personality">—</p>
+            </div>
+
+            <div class="content-card">
+                <h2>MBTI</h2>
+                <p id="mbti">—</p>
+            </div>
+
+            <div class="content-card">
+                <h2>Voice Claim</h2>
+                <p id="voiceClaim">—</p>
+            </div>
+
+            <div class="content-card">
+                <h2>Theme Song</h2>
+                <p id="themeSong">—</p>
             </div>
 
             <div class="content-card">
@@ -154,6 +173,11 @@
                 <h2>Favorite Music</h2>
                 <p id="favMusic">—</p>
             </div>
+
+            <div class="content-card">
+                <h2>Favorite Animal</h2>
+                <p id="favAnimal">—</p>
+            </div>
         </div>
     </section>
 
@@ -174,9 +198,19 @@
                 <p id="artist">—</p>
             </div>
 
-            <div class="content-card">
+            <div class="content-card wide-card">
                 <h2>Permissions</h2>
                 <p id="permissions">—</p>
+            </div>
+
+            <div class="content-card">
+                <h2>Trade Status</h2>
+                <p id="tradeStatus">—</p>
+            </div>
+
+            <div class="content-card">
+                <h2>Resale Status</h2>
+                <p id="resaleStatus">—</p>
             </div>
         </div>
     </section>
@@ -402,7 +436,10 @@ async function loadCharacter() {
 
         setText("species", character.species);
         setText("gender", character.gender);
+        setText("pronouns", character.pronouns);
         setText("age", character.age);
+        setText("birthday", character.birthday);
+        setText("height", character.height);
         setText("occupation", character.occupation);
         setText("folder", character.folder);
         setText("status", character.status);
@@ -410,6 +447,10 @@ async function loadCharacter() {
         setText("introduction", character.introduction, "No introduction yet.");
         setText("summary", character.summary, "No summary yet.");
         setText("personality", character.personality, "No personality notes yet.");
+        setText("mbti", character.mbti);
+        setText("voiceClaim", character.voiceClaim);
+        setText("themeSong", character.themeSong);
+
         setText("trivia", character.trivia, "No trivia yet.");
         setText("quotes", character.quotes, "No quote yet.");
         setText("loreText", character.lore, "No lore yet.");
@@ -421,11 +462,14 @@ async function loadCharacter() {
         setText("favFlower", character.favorites?.flower);
         setText("favScent", character.favorites?.scent);
         setText("favMusic", character.favorites?.music);
+        setText("favAnimal", character.favorites?.animal);
 
         setText("owner", character.credits?.owner);
         setText("designer", character.credits?.designer);
         setText("artist", character.credits?.artist);
         setText("permissions", character.credits?.permissions);
+        setText("tradeStatus", character.credits?.tradeStatus);
+        setText("resaleStatus", character.credits?.resaleStatus);
 
         renderTags("tags", character.tags);
         renderTags("likes", character.likes);
