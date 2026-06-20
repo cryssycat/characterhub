@@ -353,3 +353,42 @@ body::before {
         font-size: 2.3rem;
     }
 }
+
+
+
+/* Universal page additions */
+
+.character-count {
+    margin-top: 18px;
+    color: #ffe0f6;
+    font-weight: 700;
+}
+
+.profile-nav {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-top: 35px;
+}
+
+.wide-card {
+    grid-column: 1 / -1;
+}
+
+.relationship-type {
+    color: #ffe0f6;
+    font-weight: 700;
+}
+
+.relationship-card h3 {
+    color: #ffd6f4;
+    margin-bottom: 8px;
+}
+
+.relationship-card a {
+    display: inline-block;
+    margin-top: 12px;
+    color: #ffe0f6;
+    font-weight: 700;
+}
