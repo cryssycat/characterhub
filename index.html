@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>StarSundae Character Hub</title>
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+
+<header>
+    <h1>⭐ StarSundae Character Hub ⭐</h1>
+    <p>Characters, stories, and memories.</p>
+</header>
+
+<div class="search-container">
+    <input
+        type="text"
+        id="searchInput"
+        placeholder="Search characters..."
+        onkeyup="searchCharacters()">
+</div>
+
+<div class="character-grid" id="characterGrid">
+
+    <!-- Sabrina -->
+    <a class="character-card" href="characters/sabrina.html">
+        <img src="images/sabrina/icon.png" alt="Sabrina">
+        <h2>Sabrina</h2>
+        <p>Anthro Leopard</p>
+    </a>
+
+    <!-- Rowan -->
+    <a class="character-card" href="characters/rowan.html">
+        <img src="images/rowan/icon.png" alt="Rowan">
+        <h2>Rowan</h2>
+        <p>Panther</p>
+    </a>
+
+    <!-- Alyssa -->
+    <a class="character-card" href="characters/alyssa.html">
+        <img src="images/alyssa/icon.png" alt="Alyssa">
+        <h2>Alyssa</h2>
+        <p>Black Cat</p>
+    </a>
+
+</div>
+
+<script>
+function searchCharacters() {
+
+    let input = document.getElementById("searchInput");
+    let filter = input.value.toUpperCase();
+
+    let grid = document.getElementById("characterGrid");
+    let cards = grid.getElementsByClassName("character-card");
+
+    for (let i = 0; i < cards.length; i++) {
+
+        let text = cards[i].innerText;
+
+        if (text.toUpperCase().indexOf(filter) > -1) {
+            cards[i].style.display = "";
+        } else {
+            cards[i].style.display = "none";
+        }
+
+    }
+}
+</script>
+
+</body>
+</html>
