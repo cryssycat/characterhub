@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Character | StarSundae Character Hub</title>
+
+<link rel="stylesheet" href="../style.css?v=40">
+</head>
+
+<body>
+
+<header class="character-header">
+    <a class="back-button" href="../index.html">← Back to Hub</a>
+    <h1 id="characterName">Loading...</h1>
+    <p id="characterSpecies"></p>
+</header>
+
+<main class="profile-page">
+
+    <section class="profile-card">
+        <img id="mainRef" class="main-ref" src="../images/placeholder.png" alt="Character reference">
+
+        <aside class="quick-facts">
+            <h2>Quick Facts</h2>
+
+            <p><strong>Species:</strong> <span id="species">—</span></p>
+            <p><strong>Gender:</strong> <span id="gender">—</span></p>
+            <p><strong>Pronouns:</strong> <span id="pronouns">—</span></p>
+            <p><strong>Age:</strong> <span id="age">—</span></p>
+            <p><strong>Birthday:</strong> <span id="birthday">—</span></p>
+            <p><strong>Height:</strong> <span id="height">—</span></p>
+            <p><strong>Occupation:</strong> <span id="occupation">—</span></p>
+            <p><strong>Folder:</strong> <span id="folder">—</span></p>
+            <p><strong>Status:</strong> <span id="status">—</span></p>
+
+            <h3>Tags</h3>
+            <div id="tags" class="tag-list"></div>
+        </aside>
+    </section>
+
+    <nav class="tabs">
+        <button class="tab-button active" data-tab="overview">Overview</button>
+        <button class="tab-button" data-tab="gallery">Gallery</button>
+        <button class="tab-button" data-tab="references">References</button>
+        <button class="tab-button" data-tab="relationships">Relationships</button>
+        <button class="tab-button" data-tab="favorites">Favorites</button>
+        <button class="tab-button" data-tab="credits">Credits</button>
+        <button class="tab-button" data-tab="lore">Lore</button>
+    </nav>
+
+    <section id="overview" class="tab-panel active">
+        <div class="content-grid">
+            <div class="content-card wide-card">
+                <h2>Introduction</h2>
+                <p id="introduction">—</p>
+            </div>
+
+            <div class="content-card wide-card">
+                <h2>Summary</h2>
+                <p id="summary">—</p>
+            </div>
+
+            <div class="content-card">
+                <h2>Personality</h2>
+                <p id="personality">—</p>
+            </div>
+
+            <div class="content-card">
+                <h2>MBTI</h2>
+                <p id="mbti">—</p>
+            </div>
+
+            <div class="content-card">
+                <h2>Voice Claim</h2>
+                <p id="voiceClaim">—</p>
+            </div>
+
+            <div class="content-card">
+                <h2>Theme Song</h2>
+                <p id="themeSong">—</p>
+            </div>
+
+            <div class="content-card">
+                <h2>Likes</h2>
+                <div id="likes" class="tag-list"></div>
+            </div>
+
+            <div class="content-card">
+                <h2>Dislikes</h2>
+                <div id="dislikes" class="tag-list"></div>
+            </div>
+
+            <div class="content-card">
+                <h2>Hobbies</h2>
+                <div id="hobbies" class="tag-list"></div>
+            </div>
+
+            <div class="content-card">
+                <h2>Fears</h2>
+                <div id="fears" class="tag-list"></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="gallery" class="tab-panel">
+        <div class="section-title">
+            <h2>Gallery</h2>
+            <p>Click any image to view it full size.</p>
+        </div>
+
+        <div id="galleryGrid" class="gallery-grid">
+            <p>Loading gallery...</p>
+        </div>
+    </section>
+
+    <section id="references" class="tab-panel">
+        <div class="section-title">
+            <h2>References</h2>
+            <p>Main reference, outfit sheets, item sheets, expression sheets, and design notes.</p>
+        </div>
+
+        <div id="referencesGrid" class="gallery-grid">
+            <p>No references yet.</p>
+        </div>
+    </section>
+
+    <section id="relationships" class="tab-panel">
+        <div class="section-title">
+            <h2>Relationships</h2>
+            <p>Friends, partners, family, rivals, and important connections.</p>
+        </div>
+
+        <div id="relationshipsGrid" class="relationship-grid">
+            <p>No relationships yet.</p>
+        </div>
+    </section>
+
+    <section id="favorites" class="tab-panel">
+        <div class="content-grid">
+            <div class="content-card">
+                <h2>Favorite Food</h2>
+                <p id="favFood">—</p>
+            </div>
+
+            <div class="content-card">
+                <h2>Favorite Drink</h2>
+                <p id="favDrink">—</p>
+            </div>
+
+            <div class="content-card">
+                <h2>Favorite Color</h2>
+                <p id="favColor">—</p>
+            </div>
+
+            <div class="content-card">
+                <h2>Favorite Season</h2>
+                <p id="favSeason">—</p>
+            </div>
+
+            <div class="content-card">
+                <h2>Favorite Flower</h2>
+                <p id="favFlower">—</p>
+            </div>
+
+            <div class="content-card">
+                <h2>Favorite Scent</h2>
+                <p id="favScent">—</p>
+            </div>
+
+            <div class="content-card">
+                <h2>Favorite Music</h2>
+                <p id="favMusic">—</p>
+            </div>
+
+            <div class="content-card">
+                <h2>Favorite Animal</h2>
+                <p id="favAnimal">—</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="credits" class="tab-panel">
+        <div class="content-grid">
+            <div class="content-card">
+                <h2>Owner</h2>
+                <p id="owner">—</p>
+            </div>
+
+            <div class="content-card">
+                <h2>Designer</h2>
+                <p id="designer">—</p>
+            </div>
+
+            <div class="content-card">
+                <h2>Artist</h2>
+                <p id="artist">—</p>
+            </div>
+
+            <div class="content-card wide-card">
+                <h2>Permissions</h2>
+                <p id="permissions">—</p>
+            </div>
+
+            <div class="content-card">
+                <h2>Trade Status</h2>
+                <p id="tradeStatus">—</p>
+            </div>
+
+            <div class="content-card">
+                <h2>Resale Status</h2>
+                <p id="resaleStatus">—</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="lore" class="tab-panel">
+        <div class="content-grid">
+            <div class="content-card">
+                <h2>Trivia</h2>
+                <p id="trivia">—</p>
+            </div>
+
+            <div class="content-card">
+                <h2>Quote</h2>
+                <p id="quotes">—</p>
+            </div>
+
+            <div class="content-card wide-card">
+                <h2>Lore</h2>
+                <p id="loreText">—</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="profile-nav">
+        <a id="prevCharacter" href="../index.html">← Previous</a>
+        <a href="../index.html">Back to Hub</a>
+        <a id="nextCharacter" href="../index.html">Next →</a>
+    </div>
+
+</main>
+
+<div id="lightbox" class="lightbox">
+    <button id="lightboxClose" class="lightbox-close">×</button>
+    <img id="lightboxImage" src="" alt="Full-size image">
+</div>
+
+<script>
+const API_URL = "https://charahub.crysthigpen.workers.dev";
+
+const params = new URLSearchParams(window.location.search);
+const SLUG = params.get("slug");
+
+let allCharacters = [];
+let currentCharacter = null;
+
+function getImage(path) {
+    if (!path) return "../images/placeholder.png";
+
+    path = String(path).trim();
+
+    if (path.startsWith("http")) return path;
+
+    if (path.startsWith("/")) {
+        return window.location.origin + path;
+    }
+
+    return window.location.origin + "/" + path;
+}
+
+function setText(id, value, fallback = "—") {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.textContent = value && String(value).trim() ? value : fallback;
+}
+
+function renderTags(id, items) {
+    const box = document.getElementById(id);
+    if (!box) return;
+
+    box.innerHTML = "";
+
+    if (!items || !Array.isArray(items) || items.length === 0) {
+        box.innerHTML = '<span class="tag">—</span>';
+        return;
+    }
+
+    items.forEach(item => {
+        const span = document.createElement("span");
+        span.className = "tag";
+        span.textContent = item;
+        box.appendChild(span);
+    });
+}
+
+function normalizeImageItem(item) {
+    if (!item) return null;
+
+    if (typeof item === "string") {
+        return {
+            url: item,
+            label: ""
+        };
+    }
+
+    return {
+        url: item.url || item.src || "",
+        label: item.label || item.type || ""
+    };
+}
+
+function renderImages(id, images, name) {
+    const grid = document.getElementById(id);
+    if (!grid) return;
+
+    grid.innerHTML = "";
+
+    if (!images || !Array.isArray(images) || images.length === 0) {
+        grid.innerHTML = "<p>No images yet.</p>";
+        return;
+    }
+
+    images.forEach(rawItem => {
+        const item = normalizeImageItem(rawItem);
+        if (!item || !item.url) return;
+
+        const card = document.createElement("div");
+        card.className = "image-card";
+
+        const img = document.createElement("img");
+        img.src = getImage(item.url);
+        img.alt = `${name || "Character"} image`;
+        img.addEventListener("click", () => openLightbox(getImage(item.url)));
+
+        card.appendChild(img);
+
+        if (item.label) {
+            const caption = document.createElement("p");
+            caption.textContent = item.label;
+            card.appendChild(caption);
+        }
+
+        grid.appendChild(card);
+    });
+
+    if (!grid.children.length) {
+        grid.innerHTML = "<p>No images yet.</p>";
+    }
+}
+
+function renderRelationships(relationships) {
+    const grid = document.getElementById("relationshipsGrid");
+    if (!grid) return;
+
+    grid.innerHTML = "";
+
+    if (!relationships || !Array.isArray(relationships) || relationships.length === 0) {
+        grid.innerHTML = "<p>No relationships yet.</p>";
+        return;
+    }
+
+    relationships.forEach(rel => {
+        const name = rel.name || "Unnamed";
+        const type = rel.type || "Connection";
+        const notes = rel.notes || "";
+        const slug = rel.slug || "";
+
+        const card = document.createElement("div");
+        card.className = "relationship-card";
+
+        card.innerHTML = `
+            <h3>${name}</h3>
+            <p class="relationship-type">${type}</p>
+            <p>${notes || "No notes yet."}</p>
+            ${slug ? `<a href="index.html?slug=${encodeURIComponent(slug)}">View Profile →</a>` : ""}
+        `;
+
+        grid.appendChild(card);
+    });
+}
+
+function setupTabs() {
+    const buttons = document.querySelectorAll(".tab-button");
+    const panels = document.querySelectorAll(".tab-panel");
+
+    buttons.forEach(button => {
+        button.addEventListener("click", () => {
+            const target = button.dataset.tab;
+
+            buttons.forEach(btn => btn.classList.remove("active"));
+            panels.forEach(panel => panel.classList.remove("active"));
+
+            button.classList.add("active");
+            document.getElementById(target).classList.add("active");
+        });
+    });
+}
+
+function openLightbox(src) {
+    document.getElementById("lightboxImage").src = src;
+    document.getElementById("lightbox").classList.add("active");
+}
+
+function closeLightbox() {
+    document.getElementById("lightbox").classList.remove("active");
+    document.getElementById("lightboxImage").src = "";
+}
+
+function setupLightbox() {
+    document.getElementById("lightboxClose").addEventListener("click", closeLightbox);
+
+    document.getElementById("lightbox").addEventListener("click", event => {
+        if (event.target.id === "lightbox") {
+            closeLightbox();
+        }
+    });
+
+    document.addEventListener("keydown", event => {
+        if (event.key === "Escape") {
+            closeLightbox();
+        }
+    });
+}
+
+function setupPrevNext() {
+    const currentIndex = allCharacters.findIndex(c => c.slug === currentCharacter.slug);
+
+    const prev = allCharacters[(currentIndex - 1 + allCharacters.length) % allCharacters.length];
+    const next = allCharacters[(currentIndex + 1) % allCharacters.length];
+
+    const prevBtn = document.getElementById("prevCharacter");
+    const nextBtn = document.getElementById("nextCharacter");
+
+    if (allCharacters.length <= 1) {
+        prevBtn.style.display = "none";
+        nextBtn.style.display = "none";
+        return;
+    }
+
+    prevBtn.href = `index.html?slug=${encodeURIComponent(prev.slug)}`;
+    prevBtn.textContent = `← ${prev.name || "Previous"}`;
+
+    nextBtn.href = `index.html?slug=${encodeURIComponent(next.slug)}`;
+    nextBtn.textContent = `${next.name || "Next"} →`;
+}
+
+function fillCharacter(character) {
+    currentCharacter = character;
+
+    document.title = `${character.name || "Character"} | StarSundae Character Hub`;
+
+    setText("characterName", character.name, "Unnamed Character");
+    setText("characterSpecies", character.species, "");
+
+    setText("species", character.species);
+    setText("gender", character.gender);
+    setText("pronouns", character.pronouns);
+    setText("age", character.age);
+    setText("birthday", character.birthday);
+    setText("height", character.height);
+    setText("occupation", character.occupation);
+    setText("folder", character.folder);
+    setText("status", character.status);
+
+    setText("introduction", character.introduction, "No introduction yet.");
+    setText("summary", character.summary, "No summary yet.");
+    setText("personality", character.personality, "No personality notes yet.");
+    setText("mbti", character.mbti);
+    setText("voiceClaim", character.voiceClaim);
+    setText("themeSong", character.themeSong);
+
+    setText("trivia", character.trivia, "No trivia yet.");
+    setText("quotes", character.quotes, "No quote yet.");
+    setText("loreText", character.lore, "No lore yet.");
+
+    setText("favFood", character.favorites?.food);
+    setText("favDrink", character.favorites?.drink);
+    setText("favColor", character.favorites?.color);
+    setText("favSeason", character.favorites?.season);
+    setText("favFlower", character.favorites?.flower);
+    setText("favScent", character.favorites?.scent);
+    setText("favMusic", character.favorites?.music);
+    setText("favAnimal", character.favorites?.animal);
+
+    setText("owner", character.credits?.owner);
+    setText("designer", character.credits?.designer);
+    setText("artist", character.credits?.artist);
+    setText("permissions", character.credits?.permissions);
+    setText("tradeStatus", character.credits?.tradeStatus);
+    setText("resaleStatus", character.credits?.resaleStatus);
+
+    renderTags("tags", character.tags);
+    renderTags("likes", character.likes);
+    renderTags("dislikes", character.dislikes);
+    renderTags("hobbies", character.hobbies);
+    renderTags("fears", character.fears);
+
+    const mainRef = document.getElementById("mainRef");
+    mainRef.src = getImage(character.mainRef || character.icon || "images/placeholder.png");
+    mainRef.alt = `${character.name || "Character"} reference`;
+
+    renderImages("galleryGrid", character.gallery, character.name);
+    renderImages("referencesGrid", character.references, character.name);
+    renderRelationships(character.relationships);
+
+    setupPrevNext();
+}
+
+async function loadCharacter() {
+    try {
+        if (!SLUG) {
+            setText("characterName", "No character selected");
+            setText("characterSpecies", "Go back to the hub and choose a character.");
+            return;
+        }
+
+        const response = await fetch(API_URL);
+        const data = await response.json();
+
+        if (!Array.isArray(data)) {
+            setText("characterName", "Could not load characters");
+            setText("characterSpecies", "The API did not return a character list.");
+            return;
+        }
+
+        allCharacters = data;
+
+        const character = allCharacters.find(c => c.slug === SLUG);
+
+        if (!character) {
+            setText("characterName", "Character not found");
+            setText("characterSpecies", `No character found for slug: ${SLUG}`);
+            return;
+        }
+
+        fillCharacter(character);
+
+    } catch (err) {
+        console.error(err);
+        setText("characterName", "Unable to load character");
+        setText("characterSpecies", "Check your Worker URL or Notion data.");
+    }
+}
+
+setupTabs();
+setupLightbox();
+loadCharacter();
+</script>
+
+</body>
+</html>
