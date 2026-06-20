@@ -695,7 +695,7 @@ renderRelationships(character.relationships);
 renderAuTabs(character);
 setupTabs();
 
-    setupPrevNext();
+setupPrevNext();
 }
 
 async function loadCharacter() {
@@ -706,26 +706,26 @@ async function loadCharacter() {
             return;
         }
 
-        const response = await fetch(API_URL);
-        const data = await response.json();
+        const listResponse = await fetch(API_URL);
+        allCharacters = await listResponse.json();
 
-        if (!Array.isArray(data)) {
-            setText("characterName", "Could not load characters");
-            setText("characterSpecies", "The API did not return a character list.");
-            console.error("API response was not an array:", data);
-            return;
-        }
+        const response = await fetch(`${API_URL}/character/${SLUG}`);
+        const character = await response.json();
 
-        allCharacters = data;
-
-        const character = allCharacters.find(c => String(c.slug).trim() === String(SLUG).trim());
-
-        if (!character) {
+        if (character.error) {
             setText("characterName", "Character not found");
             setText("characterSpecies", `No character found for slug: ${SLUG}`);
             return;
         }
 
+        fillCharacter(character);
+
+    } catch (err) {
+        console.error("Character page error:", err);
+        setText("characterName", "Unable to load character");
+        setText("characterSpecies", "Check the browser console for the exact error.");
+    }
+}
         fillCharacter(character);
 
     } catch (err) {
