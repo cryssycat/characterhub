@@ -36,6 +36,27 @@
 
             <h2>Summary</h2>
             <p id="summary"></p>
+
+            <h2>Personality</h2>
+<p id="personality"></p>
+
+<h2>Likes</h2>
+<p id="likes"></p>
+
+<h2>Dislikes</h2>
+<p id="dislikes"></p>
+
+<h2>Hobbies</h2>
+<p id="hobbies"></p>
+
+<h2>Fears</h2>
+<p id="fears"></p>
+
+<h2>Trivia</h2>
+<p id="trivia"></p>
+
+<h2>Quote</h2>
+<p id="quotes"></p>
         </div>
     </section>
 
@@ -89,6 +110,13 @@ async function loadCharacter() {
 
         document.getElementById("introduction").textContent = character.introduction || "No introduction yet.";
         document.getElementById("summary").textContent = character.summary || "No summary yet.";
+        document.getElementById("personality").textContent = character.personality || "—";
+document.getElementById("likes").textContent = character.likes?.join(", ") || "—";
+document.getElementById("dislikes").textContent = character.dislikes?.join(", ") || "—";
+document.getElementById("hobbies").textContent = character.hobbies?.join(", ") || "—";
+document.getElementById("fears").textContent = character.fears?.join(", ") || "—";
+document.getElementById("trivia").textContent = character.trivia || "—";
+document.getElementById("quotes").textContent = character.quotes || "—";
 
         const mainRef = document.getElementById("mainRef");
         mainRef.src = getImage(character.mainRef || character.icon || "images/placeholder.png");
