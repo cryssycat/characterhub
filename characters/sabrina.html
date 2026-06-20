@@ -39,7 +39,9 @@
 
     <section class="gallery-section">
         <h2>Gallery</h2>
-        <div id="gallery" class="gallery-grid"></div>
+        <div id="gallery" class="gallery-grid">
+            <p>Loading gallery...</p>
+        </div>
     </section>
 
 </main>
@@ -48,45 +50,12 @@
 const API_URL = "https://charahub.crysthigpen.workers.dev";
 const SLUG = "sabrina";
 
-async function loadCharacter() {
-    const response = await fetch(`${API_URL}/character/${SLUG}`);
-    const character = await response.json();
-
-    document.title = `${character.name} | StarSundae Character Hub`;
-
-    document.getElementById("characterName").textContent = character.name;
-    document.getElementById("characterSpecies").textContent = character.species;
-
-    document.getElementById("species").textContent = character.species || "—";
-    document.getElementById("gender").textContent = character.gender || "—";
-    document.getElementById("age").textContent = character.age || "—";
-    document.getElementById("occupation").textContent = character.occupation || "—";
-
-    document.getElementById("introduction").textContent = character.introduction || "No introduction yet.";
-    document.getElementById("summary").textContent = character.summary || "No summary yet.";
-
-character.gallery.forEach(image => {
-    gallery.innerHTML += `
-        <img src="${getImage(image)}" alt="${character.name} gallery image">
-    `;
-});
-
-    const gallery = document.getElementById("gallery");
-    gallery.innerHTML = "";
-
-    if (character.gallery && character.gallery.length) {
-        character.gallery.forEach(image => {
-            gallery.innerHTML += `<img src="${image}" alt="${character.name} gallery image">`;
-        });
-    } else {
-        gallery.innerHTML = "<p>No gallery images yet.</p>";
-    }
-}
 function getImage(path) {
     if (!path) return "../images/placeholder.png";
-    if (path.startsWith("http")) return path;
 
-    path = path.trim();
+    path = String(path).trim();
+
+    if (path.startsWith("http")) return path;
 
     if (path.startsWith("/")) {
         return window.location.origin + path;
@@ -94,6 +63,57 @@ function getImage(path) {
 
     return window.location.origin + "/" + path;
 }
+
+async function loadCharacter() {
+    try {
+        const response = await fetch(`${API_URL}/character/${SLUG}`);
+        const character = await response.json();
+
+        if (character.error) {
+            document.getElementById("characterName").textContent = "Character not found";
+            document.getElementById("characterSpecies").textContent = character.error;
+            return;
+        }
+
+        document.title = `${character.name} | StarSundae Character Hub`;
+
+        document.getElementById("characterName").textContent = character.name || "Unnamed Character";
+        document.getElementById("characterSpecies").textContent = character.species || "";
+
+        document.getElementById("species").textContent = character.species || "—";
+        document.getElementById("gender").textContent = character.gender || "—";
+        document.getElementById("age").textContent = character.age || "—";
+        document.getElementById("occupation").textContent = character.occupation || "—";
+
+        document.getElementById("introduction").textContent = character.introduction || "No introduction yet.";
+        document.getElementById("summary").textContent = character.summary || "No summary yet.";
+
+        const mainRef = document.getElementById("mainRef");
+        mainRef.src = getImage(character.mainRef || character.icon || "images/placeholder.png");
+        mainRef.alt = `${character.name || "Character"} reference`;
+
+        const gallery = document.getElementById("gallery");
+        gallery.innerHTML = "";
+
+        if (character.gallery && character.gallery.length > 0) {
+            character.gallery.forEach(image => {
+                const img = document.createElement("img");
+                img.src = getImage(image);
+                img.alt = `${character.name || "Character"} gallery image`;
+                gallery.appendChild(img);
+            });
+        } else {
+            gallery.innerHTML = "<p>No gallery images yet.</p>";
+        }
+
+    } catch (error) {
+        console.error("Character page error:", error);
+        document.getElementById("characterName").textContent = "Unable to load character";
+        document.getElementById("characterSpecies").textContent = "Check your Worker URL or Notion data.";
+        document.getElementById("gallery").innerHTML = "<p>Gallery could not load.</p>";
+    }
+}
+
 loadCharacter();
 </script>
 
