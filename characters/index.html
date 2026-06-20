@@ -351,8 +351,8 @@ function renderCreditPills(containerId, credits) {
     }
 
     if (!box.children.length) {
-        box.innerHTML = '<span class="credit-pill empty-pill">No credits listed.</span>';
-    }
+    return;
+}
 }
 
 function normalizeImageItem(item) {
