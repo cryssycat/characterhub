@@ -1,213 +1,295 @@
-/* ===========================
+```css
+/* ==========================
    STRAWBERRY DREAM THEME
-=========================== */
+========================== */
 
 :root{
-  --bg1: #f8eef5;
-  --bg2: #fbe4ef;
-  --bg3: #f4d9e9;
+    --bg1: #fdf3f8;
+    --bg2: #f8e7f1;
+    --bg3: #f2dce9;
 
-  --text: #4f3568;
-  --text-soft: #6d5587;
-  --heading: #5b2d68;
+    --text: #4f3568;
+    --text-soft: #6d5587;
+    --heading: #4f3568;
 
-  --pink: #f4bfd9;
-  --pink-light: #ffdceb;
-  --lavender: #e9d6f6;
-  --card: rgba(255,255,255,.65);
-  --border: rgba(190,160,205,.35);
+    --pink: #ffd6ea;
+    --pink-light: #ffe8f3;
+    --lavender: #eadcf7;
 
-  --shadow: 0 10px 30px rgba(110,80,130,.12);
+    --card: rgba(255,255,255,.65);
+    --border: rgba(190,160,205,.25);
 
-  --radius: 24px;
+    --shadow:
+        0 10px 30px rgba(95,70,120,.12);
+
+    --radius: 24px;
 }
 
-/* ===========================
+/* ==========================
    BODY
-=========================== */
+========================== */
 
 body{
-  background:
-    repeating-linear-gradient(
-      135deg,
-      rgba(255,255,255,.25) 0px,
-      rgba(255,255,255,.25) 2px,
-      transparent 2px,
-      transparent 28px
-    ),
-    linear-gradient(
-      135deg,
-      var(--bg1),
-      var(--bg2),
-      var(--bg3)
-    );
+    color: var(--text);
 
-  background-attachment: fixed;
-  color: var(--text);
+    background:
+        repeating-linear-gradient(
+            135deg,
+            rgba(255,255,255,.20) 0px,
+            rgba(255,255,255,.20) 2px,
+            transparent 2px,
+            transparent 28px
+        ),
+        linear-gradient(
+            135deg,
+            var(--bg1),
+            var(--bg2),
+            var(--bg3)
+        );
+
+    background-attachment: fixed;
 }
 
-/* ===========================
+/* ==========================
    TEXT
-=========================== */
+========================== */
 
 body,
 p,
 span,
-li{
-  color: var(--text);
+li,
+div{
+    color: var(--text);
 }
 
-h1,h2,h3,h4,h5{
-  color: var(--heading);
-  font-weight: 800;
+h1,
+h2,
+h3,
+h4,
+h5{
+    color: var(--heading);
+    font-weight: 800;
 }
 
 strong{
-  color: var(--heading);
+    color: var(--heading);
 }
 
-/* ===========================
-   GLASS CARDS
-=========================== */
-
-.character-header,
-.info-card,
-.tab-content,
-.content-card{
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-
-  backdrop-filter: blur(18px);
-
-  box-shadow: var(--shadow);
-}
-
-/* ===========================
+/* ==========================
    LINKS
-=========================== */
+========================== */
 
 a{
-  color: #7b4d8d;
+    color: var(--heading);
+    text-decoration: none;
 }
 
 a:hover{
-  color: #c47ca6;
+    color: var(--text-soft);
 }
 
-/* ===========================
+/* ==========================
+   HEADER
+========================== */
+
+.character-header{
+    background: var(--card);
+
+    border: 1px solid var(--border);
+
+    border-radius: var(--radius);
+
+    backdrop-filter: blur(18px);
+
+    box-shadow: var(--shadow);
+
+    padding: 2rem;
+}
+
+.character-header h1{
+    color: var(--heading);
+}
+
+.character-header p{
+    color: var(--text-soft);
+}
+
+/* ==========================
+   INFO CARDS
+========================== */
+
+.info-card,
+.tab-content,
+.content-card,
+.section-card{
+    background: var(--card);
+
+    border: 1px solid var(--border);
+
+    border-radius: var(--radius);
+
+    backdrop-filter: blur(18px);
+
+    box-shadow: var(--shadow);
+
+    padding: 1.75rem;
+}
+
+/* ==========================
+   SECTION TITLES
+========================== */
+
+.section-title{
+    color: var(--heading);
+}
+
+/* ==========================
    TAB BUTTONS
-=========================== */
+========================== */
 
 .tab-button{
-  background: rgba(255,255,255,.5);
+    background: rgba(255,255,255,.55);
 
-  border: 1px solid rgba(255,255,255,.4);
+    color: var(--heading);
 
-  color: var(--text);
+    border: 1px solid rgba(255,255,255,.35);
 
-  border-radius: 999px;
+    border-radius: 999px;
 
-  transition: .25s;
+    transition: .25s;
 }
 
 .tab-button:hover{
-  transform: translateY(-2px);
+    background: rgba(255,255,255,.85);
 
-  background: rgba(255,255,255,.75);
+    transform: translateY(-2px);
 }
 
 .tab-button.active{
-  background:
-    linear-gradient(
-      135deg,
-      var(--pink-light),
-      var(--lavender)
-    );
+    background:
+        linear-gradient(
+            135deg,
+            var(--pink-light),
+            var(--lavender)
+        );
 
-  color: var(--heading);
+    color: var(--heading);
 
-  font-weight: 700;
+    font-weight: 700;
 }
 
-/* ===========================
-   TAG PILLS
-=========================== */
+/* ==========================
+   PILLS
+========================== */
 
 .tag-pill,
 .credit-pill{
-  background:
-    linear-gradient(
-      135deg,
-      #ffd6ea,
-      #e7d4f5
-    );
+    background:
+        linear-gradient(
+            135deg,
+            var(--pink),
+            var(--lavender)
+        );
 
-  color: var(--heading);
+    color: var(--heading);
 
-  border-radius: 999px;
+    border-radius: 999px;
 
-  font-weight: 700;
+    padding: .4rem .9rem;
 
-  padding: .4rem .9rem;
+    font-weight: 700;
 }
 
-/* ===========================
+/* ==========================
+   BUTTONS
+========================== */
+
+button{
+    background:
+        linear-gradient(
+            135deg,
+            var(--pink-light),
+            var(--lavender)
+        );
+
+    color: var(--heading);
+
+    border: none;
+
+    border-radius: 999px;
+
+    font-weight: 700;
+
+    transition: .25s;
+}
+
+button:hover{
+    transform: translateY(-2px);
+}
+
+/* ==========================
    IMAGES
-=========================== */
+========================== */
 
-.gallery img,
-.main-image img{
-  border-radius: 20px;
+.main-image img,
+.gallery img{
+    border-radius: 20px;
 
-  box-shadow: var(--shadow);
+    box-shadow: var(--shadow);
 
-  transition: .25s;
+    transition: .25s;
 }
 
 .gallery img:hover{
-  transform: translateY(-3px);
+    transform: translateY(-3px);
 }
 
-/* ===========================
-   BUTTONS
-=========================== */
+/* ==========================
+   GALLERY GRID
+========================== */
 
-button{
-  background:
-    linear-gradient(
-      135deg,
-      #ffdceb,
-      #ecd8f7
-    );
+.gallery{
+    display:grid;
 
-  color: var(--heading);
+    grid-template-columns:
+        repeat(auto-fill,minmax(180px,1fr));
 
-  border: none;
-
-  border-radius: 999px;
-
-  font-weight: 700;
+    gap:1rem;
 }
 
-/* ===========================
+/* ==========================
    SCROLLBAR
-=========================== */
+========================== */
 
 ::-webkit-scrollbar{
-  width: 10px;
+    width:10px;
 }
 
 ::-webkit-scrollbar-track{
-  background: #f7edf6;
+    background:#f8eef6;
 }
 
 ::-webkit-scrollbar-thumb{
-  background:
-    linear-gradient(
-      #ffcfe5,
-      #e2cff5
-    );
+    background:
+        linear-gradient(
+            #ffd6ea,
+            #eadcf7
+        );
 
-  border-radius: 999px;
+    border-radius:999px;
 }
+
+/* ==========================
+   MOBILE
+========================== */
+
+@media (max-width:800px){
+
+    .character-header,
+    .info-card,
+    .tab-content{
+        padding:1.25rem;
+    }
+
+}
+```
