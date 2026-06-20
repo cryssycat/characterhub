@@ -92,13 +92,11 @@ function groupByFolder(characters) {
 function sortFolderNames(folderNames) {
     const folderOrder = [
         "Mains",
-        "Main Characters",
-        "Favorites",
+        "Mascots",
         "Comfort Characters",
+        "Primary",,
         "Secondary",
-        "Adopts",
-        "NPCs",
-        "Archive",
+        "Tertiary",
         "Unsorted"
     ];
 
@@ -115,6 +113,7 @@ function sortFolderNames(folderNames) {
 
         return indexA - indexB;
     });
+}
 }
 
 async function loadCharacters() {
