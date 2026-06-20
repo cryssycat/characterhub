@@ -559,3 +559,32 @@ body::before {
     font-weight: 700;
 }
 
+.artist-pill{
+    background:#ffd7ef;
+    color:#9b4772;
+}
+
+.base-pill{
+    background:#d9e8ff;
+    color:#4a6ea8;
+}
+
+.designer-pill{
+    background:#e8ddff;
+    color:#7256a8;
+}
+
+.colorist-pill{
+    background:#d8fff0;
+    color:#4f9980;
+}
+
+.commissioner-pill{
+    background:#fff0cf;
+    color:#aa8543;
+}
+
+.gift-pill{
+    background:#ffe2d2;
+    color:#b46b4c;
+}
