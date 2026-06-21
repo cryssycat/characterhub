@@ -85,6 +85,7 @@
             </div>
             <p><strong>Folder:</strong> <span id="folder">—</span></p>
             <p><strong>Status:</strong> <span id="status">—</span></p>
+            <p><strong>Art Value:</strong> <span id="artValue">$0</span></p>
 
             <h3>Tags</h3>
             <div id="tags" class="tag-list"></div>
@@ -199,7 +200,7 @@
         <div id="adminTools" class="admin-generator" style="display:none;">
             <h2>Gallery Line Generator</h2>
 
-            <input id="genTitle" placeholder="Image title">
+            <input id="genTitle" placeholder="Image title, ex: Ref Sheet [$50]">
             <input id="genPath" placeholder="images/character/file.png">
             <input id="genCredits" placeholder="Artist:Name;Base:Name">
 
@@ -436,6 +437,45 @@ function normalizeImageItem(item) {
         label: item.label || item.type || "",
         credits: Array.isArray(item.credits) ? item.credits : []
     };
+}
+
+function getImageValue(image) {
+    const item = normalizeImageItem(image);
+    const label = item?.label || "";
+
+    // Supported syntax in the existing image title/label:
+    // Ref Sheet [$50]
+    // Headshot [50]
+    // Fullbody value:50
+    // Chibi value=$25
+    const match =
+        label.match(/\[\s*\$?\s*(\d+(?:\.\d{1,2})?)\s*\]/) ||
+        label.match(/value\s*[:=]\s*\$?\s*(\d+(?:\.\d{1,2})?)/i);
+
+    return match ? Number(match[1]) : 0;
+}
+
+function calculateCharacterValue(character) {
+    const allImages = [
+        ...(Array.isArray(character?.gallery) ? character.gallery : []),
+        ...(Array.isArray(character?.references) ? character.references : []),
+        ...(Array.isArray(character?.nsfwGallery) ? character.nsfwGallery : [])
+    ];
+
+    if (Array.isArray(character?.auGalleries)) {
+        character.auGalleries.forEach(au => {
+            if (Array.isArray(au?.images)) allImages.push(...au.images);
+        });
+    }
+
+    return allImages.reduce((total, image) => total + getImageValue(image), 0);
+}
+
+function formatMoney(value) {
+    return "$" + Number(value || 0).toLocaleString(undefined, {
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 2
+    });
 }
 
 function renderImageCreditPills(card, item) {
@@ -812,6 +852,7 @@ document.body.classList.add(layoutClass);
     setText("occupation", character.occupation);
     setText("folder", character.folder);
     setText("status", character.status);
+    setText("artValue", formatMoney(calculateCharacterValue(character)), "$0");
 
     setText("introduction", character.introduction, "No introduction yet.");
     setText("summary", character.summary, "No summary yet.");
