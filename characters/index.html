@@ -6,7 +6,7 @@
 
 <title>Character | StarSundae Character Hub</title>
 
-<link rel="stylesheet" href="../style.css?v=151">
+<link rel="stylesheet" href="../style.css?v=152">
 </head>
 
 <body>
@@ -386,7 +386,11 @@ function renderImages(id, images, name) {
         img.alt = `${name || "Character"} image`;
         img.addEventListener("click", () => openLightbox(getImage(item.url)));
 
-        card.appendChild(img);
+        const wrapper = document.createElement("div");
+        wrapper.className = "watermarked-image";
+        wrapper.appendChild(img);
+
+        card.appendChild(wrapper);
 
         if (item.label) {
             const caption = document.createElement("p");
@@ -420,24 +424,23 @@ function renderNSFWImages(images, name) {
         const card = document.createElement("div");
         card.className = "image-card nsfw-card";
 
-     const img = document.createElement("img");
-img.src = getImage(item.url);
-img.alt = `${name || "Character"} mature gallery image`;
+        const img = document.createElement("img");
+        img.src = getImage(item.url);
+        img.alt = `${name || "Character"} mature gallery image`;
 
-const overlay = document.createElement("div");
-overlay.className = "nsfw-overlay";
-overlay.innerHTML = `
-    <strong>🔞 Mature Content</strong>
-    <small>Click to reveal</small>
-`;
+        const overlay = document.createElement("div");
+        overlay.className = "nsfw-overlay";
+        overlay.innerHTML = `
+            <strong>🔞 Mature Content</strong>
+            <small>Click to reveal</small>
+        `;
 
-const wrapper = document.createElement("div");
-wrapper.className = "watermarked-image";
+        const wrapper = document.createElement("div");
+        wrapper.className = "watermarked-image";
+        wrapper.appendChild(img);
+        wrapper.appendChild(overlay);
 
-wrapper.appendChild(img);
-wrapper.appendChild(overlay);
-
-card.appendChild(wrapper);
+        card.appendChild(wrapper);
 
         if (item.label) {
             const caption = document.createElement("p");
