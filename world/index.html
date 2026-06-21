@@ -6,7 +6,7 @@
 
 <title>Worlds | Character Hub</title>
 
-<link rel="stylesheet" href="../style.css?v=230">
+<link rel="stylesheet" href="../style.css?v=240">
 
 <style>
 .worlds-browser-page{
@@ -15,11 +15,15 @@
   padding:30px 20px 60px;
 }
 
+.worlds-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:22px;
+}
+
 .worlds-browser-card{
   display:block;
   cursor:pointer;
-  text-decoration:none;
-  color:inherit;
   overflow:hidden;
 }
 
@@ -38,6 +42,7 @@
   height:100%;
   object-fit:cover;
   display:block;
+  pointer-events:none;
 }
 
 .worlds-browser-body{
@@ -62,6 +67,7 @@
   text-decoration:none;
   color:inherit;
   border:1px solid rgba(255,255,255,.9);
+  cursor:pointer;
 }
 </style>
 </head>
@@ -90,7 +96,7 @@
   </section>
 
   <section>
-    <div id="worldsGrid" class="gallery-grid worlds-grid">
+    <div id="worldsGrid" class="worlds-grid">
       <p>Loading worlds...</p>
     </div>
   </section>
@@ -132,7 +138,12 @@ function worldSearchText(world) {
 
 function getWorldUrl(world) {
   const slug = safeText(world.slug);
-  return `../world/?slug=${encodeURIComponent(slug)}`;
+  return `/world/?slug=${encodeURIComponent(slug)}`;
+}
+
+function goToWorld(world) {
+  const url = getWorldUrl(world);
+  window.location.assign(url);
 }
 
 function renderWorldCards(worlds) {
@@ -153,14 +164,13 @@ function renderWorldCards(worlds) {
     const icon = safeText(world.icon);
     const status = safeText(world.status);
     const era = safeText(world.era);
-    const url = getWorldUrl(world);
 
     const genre = Array.isArray(world.genre) ? world.genre : [];
     const theme = Array.isArray(world.theme) ? world.theme : [];
 
-    const card = document.createElement("a");
+    const card = document.createElement("article");
     card.className = "image-card world-card worlds-browser-card";
-    card.href = url;
+    card.tabIndex = 0;
 
     card.innerHTML = `
       <div class="watermarked-image worlds-browser-banner">
@@ -178,9 +188,28 @@ function renderWorldCards(worlds) {
           ${theme.map(item => `<span class="tag">${item}</span>`).join("")}
         </div>
 
-        <span class="worlds-view-button">View World →</span>
+        <button class="worlds-view-button" type="button">View World →</button>
       </div>
     `;
+
+    card.addEventListener("click", () => {
+      goToWorld(world);
+    });
+
+    card.addEventListener("keydown", event => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        goToWorld(world);
+      }
+    });
+
+    const button = card.querySelector(".worlds-view-button");
+    if (button) {
+      button.addEventListener("click", event => {
+        event.stopPropagation();
+        goToWorld(world);
+      });
+    }
 
     grid.appendChild(card);
   });
