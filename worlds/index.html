@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Worlds | StarHub</title>
+
+<link rel="stylesheet" href="../style.css?v=400">
+</head>
+
+<body>
+
+<header class="character-header worlds-header">
+  <a class="back-button" href="../index.html">← Back to Hub</a>
+  <h1>🌎 Worlds</h1>
+  <p>Browse shared worlds, settings, AUs, and story spaces.</p>
+</header>
+
+<main class="world-page">
+
+  <section class="content-card wide-card" style="margin-bottom:30px;">
+    <h2>World Browser</h2>
+    <p>Search by world name, slug, genre, theme, era, status, or description.</p>
+
+    <div class="search-container" style="padding:25px 0 0;">
+      <input
+        id="worldSearch"
+        type="search"
+        placeholder="Search worlds..."
+        autocomplete="off"
+      >
+    </div>
+  </section>
+
+  <section>
+    <div id="worldsGrid" class="gallery-grid">
+      <p class="loading">Loading worlds...</p>
+    </div>
+  </section>
+
+</main>
+
+<script>
+const API_URL = "https://charahub.crysthigpen.workers.dev";
+const WORLDS_ENDPOINT = `${API_URL}/worlds`;
+
+let allWorlds = [];
+
+function getImage(path, base = window.location.origin) {
+  if (!path) return "../images/placeholder.png";
+
+  path = String(path).trim();
+
+  if (!path) return "../images/placeholder.png";
+  if (path.startsWith("http")) return path;
+
+  const cleanBase = String(base || window.location.origin).replace(/\/$/, "");
+
+  if (path.startsWith("/")) return cleanBase + path;
+
+  return cleanBase + "/" + path;
+}
+
+function safeText(value) {
+  return value && String(value).trim() ? String(value).trim() : "";
+}
+
+function escapeHtml(value) {
+  return String(value || "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
+
+function worldSearchText(world) {
+  return [
+    world.name,
+    world.slug,
+    world.status,
+    world.era,
+    world.shortDescription,
+    world.overview,
+    world.culture,
+    world.magicSystem,
+    world.technology,
+    world.economy,
+    world.trivia,
+    Array.isArray(world.genre) ? world.genre.join(" ") : world.genre,
+    Array.isArray(world.theme) ? world.theme.join(" ") : world.theme
+  ]
+    .filter(Boolean)
+    .join(" ")
+    .toLowerCase();
+}
+
+function renderWorlds(worlds) {
+  const grid = document.getElementById("worldsGrid");
+  if (!grid) return;
+
+  grid.innerHTML = "";
+
+  if (!Array.isArray(worlds) || worlds.length === 0) {
+    grid.innerHTML = "<p class='loading'>No worlds found.</p>";
+    return;
+  }
+
+  worlds.forEach(world => {
+    const name = safeText(world.name) || "Unnamed World";
+    const slug = safeText(world.slug);
+    const description = safeText(world.shortDescription) || safeText(world.overview) || "No description yet.";
+    const banner = safeText(world.banner);
+    const icon = safeText(world.icon);
+    const status = safeText(world.status);
+    const era = safeText(world.era);
+    const genre = Array.isArray(world.genre) ? world.genre : [];
+    const theme = Array.isArray(world.theme) ? world.theme : [];
+
+    const card = document.createElement("a");
+    card.className = "image-card world-browser-card";
+    card.href = `../world/?slug=${encodeURIComponent(slug)}`;
+    card.style.textDecoration = "none";
+    card.style.color = "inherit";
+    card.style.display = "block";
+
+    card.innerHTML = `
+      <div class="watermarked-image">
+        <img src="${escapeHtml(getImage(banner || icon))}" alt="${escapeHtml(name)}">
+      </div>
+
+      <h2 style="margin-top:14px;color:#d8a7ff;text-align:center;">${escapeHtml(name)}</h2>
+      <p>${escapeHtml(description)}</p>
+
+      <div class="tag-list" style="justify-content:center;margin-top:14px;">
+        ${status ? `<span class="tag">${escapeHtml(status)}</span>` : ""}
+        ${era ? `<span class="tag">${escapeHtml(era)}</span>` : ""}
+        ${genre.map(item => `<span class="tag">${escapeHtml(item)}</span>`).join("")}
+        ${theme.map(item => `<span class="tag">${escapeHtml(item)}</span>`).join("")}
+      </div>
+
+      <p style="font-weight:700;color:#d8a7ff;">View World →</p>
+    `;
+
+    grid.appendChild(card);
+  });
+}
+
+function filterWorlds() {
+  const input = document.getElementById("worldSearch");
+  const query = input ? input.value.trim().toLowerCase() : "";
+
+  if (!query) {
+    renderWorlds(allWorlds);
+    return;
+  }
+
+  renderWorlds(allWorlds.filter(world => worldSearchText(world).includes(query)));
+}
+
+async function loadWorlds() {
+  const grid = document.getElementById("worldsGrid");
+
+  try {
+    const response = await fetch(WORLDS_ENDPOINT);
+    const worlds = await response.json();
+
+    if (!Array.isArray(worlds)) {
+      if (grid) grid.innerHTML = "<p class='loading'>Worlds API did not return a list.</p>";
+      console.error("Worlds API response:", worlds);
+      return;
+    }
+
+    allWorlds = worlds;
+    renderWorlds(allWorlds);
+
+  } catch (error) {
+    console.error("World browser error:", error);
+    if (grid) grid.innerHTML = "<p class='loading'>Unable to load worlds.</p>";
+  }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  const search = document.getElementById("worldSearch");
+  if (search) search.addEventListener("input", filterWorlds);
+
+  loadWorlds();
+});
+</script>
+
+</body>
+</html>
