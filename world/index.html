@@ -359,7 +359,7 @@ function createCharacterCard(character) {
 
   const card = document.createElement("a");
   card.className = "character-card";
-  card.href = `../characters/index.html?slug=${encodeURIComponent(slug)}`;
+  card.href = slug ? `../characters/index.html?slug=${encodeURIComponent(slug)}` : "#";
 
   card.innerHTML = `
     ${character.favorite ? `<span class="favorite-badge">⭐ Favorite</span>` : ""}
@@ -380,13 +380,13 @@ function renderWorldCharacters(characters) {
   grid.innerHTML = "";
 
   if (!characters.length) {
-    grid.innerHTML = "<p class='loading'>No LunaHub characters are linked to this world yet.</p>";
-    if (count) count.textContent = "0 LunaHub characters linked.";
+    grid.innerHTML = "<p class='loading'>No characters are linked to this world yet.</p>";
+    if (count) count.textContent = "0 characters linked.";
     return;
   }
 
   if (count) {
-    count.textContent = `${characters.length} LunaHub character${characters.length === 1 ? "" : "s"} linked to this world.`;
+    count.textContent = `${characters.length} character${characters.length === 1 ? "" : "s"} linked to this world.`;
   }
 
   characters
@@ -407,10 +407,66 @@ async function loadCharactersForWorld(world) {
       throw new Error("Characters API did not return a list.");
     }
 
-   allWorldCharacters = characters.filter(character => {
-  return characterBelongsToWorld(character, world);
-});
- 
+    const explicitWorldCharacters = Array.isArray(world.characters)
+      ? world.characters
+      : [];
+
+    const explicitSlugs = explicitWorldCharacters
+      .map(item => {
+        if (!item) return "";
+        if (typeof item === "string") return item;
+        return item.slug || "";
+      })
+      .filter(Boolean)
+      .map(normalize);
+
+    const explicitNames = explicitWorldCharacters
+      .map(item => {
+        if (!item) return "";
+        if (typeof item === "string") return item;
+        return item.name || "";
+      })
+      .filter(Boolean)
+      .map(normalize);
+
+    const linkedFromDatabase = characters.filter(character => {
+      const slug = normalize(character.slug);
+      const name = normalize(character.name);
+
+      return characterBelongsToWorld(character, world) ||
+             explicitSlugs.includes(slug) ||
+             explicitNames.includes(name);
+    });
+
+    // Also show manually-listed world characters even if they are not found in the character database.
+    const manualOnly = explicitWorldCharacters
+      .map(item => {
+        if (!item) return null;
+
+        if (typeof item === "string") {
+          return { name: item, slug: item, species: "", role: "Character", icon: "" };
+        }
+
+        return {
+          name: item.name || item.slug || "Unnamed",
+          slug: item.slug || item.name || "",
+          species: "",
+          role: item.role || "Character",
+          icon: ""
+        };
+      })
+      .filter(Boolean)
+      .filter(item => {
+        const itemSlug = normalize(item.slug);
+        const itemName = normalize(item.name);
+
+        return !linkedFromDatabase.some(character =>
+          normalize(character.slug) === itemSlug ||
+          normalize(character.name) === itemName
+        );
+      });
+
+    allWorldCharacters = [...linkedFromDatabase, ...manualOnly];
 
     renderWorldCharacters(allWorldCharacters);
 
