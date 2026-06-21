@@ -146,7 +146,7 @@ function escapeHtml(value) {
 
 function getWorldUrl(world) {
   const slug = safeText(world.slug);
-  return `/world/?slug=${encodeURIComponent(slug)}`;
+  return `../world/?slug=${encodeURIComponent(slug)}`;
 }
 
 function worldSearchText(world) {
@@ -162,6 +162,7 @@ function worldSearchText(world) {
   ].filter(Boolean).join(" ").toLowerCase();
 }
 
+  
 function renderWorldCards(worlds) {
   const grid = document.getElementById("worldsGrid");
   if (!grid) return;
