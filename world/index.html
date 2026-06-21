@@ -3,374 +3,203 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>LunaHub World</title>
-
-<link rel="stylesheet" href="../style.css?v=101">
-
-<style>
-/* ==========================================
-   SINGLE WORLD PAGE RESTORE
-   Works with LunaHub + shared CharacterHub worlds
-========================================== */
-
-.world-page-shell{
-  max-width:1200px;
-  margin:0 auto;
-  padding:24px 18px 70px;
-}
-
-.world-top-nav{
-  max-width:1100px;
-  margin:20px auto 18px;
-  display:flex;
-  justify-content:center;
-  gap:12px;
-  flex-wrap:wrap;
-}
-
-.world-hero-card{
-  max-width:1100px;
-  margin:0 auto 24px;
-  overflow:hidden;
-  border-radius:34px;
-}
-
-.world-hero-banner{
-  width:100%;
-  height:320px;
-  overflow:hidden;
-  border-radius:30px 30px 0 0;
-  background:rgba(255,255,255,.35);
-}
-
-.world-hero-banner img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  display:block;
-}
-
-.world-hero-content{
-  display:grid;
-  grid-template-columns:auto 1fr;
-  gap:22px;
-  align-items:center;
-  padding:24px;
-}
-
-.world-hero-icon{
-  width:130px;
-  height:130px;
-  object-fit:cover;
-  border-radius:30px;
-  background:rgba(255,255,255,.65);
-  border:1px solid rgba(255,255,255,.85);
-}
-
-.world-hero-text h1{
-  margin:2px 0 8px;
-  font-size:clamp(2.2rem, 5vw, 4rem);
-}
-
-.world-hero-text p{
-  margin:0;
-}
-
-.world-meta-pills{
-  display:flex;
-  flex-wrap:wrap;
-  gap:8px;
-  margin-top:16px;
-}
-
-.world-meta-pills span,
-.hub-chip{
-  display:inline-flex;
-  align-items:center;
-  padding:7px 13px;
-  border-radius:999px;
-  background:rgba(255,255,255,.65);
-  border:1px solid rgba(255,255,255,.85);
-  font-size:.9rem;
-}
-
-.world-tabs{
-  max-width:1100px;
-  margin:0 auto 18px;
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
-  justify-content:center;
-}
-
-.world-tab-button{
-  border:0;
-  cursor:pointer;
-  padding:10px 18px;
-  border-radius:999px;
-  background:rgba(255,255,255,.6);
-  color:inherit;
-  font:inherit;
-  box-shadow:0 6px 18px rgba(80,90,130,.08);
-}
-
-.world-tab-button.active{
-  background:rgba(255,255,255,.95);
-  font-weight:700;
-}
-
-.world-tab-panel{
-  display:none;
-  max-width:1100px;
-  margin:0 auto;
-}
-
-.world-tab-panel.active{
-  display:block;
-}
-
-.world-content-card{
-  padding:28px;
-}
-
-.world-content-card h2{
-  margin-top:0;
-}
-
-.world-content-card p{
-  line-height:1.65;
-}
-
-.world-map-image{
-  width:100%;
-  max-height:650px;
-  object-fit:contain;
-  border-radius:26px;
-  display:block;
-  background:rgba(255,255,255,.35);
-}
-
-.world-gallery-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:18px;
-}
-
-.world-gallery-card{
-  overflow:hidden;
-  border-radius:24px;
-  background:rgba(255,255,255,.55);
-}
-
-.world-gallery-card img{
-  width:100%;
-  height:230px;
-  object-fit:cover;
-  display:block;
-}
-
-.world-gallery-card p{
-  margin:10px 14px 14px;
-  font-size:.92rem;
-}
-
-.world-character-tools{
-  display:flex;
-  gap:12px;
-  flex-wrap:wrap;
-  align-items:center;
-  justify-content:space-between;
-  margin:16px 0 20px;
-}
-
-.world-character-tools input{
-  flex:1 1 260px;
-}
-
-.hub-filter-buttons{
-  display:flex;
-  gap:8px;
-  flex-wrap:wrap;
-}
-
-.hub-filter-buttons button{
-  border:0;
-  cursor:pointer;
-  border-radius:999px;
-  padding:8px 13px;
-  background:rgba(255,255,255,.62);
-  color:inherit;
-  font:inherit;
-}
-
-.hub-filter-buttons button.active{
-  background:rgba(255,255,255,.96);
-  font-weight:700;
-}
-
-.character-card{
-  position:relative;
-}
-
-.hub-badge{
-  position:absolute;
-  right:10px;
-  top:10px;
-  z-index:2;
-}
-
-.hidden{
-  display:none !important;
-}
-
-@media (max-width:700px){
-  .world-hero-banner{
-    height:210px;
-  }
-
-  .world-hero-content{
-    grid-template-columns:1fr;
-    text-align:center;
-  }
-
-  .world-hero-icon{
-    margin:0 auto;
-  }
-
-  .world-meta-pills{
-    justify-content:center;
-  }
-}
-</style>
+<title>World | Character Hub</title>
+<link rel="stylesheet" href="../style.css?v=210">
 </head>
-
 <body>
 
-<header class="site-header world-header">
-  <nav class="wiki-links world-top-nav">
-    <a href="../index.html">🏠 Back to Hub</a>
-    <a href="../worlds/index.html">🌎 Back to Worlds</a>
-  </nav>
-
-  <div id="worldHeaderContent">
-    <p class="loading">Loading world...</p>
+<header class="world-header">
+  <a class="back-button" href="../index.html">← Back to Hub</a>
+  <div class="world-banner-wrap">
+    <img id="worldBanner" class="world-banner" src="../images/placeholder.png" alt="World banner">
+  </div>
+  <div class="world-title-card">
+    <img id="worldIcon" class="world-icon" src="../images/placeholder.png" alt="World icon">
+    <div>
+      <h1 id="worldName">Loading...</h1>
+      <p id="worldShortDescription">Loading world information...</p>
+    </div>
   </div>
 </header>
 
-<main class="world-page-shell">
-
-  <section id="worldTabs" class="world-tabs hidden"></section>
-
-  <section id="tab-overview" class="world-tab-panel active"></section>
-  <section id="tab-magic" class="world-tab-panel"></section>
-  <section id="tab-technology" class="world-tab-panel"></section>
-  <section id="tab-economy" class="world-tab-panel"></section>
-  <section id="tab-culture" class="world-tab-panel"></section>
-  <section id="tab-map" class="world-tab-panel"></section>
-  <section id="tab-gallery" class="world-tab-panel"></section>
-
-  <section id="tab-characters" class="world-tab-panel">
-    <div class="profile-card world-content-card world-character-section">
-      <h2>Characters in this World</h2>
-      <p id="worldCharacterCount" class="character-count">Loading characters...</p>
-
-      <div class="world-character-tools">
-        <input
-          id="characterSearch"
-          class="search-input"
-          type="search"
-          placeholder="Search linked characters..."
-          autocomplete="off"
-        >
-
-        <div class="hub-filter-buttons">
-          <button type="button" data-hub="all" class="active">All</button>
-          <button type="button" data-hub="StarHub">⭐ StarHub</button>
-          <button type="button" data-hub="LunaHub">🌙 LunaHub</button>
-        </div>
-      </div>
-
-      <div id="worldCharacters" class="character-grid">
-        <p class="loading">Loading characters...</p>
-      </div>
+<main class="world-page">
+  <section class="world-quick-card">
+    <div>
+      <h2>World Info</h2>
+      <p><strong>Status:</strong> <span id="worldStatus">—</span></p>
+      <p><strong>Era:</strong> <span id="worldEra">—</span></p>
+    </div>
+    <div>
+      <h3>Genre</h3>
+      <div id="worldGenre" class="tag-list"></div>
+    </div>
+    <div>
+      <h3>Theme</h3>
+      <div id="worldTheme" class="tag-list"></div>
     </div>
   </section>
 
+  <nav class="tabs" id="tabs">
+    <button class="tab-button active" data-tab="overview">Overview</button>
+    <button class="tab-button" data-tab="map">Map</button>
+    <button class="tab-button" data-tab="culture">Culture</button>
+    <button class="tab-button" data-tab="systems">Systems</button>
+    <button class="tab-button" data-tab="characters">Characters</button>
+    <button class="tab-button" data-tab="gallery">Gallery</button>
+    <button class="tab-button" data-tab="trivia">Trivia</button>
+  </nav>
+
+  <section id="overview" class="tab-panel active">
+    <div class="content-grid">
+      <div class="content-card wide-card"><h2>Overview</h2><p id="worldOverview">No overview yet.</p></div>
+    </div>
+  </section>
+
+  <section id="map" class="tab-panel">
+    <div class="section-title"><h2>Map</h2><p>World map, region map, or important visual guide.</p></div>
+    <div class="world-map-card"><img id="worldMap" src="../images/placeholder.png" alt="World map"></div>
+  </section>
+
+  <section id="culture" class="tab-panel">
+    <div class="content-grid">
+      <div class="content-card wide-card"><h2>Culture</h2><p id="worldCulture">No culture notes yet.</p></div>
+    </div>
+  </section>
+
+  <section id="systems" class="tab-panel">
+    <div class="content-grid">
+      <div class="content-card"><h2>Magic System</h2><p id="worldMagicSystem">—</p></div>
+      <div class="content-card"><h2>Technology</h2><p id="worldTechnology">—</p></div>
+      <div class="content-card wide-card"><h2>Economy</h2><p id="worldEconomy">—</p></div>
+    </div>
+  </section>
+
+  <section id="characters" class="tab-panel">
+    <div class="section-title"><h2>Featured Characters</h2><p>Characters associated with this world.</p></div>
+    <div id="worldCharactersGrid" class="world-character-grid"><p>No featured characters yet.</p></div>
+  </section>
+
+  <section id="gallery" class="tab-panel">
+    <div class="section-title"><h2>Gallery</h2><p>Maps, moodboards, locations, world art, and setting references.</p></div>
+    <div id="worldGalleryGrid" class="gallery-grid"><p>No world images yet.</p></div>
+  </section>
+
+  <section id="trivia" class="tab-panel">
+    <div class="content-grid">
+      <div class="content-card wide-card"><h2>Trivia</h2><p id="worldTrivia">No trivia yet.</p></div>
+    </div>
+  </section>
+
+  <div class="profile-nav"><a href="../index.html">Back to Hub</a></div>
 </main>
 
+<div id="lightbox" class="lightbox">
+  <button id="lightboxClose" class="lightbox-close">×</button>
+  <div class="lightbox-image-wrap">
+    <img id="lightboxImage" src="" alt="Full-size image">
+  </div>
+</div>
+
 <script>
-// ==========================================
-// SHARED WORLD PAGE
-// Data source: CharacterHub worlds + StarHub characters + LunaHub characters
-// ==========================================
-
-const WORLDS_ENDPOINT =
-  "https://charahub.crysthigpen.workers.dev/worlds";
-
-const SINGLE_WORLD_ENDPOINT =
-  "https://charahub.crysthigpen.workers.dev/world";
-
-const STAR_CHARACTERS_ENDPOINT =
-  "https://charahub.crysthigpen.workers.dev/characters";
-
-const LUNA_CHARACTERS_ENDPOINT =
-  "https://lunabreww.crysthigpen.workers.dev/characters";
+const API_URL = "https://charahub.crysthigpen.workers.dev";
+const STAR_CHARACTERS_ENDPOINT = "https://charahub.crysthigpen.workers.dev/characters";
+const LUNA_CHARACTERS_ENDPOINT = "https://lunabreww.crysthigpen.workers.dev/characters";
 
 const CHARACTER_SOURCES = [
   {
     hub: "StarHub",
-    label: "⭐ Star",
+    label: "⭐ StarHub",
     endpoint: STAR_CHARACTERS_ENDPOINT,
     characterPath: "../characters/index.html"
   },
   {
     hub: "LunaHub",
-    label: "🌙 Luna",
+    label: "🌙 LunaHub",
     endpoint: LUNA_CHARACTERS_ENDPOINT,
     characterPath: "../characters/index.html"
   }
 ];
 
 const params = new URLSearchParams(window.location.search);
-const currentSlug = params.get("slug") || params.get("world") || "";
+const SLUG = params.get("slug");
+let customCssLoaded = "";
+let allLinkedCharacters = [];
+let activeCharacterFilter = "all";
 
-const worldHeaderContent = document.getElementById("worldHeaderContent");
-const worldTabs = document.getElementById("worldTabs");
-const worldCharacters = document.getElementById("worldCharacters");
-const worldCharacterCount = document.getElementById("worldCharacterCount");
-const characterSearch = document.getElementById("characterSearch");
+function getImage(path) {
+  if (!path) return "../images/placeholder.png";
 
-let currentWorld = null;
-let allCharacters = [];
-let linkedCharacters = [];
-let activeHubFilter = "all";
-
-function getImage(path, fallback = "../images/placeholder.png") {
-  if (!path) return fallback;
   path = String(path).trim();
 
+  if (!path) return "../images/placeholder.png";
   if (path.startsWith("http")) return path;
   if (path.startsWith("/")) return window.location.origin + path;
 
   return window.location.origin + "/" + path;
 }
 
-function cleanText(value) {
-  if (value === null || value === undefined) return "";
-  if (Array.isArray(value)) return value.filter(Boolean).join(", ");
-  return String(value).trim();
+function loadCustomCss(path) {
+  if (!path) return;
+
+  const cssPath = String(path).trim();
+  if (!cssPath) return;
+
+  const href = getImage(cssPath);
+  if (customCssLoaded === href) return;
+
+  customCssLoaded = href;
+
+  const oldCustom = document.getElementById("worldCustomCss");
+  if (oldCustom) oldCustom.remove();
+
+  const link = document.createElement("link");
+  link.id = "worldCustomCss";
+  link.rel = "stylesheet";
+  link.href = href + (href.includes("?") ? "&" : "?") + "v=" + Date.now();
+  document.head.appendChild(link);
+}
+
+function setText(id, value, fallback = "—") {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.textContent = value && String(value).trim() ? value : fallback;
+}
+
+function setImage(id, path) {
+  const img = document.getElementById(id);
+  if (!img) return;
+  img.src = path ? getImage(path) : "../images/placeholder.png";
+}
+
+function renderTags(id, items) {
+  const box = document.getElementById(id);
+  if (!box) return;
+
+  box.innerHTML = "";
+
+  if (!Array.isArray(items) || items.length === 0) {
+    box.innerHTML = '<span class="tag">—</span>';
+    return;
+  }
+
+  items.forEach(item => {
+    const span = document.createElement("span");
+    span.className = "tag";
+    span.textContent = item;
+    box.appendChild(span);
+  });
 }
 
 function normalize(value) {
-  return cleanText(value)
+  return String(value || "")
+    .trim()
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-+|-+$/g, "");
 }
 
 function escapeHtml(value) {
-  return cleanText(value)
+  return String(value || "")
     .replaceAll("&", "&amp;")
     .replaceAll("<", "&lt;")
     .replaceAll(">", "&gt;")
@@ -378,18 +207,51 @@ function escapeHtml(value) {
     .replaceAll("'", "&#039;");
 }
 
-function paragraph(value) {
-  const text = cleanText(value);
+function normalizeImageItem(item) {
+  if (!item) return null;
+  if (typeof item === "string") return { url: item, label: "" };
+  return { url: item.url || item.src || "", label: item.label || item.type || "" };
+}
 
-  if (!text) {
-    return `<p>No information has been added yet.</p>`;
+function renderImages(id, images, name) {
+  const grid = document.getElementById(id);
+  if (!grid) return;
+
+  grid.innerHTML = "";
+
+  if (!Array.isArray(images) || images.length === 0) {
+    grid.innerHTML = "<p>No world images yet.</p>";
+    return;
   }
 
-  return text
-    .split(/\n+/)
-    .filter(Boolean)
-    .map(line => `<p>${escapeHtml(line)}</p>`)
-    .join("");
+  images.forEach(rawItem => {
+    const item = normalizeImageItem(rawItem);
+    if (!item || !item.url) return;
+
+    const card = document.createElement("div");
+    card.className = "image-card";
+
+    const img = document.createElement("img");
+    img.src = getImage(item.url);
+    img.alt = `${name || "World"} image`;
+    img.addEventListener("click", () => openLightbox(getImage(item.url)));
+
+    const wrapper = document.createElement("div");
+    wrapper.className = "watermarked-image";
+    wrapper.appendChild(img);
+    card.appendChild(wrapper);
+
+    if (item.label) {
+      const caption = document.createElement("p");
+      caption.className = "image-title";
+      caption.textContent = item.label;
+      card.appendChild(caption);
+    }
+
+    grid.appendChild(card);
+  });
+
+  if (!grid.children.length) grid.innerHTML = "<p>No world images yet.</p>";
 }
 
 async function fetchJson(url) {
@@ -402,236 +264,61 @@ async function fetchJson(url) {
   return await response.json();
 }
 
-async function loadWorld() {
-  if (!currentSlug) {
-    showWorldError("No world slug was provided.");
-    return;
+function characterWorldKeys(character) {
+  const keys = [];
+
+  if (character.world) keys.push(character.world);
+  if (character.worldSlug) keys.push(character.worldSlug);
+
+  if (Array.isArray(character.worlds)) {
+    character.worlds.forEach(world => {
+      if (typeof world === "string") {
+        keys.push(world);
+      } else if (world) {
+        keys.push(world.name);
+        keys.push(world.slug);
+      }
+    });
   }
 
-  try {
-    let worldData;
-
-    try {
-      worldData = await fetchJson(`${SINGLE_WORLD_ENDPOINT}/${encodeURIComponent(currentSlug)}`);
-    } catch (singleWorldError) {
-      const allWorlds = await fetchJson(WORLDS_ENDPOINT);
-      worldData = allWorlds.find(world => normalize(world.slug) === normalize(currentSlug));
-    }
-
-    if (!worldData || worldData.error) {
-      showWorldError("World not found.");
-      return;
-    }
-
-    currentWorld = worldData;
-    document.title = `${currentWorld.name || "World"} | LunaHub Worlds`;
-
-    renderWorld(currentWorld);
-    await loadCharactersForWorld(currentWorld);
-
-  } catch (error) {
-    console.error(error);
-    showWorldError("Could not load this world.");
-  }
-}
-
-function showWorldError(message) {
-  worldHeaderContent.innerHTML = `
-    <section class="profile-card world-content-card">
-      <h1>World Not Found</h1>
-      <p>${escapeHtml(message)}</p>
-      <a href="../worlds/index.html">Back to Worlds</a>
-    </section>
-  `;
-
-  worldTabs.classList.add("hidden");
-}
-
-function renderWorld(world) {
-  const name = world.name || "Unnamed World";
-  const banner = getImage(world.banner, "../images/placeholder-banner.png");
-  const icon = getImage(world.icon, "../images/placeholder.png");
-  const genre = Array.isArray(world.genre) ? world.genre : [];
-  const theme = Array.isArray(world.theme) ? world.theme : [];
-
-  worldHeaderContent.innerHTML = `
-    <section class="world-hero-card profile-card">
-      <div class="world-hero-banner">
-        <img src="${banner}" alt="${escapeHtml(name)} banner">
-      </div>
-
-      <div class="world-hero-content">
-        <img class="world-hero-icon" src="${icon}" alt="${escapeHtml(name)} icon">
-
-        <div class="world-hero-text">
-          <p class="creator-kicker">World</p>
-          <h1>${escapeHtml(name)}</h1>
-          ${world.shortDescription ? `<p class="tagline">${escapeHtml(world.shortDescription)}</p>` : ""}
-
-          <div class="world-meta-pills">
-            ${world.status ? `<span>${escapeHtml(world.status)}</span>` : ""}
-            ${world.era ? `<span>${escapeHtml(world.era)}</span>` : ""}
-            ${genre.map(item => `<span>${escapeHtml(item)}</span>`).join("")}
-            ${theme.map(item => `<span>${escapeHtml(item)}</span>`).join("")}
-          </div>
-        </div>
-      </div>
-    </section>
-  `;
-
-  const panels = [
-    {
-      id: "overview",
-      label: "Overview",
-      show: true,
-      html: `
-        <div class="profile-card world-content-card">
-          <h2>Overview</h2>
-          ${paragraph(world.overview || world.shortDescription)}
-        </div>
-      `
-    },
-    {
-      id: "magic",
-      label: "Magic",
-      show: cleanText(world.magicSystem),
-      html: `
-        <div class="profile-card world-content-card">
-          <h2>Magic System</h2>
-          ${paragraph(world.magicSystem)}
-        </div>
-      `
-    },
-    {
-      id: "technology",
-      label: "Technology",
-      show: cleanText(world.technology),
-      html: `
-        <div class="profile-card world-content-card">
-          <h2>Technology</h2>
-          ${paragraph(world.technology)}
-        </div>
-      `
-    },
-    {
-      id: "economy",
-      label: "Economy",
-      show: cleanText(world.economy),
-      html: `
-        <div class="profile-card world-content-card">
-          <h2>Economy</h2>
-          ${paragraph(world.economy)}
-        </div>
-      `
-    },
-    {
-      id: "culture",
-      label: "Culture",
-      show: cleanText(world.culture),
-      html: `
-        <div class="profile-card world-content-card">
-          <h2>Culture</h2>
-          ${paragraph(world.culture)}
-        </div>
-      `
-    },
-    {
-      id: "map",
-      label: "Map",
-      show: cleanText(world.mapImage),
-      html: `
-        <div class="profile-card world-content-card">
-          <h2>Map</h2>
-          <img class="world-map-image" src="${getImage(world.mapImage)}" alt="${escapeHtml(name)} map">
-        </div>
-      `
-    },
-    {
-      id: "gallery",
-      label: "Gallery",
-      show: Array.isArray(world.gallery) && world.gallery.length,
-      html: renderGallery(world.gallery || [])
-    },
-    {
-      id: "characters",
-      label: "Characters",
-      show: true,
-      html: null
-    }
-  ];
-
-  worldTabs.innerHTML = panels
-    .filter(panel => panel.show)
-    .map((panel, index) => `
-      <button type="button" class="world-tab-button ${index === 0 ? "active" : ""}" data-tab="${panel.id}">
-        ${escapeHtml(panel.label)}
-      </button>
-    `)
-    .join("");
-
-  panels.forEach(panel => {
-    const el = document.getElementById(`tab-${panel.id}`);
-    if (!el) return;
-
-    if (panel.show) {
-      el.classList.toggle("active", panel.id === "overview");
-      if (panel.html !== null) el.innerHTML = panel.html;
-    } else {
-      el.classList.remove("active");
-      el.innerHTML = "";
-    }
-  });
-
-  worldTabs.classList.remove("hidden");
-
-  worldTabs.querySelectorAll(".world-tab-button").forEach(button => {
-    button.addEventListener("click", () => activateTab(button.dataset.tab));
-  });
-}
-
-function renderGallery(gallery) {
-  if (!Array.isArray(gallery) || !gallery.length) {
-    return "";
+  if (Array.isArray(character.worldLinks)) {
+    character.worldLinks.forEach(world => {
+      if (typeof world === "string") {
+        keys.push(world);
+      } else if (world) {
+        keys.push(world.name);
+        keys.push(world.slug);
+      }
+    });
   }
 
-  return `
-    <div class="profile-card world-content-card">
-      <h2>Gallery</h2>
-      <div class="world-gallery-grid">
-        ${gallery.map(item => `
-          <figure class="world-gallery-card">
-            <img src="${getImage(item.url)}" alt="${escapeHtml(item.label || "World gallery image")}">
-            ${item.label ? `<p>${escapeHtml(item.label)}</p>` : ""}
-          </figure>
-        `).join("")}
-      </div>
-    </div>
-  `;
+  return keys.filter(Boolean).map(normalize);
 }
 
-function activateTab(tabId) {
-  document.querySelectorAll(".world-tab-button").forEach(button => {
-    button.classList.toggle("active", button.dataset.tab === tabId);
-  });
+function characterBelongsToWorld(character, world) {
+  const worldKeys = [
+    world.name,
+    world.slug
+  ].filter(Boolean).map(normalize);
 
-  document.querySelectorAll(".world-tab-panel").forEach(panel => {
-    panel.classList.toggle("active", panel.id === `tab-${tabId}`);
-  });
+  const cKeys = characterWorldKeys(character);
+
+  return cKeys.some(key => worldKeys.includes(key));
 }
 
-async function loadCharactersForWorld(world) {
-  const worldName = normalize(world.name);
-  const worldSlug = normalize(world.slug);
+async function loadLinkedCharacters(world) {
+  const grid = document.getElementById("worldCharactersGrid");
+  if (grid) grid.innerHTML = "<p>Loading linked characters...</p>";
 
-  const sourceResults = await Promise.allSettled(
+  const results = await Promise.allSettled(
     CHARACTER_SOURCES.map(async source => {
-      const data = await fetchJson(source.endpoint);
+      const characters = await fetchJson(source.endpoint);
 
-      if (!Array.isArray(data)) {
-        throw new Error(`${source.hub} did not return a character list.`);
+      if (!Array.isArray(characters)) {
+        throw new Error(`${source.hub} did not return an array.`);
       }
 
-      return data.map(character => ({
+      return characters.map(character => ({
         ...character,
         hub: source.hub,
         hubLabel: source.label,
@@ -640,126 +327,160 @@ async function loadCharactersForWorld(world) {
     })
   );
 
-  const loadedCharacters = [];
-  const failedSources = [];
+  const combined = [];
+  const failed = [];
 
-  sourceResults.forEach((result, index) => {
+  results.forEach((result, index) => {
     const source = CHARACTER_SOURCES[index];
 
     if (result.status === "fulfilled") {
-      loadedCharacters.push(...result.value);
+      combined.push(...result.value);
     } else {
       console.error(`${source.hub} failed to load:`, result.reason);
-      failedSources.push(source.hub);
+      failed.push(source.hub);
     }
   });
 
-  allCharacters = loadedCharacters;
-
-  linkedCharacters = allCharacters.filter(character => characterMatchesWorld(character, worldName, worldSlug));
-
-  renderWorldCharacters(linkedCharacters, failedSources);
+  allLinkedCharacters = combined.filter(character => characterBelongsToWorld(character, world));
+  renderWorldCharacters(failed);
 }
 
-function characterMatchesWorld(character, worldName, worldSlug) {
-  const possibleValues = [
-    character.world,
-    character.worldSlug,
-    character.worldName
-  ];
+function renderCharacterControls(failedSources = []) {
+  const grid = document.getElementById("worldCharactersGrid");
+  if (!grid) return;
 
-  if (Array.isArray(character.worlds)) {
-    character.worlds.forEach(worldLink => {
-      possibleValues.push(worldLink.name);
-      possibleValues.push(worldLink.slug);
-    });
-  }
-
-  if (Array.isArray(character.worldLinks)) {
-    character.worldLinks.forEach(worldLink => {
-      possibleValues.push(worldLink.name);
-      possibleValues.push(worldLink.slug);
-    });
-  }
-
-  return possibleValues.some(value => {
-    const normalized = normalize(value);
-    return normalized && (normalized === worldName || normalized === worldSlug);
-  });
-}
-
-function renderWorldCharacters(characters, failedSources = []) {
-  if (!worldCharacters || !worldCharacterCount) return;
+  const starCount = allLinkedCharacters.filter(c => c.hub === "StarHub").length;
+  const lunaCount = allLinkedCharacters.filter(c => c.hub === "LunaHub").length;
+  const total = allLinkedCharacters.length;
 
   const warning = failedSources.length
-    ? ` Could not load: ${failedSources.join(", ")}.`
+    ? `<p class="loading">Could not load: ${escapeHtml(failedSources.join(", "))}</p>`
     : "";
 
-  const query = characterSearch ? characterSearch.value.trim().toLowerCase() : "";
+  const controls = document.createElement("div");
+  controls.className = "world-character-controls";
+  controls.innerHTML = `
+    <p class="character-count">${total} linked — ${starCount} StarHub, ${lunaCount} LunaHub.</p>
+    ${warning}
+    <input
+      id="worldCharacterSearch"
+      class="search-input"
+      type="search"
+      placeholder="Search linked characters..."
+      autocomplete="off"
+    >
+    <div class="tag-list world-character-filter-buttons">
+      <button type="button" class="tag character-filter active" data-filter="all">All</button>
+      <button type="button" class="tag character-filter" data-filter="StarHub">⭐ StarHub</button>
+      <button type="button" class="tag character-filter" data-filter="LunaHub">🌙 LunaHub</button>
+    </div>
+  `;
 
-  let visibleCharacters = characters.filter(character => {
-    const hubMatch = activeHubFilter === "all" || character.hub === activeHubFilter;
+  grid.appendChild(controls);
 
-    const text = [
-      character.name,
-      character.slug,
-      character.species,
-      character.status,
-      character.folder,
-      character.hub,
-      character.hubLabel,
-      Array.isArray(character.tags) ? character.tags.join(" ") : character.tags
-    ].filter(Boolean).join(" ").toLowerCase();
+  const search = controls.querySelector("#worldCharacterSearch");
+  if (search) {
+    search.addEventListener("input", () => renderCharacterCards());
+  }
 
-    const searchMatch = !query || text.includes(query);
+  controls.querySelectorAll(".character-filter").forEach(button => {
+    button.addEventListener("click", () => {
+      activeCharacterFilter = button.dataset.filter;
+      controls.querySelectorAll(".character-filter").forEach(btn => btn.classList.remove("active"));
+      button.classList.add("active");
+      renderCharacterCards();
+    });
+  });
+}
 
-    return hubMatch && searchMatch;
+function renderWorldCharacters(failedSources = []) {
+  const grid = document.getElementById("worldCharactersGrid");
+  if (!grid) return;
+
+  grid.innerHTML = "";
+
+  renderCharacterControls(failedSources);
+  renderCharacterCards();
+}
+
+function renderCharacterCards() {
+  const grid = document.getElementById("worldCharactersGrid");
+  if (!grid) return;
+
+  let cardsWrap = document.getElementById("linkedCharacterCards");
+
+  if (!cardsWrap) {
+    cardsWrap = document.createElement("div");
+    cardsWrap.id = "linkedCharacterCards";
+    cardsWrap.className = "character-grid world-linked-character-grid";
+    grid.appendChild(cardsWrap);
+  }
+
+  const searchInput = document.getElementById("worldCharacterSearch");
+  const query = searchInput ? searchInput.value.trim().toLowerCase() : "";
+
+  let characters = [...allLinkedCharacters];
+
+  if (activeCharacterFilter !== "all") {
+    characters = characters.filter(character => character.hub === activeCharacterFilter);
+  }
+
+  if (query) {
+    characters = characters.filter(character => {
+      return [
+        character.name,
+        character.slug,
+        character.species,
+        character.folder,
+        character.status,
+        character.gender,
+        character.hub,
+        character.hubLabel
+      ].filter(Boolean).join(" ").toLowerCase().includes(query);
+    });
+  }
+
+  characters.sort((a, b) => {
+    const hubCompare = String(a.hub || "").localeCompare(String(b.hub || ""));
+    if (hubCompare !== 0) return hubCompare;
+    return String(a.name || "").localeCompare(String(b.name || ""));
   });
 
-  worldCharacters.innerHTML = "";
+  cardsWrap.innerHTML = "";
 
   if (!characters.length) {
-    worldCharacters.innerHTML = `<p class='loading'>No StarHub or LunaHub characters are linked to this world yet.${escapeHtml(warning)}</p>`;
-    worldCharacterCount.textContent = `0 characters linked.${warning}`;
+    cardsWrap.innerHTML = "<p>No linked characters found.</p>";
     return;
   }
 
-  const starCount = characters.filter(character => character.hub === "StarHub").length;
-  const lunaCount = characters.filter(character => character.hub === "LunaHub").length;
-
-  worldCharacterCount.textContent =
-    `${characters.length} linked — ${starCount} StarHub, ${lunaCount} LunaHub.${warning}`;
-
-  if (!visibleCharacters.length) {
-    worldCharacters.innerHTML = "<p class='loading'>No linked characters match this filter.</p>";
-    return;
-  }
-
-  visibleCharacters
-    .sort((a, b) => {
-      const hubCompare = cleanText(a.hub).localeCompare(cleanText(b.hub));
-      if (hubCompare !== 0) return hubCompare;
-      return cleanText(a.name).localeCompare(cleanText(b.name));
-    })
-    .forEach(character => {
-      worldCharacters.appendChild(createCharacterCard(character));
-    });
+  characters.forEach(character => {
+    cardsWrap.appendChild(createCharacterCard(character));
+  });
 }
 
 function createCharacterCard(character) {
   const name = character.name || "Unnamed";
   const slug = character.slug || "";
   const species = character.species || "Unknown Species";
-  const icon = getImage(character.icon);
+
+  const rawIcon =
+    character.icon ||
+    character.avatar ||
+    character.image ||
+    character.mainRef ||
+    character.mainImage ||
+    "";
+
+  const icon = getImage(rawIcon);
 
   const card = document.createElement("a");
-  card.className = "character-card";
+  card.className = "character-card world-character-card";
   card.href = `${character.characterPath || "../characters/index.html"}?slug=${encodeURIComponent(slug)}`;
 
   card.innerHTML = `
     ${character.favorite ? `<span class="favorite-badge">⭐ Favorite</span>` : ""}
-    <span class="hub-chip hub-badge">${escapeHtml(character.hubLabel || character.hub || "Hub")}</span>
-    <img src="${icon}" alt="${escapeHtml(name)}">
+    <span class="favorite-badge hub-badge">${escapeHtml(character.hubLabel || character.hub || "Hub")}</span>
+    <img src="${icon}" alt="${escapeHtml(name)}" onerror="this.src='../images/placeholder.png'">
     <h2>${escapeHtml(name)}</h2>
     <p>${escapeHtml(species)}</p>
   `;
@@ -767,25 +488,146 @@ function createCharacterCard(character) {
   return card;
 }
 
-if (characterSearch) {
-  characterSearch.addEventListener("input", () => {
-    renderWorldCharacters(linkedCharacters);
+function setupTabs() {
+  const buttons = document.querySelectorAll(".tab-button");
+
+  buttons.forEach(button => {
+    if (button.dataset.bound === "true") return;
+    button.dataset.bound = "true";
+
+    button.addEventListener("click", () => {
+      const target = button.dataset.tab;
+
+      document.querySelectorAll(".tab-button").forEach(btn => btn.classList.remove("active"));
+      document.querySelectorAll(".tab-panel").forEach(panel => panel.classList.remove("active"));
+
+      button.classList.add("active");
+
+      const panel = document.getElementById(target);
+      if (panel) panel.classList.add("active");
+    });
   });
 }
 
-document.querySelectorAll(".hub-filter-buttons button").forEach(button => {
-  button.addEventListener("click", () => {
-    activeHubFilter = button.dataset.hub || "all";
+function hideEmptyTabs(world) {
+  const checks = [
+    { tab: "map", empty: !world.mapImage },
+    { tab: "culture", empty: !world.culture },
+    { tab: "systems", empty: !world.magicSystem && !world.technology && !world.economy },
+    { tab: "gallery", empty: !Array.isArray(world.gallery) || world.gallery.length === 0 },
+    { tab: "trivia", empty: !world.trivia }
+  ];
 
-    document.querySelectorAll(".hub-filter-buttons button").forEach(btn => {
-      btn.classList.toggle("active", btn === button);
-    });
+  checks.forEach(item => {
+    const button = document.querySelector(`[data-tab="${item.tab}"]`);
+    const panel = document.getElementById(item.tab);
 
-    renderWorldCharacters(linkedCharacters);
+    if (item.empty) {
+      if (button) button.style.display = "none";
+      if (panel) panel.style.display = "none";
+    } else {
+      if (button) button.style.display = "";
+      if (panel) panel.style.display = "";
+    }
   });
-});
+}
 
-loadWorld();
+function openLightbox(src) {
+  const img = document.getElementById("lightboxImage");
+  const box = document.getElementById("lightbox");
+
+  if (!img || !box) return;
+
+  img.src = src;
+  box.classList.add("active");
+}
+
+function closeLightbox() {
+  const img = document.getElementById("lightboxImage");
+  const box = document.getElementById("lightbox");
+
+  if (!img || !box) return;
+
+  box.classList.remove("active");
+  img.src = "";
+}
+
+function setupLightbox() {
+  const closeButton = document.getElementById("lightboxClose");
+  const lightbox = document.getElementById("lightbox");
+
+  if (closeButton) closeButton.addEventListener("click", closeLightbox);
+
+  if (lightbox) {
+    lightbox.addEventListener("click", event => {
+      if (event.target.id === "lightbox") closeLightbox();
+    });
+  }
+
+  document.addEventListener("keydown", event => {
+    if (event.key === "Escape") closeLightbox();
+  });
+}
+
+async function fillWorld(world) {
+  loadCustomCss(world.customCss);
+
+  document.title = `${world.name || "World"} | Character Hub`;
+
+  setText("worldName", world.name, "Unnamed World");
+  setText("worldShortDescription", world.shortDescription, "No short description yet.");
+  setText("worldStatus", world.status);
+  setText("worldEra", world.era);
+  setText("worldOverview", world.overview, "No overview yet.");
+  setText("worldCulture", world.culture, "No culture notes yet.");
+  setText("worldMagicSystem", world.magicSystem);
+  setText("worldTechnology", world.technology);
+  setText("worldEconomy", world.economy);
+  setText("worldTrivia", world.trivia, "No trivia yet.");
+
+  setImage("worldBanner", world.banner);
+  setImage("worldIcon", world.icon);
+  setImage("worldMap", world.mapImage);
+
+  renderTags("worldGenre", world.genre);
+  renderTags("worldTheme", world.theme);
+  renderImages("worldGalleryGrid", world.gallery, world.name);
+
+  hideEmptyTabs(world);
+  await loadLinkedCharacters(world);
+}
+
+async function loadWorld() {
+  try {
+    if (!SLUG) {
+      setText("worldName", "No world selected");
+      setText("worldShortDescription", "Go back and choose a world.");
+      return;
+    }
+
+    const response = await fetch(`${API_URL}/world/${encodeURIComponent(SLUG)}`);
+    const world = await response.json();
+
+    if (world.error) {
+      setText("worldName", "World not found");
+      setText("worldShortDescription", `No world found for slug: ${SLUG}`);
+      return;
+    }
+
+    await fillWorld(world);
+
+  } catch (err) {
+    console.error("World page error:", err);
+    setText("worldName", "Unable to load world");
+    setText("worldShortDescription", "Check the browser console for the exact error.");
+  }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  setupTabs();
+  setupLightbox();
+  loadWorld();
+});
 </script>
 
 </body>
