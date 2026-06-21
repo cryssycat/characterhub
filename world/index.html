@@ -45,6 +45,7 @@
     <button class="tab-button" data-tab="culture">Culture</button>
     <button class="tab-button" data-tab="systems">Systems</button>
     <button class="tab-button" data-tab="gallery">Gallery</button>
+    <button class="tab-button" data-tab="characters">Characters</button>
     <button class="tab-button" data-tab="trivia">Trivia</button>
   </nav>
 
@@ -78,7 +79,18 @@
     <div id="worldGalleryGrid" class="gallery-grid"><p>No world images yet.</p></div>
   </section>
 
-  <section id="trivia" class="tab-panel">
+  
+  <section id="characters" class="tab-panel">
+    <div class="section-title">
+      <h2>Featured Characters</h2>
+      <p>Characters associated with this world.</p>
+    </div>
+    <div id="featuredCharactersGrid" class="gallery-grid">
+      <p>No featured characters yet.</p>
+    </div>
+  </section>
+
+<section id="trivia" class="tab-panel">
     <div class="content-grid">
       <div class="content-card wide-card"><h2>Trivia</h2><p id="worldTrivia">No trivia yet.</p></div>
     </div>
@@ -295,6 +307,8 @@ document.addEventListener("DOMContentLoaded", () => {
   setupLightbox();
   loadWorld();
 });
+
+  
 </script>
 </body>
 </html>
