@@ -1167,3 +1167,31 @@ body::after{
     position:relative;
     z-index:1001;
 }
+
+
+.lightbox-image-wrap{
+    position:relative;
+    display:inline-block;
+    max-width:90vw;
+    max-height:90vh;
+}
+
+.lightbox-image-wrap #lightboxImage{
+    display:block;
+    max-width:90vw;
+    max-height:90vh;
+    width:auto;
+    height:auto;
+}
+
+.lightbox-watermark{
+    position:absolute;
+    left:50%;
+    top:50%;
+    width:50%;
+    max-width:500px;
+    transform:translate(-50%, -50%);
+    opacity:.12;
+    pointer-events:none;
+    z-index:5;
+}
