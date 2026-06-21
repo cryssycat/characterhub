@@ -245,3 +245,14 @@ body{
     max-width:900px;
     margin:0 auto;
 }
+
+.featured-character-card img,
+.world-character-card img,
+.character-preview-card img{
+    display:block !important;
+    width:90px !important;
+    height:90px !important;
+    object-fit:cover !important;
+    border-radius:50% !important;
+    margin:0 auto 12px !important;
+}
