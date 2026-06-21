@@ -1195,3 +1195,7 @@ body::after{
     pointer-events:none;
     z-index:5;
 }
+
+.content-card p{
+    white-space:pre-line;
+}
