@@ -6,7 +6,7 @@
 
 <title>Character | StarSundae Character Hub</title>
 
-<link rel="stylesheet" href="../style.css?v=150">
+<link rel="stylesheet" href="../style.css?v=151">
 </head>
 
 <body>
@@ -207,15 +207,19 @@ function getImage(path) {
 function getHubImage(character, path) {
     if (!path) return "";
 
+    path = String(path).trim();
+
     if (path.startsWith("http")) return path;
 
-    const hub = HUBS[character.hub];
+    const hubKey = character?.hub || "";
+    const hub = HUBS[hubKey];
 
     if (hub) {
         return hub.site + "/" + path.replace(/^\/+/, "");
     }
 
     return getImage(path);
+}
 
 function loadCustomCss(path) {
     if (!path) return;
@@ -467,20 +471,25 @@ function revealAllNSFW() {
 async function getLinkedCharacter(relSlug) {
     if (!relSlug) return null;
 
-    if (!relSlug.includes(":")) {
-        return allCharacters.find(c => c.slug === relSlug) || null;
+    const cleanSlug = String(relSlug).trim();
+
+    if (!cleanSlug.includes(":")) {
+        return allCharacters.find(c => String(c.slug).trim() === cleanSlug) || null;
     }
 
-    const [hubKey, realSlug] = relSlug.split(":");
+    const [hubKey, realSlug] = cleanSlug.split(":");
     const hub = HUBS[hubKey];
 
-    if (!hub) return null;
+    if (!hub || !realSlug) return null;
 
     try {
         const response = await fetch(`${hub.api}/character/${encodeURIComponent(realSlug)}`);
         const data = await response.json();
 
         if (data.error) return null;
+
+        // If the remote Worker does not return a Hub property yet, infer it from the relationship prefix.
+        data.hub = data.hub || hubKey;
 
         return data;
     } catch (err) {
@@ -492,16 +501,18 @@ async function getLinkedCharacter(relSlug) {
 function getCharacterLink(slug) {
     if (!slug) return "";
 
-    if (slug.includes(":")) {
-        const [hubKey, realSlug] = slug.split(":");
+    const cleanSlug = String(slug).trim();
+
+    if (cleanSlug.includes(":")) {
+        const [hubKey, realSlug] = cleanSlug.split(":");
         const hub = HUBS[hubKey];
 
-        if (hub) {
+        if (hub && realSlug) {
             return `${hub.site}/characters/index.html?slug=${encodeURIComponent(realSlug)}`;
         }
     }
 
-    return `index.html?slug=${encodeURIComponent(slug)}`;
+    return `index.html?slug=${encodeURIComponent(cleanSlug)}`;
 }
 
 async function renderRelationships(relationships) {
@@ -520,16 +531,7 @@ async function renderRelationships(relationships) {
 
         const name = linkedCharacter?.name || rel.name || "Unnamed";
         const species = linkedCharacter?.species || "";
-      let icon = linkedCharacter?.icon || "";
-
-if (rel.slug.includes(":")) {
-    const [hubKey] = rel.slug.split(":");
-    const hub = HUBS[hubKey];
-
-    if (hub && icon && !icon.startsWith("http")) {
-        icon = hub.site + "/" + icon.replace(/^\/+/, "");
-    }
-}
+        const icon = linkedCharacter?.icon || "";
         const type = rel.type || "Connection";
         const notes = rel.notes || "";
         const slug = rel.slug || "";
@@ -538,7 +540,7 @@ if (rel.slug.includes(":")) {
         card.className = "relationship-card relationship-preview-card";
 
         card.innerHTML = `
-           ${icon ? `<img src="${getHubImage(linkedCharacter, icon)}" alt="${name}">` : ""}
+            ${icon ? `<img src="${getHubImage(linkedCharacter, icon)}" alt="${name}">` : ""}
             <h3>${name}</h3>
             ${species ? `<p>${species}</p>` : ""}
             <span class="relationship-type">${type}</span>
