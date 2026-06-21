@@ -1,1 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>World | Character Hub</title>
+<link rel="stylesheet" href="../style.css?v=200">
+</head>
+<body>
 
+<header class="world-header">
+  <a class="back-button" href="../index.html">← Back to Hub</a>
+  <div class="world-banner-wrap">
+    <img id="worldBanner" class="world-banner" src="../images/placeholder.png" alt="World banner">
+  </div>
+  <div class="world-title-card">
+    <img id="worldIcon" class="world-icon" src="../images/placeholder.png" alt="World icon">
+    <div>
+      <h1 id="worldName">Loading...</h1>
+      <p id="worldShortDescription">Loading world information...</p>
+    </div>
+  </div>
+</header>
+
+<main class="world-page">
+  <section class="world-quick-card">
+    <div>
+      <h2>World Info</h2>
+      <p><strong>Status:</strong> <span id="worldStatus">—</span></p>
+      <p><strong>Era:</strong> <span id="worldEra">—</span></p>
+    </div>
+    <div>
+      <h3>Genre</h3>
+      <div id="worldGenre" class="tag-list"></div>
+    </div>
+    <div>
+      <h3>Theme</h3>
+      <div id="worldTheme" class="tag-list"></div>
+    </div>
+  </section>
+
+  <nav class="tabs" id="tabs">
+    <button class="tab-button active" data-tab="overview">Overview</button>
+    <button class="tab-button" data-tab="map">Map</button>
+    <button class="tab-button" data-tab="culture">Culture</button>
+    <button class="tab-button" data-tab="systems">Systems</button>
+    <button class="tab-button" data-tab="gallery">Gallery</button>
+    <button class="tab-button" data-tab="trivia">Trivia</button>
+  </nav>
+
+  <section id="overview" class="tab-panel active">
+    <div class="content-grid">
+      <div class="content-card wide-card"><h2>Overview</h2><p id="worldOverview">No overview yet.</p></div>
+    </div>
+  </section>
+
+  <section id="map" class="tab-panel">
+    <div class="section-title"><h2>Map</h2><p>World map, region map, or important visual guide.</p></div>
+    <div class="world-map-card"><img id="worldMap" src="../images/placeholder.png" alt="World map"></div>
+  </section>
+
+  <section id="culture" class="tab-panel">
+    <div class="content-grid">
+      <div class="content-card wide-card"><h2>Culture</h2><p id="worldCulture">No culture notes yet.</p></div>
+    </div>
+  </section>
+
+  <section id="systems" class="tab-panel">
+    <div class="content-grid">
+      <div class="content-card"><h2>Magic System</h2><p id="worldMagicSystem">—</p></div>
+      <div class="content-card"><h2>Technology</h2><p id="worldTechnology">—</p></div>
+      <div class="content-card wide-card"><h2>Economy</h2><p id="worldEconomy">—</p></div>
+    </div>
+  </section>
+
+  <section id="gallery" class="tab-panel">
+    <div class="section-title"><h2>Gallery</h2><p>Maps, moodboards, locations, world art, and setting references.</p></div>
+    <div id="worldGalleryGrid" class="gallery-grid"><p>No world images yet.</p></div>
+  </section>
+
+  <section id="trivia" class="tab-panel">
+    <div class="content-grid">
+      <div class="content-card wide-card"><h2>Trivia</h2><p id="worldTrivia">No trivia yet.</p></div>
+    </div>
+  </section>
+
+  <div class="profile-nav">
+    <a href="../index.html">Back to Hub</a>
+  </div>
+</main>
+
+<div id="lightbox" class="lightbox">
+  <button id="lightboxClose" class="lightbox-close">×</button>
+  <div class="lightbox-image-wrap">
+    <img id="lightboxImage" src="" alt="Full-size image">
+  </div>
+</div>
+
+<script>
+const API_URL = "https://charahub.crysthigpen.workers.dev";
+const params = new URLSearchParams(window.location.search);
+const SLUG = params.get("slug");
+let customCssLoaded = "";
+
+function getImage(path) {
+  if (!path) return "../images/placeholder.png";
+  path = String(path).trim();
+  if (path.startsWith("http")) return path;
+  if (path.startsWith("/")) return window.location.origin + path;
+  return window.location.origin + "/" + path;
+}
+
+function loadCustomCss(path) {
+  if (!path) return;
+  const href = getImage(String(path).trim());
+  if (customCssLoaded === href) return;
+  customCssLoaded = href;
+  const oldCustom = document.getElementById("worldCustomCss");
+  if (oldCustom) oldCustom.remove();
+  const link = document.createElement("link");
+  link.id = "worldCustomCss";
+  link.rel = "stylesheet";
+  link.href = href + (href.includes("?") ? "&" : "?") + "v=" + Date.now();
+  document.head.appendChild(link);
+}
+
+function setText(id, value, fallback = "—") {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.textContent = value && String(value).trim() ? value : fallback;
+}
+
+function setImage(id, path) {
+  const img = document.getElementById(id);
+  if (!img) return;
+  img.src = path ? getImage(path) : "../images/placeholder.png";
+}
+
+function renderTags(id, items) {
+  const box = document.getElementById(id);
+  if (!box) return;
+  box.innerHTML = "";
+  if (!Array.isArray(items) || items.length === 0) {
+    box.innerHTML = '<span class="tag">—</span>';
+    return;
+  }
+  items.forEach(item => {
+    const span = document.createElement("span");
+    span.className = "tag";
+    span.textContent = item;
+    box.appendChild(span);
+  });
+}
+
+function normalizeImageItem(item) {
+  if (!item) return null;
+  if (typeof item === "string") return { url: item, label: "" };
+  return { url: item.url || item.src || "", label: item.label || item.type || "" };
+}
+
+function renderImages(id, images, name) {
+  const grid = document.getElementById(id);
+  if (!grid) return;
+  grid.innerHTML = "";
+  if (!Array.isArray(images) || images.length === 0) {
+    grid.innerHTML = "<p>No world images yet.</p>";
+    return;
+  }
+  images.forEach(rawItem => {
+    const item = normalizeImageItem(rawItem);
+    if (!item || !item.url) return;
+    const card = document.createElement("div");
+    card.className = "image-card";
+    const img = document.createElement("img");
+    img.src = getImage(item.url);
+    img.alt = `${name || "World"} image`;
+    img.addEventListener("click", () => openLightbox(getImage(item.url)));
+    const wrapper = document.createElement("div");
+    wrapper.className = "watermarked-image";
+    wrapper.appendChild(img);
+    card.appendChild(wrapper);
+    if (item.label) {
+      const caption = document.createElement("p");
+      caption.className = "image-title";
+      caption.textContent = item.label;
+      card.appendChild(caption);
+    }
+    grid.appendChild(card);
+  });
+}
+
+function setupTabs() {
+  document.querySelectorAll(".tab-button").forEach(button => {
+    button.addEventListener("click", () => {
+      const target = button.dataset.tab;
+      document.querySelectorAll(".tab-button").forEach(btn => btn.classList.remove("active"));
+      document.querySelectorAll(".tab-panel").forEach(panel => panel.classList.remove("active"));
+      button.classList.add("active");
+      const panel = document.getElementById(target);
+      if (panel) panel.classList.add("active");
+    });
+  });
+}
+
+function hideEmptyTabs(world) {
+  [
+    { tab: "map", empty: !world.mapImage },
+    { tab: "culture", empty: !world.culture },
+    { tab: "systems", empty: !world.magicSystem && !world.technology && !world.economy },
+    { tab: "gallery", empty: !Array.isArray(world.gallery) || world.gallery.length === 0 },
+    { tab: "trivia", empty: !world.trivia }
+  ].forEach(item => {
+    if (!item.empty) return;
+    const button = document.querySelector(`[data-tab="${item.tab}"]`);
+    const panel = document.getElementById(item.tab);
+    if (button) button.style.display = "none";
+    if (panel) panel.style.display = "none";
+  });
+}
+
+function openLightbox(src) {
+  const img = document.getElementById("lightboxImage");
+  const box = document.getElementById("lightbox");
+  if (!img || !box) return;
+  img.src = src;
+  box.classList.add("active");
+}
+
+function closeLightbox() {
+  const img = document.getElementById("lightboxImage");
+  const box = document.getElementById("lightbox");
+  if (!img || !box) return;
+  box.classList.remove("active");
+  img.src = "";
+}
+
+function setupLightbox() {
+  const closeButton = document.getElementById("lightboxClose");
+  const lightbox = document.getElementById("lightbox");
+  if (closeButton) closeButton.addEventListener("click", closeLightbox);
+  if (lightbox) lightbox.addEventListener("click", event => {
+    if (event.target.id === "lightbox") closeLightbox();
+  });
+  document.addEventListener("keydown", event => {
+    if (event.key === "Escape") closeLightbox();
+  });
+}
+
+function fillWorld(world) {
+  loadCustomCss(world.customCss);
+  document.title = `${world.name || "World"} | Character Hub`;
+  setText("worldName", world.name, "Unnamed World");
+  setText("worldShortDescription", world.shortDescription, "No short description yet.");
+  setText("worldStatus", world.status);
+  setText("worldEra", world.era);
+  setText("worldOverview", world.overview, "No overview yet.");
+  setText("worldCulture", world.culture, "No culture notes yet.");
+  setText("worldMagicSystem", world.magicSystem);
+  setText("worldTechnology", world.technology);
+  setText("worldEconomy", world.economy);
+  setText("worldTrivia", world.trivia, "No trivia yet.");
+  setImage("worldBanner", world.banner);
+  setImage("worldIcon", world.icon);
+  setImage("worldMap", world.mapImage);
+  renderTags("worldGenre", world.genre);
+  renderTags("worldTheme", world.theme);
+  renderImages("worldGalleryGrid", world.gallery, world.name);
+  hideEmptyTabs(world);
+}
+
+async function loadWorld() {
+  try {
+    if (!SLUG) {
+      setText("worldName", "No world selected");
+      setText("worldShortDescription", "Go back and choose a world.");
+      return;
+    }
+    const response = await fetch(`${API_URL}/world/${encodeURIComponent(SLUG)}`);
+    const world = await response.json();
+    if (world.error) {
+      setText("worldName", "World not found");
+      setText("worldShortDescription", `No world found for slug: ${SLUG}`);
+      return;
+    }
+    fillWorld(world);
+  } catch (err) {
+    console.error("World page error:", err);
+    setText("worldName", "Unable to load world");
+    setText("worldShortDescription", "Check the browser console for the exact error.");
+  }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  setupTabs();
+  setupLightbox();
+  loadWorld();
+});
+</script>
+</body>
+</html>
