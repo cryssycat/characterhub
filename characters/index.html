@@ -440,6 +440,22 @@ function revealAllNSFW() {
     });
 }
 
+ function getCharacterLink(slug) {
+    if (!slug) return "";
+
+    if (slug.startsWith("star:")) {
+        return "characterhub.pages.dev/characters/index.html?slug=" +
+            encodeURIComponent(slug.replace("star:", ""));
+    }
+
+    if (slug.startsWith("luna:")) {
+        return "https://lunabrew.pages.dev/characters/index.html?slug=" +
+            encodeURIComponent(slug.replace("luna:", ""));
+    }
+
+    return "index.html?slug=" + encodeURIComponent(slug);
+}
+    
 function renderRelationships(relationships) {
     const grid = document.getElementById("relationshipsGrid");
     if (!grid) return;
@@ -470,7 +486,7 @@ function renderRelationships(relationships) {
         ${species ? `<p>${species}</p>` : ""}
         <span class="relationship-type">${type}</span>
         <p>${notes || "No notes yet."}</p>
-        ${slug ? `<a href="index.html?slug=${encodeURIComponent(slug)}">View Profile →</a>` : ""}
+     ${slug ? `<a href="${getCharacterLink(slug)}">View Profile →</a>` : ""}
     `;
 
     grid.appendChild(card);
