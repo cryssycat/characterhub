@@ -444,7 +444,7 @@ function revealAllNSFW() {
     if (!slug) return "";
 
     if (slug.startsWith("star:")) {
-        return "characterhub.pages.dev/characters/index.html?slug=" +
+        return "https://characterhub.pages.dev/characters/index.html?slug=" +
             encodeURIComponent(slug.replace("star:", ""));
     }
 
