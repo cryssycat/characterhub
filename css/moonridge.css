@@ -1,0 +1,89 @@
+/* ==========================================
+   WORLD CUSTOM CSS — MOONRIDGE
+========================================== */
+
+/* GENERAL PAGE */
+
+body{
+    background:
+        linear-gradient(rgba(255,244,232,.82), rgba(236,224,218,.9)),
+        url("/images/bgs/moonridge-bg.png") repeat,
+        #f8eadc !important;
+
+    background-size:auto !important;
+    background-attachment:fixed !important;
+    color:#4b3528;
+}
+
+
+/* HEADER */
+
+.world-header{
+    text-align:center;
+}
+
+.world-banner{
+    border-radius:28px;
+    overflow:hidden;
+    border:2px solid rgba(139,105,78,.35);
+    box-shadow:
+        0 12px 35px rgba(91,68,52,.18),
+        0 0 35px rgba(255,220,170,.35);
+}
+
+.world-title-card{
+    background:rgba(255,248,236,.78);
+    border:1px solid rgba(139,105,78,.28);
+    border-radius:28px;
+    box-shadow:
+        0 10px 28px rgba(91,68,52,.12),
+        inset 0 0 24px rgba(255,255,255,.45);
+    backdrop-filter:blur(8px);
+}
+
+
+/* CARDS / SECTIONS */
+
+.world-card,
+.content-card,
+.character-card{
+    background:rgba(255,250,241,.78) !important;
+    border:1px solid rgba(145,112,85,.28) !important;
+    border-radius:26px !important;
+    box-shadow:0 10px 28px rgba(91,68,52,.12) !important;
+}
+
+
+/* BUTTONS */
+
+a,
+button,
+.view-world-btn{
+    border-radius:999px !important;
+}
+
+.view-world-btn,
+button{
+    background:#d9b88f !important;
+    color:#4b3528 !important;
+    border:1px solid rgba(110,80,55,.35) !important;
+    box-shadow:0 6px 16px rgba(91,68,52,.16);
+}
+
+.view-world-btn:hover,
+button:hover{
+    background:#e8cda8 !important;
+}
+
+
+/* ACCENTS */
+
+hr{
+    border:none;
+    border-top:1px solid rgba(139,105,78,.25);
+}
+
+::selection{
+    background:#f3cfdf;
+    color:#4b3528;
+}
