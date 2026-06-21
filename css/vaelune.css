@@ -234,3 +234,14 @@ body{
     }
 
 }
+#systems .content-grid{
+    display:flex !important;
+    flex-direction:column !important;
+    gap:22px !important;
+}
+
+#systems .content-card{
+    width:100% !important;
+    max-width:900px;
+    margin:0 auto;
+}
