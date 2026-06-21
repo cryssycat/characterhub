@@ -6,7 +6,15 @@
 
 <title>World | StarHub</title>
 
-<link rel="stylesheet" href="../style.css?v=400">
+<link rel="stylesheet" href="../style.css?v=401">
+
+<style>
+.world-role{
+  margin-top:8px;
+  font-weight:700;
+  color:#d8a7ff;
+}
+</style>
 </head>
 
 <body>
@@ -427,6 +435,20 @@ function characterBelongsToWorld(character, world) {
   return characterKeys.some(key => worldKeys.includes(key));
 }
 
+function getWorldNote(character, world) {
+  if (!Array.isArray(character.worlds)) return "";
+
+  const currentSlug = normalize(world.slug);
+  const currentName = normalize(world.name);
+
+  const match = character.worlds.find(worldEntry => {
+    return normalize(worldEntry.slug) === currentSlug ||
+           normalize(worldEntry.name) === currentName;
+  });
+
+  return match?.note || "";
+}
+
 function createCharacterCard(character) {
   const name = character.name || "Unnamed";
   const slug = character.slug || "";
@@ -434,6 +456,7 @@ function createCharacterCard(character) {
   const icon = getCharacterImage(character);
   const hubName = getHubName(character);
   const hub = getHub(character);
+  const worldNote = getWorldNote(character, currentWorld);
 
   const card = document.createElement("a");
   card.className = "character-card";
@@ -445,6 +468,7 @@ function createCharacterCard(character) {
     <img src="${escapeHtml(icon)}" alt="${escapeHtml(name)}" onerror="this.src='../images/placeholder.png'">
     <h2>${escapeHtml(name)}</h2>
     <p>${escapeHtml(species)}</p>
+    ${worldNote ? `<p class="world-role">${escapeHtml(worldNote)}</p>` : ""}
   `;
 
   return card;
