@@ -99,26 +99,30 @@ function renderWorldCards(worlds) {
     const card = document.createElement("article");
     card.className = "image-card world-card";
 
-    card.innerHTML = `
-      <a class="world-card-link" href="../world/index.html?slug=${encodeURIComponent(slug)}">
-        <div class="watermarked-image world-card-banner">
-          <img src="${getImage(banner || icon)}" alt="${name}">
-        </div>
+card.innerHTML = `
+<div class="watermarked-image world-card-banner">
+  <img src="${getImage(banner || icon)}" alt="${name}">
+</div>
 
-        <div class="world-card-body">
-          <h2>${name}</h2>
-          <p>${description}</p>
+<div class="world-card-body">
+  <h2>${name}</h2>
 
-          <div class="tag-list">
-            ${status ? `<span class="tag">${status}</span>` : ""}
-            ${era ? `<span class="tag">${era}</span>` : ""}
-            ${genre.map(item => `<span class="tag">${item}</span>`).join("")}
-            ${theme.map(item => `<span class="tag">${item}</span>`).join("")}
-          </div>
-        </div>
-      </a>
-    `;
+  <p>${description}</p>
 
+  <div class="tag-list">
+    ${status ? `<span class="tag">${status}</span>` : ""}
+    ${era ? `<span class="tag">${era}</span>` : ""}
+    ${genre.map(item => `<span class="tag">${item}</span>`).join("")}
+    ${theme.map(item => `<span class="tag">${item}</span>`).join("")}
+  </div>
+</div>
+`;
+card.style.cursor = "pointer";
+
+card.onclick = () => {
+    window.location.href =
+        `../world/index.html?slug=${encodeURIComponent(slug)}`;
+};
     grid.appendChild(card);
   });
 }
