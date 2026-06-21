@@ -135,7 +135,7 @@ function sortFolderNames(folderNames) {
         "Mains",
         "Mascots",
         "Comfort Characters",
-        "Primary",,
+        "Primary",
         "Secondary",
         "Tertiary",
         "Unsorted"
@@ -260,47 +260,51 @@ function renderCharacters(characters) {
 
 const asArray = value => Array.isArray(value) ? value : [];
 
-const filtered = allCharacters.filter(character => {
-    const searchableText = [
-        character.name,
-        character.species,
-        character.slug,
-        character.folder,
-        character.status,
-        character.gender,
-        character.pronouns,
-        character.age,
-        character.occupation,
-        character.mbti,
-        character.introduction,
-        character.summary,
-        character.personality,
+searchInput.addEventListener("input", () => {
+    const value = searchInput.value.toLowerCase().trim();
 
-        character.favorites?.food,
-        character.favorites?.drink,
-        character.favorites?.color,
-        character.favorites?.season,
-        character.favorites?.flower,
-        character.favorites?.scent,
-        character.favorites?.music,
-        character.favorites?.animal,
+    const asArray = value => Array.isArray(value) ? value : [];
 
-        ...asArray(character.tags),
-        ...asArray(character.likes),
-        ...asArray(character.dislikes),
-        ...asArray(character.hobbies),
-        ...asArray(character.fears)
-    ]
-    .filter(Boolean)
-    .join(" ")
-    .toLowerCase();
+    const filtered = allCharacters.filter(character => {
+        const searchableText = [
+            character.name,
+            character.species,
+            character.slug,
+            character.folder,
+            character.status,
+            character.gender,
+            character.pronouns,
+            character.age,
+            character.occupation,
+            character.mbti,
+            character.introduction,
+            character.summary,
+            character.personality,
 
-    return searchableText.includes(value);
-});
+            character.favorites?.food,
+            character.favorites?.drink,
+            character.favorites?.color,
+            character.favorites?.season,
+            character.favorites?.flower,
+            character.favorites?.scent,
+            character.favorites?.music,
+            character.favorites?.animal,
+
+            ...asArray(character.tags),
+            ...asArray(character.likes),
+            ...asArray(character.dislikes),
+            ...asArray(character.hobbies),
+            ...asArray(character.fears)
+        ]
+        .filter(Boolean)
+        .join(" ")
+        .toLowerCase();
+
+        return searchableText.includes(value);
+    });
 
     renderCharacters(filtered);
 });
-
 loadCharacters();
 </script>
 
