@@ -147,7 +147,9 @@ async function loadWorld() {
         let worldData;
 
         try {
-            worldData = await fetchJson(`${WORLDS_ENDPOINT}/${encodeURIComponent(currentSlug)}`);
+           worldData = await fetchJson(
+  `https://charahub.crysthigpen.workers.dev/world/${encodeURIComponent(currentSlug)}`
+);
         } catch (singleWorldError) {
             const allWorlds = await fetchJson(WORLDS_ENDPOINT);
             worldData = allWorlds.find(world => normalize(world.slug) === normalize(currentSlug));
