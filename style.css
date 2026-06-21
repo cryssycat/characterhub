@@ -1022,7 +1022,7 @@ body::after{
     background-position:center;
     background-size:65%;
 
-    opacity:.08;
+    opacity:1;
 
     pointer-events:none;
     z-index:2;
