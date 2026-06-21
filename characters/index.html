@@ -524,7 +524,8 @@ function renderImages(id, images, name) {
         if (item.label) {
             const caption = document.createElement("p");
             caption.className = "image-title";
-            caption.textContent = item.label;
+         caption.textContent =
+    item.label.replace(/\[\$\d+(?:\.\d+)?\]/g, "").trim();
             card.appendChild(caption);
         }
 
