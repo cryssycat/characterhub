@@ -256,6 +256,15 @@ function getImage(path) {
     return window.location.origin + "/" + path;
 }
 
+function normalizeHubKey(value) {
+    const hub = String(value || "").trim().toLowerCase();
+
+    if (hub === "starhub" || hub === "star") return "star";
+    if (hub === "lunahub" || hub === "luna") return "luna";
+
+    return hub;
+}
+
 function getHubImage(character, path) {
     if (!path) return "";
 
@@ -263,7 +272,7 @@ function getHubImage(character, path) {
 
     if (path.startsWith("http")) return path;
 
-    const hubKey = character?.hub || "";
+    const hubKey = normalizeHubKey(character?.hub || "");
     const hub = HUBS[hubKey];
 
     if (hub) {
@@ -619,7 +628,11 @@ async function renderRelationships(relationships) {
 
         const name = linkedCharacter?.name || rel.name || "Unnamed";
         const species = linkedCharacter?.species || "";
-        const icon = linkedCharacter?.icon || "";
+       const icon =
+    linkedCharacter?.icon ||
+    linkedCharacter?.mainRef ||
+    linkedCharacter?.mainImage ||
+    "";
         const type = rel.type || "Connection";
         const notes = rel.notes || "";
         const slug = rel.slug || "";
