@@ -449,21 +449,7 @@ function revealAllNSFW() {
     });
 }
 
- function getCharacterLink(slug) {
-    if (!slug) return "";
-
-    if (slug.startsWith("star:")) {
-        return "https://characterhub.pages.dev/characters/index.html?slug=" +
-            encodeURIComponent(slug.replace("star:", ""));
-    }
-
-    if (slug.startsWith("luna:")) {
-        return "https://lunabrew.pages.dev/characters/index.html?slug=" +
-            encodeURIComponent(slug.replace("luna:", ""));
-    }
-
-    return "index.html?slug=" + encodeURIComponent(slug);
-}
+ 
     
 async function getLinkedCharacter(relSlug) {
     if (!relSlug) return null;
@@ -521,7 +507,16 @@ async function renderRelationships(relationships) {
 
         const name = linkedCharacter?.name || rel.name || "Unnamed";
         const species = linkedCharacter?.species || "";
-        const icon = linkedCharacter?.icon || "";
+      let icon = linkedCharacter?.icon || "";
+
+if (rel.slug.includes(":")) {
+    const [hubKey] = rel.slug.split(":");
+    const hub = HUBS[hubKey];
+
+    if (hub && icon && !icon.startsWith("http")) {
+        icon = hub.site + "/" + icon.replace(/^\/+/, "");
+    }
+}
         const type = rel.type || "Connection";
         const notes = rel.notes || "";
         const slug = rel.slug || "";
