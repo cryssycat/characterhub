@@ -450,7 +450,7 @@ function showWorldError(message) {
 function renderWorld(world) {
   const name = world.name || "Unnamed World";
   const banner = getImage(world.banner, "../images/placeholder-banner.png");
-  const icon = getImage(character.icon);
+  const icon = getImage(world.icon, "../images/placeholder.png");
   const genre = Array.isArray(world.genre) ? world.genre : [];
   const theme = Array.isArray(world.theme) ? world.theme : [];
 
