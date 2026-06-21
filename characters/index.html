@@ -204,6 +204,19 @@ function getImage(path) {
     return window.location.origin + "/" + path;
 }
 
+function getHubImage(character, path) {
+    if (!path) return "";
+
+    if (path.startsWith("http")) return path;
+
+    const hub = HUBS[character.hub];
+
+    if (hub) {
+        return hub.site + "/" + path.replace(/^\/+/, "");
+    }
+
+    return getImage(path);
+
 function loadCustomCss(path) {
     if (!path) return;
 
@@ -525,7 +538,7 @@ if (rel.slug.includes(":")) {
         card.className = "relationship-card relationship-preview-card";
 
         card.innerHTML = `
-            ${icon ? `<img src="${getImage(icon)}" alt="${name}">` : ""}
+           ${icon ? `<img src="${getHubImage(linkedCharacter, icon)}" alt="${name}">` : ""}
             <h3>${name}</h3>
             ${species ? `<p>${species}</p>` : ""}
             <span class="relationship-type">${type}</span>
