@@ -382,7 +382,9 @@ async function loadLinkedCharacters(world) {
         ...character,
         hub: source.hub,
         hubLabel: source.label,
-        characterPath: source.characterPath
+        characterPath: source.characterPath,
+        apiBase: source.apiBase,
+        imageBase: source.imageBase
       }));
     })
   );
