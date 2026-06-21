@@ -1153,7 +1153,7 @@ body::after{
     position:absolute;
     inset:0;
 
-    background-image:url("/images/starwm");
+    background-image:url("/images/starwm.png");
     background-repeat:no-repeat;
     background-position:center;
     background-size:50%;
