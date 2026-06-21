@@ -1153,15 +1153,13 @@ body::after{
     position:absolute;
     inset:0;
 
-    background-image:url("/images/watermark.png");
+    background-image:url("/images/watermark.png?v=2");
     background-repeat:no-repeat;
     background-position:center;
     background-size:50%;
 
-    opacity:1;
-
+    opacity:.12;
     pointer-events:none;
-
     z-index:1002;
 }
 
