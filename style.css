@@ -8,20 +8,26 @@
 
 body {
     font-family: 'Quicksand', sans-serif;
-    color: white;
+    color: #d9d0e7;
     min-height: 100vh;
     background:
-        radial-gradient(circle at top, rgba(255,255,255,.08), transparent 60%),
-        linear-gradient(180deg,#1c1635 0%,#2f2456 50%,#392a67 100%);
+        radial-gradient(circle at top, rgba(214,160,204,.08), transparent 55%),
+        linear-gradient(180deg,#130d18 0%,#1d1224 45%,#26172e 100%);
 }
 
 body::before {
     content: "";
     position: fixed;
     inset: 0;
-    background-image: radial-gradient(white 1px, transparent 1px);
-    background-size: 70px 70px;
-    opacity: .25;
+    background-image:
+        repeating-linear-gradient(
+            45deg,
+            rgba(255,255,255,.025) 0px,
+            rgba(255,255,255,.025) 2px,
+            transparent 2px,
+            transparent 35px
+        );
+    opacity: .4;
     pointer-events: none;
     z-index: -1;
 }
@@ -37,20 +43,20 @@ body::before {
 .site-header h1,
 .character-header h1 {
     font-size: 3rem;
-    color: #ffe0f6;
+    color: #f0d7eb;
 }
 
 .tagline,
 .character-header p {
-    color: #ddd9ff;
+    color: #b9abc8;
     margin-top: 10px;
 }
 
 .hub-description {
     max-width: 700px;
     margin: 25px auto 0;
-    background: rgba(255,255,255,.08);
-    border: 1px solid rgba(255,255,255,.10);
+    background: rgba(36,24,44,.85);
+    border: 1px solid rgba(185,155,215,.12);
     border-radius: 30px;
     padding: 25px;
     line-height: 1.7;
@@ -67,10 +73,10 @@ body::before {
     width: 100%;
     max-width: 650px;
     padding: 18px 28px;
-    border: 1px solid rgba(255,255,255,.12);
+    border: 1px solid rgba(185,155,215,.15);
     border-radius: 999px;
-    background: rgba(255,255,255,.08);
-    color: white;
+    background: rgba(36,24,44,.85);
+    color: #d9d0e7;
     font-size: 1rem;
     backdrop-filter: blur(15px);
     box-shadow: 0 10px 25px rgba(0,0,0,.2);
@@ -82,7 +88,7 @@ body::before {
 
 #searchInput:focus {
     outline: none;
-    border-color: rgba(255,214,244,.55);
+    border-color: rgba(214,160,204,.7);
 }
 
 .character-grid {
@@ -101,9 +107,9 @@ body::before {
     width: 100%;
     max-width: 360px;
     text-decoration: none;
-    color: white;
-    background: rgba(255,255,255,.08);
-    border: 1px solid rgba(255,255,255,.10);
+    color: #d9d0e7;
+    background: rgba(36,24,44,.85);
+    border: 1px solid rgba(185,155,215,.12);
     border-radius: 35px;
     padding: 40px;
     text-align: center;
@@ -114,7 +120,7 @@ body::before {
 
 .character-card:hover {
     transform: translateY(-8px);
-    background: rgba(255,255,255,.12);
+    background: rgba(58,38,70,.88);
 }
 
 .character-card img {
@@ -124,19 +130,19 @@ body::before {
     display: block;
     margin: 0 auto 25px;
     border-radius: 50%;
-    border: 5px solid #ffd6f4;
-    box-shadow: 0 0 25px rgba(255,214,244,.3);
+    border: 5px solid #d6a0cc;
+    box-shadow: 0 0 20px rgba(214,160,204,.25), 0 0 40px rgba(0,0,0,.4);
 }
 
 .character-card h2 {
-    color: #ffd6f4;
+    color: #d6a0cc;
     font-size: 2rem;
     margin-bottom: 10px;
 }
 
 .character-card p,
 .loading {
-    color: #ddd9ff;
+    color: #b9abc8;
     text-align: center;
 }
 
@@ -145,17 +151,17 @@ body::before {
     display: inline-block;
     padding: 12px 24px;
     border-radius: 999px;
-    background: rgba(255,255,255,.08);
-    border: 1px solid rgba(255,255,255,.12);
+    background: rgba(36,24,44,.85);
+    border: 1px solid rgba(185,155,215,.15);
     text-decoration: none;
-    color: white;
+    color: #d9d0e7;
     margin-bottom: 20px;
     transition: .3s;
 }
 
 .back-button:hover,
 .profile-nav a:hover {
-    background: rgba(255,255,255,.15);
+    background: rgba(75,46,86,.9);
     transform: translateY(-2px);
 }
 
@@ -171,8 +177,8 @@ body::before {
     grid-template-columns: 420px 1fr;
     gap: 40px;
     align-items: start;
-    background: rgba(255,255,255,.08);
-    border: 1px solid rgba(255,255,255,.10);
+    background: rgba(36,24,44,.85);
+    border: 1px solid rgba(185,155,215,.12);
     border-radius: 35px;
     padding: 40px;
     backdrop-filter: blur(16px);
@@ -184,7 +190,7 @@ body::before {
     object-fit: cover;
     border-radius: 25px;
     display: block;
-    background: rgba(255,255,255,.08);
+    background: rgba(36,24,44,.85);
 }
 
 .quick-facts {
@@ -195,7 +201,7 @@ body::before {
 
 .quick-facts h2,
 .quick-facts h3 {
-    color: #ffd6f4;
+    color: #d6a0cc;
 }
 
 .tabs {
@@ -209,9 +215,9 @@ body::before {
 .tab-button {
     border: none;
     cursor: pointer;
-    color: white;
-    background: rgba(255,255,255,.08);
-    border: 1px solid rgba(255,255,255,.12);
+    color: #d9d0e7;
+    background: rgba(36,24,44,.85);
+    border: 1px solid rgba(185,155,215,.15);
     border-radius: 999px;
     padding: 12px 20px;
     font-family: inherit;
@@ -221,8 +227,8 @@ body::before {
 
 .tab-button:hover,
 .tab-button.active {
-    background: rgba(255,214,244,.22);
-    color: #ffe0f6;
+    background: rgba(118,64,106,.55);
+    color: #f0d7eb;
 }
 
 .tab-panel {
@@ -241,8 +247,8 @@ body::before {
 
 .content-card,
 .relationship-card {
-    background: rgba(255,255,255,.08);
-    border: 1px solid rgba(255,255,255,.10);
+    background: rgba(36,24,44,.85);
+    border: 1px solid rgba(185,155,215,.12);
     border-radius: 30px;
     padding: 28px;
     backdrop-filter: blur(14px);
@@ -250,13 +256,13 @@ body::before {
 
 .content-card h2,
 .section-title h2 {
-    color: #ffd6f4;
+    color: #d6a0cc;
     margin-bottom: 12px;
 }
 
 .content-card p,
 .relationship-card p {
-    color: #f3efff;
+    color: #c9bdd6;
     line-height: 1.6;
 }
 
@@ -270,9 +276,9 @@ body::before {
     display: inline-block;
     padding: 8px 16px;
     border-radius: 999px;
-    background: rgba(255,214,244,.18);
-    color: #ffe0f6;
-    border: 1px solid rgba(255,255,255,.12);
+    background: rgba(118,64,106,.35);
+    color: #f0d7eb;
+    border: 1px solid rgba(185,155,215,.15);
 }
 
 .section-title {
@@ -293,13 +299,13 @@ body::before {
     object-fit: cover;
     border-radius: 20px;
     cursor: pointer;
-    background: rgba(255,255,255,.08);
+    background: rgba(36,24,44,.85);
 }
 
 .image-card p {
     text-align: center;
     margin-top: 10px;
-    color: #ddd9ff;
+    color: #b9abc8;
 }
 
 .lightbox {
@@ -328,8 +334,8 @@ body::before {
     top: 20px;
     right: 30px;
     border: none;
-    background: rgba(255,255,255,.12);
-    color: white;
+    background: rgba(58,38,70,.88);
+    color: #d9d0e7;
     font-size: 2rem;
     width: 50px;
     height: 50px;
@@ -360,7 +366,7 @@ body::before {
 
 .character-count {
     margin-top: 18px;
-    color: #ffe0f6;
+    color: #f0d7eb;
     font-weight: 700;
 }
 
@@ -377,19 +383,19 @@ body::before {
 }
 
 .relationship-type {
-    color: #ffe0f6;
+    color: #f0d7eb;
     font-weight: 700;
 }
 
 .relationship-card h3 {
-    color: #ffd6f4;
+    color: #d6a0cc;
     margin-bottom: 8px;
 }
 
 .relationship-card a {
     display: inline-block;
     margin-top: 12px;
-    color: #ffe0f6;
+    color: #f0d7eb;
     font-weight: 700;
 }
 
@@ -418,20 +424,20 @@ body::before {
 
     padding: 18px 24px;
 
-    background: rgba(255,255,255,.08);
-    border: 1px solid rgba(255,255,255,.10);
+    background: rgba(36,24,44,.85);
+    border: 1px solid rgba(185,155,215,.12);
     border-radius: 24px;
 
     backdrop-filter: blur(14px);
 }
 
 .folder-heading h2 {
-    color: #ffd6f4;
+    color: #d6a0cc;
     font-size: 1.8rem;
 }
 
 .folder-heading span {
-    color: #ddd9ff;
+    color: #b9abc8;
     font-weight: 700;
 }
 
@@ -456,7 +462,7 @@ body::before {
 }
 
 .folder-arrow{
-    color:#ffd6f4;
+    color:#d6a0cc;
     font-size:1.2rem;
     transition:.3s;
     user-select:none;
@@ -473,13 +479,13 @@ body::before {
     cursor: pointer;
     font-family: inherit;
     font-weight: 700;
-    color: white;
-    background: rgba(255,214,244,.20);
+    color: #d9d0e7;
+    background: rgba(118,64,106,.45);
     border: 1px solid rgba(255,255,255,.14);
 }
 
 .reveal-button:hover {
-    background: rgba(255,214,244,.30);
+    background: rgba(118,64,106,.6);
 }
 
 .nsfw-card {
@@ -511,7 +517,7 @@ body::before {
     gap: 8px;
 
     background: rgba(10, 8, 25, .62);
-    color: white;
+    color: #d9d0e7;
     text-align: center;
 
     cursor: pointer;
@@ -523,7 +529,7 @@ body::before {
 }
 
 .nsfw-overlay small {
-    color: #ffd6f4;
+    color: #d6a0cc;
 }
 
 .nsfw-card.revealed .nsfw-overlay {
@@ -548,14 +554,14 @@ body::before {
 }
 
 .image-credit-pill:hover {
-    background: rgba(255,214,244,.26);
+    background: rgba(118,64,106,.5);
     transform: translateY(-1px);
 }
 
 .image-title {
     text-align: center;
     margin-top: 10px;
-    color: #ffe0f6;
+    color: #f0d7eb;
     font-weight: 700;
 }
 
@@ -838,7 +844,7 @@ body.layout-minimal .content-grid {
     border-radius:50%;
     margin:0 auto 14px;
     display:block;
-    border:4px solid rgba(255,214,244,.7);
+    border:4px solid rgba(214,160,204,.7);
 }
 
 .relationship-preview-card .relationship-type{
@@ -911,4 +917,68 @@ body.layout-minimal .content-grid {
 
 #adminMessage{
     margin-top:10px;
+}
+
+/* ==========================================
+   GOTHIC THEME POLISH
+========================================== */
+
+.character-card,
+.profile-card,
+.content-card,
+.relationship-card,
+.folder-heading,
+.admin-generator,
+.hub-description {
+    box-shadow: 0 0 25px rgba(0,0,0,.45);
+}
+
+.site-header h1,
+.character-header h1,
+.character-card h2,
+.quick-facts h2,
+.quick-facts h3,
+.content-card h2,
+.section-title h2,
+.folder-heading h2,
+.relationship-card h3 {
+    color: #e6bfdc;
+}
+
+.tab-button {
+    background: rgba(52,34,63,.8);
+    color: #d9d0e7;
+    border: 1px solid rgba(185,155,215,.15);
+}
+
+.tab-button:hover,
+.tab-button.active {
+    background: rgba(118,64,106,.55);
+    color: #f6e6f3;
+}
+
+.back-button,
+.profile-nav a {
+    background: rgba(42,26,51,.85);
+    border: 1px solid rgba(185,155,215,.15);
+    color: #d9d0e7;
+}
+
+.back-button:hover,
+.profile-nav a:hover {
+    background: #76406a;
+    color: #f6e6f3;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #18101f;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #76406a;
+    border-radius: 999px;
 }
