@@ -3,126 +3,167 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Worlds | Character Hub</title>
-
-<link rel="stylesheet" href="../style.css?v=250">
-
-<style>
-.worlds-browser-page{
-  max-width:1200px;
-  margin:0 auto;
-  padding:30px 20px 60px;
-}
-
-.worlds-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-  gap:22px;
-}
-
-.world-browser-card{
-  display:block !important;
-  text-decoration:none !important;
-  color:inherit !important;
-  cursor:pointer !important;
-  position:relative !important;
-  z-index:5 !important;
-  overflow:hidden;
-}
-
-.world-browser-card,
-.world-browser-card *{
-  pointer-events:auto !important;
-}
-
-.world-browser-card:hover{
-  transform:translateY(-2px);
-}
-
-.world-browser-banner{
-  height:230px;
-  overflow:hidden;
-  border-radius:24px;
-}
-
-.world-browser-banner img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  display:block;
-}
-
-.world-browser-body{
-  padding:18px;
-  text-align:left;
-}
-
-.world-browser-body h2{
-  margin:0 0 8px;
-}
-
-.world-browser-body p{
-  margin:0 0 12px;
-}
-
-.world-browser-button{
-  display:inline-block;
-  margin-top:10px;
-  padding:10px 18px;
-  border-radius:999px;
-  background:rgba(255,255,255,.75);
-  border:1px solid rgba(255,255,255,.95);
-}
-
-.world-direct-link{
-  display:block;
-  margin-top:8px;
-  font-size:.85rem;
-  opacity:.75;
-  word-break:break-all;
-}
-</style>
+<title>World | Character Hub</title>
+<link rel="stylesheet" href="../style.css?v=210">
 </head>
 
 <body>
 
-<header class="worlds-header character-header">
+<header class="world-header">
   <a class="back-button" href="../index.html">← Back to Hub</a>
-  <h1>Worlds</h1>
-  <p>Browse worlds, settings, AUs, and story spaces.</p>
+
+  <div class="world-banner-wrap">
+    <img id="worldBanner" class="world-banner" src="../images/placeholder.png" alt="World banner">
+  </div>
+
+  <div class="world-title-card">
+    <img id="worldIcon" class="world-icon" src="../images/placeholder.png" alt="World icon">
+    <div>
+      <h1 id="worldName">Loading...</h1>
+      <p id="worldShortDescription">Loading world information...</p>
+    </div>
+  </div>
 </header>
 
-<main class="worlds-browser-page">
+<main class="world-page">
 
-  <section class="content-card wide-card">
-    <h2>World Browser</h2>
-    <p>Search by world name, genre, theme, era, status, or description.</p>
+  <section class="world-quick-card">
+    <div>
+      <h2>World Info</h2>
+      <p><strong>Status:</strong> <span id="worldStatus">—</span></p>
+      <p><strong>Era:</strong> <span id="worldEra">—</span></p>
+    </div>
 
-    <input
-      id="worldSearch"
-      class="search-input"
-      type="search"
-      placeholder="Search worlds..."
-      autocomplete="off"
-    >
-  </section>
+    <div>
+      <h3>Genre</h3>
+      <div id="worldGenre" class="tag-list"></div>
+    </div>
 
-  <section>
-    <div id="worldsGrid" class="worlds-grid">
-      <p>Loading worlds...</p>
+    <div>
+      <h3>Theme</h3>
+      <div id="worldTheme" class="tag-list"></div>
     </div>
   </section>
 
+  <nav class="tabs" id="tabs">
+    <button class="tab-button active" data-tab="overview">Overview</button>
+    <button class="tab-button" data-tab="map">Map</button>
+    <button class="tab-button" data-tab="culture">Culture</button>
+    <button class="tab-button" data-tab="systems">Systems</button>
+    <button class="tab-button" data-tab="gallery">Gallery</button>
+    <button class="tab-button" data-tab="characters">Characters</button>
+    <button class="tab-button" data-tab="trivia">Trivia</button>
+  </nav>
+
+  <section id="overview" class="tab-panel active">
+    <div class="content-grid">
+      <div class="content-card wide-card">
+        <h2>Overview</h2>
+        <p id="worldOverview">No overview yet.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="map" class="tab-panel">
+    <div class="section-title">
+      <h2>Map</h2>
+      <p>World map, region map, or important visual guide.</p>
+    </div>
+    <div class="world-map-card">
+      <img id="worldMap" src="../images/placeholder.png" alt="World map">
+    </div>
+  </section>
+
+  <section id="culture" class="tab-panel">
+    <div class="content-grid">
+      <div class="content-card wide-card">
+        <h2>Culture</h2>
+        <p id="worldCulture">No culture notes yet.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="systems" class="tab-panel">
+    <div class="content-grid">
+      <div class="content-card">
+        <h2>Magic System</h2>
+        <p id="worldMagicSystem">—</p>
+      </div>
+      <div class="content-card">
+        <h2>Technology</h2>
+        <p id="worldTechnology">—</p>
+      </div>
+      <div class="content-card wide-card">
+        <h2>Economy</h2>
+        <p id="worldEconomy">—</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="gallery" class="tab-panel">
+    <div class="section-title">
+      <h2>Gallery</h2>
+      <p>Maps, moodboards, locations, world art, and setting references.</p>
+    </div>
+    <div id="worldGalleryGrid" class="gallery-grid">
+      <p>No world images yet.</p>
+    </div>
+  </section>
+
+  <section id="characters" class="tab-panel">
+    <div class="section-title">
+      <h2>Featured Characters</h2>
+      <p>Characters associated with this world.</p>
+    </div>
+    <div id="featuredCharactersGrid" class="relationship-grid">
+      <p>No featured characters yet.</p>
+    </div>
+  </section>
+
+  <section id="trivia" class="tab-panel">
+    <div class="content-grid">
+      <div class="content-card wide-card">
+        <h2>Trivia</h2>
+        <p id="worldTrivia">No trivia yet.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="profile-nav">
+    <a href="../index.html">Back to Hub</a>
+  </div>
+
 </main>
+
+<div id="lightbox" class="lightbox">
+  <button id="lightboxClose" class="lightbox-close">×</button>
+  <div class="lightbox-image-wrap">
+    <img id="lightboxImage" src="" alt="Full-size image">
+  </div>
+</div>
 
 <script>
 const API_URL = "https://charahub.crysthigpen.workers.dev";
 
-let allWorlds = [];
+const HUBS = {
+  star: {
+    site: "https://characterhub.pages.dev",
+    api: "https://charahub.crysthigpen.workers.dev"
+  },
+  luna: {
+    site: "https://lunabrew.pages.dev",
+    api: "https://lunabreww.crysthigpen.workers.dev"
+  }
+};
+
+const params = new URLSearchParams(window.location.search);
+const SLUG = params.get("slug");
+
+let customCssLoaded = "";
 
 function getImage(path) {
   if (!path) return "../images/placeholder.png";
+
   path = String(path).trim();
 
   if (path.startsWith("http")) return path;
@@ -131,128 +172,312 @@ function getImage(path) {
   return window.location.origin + "/" + path;
 }
 
-function safeText(value) {
-  return value && String(value).trim() ? String(value).trim() : "";
+function loadCustomCss(path) {
+  if (!path) return;
+
+  const href = getImage(String(path).trim());
+
+  if (customCssLoaded === href) return;
+
+  customCssLoaded = href;
+
+  const oldCustom = document.getElementById("worldCustomCss");
+  if (oldCustom) oldCustom.remove();
+
+  const link = document.createElement("link");
+  link.id = "worldCustomCss";
+  link.rel = "stylesheet";
+  link.href = href + (href.includes("?") ? "&" : "?") + "v=" + Date.now();
+
+  document.head.appendChild(link);
 }
 
-function escapeHtml(value) {
-  return String(value || "")
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#039;");
+function setText(id, value, fallback = "—") {
+  const el = document.getElementById(id);
+  if (!el) return;
+
+  el.textContent = value && String(value).trim() ? value : fallback;
 }
 
-function getWorldUrl(world) {
-  const slug = safeText(world.slug);
-  return `/world/?slug=${encodeURIComponent(slug)}`;
+function setImage(id, path) {
+  const img = document.getElementById(id);
+  if (!img) return;
+
+  img.src = path ? getImage(path) : "../images/placeholder.png";
 }
 
-function worldSearchText(world) {
-  return [
-    world.name,
-    world.slug,
-    world.status,
-    world.era,
-    world.shortDescription,
-    world.overview,
-    Array.isArray(world.genre) ? world.genre.join(" ") : world.genre,
-    Array.isArray(world.theme) ? world.theme.join(" ") : world.theme
-  ].filter(Boolean).join(" ").toLowerCase();
+function renderTags(id, items) {
+  const box = document.getElementById(id);
+  if (!box) return;
+
+  box.innerHTML = "";
+
+  if (!Array.isArray(items) || items.length === 0) {
+    box.innerHTML = '<span class="tag">—</span>';
+    return;
+  }
+
+  items.forEach(item => {
+    const span = document.createElement("span");
+    span.className = "tag";
+    span.textContent = item;
+    box.appendChild(span);
+  });
 }
 
-function renderWorldCards(worlds) {
-  const grid = document.getElementById("worldsGrid");
+function normalizeImageItem(item) {
+  if (!item) return null;
+
+  if (typeof item === "string") {
+    return {
+      url: item,
+      label: ""
+    };
+  }
+
+  return {
+    url: item.url || item.src || "",
+    label: item.label || item.type || ""
+  };
+}
+
+function renderImages(id, images, name) {
+  const grid = document.getElementById(id);
   if (!grid) return;
 
   grid.innerHTML = "";
 
-  if (!Array.isArray(worlds) || worlds.length === 0) {
-    grid.innerHTML = "<p>No worlds found.</p>";
+  if (!Array.isArray(images) || images.length === 0) {
+    grid.innerHTML = "<p>No world images yet.</p>";
     return;
   }
 
-  worlds.forEach(world => {
-    const name = safeText(world.name) || "Unnamed World";
-    const description = safeText(world.shortDescription) || safeText(world.overview) || "No description yet.";
-    const banner = safeText(world.banner);
-    const icon = safeText(world.icon);
-    const status = safeText(world.status);
-    const era = safeText(world.era);
-    const url = getWorldUrl(world);
+  images.forEach(rawItem => {
+    const item = normalizeImageItem(rawItem);
+    if (!item || !item.url) return;
 
-    const genre = Array.isArray(world.genre) ? world.genre : [];
-    const theme = Array.isArray(world.theme) ? world.theme : [];
+    const card = document.createElement("div");
+    card.className = "image-card";
 
-    const link = document.createElement("a");
-    link.className = "image-card world-card world-browser-card";
-    link.href = url;
+    const img = document.createElement("img");
+    img.src = getImage(item.url);
+    img.alt = `${name || "World"} image`;
+    img.addEventListener("click", () => openLightbox(getImage(item.url)));
 
-    link.innerHTML = `
-      <div class="watermarked-image world-browser-banner">
-        <img src="${escapeHtml(getImage(banner || icon))}" alt="${escapeHtml(name)}">
-      </div>
+    const wrapper = document.createElement("div");
+    wrapper.className = "watermarked-image";
+    wrapper.appendChild(img);
 
-      <div class="world-browser-body">
-        <h2>${escapeHtml(name)}</h2>
-        <p>${escapeHtml(description)}</p>
+    card.appendChild(wrapper);
 
-        <div class="tag-list">
-          ${status ? `<span class="tag">${escapeHtml(status)}</span>` : ""}
-          ${era ? `<span class="tag">${escapeHtml(era)}</span>` : ""}
-          ${genre.map(item => `<span class="tag">${escapeHtml(item)}</span>`).join("")}
-          ${theme.map(item => `<span class="tag">${escapeHtml(item)}</span>`).join("")}
-        </div>
+    if (item.label) {
+      const caption = document.createElement("p");
+      caption.className = "image-title";
+      caption.textContent = item.label;
+      card.appendChild(caption);
+    }
 
-        <span class="world-browser-button">View World →</span>
-        <span class="world-direct-link">${escapeHtml(url)}</span>
-      </div>
+    grid.appendChild(card);
+  });
+
+  if (!grid.children.length) {
+    grid.innerHTML = "<p>No world images yet.</p>";
+  }
+}
+
+function getCharacterLink(slug) {
+  if (!slug) return "#";
+
+  const cleanSlug = String(slug).trim();
+
+  if (cleanSlug.includes(":")) {
+    const [hubKey, realSlug] = cleanSlug.split(":");
+    const hub = HUBS[hubKey];
+
+    if (hub && realSlug) {
+      return `${hub.site}/characters/index.html?slug=${encodeURIComponent(realSlug)}`;
+    }
+  }
+
+  return `../characters/index.html?slug=${encodeURIComponent(cleanSlug)}`;
+}
+
+function renderFeaturedCharacters(characters) {
+  const grid = document.getElementById("featuredCharactersGrid");
+  if (!grid) return;
+
+  grid.innerHTML = "";
+
+  if (!Array.isArray(characters) || characters.length === 0) {
+    grid.innerHTML = "<p>No featured characters yet.</p>";
+    return;
+  }
+
+  characters.forEach(character => {
+    if (!character) return;
+
+    const name = character.name || "Unnamed Character";
+    const slug = character.slug || "";
+    const notes = character.notes || "";
+    const link = getCharacterLink(slug);
+
+    const card = document.createElement("div");
+    card.className = "relationship-card relationship-preview-card";
+
+    card.innerHTML = `
+      <h3>${name}</h3>
+      ${notes ? `<p>${notes}</p>` : `<p>No notes yet.</p>`}
+      ${slug ? `<a href="${link}">View Profile →</a>` : ""}
     `;
 
-    grid.appendChild(link);
+    grid.appendChild(card);
+  });
+
+  if (!grid.children.length) {
+    grid.innerHTML = "<p>No featured characters yet.</p>";
+  }
+}
+
+function setupTabs() {
+  document.querySelectorAll(".tab-button").forEach(button => {
+    if (button.dataset.bound === "true") return;
+    button.dataset.bound = "true";
+
+    button.addEventListener("click", () => {
+      const target = button.dataset.tab;
+
+      document.querySelectorAll(".tab-button").forEach(btn => btn.classList.remove("active"));
+      document.querySelectorAll(".tab-panel").forEach(panel => panel.classList.remove("active"));
+
+      button.classList.add("active");
+
+      const panel = document.getElementById(target);
+      if (panel) panel.classList.add("active");
+    });
   });
 }
 
-function filterWorlds() {
-  const input = document.getElementById("worldSearch");
-  const query = input ? input.value.trim().toLowerCase() : "";
+function hideEmptyTabs(world) {
+  const checks = [
+    { tab: "map", empty: !world.mapImage },
+    { tab: "culture", empty: !world.culture },
+    { tab: "systems", empty: !world.magicSystem && !world.technology && !world.economy },
+    { tab: "gallery", empty: !Array.isArray(world.gallery) || world.gallery.length === 0 },
+    { tab: "characters", empty: !Array.isArray(world.featuredCharacters) || world.featuredCharacters.length === 0 },
+    { tab: "trivia", empty: !world.trivia }
+  ];
 
-  if (!query) {
-    renderWorldCards(allWorlds);
-    return;
-  }
+  checks.forEach(item => {
+    if (!item.empty) return;
 
-  renderWorldCards(allWorlds.filter(world => worldSearchText(world).includes(query)));
+    const button = document.querySelector(`[data-tab="${item.tab}"]`);
+    const panel = document.getElementById(item.tab);
+
+    if (button) button.style.display = "none";
+    if (panel) panel.style.display = "none";
+  });
 }
 
-async function loadWorlds() {
-  const grid = document.getElementById("worldsGrid");
+function openLightbox(src) {
+  const img = document.getElementById("lightboxImage");
+  const box = document.getElementById("lightbox");
 
+  if (!img || !box) return;
+
+  img.src = src;
+  box.classList.add("active");
+}
+
+function closeLightbox() {
+  const img = document.getElementById("lightboxImage");
+  const box = document.getElementById("lightbox");
+
+  if (!img || !box) return;
+
+  box.classList.remove("active");
+  img.src = "";
+}
+
+function setupLightbox() {
+  const closeButton = document.getElementById("lightboxClose");
+  const lightbox = document.getElementById("lightbox");
+
+  if (closeButton) closeButton.addEventListener("click", closeLightbox);
+
+  if (lightbox) {
+    lightbox.addEventListener("click", event => {
+      if (event.target.id === "lightbox") closeLightbox();
+    });
+  }
+
+  document.addEventListener("keydown", event => {
+    if (event.key === "Escape") closeLightbox();
+  });
+}
+
+function fillWorld(world) {
+  console.log("Loaded world:", world);
+  console.log("Featured characters:", world.featuredCharacters);
+
+  loadCustomCss(world.customCss);
+
+  document.title = `${world.name || "World"} | Character Hub`;
+
+  setText("worldName", world.name, "Unnamed World");
+  setText("worldShortDescription", world.shortDescription, "No short description yet.");
+  setText("worldStatus", world.status);
+  setText("worldEra", world.era);
+
+  setText("worldOverview", world.overview, "No overview yet.");
+  setText("worldCulture", world.culture, "No culture notes yet.");
+  setText("worldMagicSystem", world.magicSystem);
+  setText("worldTechnology", world.technology);
+  setText("worldEconomy", world.economy);
+  setText("worldTrivia", world.trivia, "No trivia yet.");
+
+  setImage("worldBanner", world.banner);
+  setImage("worldIcon", world.icon);
+  setImage("worldMap", world.mapImage);
+
+  renderTags("worldGenre", world.genre);
+  renderTags("worldTheme", world.theme);
+
+  renderImages("worldGalleryGrid", world.gallery, world.name);
+  renderFeaturedCharacters(world.featuredCharacters);
+
+  hideEmptyTabs(world);
+}
+
+async function loadWorld() {
   try {
-    const response = await fetch(`${API_URL}/worlds`);
-    const worlds = await response.json();
-
-    if (!Array.isArray(worlds)) {
-      if (grid) grid.innerHTML = "<p>Unable to load worlds.</p>";
-      console.error("Worlds API did not return an array:", worlds);
+    if (!SLUG) {
+      setText("worldName", "No world selected");
+      setText("worldShortDescription", "Go back and choose a world.");
       return;
     }
 
-    allWorlds = worlds;
-    renderWorldCards(allWorlds);
+    const response = await fetch(`${API_URL}/world/${encodeURIComponent(SLUG)}`);
+    const world = await response.json();
+
+    if (world.error) {
+      setText("worldName", "World not found");
+      setText("worldShortDescription", `No world found for slug: ${SLUG}`);
+      return;
+    }
+
+    fillWorld(world);
 
   } catch (err) {
-    console.error("World browser error:", err);
-    if (grid) grid.innerHTML = "<p>Unable to load worlds. Check the console for details.</p>";
+    console.error("World page error:", err);
+    setText("worldName", "Unable to load world");
+    setText("worldShortDescription", "Check the browser console for the exact error.");
   }
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  const search = document.getElementById("worldSearch");
-  if (search) search.addEventListener("input", filterWorlds);
-
-  loadWorlds();
+  setupTabs();
+  setupLightbox();
+  loadWorld();
 });
 </script>
 
