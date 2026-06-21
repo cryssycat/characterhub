@@ -176,7 +176,16 @@
 
 <script>
 const API_URL = "https://charahub.crysthigpen.workers.dev";
-
+const HUBS = {
+    star: {
+        site: "https://characterhub.pages.dev",
+        api: "https://charahub.crysthigpen.workers.dev"
+    },
+    luna: {
+        site: "https://lunabrew.pages.dev",
+        api: "https://lunabreww.crysthigpen.workers.dev"
+    }
+};
 const params = new URLSearchParams(window.location.search);
 const SLUG = params.get("slug");
 
@@ -456,7 +465,47 @@ function revealAllNSFW() {
     return "index.html?slug=" + encodeURIComponent(slug);
 }
     
-function renderRelationships(relationships) {
+async function getLinkedCharacter(relSlug) {
+    if (!relSlug) return null;
+
+    if (!relSlug.includes(":")) {
+        return allCharacters.find(c => c.slug === relSlug) || null;
+    }
+
+    const [hubKey, realSlug] = relSlug.split(":");
+    const hub = HUBS[hubKey];
+
+    if (!hub) return null;
+
+    try {
+        const response = await fetch(`${hub.api}/character/${encodeURIComponent(realSlug)}`);
+        const data = await response.json();
+
+        if (data.error) return null;
+
+        return data;
+    } catch (err) {
+        console.error("Could not fetch linked character:", err);
+        return null;
+    }
+}
+
+function getCharacterLink(slug) {
+    if (!slug) return "";
+
+    if (slug.includes(":")) {
+        const [hubKey, realSlug] = slug.split(":");
+        const hub = HUBS[hubKey];
+
+        if (hub) {
+            return `${hub.site}/characters/index.html?slug=${encodeURIComponent(realSlug)}`;
+        }
+    }
+
+    return `index.html?slug=${encodeURIComponent(slug)}`;
+}
+
+async function renderRelationships(relationships) {
     const grid = document.getElementById("relationshipsGrid");
     if (!grid) return;
 
@@ -467,34 +516,30 @@ function renderRelationships(relationships) {
         return;
     }
 
-   relationships.forEach(rel => {
-   const lookupSlug = rel.slug.includes(":")
-    ? rel.slug.split(":")[1]
-    : rel.slug;
+    for (const rel of relationships) {
+        const linkedCharacter = await getLinkedCharacter(rel.slug);
 
-const linkedCharacter = allCharacters.find(c => c.slug === lookupSlug);
+        const name = linkedCharacter?.name || rel.name || "Unnamed";
+        const species = linkedCharacter?.species || "";
+        const icon = linkedCharacter?.icon || "";
+        const type = rel.type || "Connection";
+        const notes = rel.notes || "";
+        const slug = rel.slug || "";
 
-    const name = linkedCharacter?.name || rel.name || "Unnamed";
-    const species = linkedCharacter?.species || "";
-    const icon = linkedCharacter?.icon || "";
-    const type = rel.type || "Connection";
-    const notes = rel.notes || "";
-    const slug = rel.slug || "";
+        const card = document.createElement("div");
+        card.className = "relationship-card relationship-preview-card";
 
-    const card = document.createElement("div");
-    card.className = "relationship-card relationship-preview-card";
+        card.innerHTML = `
+            ${icon ? `<img src="${getImage(icon)}" alt="${name}">` : ""}
+            <h3>${name}</h3>
+            ${species ? `<p>${species}</p>` : ""}
+            <span class="relationship-type">${type}</span>
+            <p>${notes || "No notes yet."}</p>
+            ${slug ? `<a href="${getCharacterLink(slug)}">View Profile →</a>` : ""}
+        `;
 
-    card.innerHTML = `
-        ${icon ? `<img src="${getImage(icon)}" alt="${name}">` : ""}
-        <h3>${name}</h3>
-        ${species ? `<p>${species}</p>` : ""}
-        <span class="relationship-type">${type}</span>
-        <p>${notes || "No notes yet."}</p>
-     ${slug ? `<a href="${getCharacterLink(slug)}">View Profile →</a>` : ""}
-    `;
-
-    grid.appendChild(card);
-});
+        grid.appendChild(card);
+    }
 }
 
 function renderAuTabs(character) {
