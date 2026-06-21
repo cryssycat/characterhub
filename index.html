@@ -263,9 +263,24 @@ const asArray = value => Array.isArray(value) ? value : [];
 searchInput.addEventListener("input", () => {
     const value = searchInput.value.toLowerCase().trim();
 
-    const asArray = value => Array.isArray(value) ? value : [];
+  const asArray = value => Array.isArray(value) ? value : [];
+
+searchInput.addEventListener("input", () => {
+    const value = searchInput.value.toLowerCase().trim();
+
+    if (!value) {
+        renderCharacters(allCharacters);
+        return;
+    }
 
     const filtered = allCharacters.filter(character => {
+        const gender = (character.gender || "").toLowerCase();
+
+        // Prevent "male" from matching "female"
+        if (value === "male" || value === "female") {
+            return gender === value;
+        }
+
         const searchableText = [
             character.name,
             character.species,
@@ -300,22 +315,12 @@ searchInput.addEventListener("input", () => {
         .join(" ")
         .toLowerCase();
 
-       const exactFields = [
-    (character.gender || "").toLowerCase(),
-    (character.status || "").toLowerCase(),
-    (character.folder || "").toLowerCase(),
-    (character.mbti || "").toLowerCase()
-];
-
-if (exactFields.includes(value)) {
-    return true;
-}
-
-return searchableText.includes(value);
+        return searchableText.includes(value);
     });
 
     renderCharacters(filtered);
 });
+    
 loadCharacters();
 </script>
 
