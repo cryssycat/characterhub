@@ -1017,7 +1017,7 @@ body::after{
     position:absolute;
     inset:0;
 
-    background-image:url("../images/starwm.png");
+    background-image:url("/images/starwm.png");
     background-repeat:no-repeat;
     background-position:center;
     background-size:65%;
@@ -1153,7 +1153,7 @@ body::after{
     position:absolute;
     inset:0;
 
-    background-image:url("/images/watermark.png?v=2");
+    background-image:url("/images/starwm");
     background-repeat:no-repeat;
     background-position:center;
     background-size:50%;
