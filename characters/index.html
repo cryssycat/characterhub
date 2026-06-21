@@ -79,8 +79,10 @@
             <p><strong>Birthday:</strong> <span id="birthday">—</span></p>
             <p><strong>Height:</strong> <span id="height">—</span></p>
             <p><strong>Occupation:</strong> <span id="occupation">—</span></p>
-            <div id="characterWorldsWrap" style="display:none;"><h3>World</h3><div id="characterWorlds" class="tag-list"></div>
-</div>
+            <div id="characterWorldsWrap" style="display:none;">
+                <h3>World</h3>
+                <div id="characterWorlds" class="tag-list"></div>
+            </div>
             <p><strong>Folder:</strong> <span id="folder">—</span></p>
             <p><strong>Status:</strong> <span id="status">—</span></p>
 
@@ -316,6 +318,34 @@ function renderTags(id, items) {
         span.className = "tag";
         span.textContent = item;
         box.appendChild(span);
+    });
+}
+
+
+function renderCharacterWorlds(worlds) {
+    const wrap = document.getElementById("characterWorldsWrap");
+    const box = document.getElementById("characterWorlds");
+
+    if (!wrap || !box) return;
+
+    box.innerHTML = "";
+
+    if (!Array.isArray(worlds) || worlds.length === 0) {
+        wrap.style.display = "none";
+        return;
+    }
+
+    wrap.style.display = "block";
+
+    worlds.forEach(world => {
+        if (!world || !world.name || !world.slug) return;
+
+        const link = document.createElement("a");
+        link.className = "tag";
+        link.textContent = world.name;
+        link.href = `../world/index.html?slug=${encodeURIComponent(world.slug)}`;
+
+        box.appendChild(link);
     });
 }
 
@@ -793,8 +823,9 @@ document.body.classList.add(layoutClass);
 
     renderCreditPills("mainCreditPills", character.credits);
     renderCreditPills("creditsPills", character.credits);
-    renderCharacterWorlds(character.worlds);
+
     renderTags("tags", character.tags);
+    renderCharacterWorlds(character.worlds);
     renderTags("likes", character.likes);
     renderTags("dislikes", character.dislikes);
     renderTags("hobbies", character.hobbies);
@@ -953,23 +984,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const revealButton = document.getElementById("revealAllNsfw");
     if (revealButton) revealButton.addEventListener("click", revealAllNSFW);
-function renderCharacterWorlds(worlds) {
-  const wrap = document.getElementById("characterWorldsWrap");
-  const box = document.getElementById("characterWorlds");
 
-  if (!wrap || !box || !Array.isArray(worlds) || worlds.length === 0) return;
-
-  wrap.style.display = "block";
-  box.innerHTML = "";
-
-  worlds.forEach(world => {
-    const a = document.createElement("a");
-    a.className = "tag";
-    a.textContent = world.name;
-    a.href = `../world/index.html?slug=${encodeURIComponent(world.slug)}`;
-    box.appendChild(a);
-  });
-}
     loadCharacter();
 });
 </script>
