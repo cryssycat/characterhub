@@ -258,8 +258,9 @@ function renderCharacters(characters) {
     updateCount(characters.length, allCharacters.length);
 }
 
-const filtered = allCharacters.filter(character => {
+const asArray = value => Array.isArray(value) ? value : [];
 
+const filtered = allCharacters.filter(character => {
     const searchableText = [
         character.name,
         character.species,
@@ -275,18 +276,26 @@ const filtered = allCharacters.filter(character => {
         character.summary,
         character.personality,
 
-        ...(character.tags || []),
-        ...(character.likes || []),
-        ...(character.dislikes || []),
-        ...(character.hobbies || []),
-        ...(character.fears || [])
+        character.favorites?.food,
+        character.favorites?.drink,
+        character.favorites?.color,
+        character.favorites?.season,
+        character.favorites?.flower,
+        character.favorites?.scent,
+        character.favorites?.music,
+        character.favorites?.animal,
+
+        ...asArray(character.tags),
+        ...asArray(character.likes),
+        ...asArray(character.dislikes),
+        ...asArray(character.hobbies),
+        ...asArray(character.fears)
     ]
     .filter(Boolean)
     .join(" ")
     .toLowerCase();
 
     return searchableText.includes(value);
-
 });
 
     renderCharacters(filtered);
