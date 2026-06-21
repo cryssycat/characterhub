@@ -6,7 +6,7 @@
 
 <title>Worlds | Character Hub</title>
 
-<link rel="stylesheet" href="../style.css?v=240">
+<link rel="stylesheet" href="../style.css?v=250">
 
 <style>
 .worlds-browser-page{
@@ -21,53 +21,66 @@
   gap:22px;
 }
 
-.worlds-browser-card{
-  display:block;
-  cursor:pointer;
+.world-browser-card{
+  display:block !important;
+  text-decoration:none !important;
+  color:inherit !important;
+  cursor:pointer !important;
+  position:relative !important;
+  z-index:5 !important;
   overflow:hidden;
 }
 
-.worlds-browser-card:hover{
+.world-browser-card,
+.world-browser-card *{
+  pointer-events:auto !important;
+}
+
+.world-browser-card:hover{
   transform:translateY(-2px);
 }
 
-.worlds-browser-banner{
+.world-browser-banner{
   height:230px;
   overflow:hidden;
   border-radius:24px;
 }
 
-.worlds-browser-banner img{
+.world-browser-banner img{
   width:100%;
   height:100%;
   object-fit:cover;
   display:block;
-  pointer-events:none;
 }
 
-.worlds-browser-body{
+.world-browser-body{
   padding:18px;
   text-align:left;
 }
 
-.worlds-browser-body h2{
+.world-browser-body h2{
   margin:0 0 8px;
 }
 
-.worlds-browser-body p{
+.world-browser-body p{
   margin:0 0 12px;
 }
 
-.worlds-view-button{
+.world-browser-button{
   display:inline-block;
   margin-top:10px;
   padding:10px 18px;
   border-radius:999px;
-  background:rgba(255,255,255,.65);
-  text-decoration:none;
-  color:inherit;
-  border:1px solid rgba(255,255,255,.9);
-  cursor:pointer;
+  background:rgba(255,255,255,.75);
+  border:1px solid rgba(255,255,255,.95);
+}
+
+.world-direct-link{
+  display:block;
+  margin-top:8px;
+  font-size:.85rem;
+  opacity:.75;
+  word-break:break-all;
 }
 </style>
 </head>
@@ -110,7 +123,6 @@ let allWorlds = [];
 
 function getImage(path) {
   if (!path) return "../images/placeholder.png";
-
   path = String(path).trim();
 
   if (path.startsWith("http")) return path;
@@ -121,6 +133,20 @@ function getImage(path) {
 
 function safeText(value) {
   return value && String(value).trim() ? String(value).trim() : "";
+}
+
+function escapeHtml(value) {
+  return String(value || "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
+
+function getWorldUrl(world) {
+  const slug = safeText(world.slug);
+  return `/world/?slug=${encodeURIComponent(slug)}`;
 }
 
 function worldSearchText(world) {
@@ -134,16 +160,6 @@ function worldSearchText(world) {
     Array.isArray(world.genre) ? world.genre.join(" ") : world.genre,
     Array.isArray(world.theme) ? world.theme.join(" ") : world.theme
   ].filter(Boolean).join(" ").toLowerCase();
-}
-
-function getWorldUrl(world) {
-  const slug = safeText(world.slug);
-  return `/world/?slug=${encodeURIComponent(slug)}`;
-}
-
-function goToWorld(world) {
-  const url = getWorldUrl(world);
-  window.location.assign(url);
 }
 
 function renderWorldCards(worlds) {
@@ -164,54 +180,37 @@ function renderWorldCards(worlds) {
     const icon = safeText(world.icon);
     const status = safeText(world.status);
     const era = safeText(world.era);
+    const url = getWorldUrl(world);
 
     const genre = Array.isArray(world.genre) ? world.genre : [];
     const theme = Array.isArray(world.theme) ? world.theme : [];
 
-    const card = document.createElement("article");
-    card.className = "image-card world-card worlds-browser-card";
-    card.tabIndex = 0;
+    const link = document.createElement("a");
+    link.className = "image-card world-card world-browser-card";
+    link.href = url;
 
-    card.innerHTML = `
-      <div class="watermarked-image worlds-browser-banner">
-        <img src="${getImage(banner || icon)}" alt="${name}">
+    link.innerHTML = `
+      <div class="watermarked-image world-browser-banner">
+        <img src="${escapeHtml(getImage(banner || icon))}" alt="${escapeHtml(name)}">
       </div>
 
-      <div class="worlds-browser-body">
-        <h2>${name}</h2>
-        <p>${description}</p>
+      <div class="world-browser-body">
+        <h2>${escapeHtml(name)}</h2>
+        <p>${escapeHtml(description)}</p>
 
         <div class="tag-list">
-          ${status ? `<span class="tag">${status}</span>` : ""}
-          ${era ? `<span class="tag">${era}</span>` : ""}
-          ${genre.map(item => `<span class="tag">${item}</span>`).join("")}
-          ${theme.map(item => `<span class="tag">${item}</span>`).join("")}
+          ${status ? `<span class="tag">${escapeHtml(status)}</span>` : ""}
+          ${era ? `<span class="tag">${escapeHtml(era)}</span>` : ""}
+          ${genre.map(item => `<span class="tag">${escapeHtml(item)}</span>`).join("")}
+          ${theme.map(item => `<span class="tag">${escapeHtml(item)}</span>`).join("")}
         </div>
 
-        <button class="worlds-view-button" type="button">View World →</button>
+        <span class="world-browser-button">View World →</span>
+        <span class="world-direct-link">${escapeHtml(url)}</span>
       </div>
     `;
 
-    card.addEventListener("click", () => {
-      goToWorld(world);
-    });
-
-    card.addEventListener("keydown", event => {
-      if (event.key === "Enter" || event.key === " ") {
-        event.preventDefault();
-        goToWorld(world);
-      }
-    });
-
-    const button = card.querySelector(".worlds-view-button");
-    if (button) {
-      button.addEventListener("click", event => {
-        event.stopPropagation();
-        goToWorld(world);
-      });
-    }
-
-    grid.appendChild(card);
+    grid.appendChild(link);
   });
 }
 
@@ -224,8 +223,7 @@ function filterWorlds() {
     return;
   }
 
-  const filtered = allWorlds.filter(world => worldSearchText(world).includes(query));
-  renderWorldCards(filtered);
+  renderWorldCards(allWorlds.filter(world => worldSearchText(world).includes(query)));
 }
 
 async function loadWorlds() {
