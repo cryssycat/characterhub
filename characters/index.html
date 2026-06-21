@@ -420,19 +420,24 @@ function renderNSFWImages(images, name) {
         const card = document.createElement("div");
         card.className = "image-card nsfw-card";
 
-        const img = document.createElement("img");
-        img.src = getImage(item.url);
-        img.alt = `${name || "Character"} mature gallery image`;
+     const img = document.createElement("img");
+img.src = getImage(item.url);
+img.alt = `${name || "Character"} mature gallery image`;
 
-        const overlay = document.createElement("div");
-        overlay.className = "nsfw-overlay";
-        overlay.innerHTML = `
-            <strong>🔞 Mature Content</strong>
-            <small>Click to reveal</small>
-        `;
+const overlay = document.createElement("div");
+overlay.className = "nsfw-overlay";
+overlay.innerHTML = `
+    <strong>🔞 Mature Content</strong>
+    <small>Click to reveal</small>
+`;
 
-        card.appendChild(img);
-        card.appendChild(overlay);
+const wrapper = document.createElement("div");
+wrapper.className = "watermarked-image";
+
+wrapper.appendChild(img);
+wrapper.appendChild(overlay);
+
+card.appendChild(wrapper);
 
         if (item.label) {
             const caption = document.createElement("p");
