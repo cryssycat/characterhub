@@ -6,7 +6,64 @@
 
 <title>Worlds | Character Hub</title>
 
-<link rel="stylesheet" href="../style.css?v=220">
+<link rel="stylesheet" href="../style.css?v=230">
+
+<style>
+.worlds-browser-page{
+  max-width:1200px;
+  margin:0 auto;
+  padding:30px 20px 60px;
+}
+
+.worlds-browser-card{
+  display:block;
+  cursor:pointer;
+  text-decoration:none;
+  color:inherit;
+  overflow:hidden;
+}
+
+.worlds-browser-card:hover{
+  transform:translateY(-2px);
+}
+
+.worlds-browser-banner{
+  height:230px;
+  overflow:hidden;
+  border-radius:24px;
+}
+
+.worlds-browser-banner img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+
+.worlds-browser-body{
+  padding:18px;
+  text-align:left;
+}
+
+.worlds-browser-body h2{
+  margin:0 0 8px;
+}
+
+.worlds-browser-body p{
+  margin:0 0 12px;
+}
+
+.worlds-view-button{
+  display:inline-block;
+  margin-top:10px;
+  padding:10px 18px;
+  border-radius:999px;
+  background:rgba(255,255,255,.65);
+  text-decoration:none;
+  color:inherit;
+  border:1px solid rgba(255,255,255,.9);
+}
+</style>
 </head>
 
 <body>
@@ -17,7 +74,7 @@
   <p>Browse worlds, settings, AUs, and story spaces.</p>
 </header>
 
-<main class="worlds-page profile-page">
+<main class="worlds-browser-page">
 
   <section class="content-card wide-card">
     <h2>World Browser</h2>
@@ -73,6 +130,11 @@ function worldSearchText(world) {
   ].filter(Boolean).join(" ").toLowerCase();
 }
 
+function getWorldUrl(world) {
+  const slug = safeText(world.slug);
+  return `../world/index.html?slug=${encodeURIComponent(slug)}`;
+}
+
 function renderWorldCards(worlds) {
   const grid = document.getElementById("worldsGrid");
   if (!grid) return;
@@ -86,43 +148,40 @@ function renderWorldCards(worlds) {
 
   worlds.forEach(world => {
     const name = safeText(world.name) || "Unnamed World";
-    const slug = safeText(world.slug);
     const description = safeText(world.shortDescription) || safeText(world.overview) || "No description yet.";
     const banner = safeText(world.banner);
     const icon = safeText(world.icon);
     const status = safeText(world.status);
     const era = safeText(world.era);
+    const url = getWorldUrl(world);
 
     const genre = Array.isArray(world.genre) ? world.genre : [];
     const theme = Array.isArray(world.theme) ? world.theme : [];
 
-    const card = document.createElement("article");
-    card.className = "image-card world-card";
+    const card = document.createElement("a");
+    card.className = "image-card world-card worlds-browser-card";
+    card.href = url;
 
-card.innerHTML = `
-<div class="watermarked-image world-card-banner">
-  <img src="${getImage(banner || icon)}" alt="${name}">
-</div>
+    card.innerHTML = `
+      <div class="watermarked-image worlds-browser-banner">
+        <img src="${getImage(banner || icon)}" alt="${name}">
+      </div>
 
-<div class="world-card-body">
-  <h2>${name}</h2>
+      <div class="worlds-browser-body">
+        <h2>${name}</h2>
+        <p>${description}</p>
 
-  <p>${description}</p>
+        <div class="tag-list">
+          ${status ? `<span class="tag">${status}</span>` : ""}
+          ${era ? `<span class="tag">${era}</span>` : ""}
+          ${genre.map(item => `<span class="tag">${item}</span>`).join("")}
+          ${theme.map(item => `<span class="tag">${item}</span>`).join("")}
+        </div>
 
-  <div class="tag-list">
-    ${status ? `<span class="tag">${status}</span>` : ""}
-    ${era ? `<span class="tag">${era}</span>` : ""}
-    ${genre.map(item => `<span class="tag">${item}</span>`).join("")}
-    ${theme.map(item => `<span class="tag">${item}</span>`).join("")}
-  </div>
-</div>
-`;
-card.style.cursor = "pointer";
+        <span class="worlds-view-button">View World →</span>
+      </div>
+    `;
 
-card.onclick = () => {
-    window.location.href =
-        `../world/index.html?slug=${encodeURIComponent(slug)}`;
-};
     grid.appendChild(card);
   });
 }
@@ -136,10 +195,7 @@ function filterWorlds() {
     return;
   }
 
-  const filtered = allWorlds.filter(world => {
-    return worldSearchText(world).includes(query);
-  });
-
+  const filtered = allWorlds.filter(world => worldSearchText(world).includes(query));
   renderWorldCards(filtered);
 }
 
