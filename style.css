@@ -20,12 +20,17 @@ body::before {
     position: fixed;
     inset: 0;
     background-image:
-        radial-gradient(rgba(255,255,255,.9) 1px, transparent 1px),
-        radial-gradient(rgba(255,180,220,.35) 1px, transparent 1px);
-    background-size: 70px 70px, 110px 110px;
-    opacity: .45;
+        radial-gradient(rgba(255,255,255,.95) 1px, transparent 1px),
+        radial-gradient(rgba(255,180,220,.45) 1px, transparent 1px),
+        radial-gradient(ellipse at 20% 20%, rgba(255,255,255,.45) 0 18px, transparent 19px),
+        radial-gradient(ellipse at 80% 35%, rgba(255,255,255,.38) 0 24px, transparent 25px),
+        radial-gradient(ellipse at 45% 75%, rgba(255,255,255,.32) 0 20px, transparent 21px);
+    background-size: 70px 70px, 110px 110px, 320px 220px, 420px 260px, 360px 240px;
+    background-position: 0 0, 35px 40px, 0 20px, 80px 0, 160px 80px;
+    opacity: .55;
     pointer-events: none;
     z-index: -1;
+    animation: floatClouds 28s linear infinite;
 }
 
 .site-header,
@@ -119,6 +124,9 @@ body::before {
 .character-card:hover {
     transform: translateY(-8px);
     background: rgba(255,255,255,.9);
+    box-shadow:
+        0 12px 35px rgba(170,170,220,.25),
+        0 0 24px rgba(255,215,234,.55);
 }
 
 .character-card img {
@@ -234,6 +242,7 @@ body::before {
 .tab-button.active {
     background: linear-gradient(135deg,#ffd7ea,#d9efff);
     color: #66547f;
+    box-shadow:0 0 18px rgba(255,255,255,.55), 0 0 18px rgba(255,170,215,.25);
 }
 
 .tab-panel {
@@ -579,27 +588,27 @@ body::before {
 }
 
 .artist-pill{
-    background:#ffd7ef;
+    background:linear-gradient(135deg,#ffd7ef,#ffeaf7);
 }
 
 .base-pill{
-    background:#d9e8ff;
+    background:linear-gradient(135deg,#d9e8ff,#eef7ff);
 }
 
 .designer-pill{
-    background:#e8ddff;
+    background:linear-gradient(135deg,#e8ddff,#fff0fb);
 }
 
 .colorist-pill{
-    background:#d8fff0;
+    background:linear-gradient(135deg,#d8fff0,#e8f8ff);
 }
 
 .commissioner-pill{
-    background:#fff0cf;
+    background:linear-gradient(135deg,#fff0cf,#ffe5f3);
 }
 
 .gift-pill{
-    background:#ffe2d2;
+    background:linear-gradient(135deg,#ffe2d2,#ffe8f4);
 }
 
 /* ==========================================
@@ -874,4 +883,119 @@ body.layout-minimal .content-grid {
 ::-webkit-scrollbar-thumb{
     background:linear-gradient(#ffd7ea,#d9efff);
     border-radius:999px;
+}
+
+
+/* ==========================================
+   STARSUNDAE EXTRA MAGIC
+   Floating clouds, stars, pastel credit pills, hover sparkles
+========================================== */
+
+@keyframes floatClouds{
+    from{ background-position:0 0,35px 40px,0 20px,80px 0,160px 80px; }
+    to{ background-position:140px 80px,175px 120px,320px 20px,500px 0,520px 80px; }
+}
+
+body::after{
+    content:"✦  ✧     ✦      ✧   ✦        ✧";
+    position:fixed;
+    inset:0;
+    color:rgba(255,255,255,.55);
+    font-size:28px;
+    letter-spacing:42px;
+    line-height:120px;
+    text-shadow:
+        90px 60px rgba(255,215,234,.7),
+        240px 130px rgba(217,239,255,.8),
+        420px 40px rgba(255,255,255,.75),
+        620px 170px rgba(255,215,234,.65),
+        820px 85px rgba(217,239,255,.75);
+    opacity:.35;
+    pointer-events:none;
+    z-index:-1;
+    animation: sparkleDrift 18s ease-in-out infinite alternate;
+}
+
+@keyframes sparkleDrift{
+    from{ transform:translateY(0); opacity:.28; }
+    to{ transform:translateY(-18px); opacity:.45; }
+}
+
+.character-card,
+.content-card,
+.relationship-card,
+.image-card,
+.folder-heading,
+.tab-button,
+.back-button,
+.profile-nav a,
+.image-credit-pill{
+    position:relative;
+}
+
+.character-card::after,
+.content-card::after,
+.relationship-card::after,
+.image-card::after,
+.folder-heading::after,
+.tab-button::after,
+.back-button::after,
+.profile-nav a::after,
+.image-credit-pill::after{
+    content:"✦";
+    position:absolute;
+    top:10px;
+    right:14px;
+    color:rgba(255,255,255,.9);
+    text-shadow:0 0 8px rgba(255,170,215,.9);
+    opacity:0;
+    transform:scale(.5) rotate(-15deg);
+    transition:.25s ease;
+    pointer-events:none;
+}
+
+.character-card:hover::after,
+.content-card:hover::after,
+.relationship-card:hover::after,
+.image-card:hover::after,
+.folder-heading:hover::after,
+.tab-button:hover::after,
+.back-button:hover::after,
+.profile-nav a:hover::after,
+.image-credit-pill:hover::after{
+    opacity:1;
+    transform:scale(1) rotate(10deg);
+}
+
+.artist-pill,
+.base-pill,
+.designer-pill,
+.colorist-pill,
+.commissioner-pill,
+.gift-pill,
+.image-credit-pill{
+    border:1px solid rgba(255,255,255,.75);
+    box-shadow:0 4px 12px rgba(170,170,220,.13);
+    transition:.25s ease;
+}
+
+.artist-pill:hover,
+.base-pill:hover,
+.designer-pill:hover,
+.colorist-pill:hover,
+.commissioner-pill:hover,
+.gift-pill:hover,
+.image-credit-pill:hover{
+    transform:translateY(-2px);
+    box-shadow:
+        0 8px 18px rgba(170,170,220,.22),
+        0 0 18px rgba(255,215,234,.45);
+}
+
+.character-card:hover img,
+.relationship-preview-card:hover img,
+.image-card:hover img{
+    box-shadow:
+        0 0 25px rgba(255,170,215,.45),
+        0 0 35px rgba(217,239,255,.45);
 }
