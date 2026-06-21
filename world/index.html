@@ -132,7 +132,7 @@ function worldSearchText(world) {
 
 function getWorldUrl(world) {
   const slug = safeText(world.slug);
-  return `../world/index.html?slug=${encodeURIComponent(slug)}`;
+  return `../world/?slug=${encodeURIComponent(slug)}`;
 }
 
 function renderWorldCards(worlds) {
