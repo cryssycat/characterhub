@@ -119,9 +119,6 @@
 <script>
 const WORLDS_ENDPOINT = "https://characterhub.crysthigpen.workers.dev/worlds";
 
-const STAR_CHARACTERS_ENDPOINT = "https://characterhub.crysthigpen.workers.dev/characters";
-const LUNA_CHARACTERS_ENDPOINT = "https://lunabreww.crysthigpen.workers.dev/characters";
-
 let allWorlds = [];
 
 function getImage(path) {
@@ -233,7 +230,7 @@ async function loadWorlds() {
   const grid = document.getElementById("worldsGrid");
 
   try {
-    const response = await fetch(`${API_URL}/worlds`);
+    const response = await fetch(WORLDS_ENDPOINT);
     const worlds = await response.json();
 
     if (!Array.isArray(worlds)) {
