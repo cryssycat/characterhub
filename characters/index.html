@@ -3,312 +3,991 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>World | Character Hub</title>
-<link rel="stylesheet" href="../style.css?v=200">
+
+<title>Character | StarSundae Character Hub</title>
+
+<link rel="stylesheet" href="../style.css?v=153">
+
+<style id="lightbox-watermark-fix">
+.lightbox.active{
+    display:flex !important;
+    align-items:center !important;
+    justify-content:center !important;
+}
+
+.lightbox-image-wrap{
+    position:relative !important;
+    display:inline-block !important;
+    max-width:90vw !important;
+    max-height:90vh !important;
+    line-height:0 !important;
+}
+
+.lightbox-image-wrap #lightboxImage{
+    display:block !important;
+    max-width:90vw !important;
+    max-height:90vh !important;
+    width:auto !important;
+    height:auto !important;
+    object-fit:contain !important;
+    position:relative !important;
+    z-index:1 !important;
+}
+
+.lightbox-image-wrap .lightbox-watermark{
+    position:absolute !important;
+    left:50% !important;
+    top:50% !important;
+    transform:translate(-50%, -50%) !important;
+    width:50% !important;
+    max-width:520px !important;
+    height:auto !important;
+    opacity:1 !important;
+    pointer-events:none !important;
+    z-index:2 !important;
+    display:block !important;
+    visibility:visible !important;
+    filter:none !important;
+    mix-blend-mode:normal !important;
+}
+</style>
+
 </head>
+
 <body>
 
-<header class="world-header">
-  <a class="back-button" href="../index.html">← Back to Hub</a>
-  <div class="world-banner-wrap">
-    <img id="worldBanner" class="world-banner" src="../images/placeholder.png" alt="World banner">
-  </div>
-  <div class="world-title-card">
-    <img id="worldIcon" class="world-icon" src="../images/placeholder.png" alt="World icon">
-    <div>
-      <h1 id="worldName">Loading...</h1>
-      <p id="worldShortDescription">Loading world information...</p>
-    </div>
-  </div>
+<header class="character-header">
+    <a class="back-button" href="../index.html">← Back to Hub</a>
+    <h1 id="characterName">Loading...</h1>
+    <p id="characterSpecies"></p>
 </header>
 
-<main class="world-page">
-  <section class="world-quick-card">
-    <div>
-      <h2>World Info</h2>
-      <p><strong>Status:</strong> <span id="worldStatus">—</span></p>
-      <p><strong>Era:</strong> <span id="worldEra">—</span></p>
-    </div>
-    <div>
-      <h3>Genre</h3>
-      <div id="worldGenre" class="tag-list"></div>
-    </div>
-    <div>
-      <h3>Theme</h3>
-      <div id="worldTheme" class="tag-list"></div>
-    </div>
-  </section>
+<main class="profile-page">
 
-  <nav class="tabs" id="tabs">
-    <button class="tab-button active" data-tab="overview">Overview</button>
-    <button class="tab-button" data-tab="map">Map</button>
-    <button class="tab-button" data-tab="culture">Culture</button>
-    <button class="tab-button" data-tab="systems">Systems</button>
-    <button class="tab-button" data-tab="gallery">Gallery</button>
-    <button class="tab-button" data-tab="characters">Characters</button>
-    <button class="tab-button" data-tab="trivia">Trivia</button>
-  </nav>
+    <section class="profile-card">
+        <div class="main-ref-wrap">
+            <img id="mainRef" class="main-ref" src="../images/placeholder.png" alt="Character reference">
+            <div id="mainCreditPills" class="credit-pills"></div>
+        </div>
 
-  <section id="overview" class="tab-panel active">
-    <div class="content-grid">
-      <div class="content-card wide-card"><h2>Overview</h2><p id="worldOverview">No overview yet.</p></div>
+        <aside class="quick-facts">
+            <h2>Quick Facts</h2>
+            <p><strong>Species:</strong> <span id="species">—</span></p>
+            <p><strong>Gender:</strong> <span id="gender">—</span></p>
+            <p><strong>Pronouns:</strong> <span id="pronouns">—</span></p>
+            <p><strong>Age:</strong> <span id="age">—</span></p>
+            <p><strong>Birthday:</strong> <span id="birthday">—</span></p>
+            <p><strong>Height:</strong> <span id="height">—</span></p>
+            <p><strong>Occupation:</strong> <span id="occupation">—</span></p>
+            <div id="characterWorldsWrap" style="display:none;">
+                <h3>World</h3>
+                <div id="characterWorlds" class="tag-list"></div>
+            </div>
+            <p><strong>Folder:</strong> <span id="folder">—</span></p>
+            <p><strong>Status:</strong> <span id="status">—</span></p>
+
+            <h3>Tags</h3>
+            <div id="tags" class="tag-list"></div>
+        </aside>
+    </section>
+
+    <nav class="tabs" id="tabs">
+        <button class="tab-button active" data-tab="overview">Overview</button>
+        <button class="tab-button" data-tab="gallery">Gallery</button>
+        <button class="tab-button" data-tab="references">References</button>
+        <button class="tab-button" data-tab="relationships">Relationships</button>
+        <button class="tab-button" data-tab="favorites">Favorites</button>
+        <button class="tab-button" data-tab="credits">Credits</button>
+        <button class="tab-button" data-tab="lore">Lore</button>
+        <button class="tab-button" data-tab="nsfw">🔞 Mature Gallery</button>
+        <button class="tab-button" data-tab="admin">🔧 Admin</button>
+    </nav>
+
+    <section id="overview" class="tab-panel active">
+        <div class="content-grid">
+            <div class="content-card wide-card"><h2>Introduction</h2><p id="introduction">—</p></div>
+            <div class="content-card wide-card"><h2>Summary</h2><p id="summary">—</p></div>
+            <div class="content-card"><h2>Personality</h2><p id="personality">—</p></div>
+            <div class="content-card"><h2>MBTI</h2><p id="mbti">—</p></div>
+           <div class="content-card"><h2>Design Notes</h2><p id="designNotes">—</p></div>
+            <div class="content-card"><h2>Theme Song</h2><p id="themeSong">—</p></div>
+            <div class="content-card"><h2>Likes</h2><div id="likes" class="tag-list"></div></div>
+            <div class="content-card"><h2>Dislikes</h2><div id="dislikes" class="tag-list"></div></div>
+            <div class="content-card"><h2>Hobbies</h2><div id="hobbies" class="tag-list"></div></div>
+            <div class="content-card"><h2>Fears</h2><div id="fears" class="tag-list"></div></div>
+        </div>
+    </section>
+
+    <section id="gallery" class="tab-panel">
+        <div class="section-title">
+            <h2>Gallery</h2>
+            <p>Click any image to view it full size.</p>
+        </div>
+        <div id="galleryGrid" class="gallery-grid"><p>No images yet.</p></div>
+    </section>
+
+    <section id="references" class="tab-panel">
+        <div class="section-title">
+            <h2>References</h2>
+            <p>Main reference, outfit sheets, item sheets, expression sheets, and design notes.</p>
+        </div>
+        <div id="referencesGrid" class="gallery-grid"><p>No references yet.</p></div>
+    </section>
+
+    <section id="relationships" class="tab-panel">
+        <div class="section-title">
+            <h2>Relationships</h2>
+            <p>Friends, partners, family, rivals, and important connections.</p>
+        </div>
+        <div id="relationshipsGrid" class="relationship-grid"><p>No relationships yet.</p></div>
+    </section>
+
+    <section id="favorites" class="tab-panel">
+        <div class="content-grid">
+            <div class="content-card"><h2>Favorite Food</h2><p id="favFood">—</p></div>
+            <div class="content-card"><h2>Favorite Drink</h2><p id="favDrink">—</p></div>
+            <div class="content-card"><h2>Favorite Color</h2><p id="favColor">—</p></div>
+            <div class="content-card"><h2>Favorite Season</h2><p id="favSeason">—</p></div>
+            <div class="content-card"><h2>Favorite Flower</h2><p id="favFlower">—</p></div>
+            <div class="content-card"><h2>Favorite Scent</h2><p id="favScent">—</p></div>
+            <div class="content-card"><h2>Favorite Music</h2><p id="favMusic">—</p></div>
+            <div class="content-card"><h2>Favorite Animal</h2><p id="favAnimal">—</p></div>
+        </div>
+    </section>
+
+    <section id="credits" class="tab-panel">
+        <div class="content-grid">
+            <div class="content-card wide-card">
+                <h2>Character Credits</h2>
+                <div id="creditsPills" class="credit-pills credit-pills-left"></div>
+            </div>
+            <div class="content-card"><h2>Owner</h2><p id="owner">—</p></div>
+            <div class="content-card wide-card"><h2>Permissions</h2><p id="permissions">—</p></div>
+            <div class="content-card"><h2>Trade Status</h2><p id="tradeStatus">—</p></div>
+            <div class="content-card"><h2>Resale Status</h2><p id="resaleStatus">—</p></div>
+        </div>
+    </section>
+
+    <section id="lore" class="tab-panel">
+        <div class="content-grid">
+            <div class="content-card"><h2>Trivia</h2><p id="trivia">—</p></div>
+            <div class="content-card"><h2>Quote</h2><p id="quotes">—</p></div>
+            <div class="content-card wide-card"><h2>Lore</h2><p id="loreText">—</p></div>
+        </div>
+    </section>
+
+    <section id="nsfw" class="tab-panel">
+        <div class="section-title">
+            <h2>🔞 Mature Gallery</h2>
+            <p>Images are blurred by default. Click an image once to reveal it, then click again to view full size.</p>
+            <button id="revealAllNsfw" class="reveal-button">Reveal All</button>
+        </div>
+        <div id="nsfwGalleryGrid" class="gallery-grid"><p>No mature images yet.</p></div>
+    </section>
+<section id="admin" class="tab-panel">
+        <div class="section-title">
+            <h2>🔧 Admin Tools</h2>
+            <p>Enter your admin password to unlock the gallery line generator.</p>
+        </div>
+
+        <div id="adminLock" class="admin-generator">
+            <input id="adminPassword" type="password" placeholder="Admin password">
+            <button id="unlockAdmin">Unlock</button>
+            <p id="adminMessage"></p>
+        </div>
+
+        <div id="adminTools" class="admin-generator" style="display:none;">
+            <h2>Gallery Line Generator</h2>
+
+            <input id="genTitle" placeholder="Image title">
+            <input id="genPath" placeholder="images/character/file.png">
+            <input id="genCredits" placeholder="Artist:Name;Base:Name">
+
+            <button id="generateLine">Generate Line</button>
+
+            <textarea id="generatedLine" readonly></textarea>
+            <button id="copyLine">Copy Line</button>
+        </div>
+    </section>
+
+    <div class="profile-nav">
+        <a id="prevCharacter" href="../index.html">← Previous</a>
+        <a href="../index.html">Back to Hub</a>
+        <a id="nextCharacter" href="../index.html">Next →</a>
     </div>
-  </section>
 
-  <section id="map" class="tab-panel">
-    <div class="section-title"><h2>Map</h2><p>World map, region map, or important visual guide.</p></div>
-    <div class="world-map-card"><img id="worldMap" src="../images/placeholder.png" alt="World map"></div>
-  </section>
-
-  <section id="culture" class="tab-panel">
-    <div class="content-grid">
-      <div class="content-card wide-card"><h2>Culture</h2><p id="worldCulture">No culture notes yet.</p></div>
-    </div>
-  </section>
-
-  <section id="systems" class="tab-panel">
-    <div class="content-grid">
-      <div class="content-card"><h2>Magic System</h2><p id="worldMagicSystem">—</p></div>
-      <div class="content-card"><h2>Technology</h2><p id="worldTechnology">—</p></div>
-      <div class="content-card wide-card"><h2>Economy</h2><p id="worldEconomy">—</p></div>
-    </div>
-  </section>
-
-  <section id="gallery" class="tab-panel">
-    <div class="section-title"><h2>Gallery</h2><p>Maps, moodboards, locations, world art, and setting references.</p></div>
-    <div id="worldGalleryGrid" class="gallery-grid"><p>No world images yet.</p></div>
-  </section>
-
-  
-  <section id="characters" class="tab-panel">
-    <div class="section-title">
-      <h2>Featured Characters</h2>
-      <p>Characters associated with this world.</p>
-    </div>
-    <div id="featuredCharactersGrid" class="gallery-grid">
-      <p>No featured characters yet.</p>
-    </div>
-  </section>
-
-<section id="trivia" class="tab-panel">
-    <div class="content-grid">
-      <div class="content-card wide-card"><h2>Trivia</h2><p id="worldTrivia">No trivia yet.</p></div>
-    </div>
-  </section>
-
-  <div class="profile-nav">
-    <a href="../index.html">Back to Hub</a>
-  </div>
 </main>
 
 <div id="lightbox" class="lightbox">
-  <button id="lightboxClose" class="lightbox-close">×</button>
-  <div class="lightbox-image-wrap">
-    <img id="lightboxImage" src="" alt="Full-size image">
-  </div>
+    <button id="lightboxClose" class="lightbox-close">×</button>
+    <div class="lightbox-image-wrap">
+        <img id="lightboxImage" src="" alt="Full-size image">
+        <img class="lightbox-watermark" src="../images/starwm.png" alt="">
+    </div>
 </div>
 
 <script>
 const API_URL = "https://charahub.crysthigpen.workers.dev";
+const HUBS = {
+    star: {
+        site: "https://characterhub.pages.dev",
+        api: "https://charahub.crysthigpen.workers.dev"
+    },
+    luna: {
+        site: "https://lunabrew.pages.dev",
+        api: "https://lunabreww.crysthigpen.workers.dev"
+    }
+};
 const params = new URLSearchParams(window.location.search);
 const SLUG = params.get("slug");
+
+let allCharacters = [];
+let currentCharacter = null;
 let customCssLoaded = "";
 
 function getImage(path) {
-  if (!path) return "../images/placeholder.png";
-  path = String(path).trim();
-  if (path.startsWith("http")) return path;
-  if (path.startsWith("/")) return window.location.origin + path;
-  return window.location.origin + "/" + path;
+    if (!path) return "../images/placeholder.png";
+
+    path = String(path).trim();
+
+    if (path.startsWith("http")) return path;
+    if (path.startsWith("/")) return window.location.origin + path;
+
+    return window.location.origin + "/" + path;
+}
+
+function getHubImage(character, path) {
+    if (!path) return "";
+
+    path = String(path).trim();
+
+    if (path.startsWith("http")) return path;
+
+    const hubKey = character?.hub || "";
+    const hub = HUBS[hubKey];
+
+    if (hub) {
+        return hub.site + "/" + path.replace(/^\/+/, "");
+    }
+
+    return getImage(path);
 }
 
 function loadCustomCss(path) {
-  if (!path) return;
-  const href = getImage(String(path).trim());
-  if (customCssLoaded === href) return;
-  customCssLoaded = href;
-  const oldCustom = document.getElementById("worldCustomCss");
-  if (oldCustom) oldCustom.remove();
-  const link = document.createElement("link");
-  link.id = "worldCustomCss";
-  link.rel = "stylesheet";
-  link.href = href + (href.includes("?") ? "&" : "?") + "v=" + Date.now();
-  document.head.appendChild(link);
+    if (!path) return;
+
+    const cssPath = String(path).trim();
+    if (!cssPath) return;
+
+    const href = getImage(cssPath);
+    if (customCssLoaded === href) return;
+
+    customCssLoaded = href;
+
+    const oldCustom = document.getElementById("characterCustomCss");
+    if (oldCustom) oldCustom.remove();
+
+    const link = document.createElement("link");
+    link.id = "characterCustomCss";
+    link.rel = "stylesheet";
+    link.href = href + (href.includes("?") ? "&" : "?") + "v=" + Date.now();
+
+    document.head.appendChild(link);
 }
 
 function setText(id, value, fallback = "—") {
-  const el = document.getElementById(id);
-  if (!el) return;
-  el.textContent = value && String(value).trim() ? value : fallback;
-}
+    const el = document.getElementById(id);
+    if (!el) return;
 
-function setImage(id, path) {
-  const img = document.getElementById(id);
-  if (!img) return;
-  img.src = path ? getImage(path) : "../images/placeholder.png";
+    el.textContent = value && String(value).trim() ? value : fallback;
 }
 
 function renderTags(id, items) {
-  const box = document.getElementById(id);
-  if (!box) return;
-  box.innerHTML = "";
-  if (!Array.isArray(items) || items.length === 0) {
-    box.innerHTML = '<span class="tag">—</span>';
-    return;
-  }
-  items.forEach(item => {
-    const span = document.createElement("span");
-    span.className = "tag";
-    span.textContent = item;
-    box.appendChild(span);
-  });
+    const box = document.getElementById(id);
+    if (!box) return;
+
+    box.innerHTML = "";
+
+    if (!Array.isArray(items) || items.length === 0) {
+        box.innerHTML = '<span class="tag">—</span>';
+        return;
+    }
+
+    items.forEach(item => {
+        const span = document.createElement("span");
+        span.className = "tag";
+        span.textContent = item;
+        box.appendChild(span);
+    });
+}
+
+
+function renderCharacterWorlds(worlds) {
+    const wrap = document.getElementById("characterWorldsWrap");
+    const box = document.getElementById("characterWorlds");
+
+    if (!wrap || !box) return;
+
+    box.innerHTML = "";
+
+    if (!Array.isArray(worlds) || worlds.length === 0) {
+        wrap.style.display = "none";
+        return;
+    }
+
+    wrap.style.display = "block";
+
+    worlds.forEach(world => {
+        if (!world || !world.name || !world.slug) return;
+
+        const link = document.createElement("a");
+        link.className = "tag";
+        link.textContent = world.name;
+        link.href = `../world/index.html?slug=${encodeURIComponent(world.slug)}`;
+
+        box.appendChild(link);
+    });
+}
+
+function creditIcon(role) {
+    const lower = String(role || "").toLowerCase();
+
+    if (lower.includes("artist")) return "🎨";
+    if (lower.includes("base")) return "📐";
+    if (lower.includes("design")) return "✨";
+    if (lower.includes("color")) return "🖌️";
+    if (lower.includes("commission")) return "💌";
+    if (lower.includes("gift")) return "🎁";
+
+    return "🏷️";
+}
+
+function makeCreditPill(role, name, link = "") {
+    const lower = String(role || "").toLowerCase();
+
+    let cls = "credit-pill image-credit-pill";
+
+    if (lower.includes("artist")) cls += " artist-pill";
+    else if (lower.includes("base")) cls += " base-pill";
+    else if (lower.includes("design")) cls += " designer-pill";
+    else if (lower.includes("color")) cls += " colorist-pill";
+    else if (lower.includes("commission")) cls += " commissioner-pill";
+    else if (lower.includes("gift")) cls += " gift-pill";
+
+    const pill = document.createElement(link ? "a" : "span");
+    pill.className = cls;
+    pill.textContent = `${creditIcon(role)} ${role}: ${name}`;
+
+    if (link) {
+        pill.href = link;
+        pill.target = "_blank";
+        pill.rel = "noopener noreferrer";
+    }
+
+    return pill;
+}
+
+function renderCreditPills(containerId, credits) {
+    const box = document.getElementById(containerId);
+    if (!box) return;
+
+    box.innerHTML = "";
+
+    const addPill = (label, value, className) => {
+        if (!value) return;
+
+        const span = document.createElement("span");
+        span.className = `credit-pill ${className || ""}`;
+        span.textContent = `${label} ${value}`;
+        box.appendChild(span);
+    };
+
+    addPill("🎨 Artist:", credits?.artist, "artist-pill");
+    addPill("✨ Designer:", credits?.designer, "designer-pill");
+    addPill("🖌️ Colorist:", credits?.colorist, "colorist-pill");
+
+    if (Array.isArray(credits?.baseMakers)) {
+        credits.baseMakers.forEach(base => addPill("📐 Base:", base, "base-pill"));
+    }
 }
 
 function normalizeImageItem(item) {
-  if (!item) return null;
-  if (typeof item === "string") return { url: item, label: "" };
-  return { url: item.url || item.src || "", label: item.label || item.type || "" };
+    if (!item) return null;
+
+    if (typeof item === "string") {
+        return {
+            url: item,
+            label: "",
+            credits: []
+        };
+    }
+
+    return {
+        url: item.url || item.src || "",
+        label: item.label || item.type || "",
+        credits: Array.isArray(item.credits) ? item.credits : []
+    };
+}
+
+function renderImageCreditPills(card, item) {
+    if (!Array.isArray(item.credits) || item.credits.length === 0) return;
+
+    const creditBox = document.createElement("div");
+    creditBox.className = "image-credit-pills";
+
+    item.credits.forEach(credit => {
+        if (!credit.name) return;
+        creditBox.appendChild(makeCreditPill(credit.role || "Credit", credit.name, credit.link || ""));
+    });
+
+    if (creditBox.children.length) card.appendChild(creditBox);
 }
 
 function renderImages(id, images, name) {
-  const grid = document.getElementById(id);
-  if (!grid) return;
-  grid.innerHTML = "";
-  if (!Array.isArray(images) || images.length === 0) {
-    grid.innerHTML = "<p>No world images yet.</p>";
-    return;
-  }
-  images.forEach(rawItem => {
-    const item = normalizeImageItem(rawItem);
-    if (!item || !item.url) return;
-    const card = document.createElement("div");
-    card.className = "image-card";
-    const img = document.createElement("img");
-    img.src = getImage(item.url);
-    img.alt = `${name || "World"} image`;
-    img.addEventListener("click", () => openLightbox(getImage(item.url)));
-    const wrapper = document.createElement("div");
-    wrapper.className = "watermarked-image";
-    wrapper.appendChild(img);
-    card.appendChild(wrapper);
-    if (item.label) {
-      const caption = document.createElement("p");
-      caption.className = "image-title";
-      caption.textContent = item.label;
-      card.appendChild(caption);
+    const grid = document.getElementById(id);
+    if (!grid) return;
+
+    grid.innerHTML = "";
+
+    if (!Array.isArray(images) || images.length === 0) {
+        grid.innerHTML = "<p>No images yet.</p>";
+        return;
     }
-    grid.appendChild(card);
-  });
+
+    images.forEach(rawItem => {
+        const item = normalizeImageItem(rawItem);
+        if (!item || !item.url) return;
+
+        const card = document.createElement("div");
+        card.className = "image-card";
+
+        const img = document.createElement("img");
+        img.src = getImage(item.url);
+        img.alt = `${name || "Character"} image`;
+        img.addEventListener("click", () => openLightbox(getImage(item.url)));
+
+        const wrapper = document.createElement("div");
+        wrapper.className = "watermarked-image";
+        wrapper.appendChild(img);
+
+        card.appendChild(wrapper);
+
+        if (item.label) {
+            const caption = document.createElement("p");
+            caption.className = "image-title";
+            caption.textContent = item.label;
+            card.appendChild(caption);
+        }
+
+        renderImageCreditPills(card, item);
+        grid.appendChild(card);
+    });
+
+    if (!grid.children.length) grid.innerHTML = "<p>No images yet.</p>";
+}
+
+function renderNSFWImages(images, name) {
+    const grid = document.getElementById("nsfwGalleryGrid");
+    if (!grid) return;
+
+    grid.innerHTML = "";
+
+    if (!Array.isArray(images) || images.length === 0) {
+        grid.innerHTML = "<p>No mature images yet.</p>";
+        return;
+    }
+
+    images.forEach(rawItem => {
+        const item = normalizeImageItem(rawItem);
+        if (!item || !item.url) return;
+
+        const card = document.createElement("div");
+        card.className = "image-card nsfw-card";
+
+        const img = document.createElement("img");
+        img.src = getImage(item.url);
+        img.alt = `${name || "Character"} mature gallery image`;
+
+        const overlay = document.createElement("div");
+        overlay.className = "nsfw-overlay";
+        overlay.innerHTML = `
+            <strong>🔞 Mature Content</strong>
+            <small>Click to reveal</small>
+        `;
+
+        const wrapper = document.createElement("div");
+        wrapper.className = "watermarked-image";
+        wrapper.appendChild(img);
+        wrapper.appendChild(overlay);
+
+        card.appendChild(wrapper);
+
+        if (item.label) {
+            const caption = document.createElement("p");
+            caption.className = "image-title";
+            caption.textContent = item.label;
+            card.appendChild(caption);
+        }
+
+        renderImageCreditPills(card, item);
+
+        card.addEventListener("click", event => {
+            if (event.target.closest("a")) return;
+
+            if (!card.classList.contains("revealed")) {
+                card.classList.add("revealed");
+                return;
+            }
+
+            openLightbox(getImage(item.url));
+        });
+
+        grid.appendChild(card);
+    });
+
+    if (!grid.children.length) grid.innerHTML = "<p>No mature images yet.</p>";
+}
+
+function revealAllNSFW() {
+    document.querySelectorAll(".nsfw-card").forEach(card => {
+        card.classList.add("revealed");
+    });
+}
+
+ 
+    
+async function getLinkedCharacter(relSlug) {
+    if (!relSlug) return null;
+
+    const cleanSlug = String(relSlug).trim();
+
+    if (!cleanSlug.includes(":")) {
+        return allCharacters.find(c => String(c.slug).trim() === cleanSlug) || null;
+    }
+
+    const [hubKey, realSlug] = cleanSlug.split(":");
+    const hub = HUBS[hubKey];
+
+    if (!hub || !realSlug) return null;
+
+    try {
+        const response = await fetch(`${hub.api}/character/${encodeURIComponent(realSlug)}`);
+        const data = await response.json();
+
+        if (data.error) return null;
+
+        // If the remote Worker does not return a Hub property yet, infer it from the relationship prefix.
+        data.hub = data.hub || hubKey;
+
+        return data;
+    } catch (err) {
+        console.error("Could not fetch linked character:", err);
+        return null;
+    }
+}
+
+function getCharacterLink(slug) {
+    if (!slug) return "";
+
+    const cleanSlug = String(slug).trim();
+
+    if (cleanSlug.includes(":")) {
+        const [hubKey, realSlug] = cleanSlug.split(":");
+        const hub = HUBS[hubKey];
+
+        if (hub && realSlug) {
+            return `${hub.site}/characters/index.html?slug=${encodeURIComponent(realSlug)}`;
+        }
+    }
+
+    return `index.html?slug=${encodeURIComponent(cleanSlug)}`;
+}
+
+async function renderRelationships(relationships) {
+    const grid = document.getElementById("relationshipsGrid");
+    if (!grid) return;
+
+    grid.innerHTML = "";
+
+    if (!Array.isArray(relationships) || relationships.length === 0) {
+        grid.innerHTML = "<p>No relationships yet.</p>";
+        return;
+    }
+
+    for (const rel of relationships) {
+        const linkedCharacter = await getLinkedCharacter(rel.slug);
+
+        const name = linkedCharacter?.name || rel.name || "Unnamed";
+        const species = linkedCharacter?.species || "";
+        const icon = linkedCharacter?.icon || "";
+        const type = rel.type || "Connection";
+        const notes = rel.notes || "";
+        const slug = rel.slug || "";
+
+        const card = document.createElement("div");
+        card.className = "relationship-card relationship-preview-card";
+
+        card.innerHTML = `
+            ${icon ? `<img src="${getHubImage(linkedCharacter, icon)}" alt="${name}">` : ""}
+            <h3>${name}</h3>
+            ${species ? `<p>${species}</p>` : ""}
+            <span class="relationship-type">${type}</span>
+            <p>${notes || "No notes yet."}</p>
+            ${slug ? `<a href="${getCharacterLink(slug)}">View Profile →</a>` : ""}
+        `;
+
+        grid.appendChild(card);
+    }
+}
+
+function renderAuTabs(character) {
+    const tabs = document.getElementById("tabs");
+    const profilePage = document.querySelector(".profile-page");
+    const profileNav = document.querySelector(".profile-nav");
+
+    if (!tabs || !profilePage || !profileNav) return;
+
+    document.querySelectorAll(".au-tab-button").forEach(button => button.remove());
+    document.querySelectorAll(".au-tab-panel").forEach(panel => panel.remove());
+
+    if (!Array.isArray(character.auGalleries) || character.auGalleries.length === 0) return;
+
+    character.auGalleries.forEach((au, index) => {
+        if (!au || !Array.isArray(au.images) || au.images.length === 0) return;
+
+        const tabId = `au-${index}`;
+
+        const button = document.createElement("button");
+        button.className = "tab-button au-tab-button";
+        button.dataset.tab = tabId;
+        button.textContent = au.name || `AU Gallery ${index + 1}`;
+        tabs.appendChild(button);
+
+        const section = document.createElement("section");
+        section.id = tabId;
+        section.className = "tab-panel au-tab-panel";
+        section.innerHTML = `
+            <div class="section-title">
+                <h2>${au.name || `AU Gallery ${index + 1}`}</h2>
+                <p>Alternate universe gallery.</p>
+            </div>
+            <div id="${tabId}Grid" class="gallery-grid"></div>
+        `;
+
+        profilePage.insertBefore(section, profileNav);
+        renderImages(`${tabId}Grid`, au.images, character.name);
+    });
 }
 
 function setupTabs() {
-  document.querySelectorAll(".tab-button").forEach(button => {
-    button.addEventListener("click", () => {
-      const target = button.dataset.tab;
-      document.querySelectorAll(".tab-button").forEach(btn => btn.classList.remove("active"));
-      document.querySelectorAll(".tab-panel").forEach(panel => panel.classList.remove("active"));
-      button.classList.add("active");
-      const panel = document.getElementById(target);
-      if (panel) panel.classList.add("active");
-    });
-  });
-}
+    const buttons = document.querySelectorAll(".tab-button");
 
-function hideEmptyTabs(world) {
-  [
-    { tab: "map", empty: !world.mapImage },
-    { tab: "culture", empty: !world.culture },
-    { tab: "systems", empty: !world.magicSystem && !world.technology && !world.economy },
-    { tab: "gallery", empty: !Array.isArray(world.gallery) || world.gallery.length === 0 },
-    { tab: "trivia", empty: !world.trivia }
-  ].forEach(item => {
-    if (!item.empty) return;
-    const button = document.querySelector(`[data-tab="${item.tab}"]`);
-    const panel = document.getElementById(item.tab);
-    if (button) button.style.display = "none";
-    if (panel) panel.style.display = "none";
-  });
+    buttons.forEach(button => {
+        if (button.dataset.bound === "true") return;
+        button.dataset.bound = "true";
+
+        button.addEventListener("click", () => {
+            const target = button.dataset.tab;
+
+            document.querySelectorAll(".tab-button").forEach(btn => btn.classList.remove("active"));
+            document.querySelectorAll(".tab-panel").forEach(panel => panel.classList.remove("active"));
+
+            button.classList.add("active");
+
+            const panel = document.getElementById(target);
+            if (panel) panel.classList.add("active");
+        });
+    });
 }
 
 function openLightbox(src) {
-  const img = document.getElementById("lightboxImage");
-  const box = document.getElementById("lightbox");
-  if (!img || !box) return;
-  img.src = src;
-  box.classList.add("active");
+    const img = document.getElementById("lightboxImage");
+    const box = document.getElementById("lightbox");
+    if (!img || !box) return;
+
+    img.src = src;
+    box.classList.add("active");
 }
 
 function closeLightbox() {
-  const img = document.getElementById("lightboxImage");
-  const box = document.getElementById("lightbox");
-  if (!img || !box) return;
-  box.classList.remove("active");
-  img.src = "";
+    const img = document.getElementById("lightboxImage");
+    const box = document.getElementById("lightbox");
+    if (!img || !box) return;
+
+    box.classList.remove("active");
+    img.src = "";
 }
 
 function setupLightbox() {
-  const closeButton = document.getElementById("lightboxClose");
-  const lightbox = document.getElementById("lightbox");
-  if (closeButton) closeButton.addEventListener("click", closeLightbox);
-  if (lightbox) lightbox.addEventListener("click", event => {
-    if (event.target.id === "lightbox") closeLightbox();
-  });
-  document.addEventListener("keydown", event => {
-    if (event.key === "Escape") closeLightbox();
-  });
+    const closeButton = document.getElementById("lightboxClose");
+    const lightbox = document.getElementById("lightbox");
+
+    if (closeButton) closeButton.addEventListener("click", closeLightbox);
+
+    if (lightbox) {
+        lightbox.addEventListener("click", event => {
+            if (event.target.id === "lightbox") closeLightbox();
+        });
+    }
+
+    document.addEventListener("keydown", event => {
+        if (event.key === "Escape") closeLightbox();
+    });
 }
 
-function fillWorld(world) {
-  loadCustomCss(world.customCss);
-  document.title = `${world.name || "World"} | Character Hub`;
-  setText("worldName", world.name, "Unnamed World");
-  setText("worldShortDescription", world.shortDescription, "No short description yet.");
-  setText("worldStatus", world.status);
-  setText("worldEra", world.era);
-  setText("worldOverview", world.overview, "No overview yet.");
-  setText("worldCulture", world.culture, "No culture notes yet.");
-  setText("worldMagicSystem", world.magicSystem);
-  setText("worldTechnology", world.technology);
-  setText("worldEconomy", world.economy);
-  setText("worldTrivia", world.trivia, "No trivia yet.");
-  setImage("worldBanner", world.banner);
-  setImage("worldIcon", world.icon);
-  setImage("worldMap", world.mapImage);
-  renderTags("worldGenre", world.genre);
-  renderTags("worldTheme", world.theme);
-  renderImages("worldGalleryGrid", world.gallery, world.name);
-  hideEmptyTabs(world);
+function setupPrevNext() {
+    if (!currentCharacter || !Array.isArray(allCharacters) || allCharacters.length === 0) return;
+
+    const currentIndex = allCharacters.findIndex(c => c.slug === currentCharacter.slug);
+    if (currentIndex === -1) return;
+
+    const prev = allCharacters[(currentIndex - 1 + allCharacters.length) % allCharacters.length];
+    const next = allCharacters[(currentIndex + 1) % allCharacters.length];
+
+    const prevBtn = document.getElementById("prevCharacter");
+    const nextBtn = document.getElementById("nextCharacter");
+
+    if (!prevBtn || !nextBtn) return;
+
+    if (allCharacters.length <= 1) {
+        prevBtn.style.display = "none";
+        nextBtn.style.display = "none";
+        return;
+    }
+
+    prevBtn.href = `index.html?slug=${encodeURIComponent(prev.slug)}`;
+    prevBtn.textContent = `← ${prev.name || "Previous"}`;
+
+    nextBtn.href = `index.html?slug=${encodeURIComponent(next.slug)}`;
+    nextBtn.textContent = `${next.name || "Next"} →`;
 }
 
-async function loadWorld() {
-  try {
-    if (!SLUG) {
-      setText("worldName", "No world selected");
-      setText("worldShortDescription", "Go back and choose a world.");
-      return;
+function fillCharacter(character) {
+document.body.classList.remove(
+    "layout-default",
+    "layout-classic",
+    "layout-visual-novel",
+    "layout-magazine",
+    "layout-minimal"
+);
+
+const layoutClass = "layout-" + (character.layout || "Default")
+    .toLowerCase()
+    .replaceAll(" ", "-");
+
+document.body.classList.add(layoutClass);
+    
+    currentCharacter = character;
+
+    loadCustomCss(character.customCss);
+
+    document.title = `${character.name || "Character"} | StarSundae Character Hub`;
+
+    setText("characterName", character.name, "Unnamed Character");
+    setText("characterSpecies", character.species, "");
+
+    setText("species", character.species);
+    setText("gender", character.gender);
+    setText("pronouns", character.pronouns);
+    setText("age", character.age);
+    setText("birthday", character.birthday);
+    setText("height", character.height);
+    setText("occupation", character.occupation);
+    setText("folder", character.folder);
+    setText("status", character.status);
+
+    setText("introduction", character.introduction, "No introduction yet.");
+    setText("summary", character.summary, "No summary yet.");
+    setText("personality", character.personality, "No personality notes yet.");
+    setText("mbti", character.mbti);
+   setText("designNotes", character.designNotes, "No design notes yet.");
+    setText("themeSong", character.themeSong);
+
+    setText("trivia", character.trivia, "No trivia yet.");
+    setText("quotes", character.quotes, "No quote yet.");
+    setText("loreText", character.lore, "No lore yet.");
+
+    setText("favFood", character.favorites?.food);
+    setText("favDrink", character.favorites?.drink);
+    setText("favColor", character.favorites?.color);
+    setText("favSeason", character.favorites?.season);
+    setText("favFlower", character.favorites?.flower);
+    setText("favScent", character.favorites?.scent);
+    setText("favMusic", character.favorites?.music);
+    setText("favAnimal", character.favorites?.animal);
+
+    setText("owner", character.credits?.owner);
+    setText("permissions", character.credits?.permissions);
+    setText("tradeStatus", character.credits?.tradeStatus);
+    setText("resaleStatus", character.credits?.resaleStatus);
+
+    renderCreditPills("mainCreditPills", character.credits);
+    renderCreditPills("creditsPills", character.credits);
+
+    renderTags("tags", character.tags);
+    renderCharacterWorlds(character.worlds);
+    renderTags("likes", character.likes);
+    renderTags("dislikes", character.dislikes);
+    renderTags("hobbies", character.hobbies);
+    renderTags("fears", character.fears);
+
+    const mainRef = document.getElementById("mainRef");
+    if (mainRef) {
+        mainRef.src = getImage(character.mainRef || character.icon || "images/placeholder.png");
+        mainRef.alt = `${character.name || "Character"} reference`;
     }
-    const response = await fetch(`${API_URL}/world/${encodeURIComponent(SLUG)}`);
-    const world = await response.json();
-    if (world.error) {
-      setText("worldName", "World not found");
-      setText("worldShortDescription", `No world found for slug: ${SLUG}`);
-      return;
-    }
-    fillWorld(world);
-  } catch (err) {
-    console.error("World page error:", err);
-    setText("worldName", "Unable to load world");
-    setText("worldShortDescription", "Check the browser console for the exact error.");
-  }
+
+    renderImages("galleryGrid", character.gallery, character.name);
+    renderImages("referencesGrid", character.references, character.name);
+    renderNSFWImages(character.nsfwGallery, character.name);
+    renderRelationships(character.relationships);
+
+    renderAuTabs(character);
+    setupTabs();
+
+    setupPrevNext();
 }
+
+async function loadCharacter() {
+    try {
+        if (!SLUG) {
+            setText("characterName", "No character selected");
+            setText("characterSpecies", "Go back to the hub and choose a character.");
+            return;
+        }
+
+        const listResponse = await fetch(API_URL);
+        const listData = await listResponse.json();
+
+        allCharacters = Array.isArray(listData) ? listData : [];
+
+        const response = await fetch(`${API_URL}/character/${encodeURIComponent(SLUG)}`);
+        const character = await response.json();
+
+        if (character.error) {
+            setText("characterName", "Character not found");
+            setText("characterSpecies", `No character found for slug: ${SLUG}`);
+            return;
+        }
+
+        fillCharacter(character);
+
+    } catch (err) {
+        console.error("Character page error:", err);
+        setText("characterName", "Unable to load character");
+        setText("characterSpecies", "Check the browser console for the exact error.");
+    }
+}
+
+
+async function checkAdminPassword(password) {
+    const response = await fetch(`${API_URL}/admin-login`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ password })
+    });
+
+    const data = await response.json();
+
+    return data && data.ok === true;
+}
+
+function setupAdminTools() {
+    const unlockButton = document.getElementById("unlockAdmin");
+    const passwordInput = document.getElementById("adminPassword");
+    const message = document.getElementById("adminMessage");
+    const adminLock = document.getElementById("adminLock");
+    const adminTools = document.getElementById("adminTools");
+
+    if (!unlockButton || !passwordInput || !adminLock || !adminTools) return;
+
+    function unlock() {
+        adminLock.style.display = "none";
+        adminTools.style.display = "block";
+        sessionStorage.setItem("starhubAdminUnlocked", "true");
+    }
+
+    if (sessionStorage.getItem("starhubAdminUnlocked") === "true") {
+        unlock();
+    }
+
+    unlockButton.addEventListener("click", async () => {
+        const password = passwordInput.value.trim();
+
+        if (!password) {
+            if (message) message.textContent = "Please enter a password.";
+            return;
+        }
+
+        unlockButton.disabled = true;
+        unlockButton.textContent = "Checking...";
+
+        try {
+            const ok = await checkAdminPassword(password);
+
+            if (ok) {
+                unlock();
+            } else {
+                if (message) message.textContent = "Wrong password.";
+            }
+        } catch (err) {
+            console.error("Admin unlock error:", err);
+            if (message) message.textContent = "Could not check password.";
+        }
+
+        unlockButton.disabled = false;
+        unlockButton.textContent = "Unlock";
+    });
+
+    passwordInput.addEventListener("keydown", event => {
+        if (event.key === "Enter") {
+            unlockButton.click();
+        }
+    });
+
+    setupLineGenerator();
+}
+
+function setupLineGenerator() {
+    const title = document.getElementById("genTitle");
+    const path = document.getElementById("genPath");
+    const credits = document.getElementById("genCredits");
+    const output = document.getElementById("generatedLine");
+
+    const generateButton = document.getElementById("generateLine");
+    const copyButton = document.getElementById("copyLine");
+
+    if (!title || !path || !credits || !output || !generateButton || !copyButton) return;
+
+    generateButton.addEventListener("click", () => {
+        const line = `${title.value.trim()}|${path.value.trim()}|${credits.value.trim()}`;
+        output.value = line;
+    });
+
+    copyButton.addEventListener("click", async () => {
+        if (!output.value) return;
+
+        await navigator.clipboard.writeText(output.value);
+
+        copyButton.textContent = "Copied!";
+        setTimeout(() => copyButton.textContent = "Copy Line", 1200);
+    });
+}
+
 
 document.addEventListener("DOMContentLoaded", () => {
-  setupTabs();
-  setupLightbox();
-  loadWorld();
-});
+    setupTabs();
+    setupLightbox();
+    setupAdminTools();
 
-  
+    const revealButton = document.getElementById("revealAllNsfw");
+    if (revealButton) revealButton.addEventListener("click", revealAllNSFW);
+
+    loadCharacter();
+});
 </script>
+
 </body>
 </html>
