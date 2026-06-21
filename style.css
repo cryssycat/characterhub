@@ -1297,3 +1297,30 @@ body::after{
     }
     .world-quick-card{ grid-template-columns:1fr; }
 }
+
+
+.wiki-nav-card{
+    text-align:center;
+}
+
+.wiki-links{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+    gap:12px;
+    margin-top:15px;
+}
+
+.wiki-links a{
+    display:block;
+    padding:15px;
+    background:rgba(255,255,255,.5);
+    border-radius:20px;
+    text-decoration:none;
+    color:inherit;
+    transition:.2s;
+}
+
+.wiki-links a:hover{
+    transform:translateY(-2px);
+}
+}
