@@ -793,7 +793,7 @@ document.body.classList.add(layoutClass);
 
     renderCreditPills("mainCreditPills", character.credits);
     renderCreditPills("creditsPills", character.credits);
-
+    renderCharacterWorlds(character.worlds);
     renderTags("tags", character.tags);
     renderTags("likes", character.likes);
     renderTags("dislikes", character.dislikes);
@@ -953,7 +953,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const revealButton = document.getElementById("revealAllNsfw");
     if (revealButton) revealButton.addEventListener("click", revealAllNSFW);
+function renderCharacterWorlds(worlds) {
+  const wrap = document.getElementById("characterWorldsWrap");
+  const box = document.getElementById("characterWorlds");
 
+  if (!wrap || !box || !Array.isArray(worlds) || worlds.length === 0) return;
+
+  wrap.style.display = "block";
+  box.innerHTML = "";
+
+  worlds.forEach(world => {
+    const a = document.createElement("a");
+    a.className = "tag";
+    a.textContent = world.name;
+    a.href = `../world/index.html?slug=${encodeURIComponent(world.slug)}`;
+    box.appendChild(a);
+  });
+}
     loadCharacter();
 });
 </script>
