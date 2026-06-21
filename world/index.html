@@ -149,8 +149,17 @@ function getImageWithBase(path, base = window.location.origin) {
   return cleanBase + "/" + path;
 }
 
-function getCharacterImage(character) {
-  const rawIcon =
+function addCacheBust(url) {
+  if (!url || url.startsWith("http") && !url.includes(window.location.host)) return url;
+  return url + (url.includes("?") ? "&" : "?") + "v=" + Date.now();
+}
+
+function uniqueValues(items) {
+  return [...new Set(items.filter(Boolean).map(item => String(item).trim()).filter(Boolean))];
+}
+
+function getCharacterRawImage(character) {
+  return (
     character.icon ||
     character.avatar ||
     character.image ||
@@ -158,9 +167,69 @@ function getCharacterImage(character) {
     character.mainImage ||
     character.reference ||
     character.ref ||
-    "";
+    ""
+  );
+}
 
-  return getImageWithBase(rawIcon, character.imageBase || window.location.origin);
+function getCharacterImageCandidates(character) {
+  const raw = getCharacterRawImage(character);
+  const placeholder = "../images/placeholder.png";
+
+  if (!raw) return [placeholder];
+
+  const path = String(raw).trim();
+
+  if (!path) return [placeholder];
+  if (path.startsWith("http")) return [path, placeholder];
+
+  const cleanPath = path.replace(/^\/+/, "");
+
+  const candidates = [];
+
+  // Best for LunaHub when this page lives in /world/index.html
+  if (character.hub === "LunaHub") {
+    candidates.push(`../${cleanPath}`);
+    candidates.push(`${window.location.origin}/${cleanPath}`);
+  }
+
+  // Best for StarHub public assets
+  if (character.hub === "StarHub") {
+    candidates.push(`https://characterhub.pages.dev/${cleanPath}`);
+  }
+
+  // Fallbacks for either hub
+  if (character.imageBase) {
+    candidates.push(getImageWithBase(path, character.imageBase));
+  }
+
+  candidates.push(`${window.location.origin}/${cleanPath}`);
+  candidates.push(`../${cleanPath}`);
+  candidates.push(placeholder);
+
+  return uniqueValues(candidates);
+}
+
+function getCharacterImage(character) {
+  const candidates = getCharacterImageCandidates(character);
+  return candidates[0] || "../images/placeholder.png";
+}
+
+function tryNextCharacterImage(img) {
+  try {
+    const candidates = JSON.parse(img.dataset.fallbacks || "[]");
+    const index = Number(img.dataset.fallbackIndex || "0") + 1;
+
+    if (index < candidates.length) {
+      img.dataset.fallbackIndex = String(index);
+      img.src = addCacheBust(candidates[index]);
+      return;
+    }
+  } catch (err) {
+    console.warn("Image fallback failed:", err);
+  }
+
+  img.onerror = null;
+  img.src = "../images/placeholder.png";
 }
 
 async function enrichCharacterWithDetail(character) {
@@ -195,6 +264,7 @@ function getCharacterHref(character) {
     return `https://characterhub.pages.dev/characters/index.html?slug=${encodeURIComponent(slug)}`;
   }
 
+  // LunaHub characters stay on the current LunaHub site.
   return `../characters/index.html?slug=${encodeURIComponent(slug)}`;
 }
 
@@ -530,7 +600,9 @@ function createCharacterCard(character) {
   const slug = character.slug || "";
   const species = character.species || "Unknown Species";
 
-  const icon = getCharacterImage(character);
+  const imageCandidates = getCharacterImageCandidates(character);
+  const icon = addCacheBust(imageCandidates[0] || "../images/placeholder.png");
+  const fallbackData = escapeHtml(JSON.stringify(imageCandidates));
 
   const card = document.createElement("a");
   card.className = "character-card world-character-card";
@@ -539,7 +611,13 @@ function createCharacterCard(character) {
   card.innerHTML = `
     ${character.favorite ? `<span class="favorite-badge">⭐ Favorite</span>` : ""}
     <span class="favorite-badge hub-badge">${escapeHtml(character.hubLabel || character.hub || "Hub")}</span>
-    <img src="${icon}" alt="${escapeHtml(name)}" onerror="this.src='../images/placeholder.png'">
+    <img
+      src="${icon}"
+      alt="${escapeHtml(name)}"
+      data-fallback-index="0"
+      data-fallbacks="${fallbackData}"
+      onerror="tryNextCharacterImage(this)"
+    >
     <h2>${escapeHtml(name)}</h2>
     <p>${escapeHtml(species)}</p>
   `;
