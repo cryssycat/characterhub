@@ -85,7 +85,7 @@
       <h2>Featured Characters</h2>
       <p>Characters associated with this world.</p>
     </div>
-    <div id="featuredCharactersGrid" class="gallery-grid">
+    <div id="featuredCharactersGrid" class="relationship-grid">
       <p>No featured characters yet.</p>
     </div>
   </section>
@@ -110,6 +110,16 @@
 
 <script>
 const API_URL = "https://charahub.crysthigpen.workers.dev";
+const HUBS = {
+  star: {
+    site: "https://characterhub.pages.dev",
+    api: "https://charahub.crysthigpen.workers.dev"
+  },
+  luna: {
+    site: "https://lunabrew.pages.dev",
+    api: "https://lunabreww.crysthigpen.workers.dev"
+  }
+};
 const params = new URLSearchParams(window.location.search);
 const SLUG = params.get("slug");
 let customCssLoaded = "";
@@ -201,6 +211,97 @@ function renderImages(id, images, name) {
   });
 }
 
+
+function getCharacterLink(slug) {
+  if (!slug) return "#";
+
+  const cleanSlug = String(slug).trim();
+
+  if (cleanSlug.includes(":")) {
+    const [hubKey, realSlug] = cleanSlug.split(":");
+    const hub = HUBS[hubKey];
+
+    if (hub && realSlug) {
+      return `${hub.site}/characters/index.html?slug=${encodeURIComponent(realSlug)}`;
+    }
+  }
+
+  return `../characters/index.html?slug=${encodeURIComponent(cleanSlug)}`;
+}
+
+async function getFeaturedCharacterData(slug) {
+  if (!slug) return null;
+
+  const cleanSlug = String(slug).trim();
+
+  let api = API_URL;
+  let realSlug = cleanSlug;
+
+  if (cleanSlug.includes(":")) {
+    const [hubKey, splitSlug] = cleanSlug.split(":");
+    const hub = HUBS[hubKey];
+
+    if (!hub || !splitSlug) return null;
+
+    api = hub.api;
+    realSlug = splitSlug;
+  }
+
+  try {
+    const response = await fetch(`${api}/character/${encodeURIComponent(realSlug)}`);
+    const data = await response.json();
+
+    if (data.error) return null;
+
+    return data;
+  } catch (err) {
+    console.error("Could not fetch featured character:", err);
+    return null;
+  }
+}
+
+async function renderFeaturedCharacters(characters) {
+  const grid = document.getElementById("featuredCharactersGrid");
+  if (!grid) return;
+
+  grid.innerHTML = "";
+
+  if (!Array.isArray(characters) || characters.length === 0) {
+    grid.innerHTML = "<p>No featured characters yet.</p>";
+    return;
+  }
+
+  for (const character of characters) {
+    if (!character || !character.slug) continue;
+
+    const data = await getFeaturedCharacterData(character.slug);
+
+    const name = data?.name || character.name || "Unnamed Character";
+    const species = data?.species || "";
+    const icon = data?.icon || data?.mainRef || "";
+    const notes = character.notes || "";
+    const link = getCharacterLink(character.slug);
+
+    const card = document.createElement("div");
+    card.className = "relationship-card relationship-preview-card";
+
+    card.innerHTML = `
+      ${icon ? `<img src="${getImage(icon)}" alt="${name}">` : ""}
+      <h3>${name}</h3>
+      ${species ? `<p>${species}</p>` : ""}
+      ${notes ? `<p>${notes}</p>` : ""}
+      <a href="${link}">View Profile →</a>
+    `;
+
+    grid.appendChild(card);
+  }
+
+  if (!grid.children.length) {
+    grid.innerHTML = "<p>No featured characters yet.</p>";
+  }
+}
+
+
 function setupTabs() {
   document.querySelectorAll(".tab-button").forEach(button => {
     button.addEventListener("click", () => {
@@ -220,6 +321,7 @@ function hideEmptyTabs(world) {
     { tab: "culture", empty: !world.culture },
     { tab: "systems", empty: !world.magicSystem && !world.technology && !world.economy },
     { tab: "gallery", empty: !Array.isArray(world.gallery) || world.gallery.length === 0 },
+    { tab: "characters", empty: !Array.isArray(world.featuredCharacters) || world.featuredCharacters.length === 0 },
     { tab: "trivia", empty: !world.trivia }
   ].forEach(item => {
     if (!item.empty) return;
@@ -277,6 +379,7 @@ function fillWorld(world) {
   renderTags("worldGenre", world.genre);
   renderTags("worldTheme", world.theme);
   renderImages("worldGalleryGrid", world.gallery, world.name);
+  renderFeaturedCharacters(world.featuredCharacters);
   hideEmptyTabs(world);
 }
 
