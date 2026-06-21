@@ -1,0 +1,409 @@
+/* ==========================================
+   WORLD CUSTOM CSS — AETHERRA
+========================================== */
+
+/* GENERAL PAGE */
+
+body{
+    background:
+        linear-gradient(rgba(9,10,28,.92), rgba(30,20,45,.88)),
+        url("/images/bgs/worldbg.png") repeat,
+        #0b1024 !important;
+
+    background-size:auto !important;
+    background-attachment:fixed !important;
+
+    color:#f7f1ea;
+}
+
+
+/* ==========================================
+   HEADER
+========================================== */
+
+.world-header{
+    text-align:center;
+}
+
+.world-banner{
+    border-radius:36px;
+    overflow:hidden;
+
+    border:1px solid rgba(255,220,180,.25);
+
+    box-shadow:
+        0 0 60px rgba(255,195,130,.15),
+        0 0 30px rgba(100,140,255,.15);
+}
+
+.world-title-card{
+
+    background:rgba(25,20,45,.75);
+
+    border:1px solid rgba(255,225,195,.25);
+
+    border-radius:30px;
+
+    backdrop-filter:blur(12px);
+
+    box-shadow:
+        0 0 40px rgba(255,185,120,.12),
+        inset 0 0 25px rgba(255,255,255,.03);
+
+}
+
+.world-title-card h1{
+
+    color:#fff8f0;
+
+    letter-spacing:4px;
+
+    text-shadow:
+        0 0 12px rgba(255,220,170,.8),
+        0 0 30px rgba(255,180,120,.4);
+
+}
+
+.world-title-card p{
+    color:#dfd6ff;
+}
+
+.world-icon{
+    border:1px solid rgba(255,225,195,.4);
+
+    box-shadow:
+        0 0 25px rgba(255,185,130,.25);
+}
+
+
+/* ==========================================
+   QUICK INFO
+========================================== */
+
+.world-quick-card{
+
+    background:rgba(28,23,50,.78) !important;
+
+    border:1px solid rgba(255,225,200,.18) !important;
+
+    border-radius:30px !important;
+
+    color:#f7f1ea;
+
+    backdrop-filter:blur(12px);
+
+    box-shadow:
+        0 15px 40px rgba(0,0,0,.4);
+
+}
+
+
+/* ==========================================
+   TABS
+========================================== */
+
+.tabs{
+    gap:12px;
+}
+
+.tab-button{
+
+    background:rgba(38,30,70,.75);
+
+    color:#efe7ff;
+
+    border:1px solid rgba(255,215,180,.18);
+
+    border-radius:999px;
+
+    box-shadow:0 0 15px rgba(255,190,130,.08);
+
+}
+
+.tab-button:hover{
+
+    background:rgba(65,50,100,.9);
+
+    color:white;
+
+}
+
+.tab-button.active{
+
+    background:linear-gradient(
+        135deg,
+        #fff3dc,
+        #e7b98c
+    );
+
+    color:#302042;
+
+    border-color:rgba(255,255,255,.8);
+
+    box-shadow:
+        0 0 25px rgba(255,190,130,.35);
+
+}
+
+
+/* ==========================================
+   CONTENT CARDS
+========================================== */
+
+.content-card{
+
+    background:rgba(26,22,48,.82) !important;
+
+    border-radius:30px !important;
+
+    border:1px solid rgba(255,225,200,.15);
+
+    color:#f7f1ea;
+
+    backdrop-filter:blur(12px);
+
+    box-shadow:
+        0 15px 40px rgba(0,0,0,.42);
+
+}
+
+.content-card h2{
+
+    color:#fff6ea;
+
+    text-shadow:
+        0 0 15px rgba(255,210,160,.4);
+
+}
+
+.content-card p{
+    color:#e2d8ff;
+}
+
+
+/* ==========================================
+   TAGS
+========================================== */
+
+.tag{
+
+    background:rgba(255,190,135,.12);
+
+    border:1px solid rgba(255,220,180,.2);
+
+    color:#fff0de;
+
+    border-radius:999px;
+
+}
+
+.tag:hover{
+
+    background:rgba(255,205,160,.2);
+
+    box-shadow:
+        0 0 20px rgba(255,190,130,.25);
+
+}
+
+
+/* ==========================================
+   GALLERY
+========================================== */
+
+.image-card{
+
+    background:rgba(28,23,50,.85);
+
+    border-radius:24px;
+
+    border:1px solid rgba(255,225,200,.15);
+
+    overflow:hidden;
+
+    box-shadow:
+        0 12px 30px rgba(0,0,0,.4);
+
+}
+
+.image-card img{
+    border-radius:20px;
+}
+
+
+/* ==========================================
+   CHARACTER CARDS
+========================================== */
+
+.relationship-card{
+
+    background:rgba(28,23,50,.82);
+
+    border-radius:25px;
+
+    border:1px solid rgba(255,225,200,.15);
+
+    box-shadow:
+        0 12px 30px rgba(0,0,0,.35);
+
+}
+
+.relationship-card h3{
+    color:#fff6ea;
+}
+
+.relationship-card p{
+    color:#dfd6ff;
+}
+
+.relationship-card a{
+
+    color:#ffd8ab;
+
+    text-shadow:
+        0 0 10px rgba(255,200,150,.4);
+
+}
+
+
+/* ==========================================
+   MAP
+========================================== */
+
+.world-map-card{
+
+    background:rgba(28,23,50,.85);
+
+    border-radius:30px;
+
+    border:1px solid rgba(255,225,200,.15);
+
+    box-shadow:
+        0 15px 40px rgba(0,0,0,.4);
+
+}
+
+.world-map-card img{
+    border-radius:22px;
+}
+
+
+/* ==========================================
+   LIGHTBOX
+========================================== */
+
+.lightbox{
+    background:rgba(5,5,15,.92);
+}
+
+.lightbox-image-wrap{
+
+    border:1px solid rgba(255,225,200,.25);
+
+    box-shadow:
+        0 0 50px rgba(255,190,130,.25);
+
+}
+
+.lightbox-image-wrap img{
+    border-radius:20px;
+}
+
+
+/* ==========================================
+   BUTTONS
+========================================== */
+
+.back-button,
+.profile-nav a{
+
+    background:rgba(40,30,70,.85);
+
+    border:1px solid rgba(255,220,180,.18);
+
+    border-radius:999px;
+
+    color:#fdf5ee;
+
+}
+
+.back-button:hover,
+.profile-nav a:hover{
+
+    background:linear-gradient(
+        135deg,
+        #fff3dc,
+        #e4b181
+    );
+
+    color:#2c1d3c;
+
+    box-shadow:
+        0 0 25px rgba(255,190,130,.4);
+
+}
+
+
+/* ==========================================
+   CHARACTER ICONS
+========================================== */
+
+.featured-character-card img,
+.world-character-card img,
+.character-preview-card img{
+
+    width:90px !important;
+    height:90px !important;
+
+    border-radius:50% !important;
+
+    object-fit:cover;
+
+    border:2px solid rgba(255,220,180,.35);
+
+    box-shadow:
+        0 0 18px rgba(255,190,130,.3);
+
+}
+
+
+/* ==========================================
+   SYSTEM PAGE
+========================================== */
+
+#systems .content-grid{
+
+    display:flex !important;
+    flex-direction:column !important;
+
+    gap:22px !important;
+
+}
+
+#systems .content-card{
+
+    width:100% !important;
+
+    max-width:900px;
+
+    margin:0 auto;
+
+}
+
+
+/* ==========================================
+   RESPONSIVE
+========================================== */
+
+@media (max-width:768px){
+
+    .world-title-card{
+        border-radius:24px;
+    }
+
+    .tabs{
+        flex-wrap:wrap;
+        justify-content:center;
+    }
+
+}
