@@ -235,7 +235,7 @@ const HUBS = {
     },
     luna: {
         site: "https://lunabrew.pages.dev",
-        api: "https://lunabreww.crysthigpen.workers.dev"
+        api: "https://charahub.crysthigpen.workers.dev"
     }
 };
 const params = new URLSearchParams(window.location.search);
@@ -574,7 +574,8 @@ async function getLinkedCharacter(relSlug) {
         return allCharacters.find(c => String(c.slug).trim() === cleanSlug) || null;
     }
 
-    const [hubKey, realSlug] = cleanSlug.split(":");
+    const [rawHubKey, realSlug] = cleanSlug.split(":");
+    const hubKey = normalizeHubKey(rawHubKey);
     const hub = HUBS[hubKey];
 
     if (!hub || !realSlug) return null;
@@ -601,7 +602,8 @@ function getCharacterLink(slug) {
     const cleanSlug = String(slug).trim();
 
     if (cleanSlug.includes(":")) {
-        const [hubKey, realSlug] = cleanSlug.split(":");
+        const [rawHubKey, realSlug] = cleanSlug.split(":");
+        const hubKey = normalizeHubKey(rawHubKey);
         const hub = HUBS[hubKey];
 
         if (hub && realSlug) {
@@ -640,8 +642,10 @@ async function renderRelationships(relationships) {
         const card = document.createElement("div");
         card.className = "relationship-card relationship-preview-card";
 
+        const iconUrl = icon ? getHubImage(linkedCharacter, icon) : "";
+
         card.innerHTML = `
-            ${icon ? `<img src="${getHubImage(linkedCharacter, icon)}" alt="${name}">` : ""}
+            ${iconUrl ? `<img src="${iconUrl}" alt="${name}" onerror="this.style.display='none'">` : ""}
             <h3>${name}</h3>
             ${species ? `<p>${species}</p>` : ""}
             <span class="relationship-type">${type}</span>
@@ -846,7 +850,7 @@ document.body.classList.add(layoutClass);
 
     const mainRef = document.getElementById("mainRef");
     if (mainRef) {
-        mainRef.src = getImage(character.mainRef || character.icon || "images/placeholder.png");
+        mainRef.src = getHubImage(character, character.mainRef || character.icon) || getImage("images/placeholder.png");
         mainRef.alt = `${character.name || "Character"} reference`;
     }
 
@@ -869,7 +873,7 @@ async function loadCharacter() {
             return;
         }
 
-        const listResponse = await fetch(API_URL);
+        const listResponse = await fetch(`${API_URL}/characters`);
         const listData = await listResponse.json();
 
         allCharacters = Array.isArray(listData) ? listData : [];
