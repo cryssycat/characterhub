@@ -11,8 +11,8 @@ body {
     color: #66547f;
     min-height: 100vh;
     background:
-        radial-gradient(circle at top, rgba(255,255,255,.45), transparent 60%),
-        linear-gradient(180deg,#ffb8e1 0%,#ffa5d4 50%,#addbff 100%);
+        radial-gradient(circle at top, rgba(255,255,255,.45), transparent 30%),
+        linear-gradient(180deg,#ffd0ee 0%,#ffa5d4 50%,#addbff 100%);
 }
 
 body::before {
