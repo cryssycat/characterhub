@@ -1,0 +1,390 @@
+/* ==========================================
+   WORLD / PAGE CUSTOM CSS — NI PANDA CAFE
+========================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Gabriela&display=swap');
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Quicksand', sans-serif;
+    color:#4a2f1c;
+    min-height:100vh;
+
+    background:
+        radial-gradient(circle at top, rgba(255,235,190,.55), transparent 32%),
+        linear-gradient(180deg,#f7d79c 0%,#e7b978 45%,#9b6335 100%) !important;
+
+    background-attachment:fixed !important;
+}
+
+/* soft leafy sparkle texture */
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    z-index:-1;
+
+    background-image:
+        radial-gradient(rgba(255,245,215,.8) 1px, transparent 1px),
+        radial-gradient(rgba(120,85,35,.18) 1px, transparent 1px),
+        radial-gradient(ellipse at 20% 20%, rgba(85,105,45,.2) 0 20px, transparent 21px),
+        radial-gradient(ellipse at 80% 35%, rgba(255,210,140,.28) 0 22px, transparent 23px);
+
+    background-size:70px 70px,110px 110px,360px 240px,420px 280px;
+    opacity:.55;
+}
+
+/* HEADER */
+
+.site-header,
+.character-header,
+.world-header{
+    text-align:center;
+    max-width:1100px;
+    margin:0 auto;
+    padding:45px 20px 20px;
+}
+
+.site-header h1,
+.character-header h1,
+.world-title-card h1{
+    font-family:'Gabriela', serif;
+    color:#3b2415;
+    font-size:3rem;
+    text-shadow:
+        0 2px 0 rgba(255,235,190,.75),
+        0 0 18px rgba(255,205,125,.45);
+}
+
+.tagline,
+.character-header p,
+.world-title-card p{
+    color:#72512c;
+    margin-top:10px;
+}
+
+/* BANNER */
+
+.world-banner-wrap{
+    width:100%;
+    height:260px;
+    overflow:hidden;
+    border-radius:34px;
+    background:rgba(255,229,180,.55);
+    border:2px solid rgba(92,54,24,.35);
+    box-shadow:0 12px 30px rgba(70,35,10,.25);
+}
+
+.world-banner{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+}
+
+.world-title-card{
+    width:90%;
+    max-width:850px;
+    margin:-55px auto 0;
+    padding:22px;
+    display:flex;
+    gap:20px;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+    z-index:2;
+
+    background:rgba(255,232,190,.82);
+    border:2px solid rgba(92,54,24,.35);
+    border-radius:30px;
+    backdrop-filter:blur(12px);
+
+    box-shadow:
+        0 12px 30px rgba(70,35,10,.22),
+        inset 0 0 18px rgba(255,255,255,.35);
+}
+
+.world-icon{
+    width:95px;
+    height:95px;
+    object-fit:cover;
+    border-radius:24px;
+    background:#f8dfb2;
+    border:2px solid rgba(92,54,24,.4);
+}
+
+/* MAIN CARDS */
+
+.hub-description,
+.profile-card,
+.content-card,
+.relationship-card,
+.world-quick-card,
+.world-map-card,
+.world-character-card,
+.folder-heading,
+.admin-generator,
+.creator-profile-card{
+    background:rgba(255,232,190,.78) !important;
+    border:2px solid rgba(92,54,24,.28) !important;
+    border-radius:30px;
+    color:#4a2f1c;
+    backdrop-filter:blur(12px);
+
+    box-shadow:
+        0 12px 30px rgba(70,35,10,.2),
+        inset 0 0 18px rgba(255,255,255,.25);
+}
+
+.content-card,
+.relationship-card{
+    padding:28px;
+}
+
+.content-card h2,
+.section-title h2,
+.relationship-card h3,
+.folder-heading h2,
+.quick-facts h2,
+.quick-facts h3{
+    font-family:'Gabriela', serif;
+    color:#5c351f;
+    margin-bottom:12px;
+}
+
+.content-card p,
+.relationship-card p,
+.quick-facts,
+.quick-facts p,
+.quick-facts strong,
+.image-card p{
+    color:#5f4227;
+    line-height:1.6;
+}
+
+/* SEARCH */
+
+.search-container{
+    display:flex;
+    justify-content:center;
+    padding:35px 20px;
+}
+
+#searchInput{
+    width:100%;
+    max-width:650px;
+    padding:18px 28px;
+    border-radius:999px;
+    background:rgba(255,238,205,.85);
+    border:2px solid rgba(92,54,24,.25);
+    color:#4a2f1c;
+    font-size:1rem;
+    box-shadow:0 8px 22px rgba(70,35,10,.16);
+}
+
+#searchInput::placeholder{
+    color:rgba(74,47,28,.55);
+}
+
+/* CHARACTER CARDS */
+
+.character-grid,
+.gallery-grid,
+.relationship-grid,
+.world-character-grid{
+    width:90%;
+    max-width:1400px;
+    margin:auto;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+    gap:26px;
+    padding-bottom:70px;
+}
+
+.character-card{
+    display:block;
+    text-align:center;
+    text-decoration:none;
+    color:#4a2f1c;
+
+    background:rgba(255,232,190,.82);
+    border:2px solid rgba(92,54,24,.28);
+    border-radius:34px;
+    padding:35px;
+
+    box-shadow:0 12px 30px rgba(70,35,10,.2);
+    transition:.3s;
+}
+
+.character-card:hover,
+.relationship-card:hover,
+.content-card:hover,
+.world-character-card:hover{
+    transform:translateY(-6px);
+    background:rgba(255,241,210,.92) !important;
+    box-shadow:
+        0 14px 34px rgba(70,35,10,.26),
+        0 0 20px rgba(255,210,135,.45);
+}
+
+.character-card img,
+.relationship-preview-card img,
+.world-character-card img,
+.character-preview-card img{
+    display:block;
+    width:110px !important;
+    height:110px !important;
+    object-fit:cover !important;
+    border-radius:50% !important;
+    margin:0 auto 14px !important;
+
+    border:4px solid #8c5a2d;
+    background:#ffe8bd;
+    box-shadow:0 0 20px rgba(90,55,25,.28);
+}
+
+.character-card h2,
+.world-character-card h3{
+    font-family:'Gabriela', serif;
+    color:#4a2b18;
+}
+
+/* TABS + BUTTONS */
+
+.tabs{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:12px;
+    margin:35px 0;
+}
+
+.tab-button,
+.back-button,
+.profile-nav a,
+.reveal-button,
+.admin-generator button{
+    cursor:pointer;
+    text-decoration:none;
+    font-family:inherit;
+    font-weight:700;
+
+    padding:12px 22px;
+    border-radius:999px;
+
+    background:rgba(255,232,190,.85);
+    color:#4a2f1c;
+    border:2px solid rgba(92,54,24,.28);
+
+    transition:.25s;
+}
+
+.tab-button:hover,
+.tab-button.active,
+.back-button:hover,
+.profile-nav a:hover,
+.reveal-button:hover,
+.admin-generator button:hover{
+    background:linear-gradient(135deg,#ffe6b6,#d79a55);
+    color:#3a2010;
+    box-shadow:0 0 18px rgba(255,200,120,.55);
+    transform:translateY(-2px);
+}
+
+/* TAGS */
+
+.tag,
+.relationship-preview-card .relationship-type,
+.creator-pills span{
+    display:inline-block;
+    padding:8px 16px;
+    border-radius:999px;
+
+    background:rgba(135,95,45,.18);
+    color:#4a2f1c;
+    border:1px solid rgba(92,54,24,.25);
+}
+
+.tag:hover{
+    background:rgba(255,215,150,.45);
+}
+
+/* GALLERY */
+
+.image-card{
+    background:rgba(255,232,190,.78);
+    border:2px solid rgba(92,54,24,.24);
+    border-radius:26px;
+    padding:14px;
+    box-shadow:0 10px 25px rgba(70,35,10,.18);
+}
+
+.image-card img,
+.main-ref,
+.world-map-card img{
+    width:100%;
+    object-fit:cover;
+    border-radius:20px;
+    background:#ffe8bd;
+}
+
+/* LIGHTBOX */
+
+.lightbox{
+    background:rgba(42,25,12,.9) !important;
+}
+
+.lightbox img,
+.lightbox-image-wrap img{
+    border-radius:20px;
+}
+
+.lightbox-close{
+    background:rgba(255,232,190,.9);
+    color:#4a2f1c;
+    border:2px solid rgba(92,54,24,.35);
+}
+
+/* SCROLLBAR */
+
+::-webkit-scrollbar{
+    width:10px;
+}
+
+::-webkit-scrollbar-track{
+    background:#f2c98d;
+}
+
+::-webkit-scrollbar-thumb{
+    background:linear-gradient(#8a5529,#d99b55);
+    border-radius:999px;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:800px){
+    .world-banner-wrap{
+        height:190px;
+    }
+
+    .world-title-card{
+        flex-direction:column;
+        text-align:center;
+    }
+
+    .world-quick-card{
+        grid-template-columns:1fr;
+    }
+
+    .site-header h1,
+    .character-header h1,
+    .world-title-card h1{
+        font-size:2.3rem;
+    }
+}
