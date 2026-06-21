@@ -258,26 +258,36 @@ function renderCharacters(characters) {
     updateCount(characters.length, allCharacters.length);
 }
 
-searchInput.addEventListener("input", () => {
-    const value = searchInput.value.toLowerCase().trim();
+const filtered = allCharacters.filter(character => {
 
-    const filtered = allCharacters.filter(character => {
-        const name = (character.name || "").toLowerCase();
-        const species = (character.species || "").toLowerCase();
-        const slug = (character.slug || "").toLowerCase();
-        const folder = (character.folder || "").toLowerCase();
-        const status = (character.status || "").toLowerCase();
-        const tags = Array.isArray(character.tags) ? character.tags.join(" ").toLowerCase() : "";
+    const searchableText = [
+        character.name,
+        character.species,
+        character.slug,
+        character.folder,
+        character.status,
+        character.gender,
+        character.pronouns,
+        character.age,
+        character.occupation,
+        character.mbti,
+        character.introduction,
+        character.summary,
+        character.personality,
 
-        return (
-            name.includes(value) ||
-            species.includes(value) ||
-            slug.includes(value) ||
-            folder.includes(value) ||
-            status.includes(value) ||
-            tags.includes(value)
-        );
-    });
+        ...(character.tags || []),
+        ...(character.likes || []),
+        ...(character.dislikes || []),
+        ...(character.hobbies || []),
+        ...(character.fears || [])
+    ]
+    .filter(Boolean)
+    .join(" ")
+    .toLowerCase();
+
+    return searchableText.includes(value);
+
+});
 
     renderCharacters(filtered);
 });
