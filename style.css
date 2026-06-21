@@ -1143,3 +1143,29 @@ body::after{
         grid-template-columns:1fr;
     }
 }
+
+.lightbox{
+    position:fixed;
+}
+
+.lightbox::after{
+    content:"";
+    position:absolute;
+    inset:0;
+
+    background-image:url("/images/watermark.png");
+    background-repeat:no-repeat;
+    background-position:center;
+    background-size:50%;
+
+    opacity:.08;
+
+    pointer-events:none;
+
+    z-index:1002;
+}
+
+#lightboxImage{
+    position:relative;
+    z-index:1001;
+}
