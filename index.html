@@ -300,7 +300,18 @@ searchInput.addEventListener("input", () => {
         .join(" ")
         .toLowerCase();
 
-        return searchableText.includes(value);
+       const exactFields = [
+    (character.gender || "").toLowerCase(),
+    (character.status || "").toLowerCase(),
+    (character.folder || "").toLowerCase(),
+    (character.mbti || "").toLowerCase()
+];
+
+if (exactFields.includes(value)) {
+    return true;
+}
+
+return searchableText.includes(value);
     });
 
     renderCharacters(filtered);
