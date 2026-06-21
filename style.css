@@ -12,7 +12,7 @@ body {
     min-height: 100vh;
     background:
         radial-gradient(circle at top, rgba(255,255,255,.45), transparent 60%),
-        linear-gradient(180deg,#fff8fc 0%,#ffe8f4 50%,#e6f4ff 100%);
+        linear-gradient(180deg,#ffb8e1 0%,#ffa5d4 50%,#addbff 100%);
 }
 
 body::before {
