@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Worlds | Character Hub</title>
+
+<link rel="stylesheet" href="../style.css?v=250">
+
+<style>
+.worlds-browser-page{
+  max-width:1200px;
+  margin:0 auto;
+  padding:30px 20px 60px;
+}
+
+.worlds-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:22px;
+}
+
+.world-browser-card{
+  display:block !important;
+  text-decoration:none !important;
+  color:inherit !important;
+  cursor:pointer !important;
+  position:relative !important;
+  z-index:5 !important;
+  overflow:hidden;
+}
+
+.world-browser-card,
+.world-browser-card *{
+  pointer-events:auto !important;
+}
+
+.world-browser-card:hover{
+  transform:translateY(-2px);
+}
+
+.world-browser-banner{
+  height:230px;
+  overflow:hidden;
+  border-radius:24px;
+}
+
+.world-browser-banner img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+
+.world-browser-body{
+  padding:18px;
+  text-align:left;
+}
+
+.world-browser-body h2{
+  margin:0 0 8px;
+}
+
+.world-browser-body p{
+  margin:0 0 12px;
+}
+
+.world-browser-button{
+  display:inline-block;
+  margin-top:10px;
+  padding:10px 18px;
+  border-radius:999px;
+  background:rgba(255,255,255,.75);
+  border:1px solid rgba(255,255,255,.95);
+}
+
+.world-direct-link{
+  display:block;
+  margin-top:8px;
+  font-size:.85rem;
+  opacity:.75;
+  word-break:break-all;
+}
+</style>
+</head>
+
+<body>
+
+<header class="worlds-header character-header">
+  <a class="back-button" href="../index.html">← Back to Hub</a>
+  <h1>Worlds</h1>
+  <p>Browse worlds, settings, AUs, and story spaces.</p>
+</header>
+
+<main class="worlds-browser-page">
+
+  <section class="content-card wide-card">
+    <h2>World Browser</h2>
+    <p>Search by world name, genre, theme, era, status, or description.</p>
+
+    <input
+      id="worldSearch"
+      class="search-input"
+      type="search"
+      placeholder="Search worlds..."
+      autocomplete="off"
+    >
+  </section>
+
+  <section>
+    <div id="worldsGrid" class="worlds-grid">
+      <p>Loading worlds...</p>
+    </div>
+  </section>
+
+</main>
+
+<script>
+const API_URL = "https://charahub.crysthigpen.workers.dev";
+
+let allWorlds = [];
+
+function getImage(path) {
+  if (!path) return "../images/placeholder.png";
+  path = String(path).trim();
+
+  if (path.startsWith("http")) return path;
+  if (path.startsWith("/")) return window.location.origin + path;
+
+  return window.location.origin + "/" + path;
+}
+
+function safeText(value) {
+  return value && String(value).trim() ? String(value).trim() : "";
+}
+
+function escapeHtml(value) {
+  return String(value || "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
+
+function getWorldUrl(world) {
+  const slug = safeText(world.slug);
+  return `/world/?slug=${encodeURIComponent(slug)}`;
+}
+
+function worldSearchText(world) {
+  return [
+    world.name,
+    world.slug,
+    world.status,
+    world.era,
+    world.shortDescription,
+    world.overview,
+    Array.isArray(world.genre) ? world.genre.join(" ") : world.genre,
+    Array.isArray(world.theme) ? world.theme.join(" ") : world.theme
+  ].filter(Boolean).join(" ").toLowerCase();
+}
+
+function renderWorldCards(worlds) {
+  const grid = document.getElementById("worldsGrid");
+  if (!grid) return;
+
+  grid.innerHTML = "";
+
+  if (!Array.isArray(worlds) || worlds.length === 0) {
+    grid.innerHTML = "<p>No worlds found.</p>";
+    return;
+  }
+
+  worlds.forEach(world => {
+    const name = safeText(world.name) || "Unnamed World";
+    const description = safeText(world.shortDescription) || safeText(world.overview) || "No description yet.";
+    const banner = safeText(world.banner);
+    const icon = safeText(world.icon);
+    const status = safeText(world.status);
+    const era = safeText(world.era);
+    const url = getWorldUrl(world);
+
+    const genre = Array.isArray(world.genre) ? world.genre : [];
+    const theme = Array.isArray(world.theme) ? world.theme : [];
+
+    const link = document.createElement("a");
+    link.className = "image-card world-card world-browser-card";
+    link.href = url;
+
+    link.innerHTML = `
+      <div class="watermarked-image world-browser-banner">
+        <img src="${escapeHtml(getImage(banner || icon))}" alt="${escapeHtml(name)}">
+      </div>
+
+      <div class="world-browser-body">
+        <h2>${escapeHtml(name)}</h2>
+        <p>${escapeHtml(description)}</p>
+
+        <div class="tag-list">
+          ${status ? `<span class="tag">${escapeHtml(status)}</span>` : ""}
+          ${era ? `<span class="tag">${escapeHtml(era)}</span>` : ""}
+          ${genre.map(item => `<span class="tag">${escapeHtml(item)}</span>`).join("")}
+          ${theme.map(item => `<span class="tag">${escapeHtml(item)}</span>`).join("")}
+        </div>
+
+        <span class="world-browser-button">View World →</span>
+        <span class="world-direct-link">${escapeHtml(url)}</span>
+      </div>
+    `;
+
+    grid.appendChild(link);
+  });
+}
+
+function filterWorlds() {
+  const input = document.getElementById("worldSearch");
+  const query = input ? input.value.trim().toLowerCase() : "";
+
+  if (!query) {
+    renderWorldCards(allWorlds);
+    return;
+  }
+
+  renderWorldCards(allWorlds.filter(world => worldSearchText(world).includes(query)));
+}
+
+async function loadWorlds() {
+  const grid = document.getElementById("worldsGrid");
+
+  try {
+    const response = await fetch(`${API_URL}/worlds`);
+    const worlds = await response.json();
+
+    if (!Array.isArray(worlds)) {
+      if (grid) grid.innerHTML = "<p>Unable to load worlds.</p>";
+      console.error("Worlds API did not return an array:", worlds);
+      return;
+    }
+
+    allWorlds = worlds;
+    renderWorldCards(allWorlds);
+
+  } catch (err) {
+    console.error("World browser error:", err);
+    if (grid) grid.innerHTML = "<p>Unable to load worlds. Check the console for details.</p>";
+  }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  const search = document.getElementById("worldSearch");
+  if (search) search.addEventListener("input", filterWorlds);
+
+  loadWorlds();
+});
+</script>
+
+</body>
+</html>
