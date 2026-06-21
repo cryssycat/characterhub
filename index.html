@@ -187,9 +187,8 @@ async function loadCharacters() {
             characterCount.textContent = "Could not count characters.";
             return;
         }
-
-        allCharacters = data;
-        renderCharacters(allCharacters);
+allCharacters = data.filter(character => character.hub === "LunaHub");
+renderCharacters(allCharacters);
 
     } catch (error) {
         console.error(error);
