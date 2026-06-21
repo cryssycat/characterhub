@@ -110,13 +110,17 @@ const CHARACTER_SOURCES = [
     hub: "StarHub",
     label: "⭐ StarHub",
     endpoint: STAR_CHARACTERS_ENDPOINT,
-    characterPath: "../characters/index.html"
+    apiBase: "https://charahub.crysthigpen.workers.dev",
+    characterPath: "https://characterhub.pages.dev/characters/index.html",
+    imageBase: "https://characterhub.pages.dev"
   },
   {
     hub: "LunaHub",
     label: "🌙 LunaHub",
     endpoint: LUNA_CHARACTERS_ENDPOINT,
-    characterPath: "../characters/index.html"
+    apiBase: "https://lunabreww.crysthigpen.workers.dev",
+    characterPath: "../characters/index.html",
+    imageBase: window.location.origin
   }
 ];
 
@@ -127,15 +131,71 @@ let allLinkedCharacters = [];
 let activeCharacterFilter = "all";
 
 function getImage(path) {
+  return getImageWithBase(path, window.location.origin);
+}
+
+function getImageWithBase(path, base = window.location.origin) {
   if (!path) return "../images/placeholder.png";
 
   path = String(path).trim();
 
   if (!path) return "../images/placeholder.png";
   if (path.startsWith("http")) return path;
-  if (path.startsWith("/")) return window.location.origin + path;
 
-  return window.location.origin + "/" + path;
+  const cleanBase = String(base || window.location.origin).replace(/\/$/, "");
+
+  if (path.startsWith("/")) return cleanBase + path;
+
+  return cleanBase + "/" + path;
+}
+
+function getCharacterImage(character) {
+  const rawIcon =
+    character.icon ||
+    character.avatar ||
+    character.image ||
+    character.mainRef ||
+    character.mainImage ||
+    character.reference ||
+    character.ref ||
+    "";
+
+  return getImageWithBase(rawIcon, character.imageBase || window.location.origin);
+}
+
+async function enrichCharacterWithDetail(character) {
+  if (!character.slug || !character.apiBase) return character;
+
+  try {
+    const detail = await fetchJson(`${character.apiBase}/character/${encodeURIComponent(character.slug)}`);
+
+    if (!detail || detail.error) return character;
+
+    return {
+      ...detail,
+      ...character,
+      icon: detail.icon || character.icon,
+      avatar: detail.avatar || character.avatar,
+      image: detail.image || character.image,
+      mainRef: detail.mainRef || character.mainRef,
+      mainImage: detail.mainImage || character.mainImage
+    };
+  } catch (err) {
+    console.warn(`Could not enrich ${character.hub} character ${character.slug}:`, err);
+    return character;
+  }
+}
+
+function getCharacterHref(character) {
+  const slug = character.slug || "";
+
+  if (!slug) return "#";
+
+  if (character.hub === "StarHub") {
+    return `https://characterhub.pages.dev/characters/index.html?slug=${encodeURIComponent(slug)}`;
+  }
+
+  return `../characters/index.html?slug=${encodeURIComponent(slug)}`;
 }
 
 function loadCustomCss(path) {
@@ -341,7 +401,12 @@ async function loadLinkedCharacters(world) {
     }
   });
 
-  allLinkedCharacters = combined.filter(character => characterBelongsToWorld(character, world));
+  const matchingCharacters = combined.filter(character => characterBelongsToWorld(character, world));
+
+  allLinkedCharacters = await Promise.all(
+    matchingCharacters.map(character => enrichCharacterWithDetail(character))
+  );
+
   renderWorldCharacters(failed);
 }
 
@@ -463,19 +528,11 @@ function createCharacterCard(character) {
   const slug = character.slug || "";
   const species = character.species || "Unknown Species";
 
-  const rawIcon =
-    character.icon ||
-    character.avatar ||
-    character.image ||
-    character.mainRef ||
-    character.mainImage ||
-    "";
-
-  const icon = getImage(rawIcon);
+  const icon = getCharacterImage(character);
 
   const card = document.createElement("a");
   card.className = "character-card world-character-card";
-  card.href = `${character.characterPath || "../characters/index.html"}?slug=${encodeURIComponent(slug)}`;
+  card.href = getCharacterHref(character);
 
   card.innerHTML = `
     ${character.favorite ? `<span class="favorite-badge">⭐ Favorite</span>` : ""}
