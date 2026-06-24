@@ -139,7 +139,7 @@ body::before {
     border-radius: 30%;
     border: 5px solid #ffd7ea;
     box-shadow: 0 0 25px rgba(255,170,215,.35);
-    transform: scale(1.2);
+    transform: scale(1.5);
     transition: transform .3s ease;
 }
 
