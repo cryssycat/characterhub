@@ -1538,15 +1538,38 @@ body:not(.layout-dashboard) .dashboard-quick-card {
     }
 
     body.layout-dashboard .dashboard-main-ref {
-        height: auto;
-        max-height: 520px;
-        object-fit: contain;
+        width: 100%;
+        aspect-ratio: 1 / 1;
+        height: auto !important;
+        max-height: none !important;
+        object-fit: cover;
+        object-position: center top;
     }
 }
 
 
 body.layout-dashboard .dashboard-main-ref-card {
     align-self: start;
+}
+
+body.layout-dashboard .dashboard-quick-card {
+    align-self: start;
+}
+
+
+
+/* Dashboard square main ref override */
+body.layout-dashboard .dashboard-main-ref-card {
+    align-self: start;
+}
+
+body.layout-dashboard .dashboard-main-ref {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    height: auto !important;
+    max-height: none !important;
+    object-fit: cover;
+    object-position: center top;
 }
 
 body.layout-dashboard .dashboard-quick-card {
