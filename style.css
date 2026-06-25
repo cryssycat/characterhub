@@ -1586,3 +1586,15 @@ body.layout-dashboard .dashboard-main-ref {
 body.layout-dashboard .dashboard-quick-card {
     align-self: start;
 }
+
+body.layout-dashboard #overview .content-card:has(#quote) {
+    grid-area: quote;
+}
+
+body.layout-dashboard #overview .content-card:has(#lore) {
+    grid-area: lore;
+}
+
+body.layout-dashboard #overview .content-card:has(#trivia) {
+    grid-area: trivia;
+}
