@@ -68,6 +68,7 @@
 
 <script>
 const API_URL = "https://charahub.crysthigpen.workers.dev/characters";
+const HUB_VALUE = "Star";
 
 const folderContainer = document.getElementById("folderContainer");
 const searchInput = document.getElementById("searchInput");
@@ -87,6 +88,23 @@ function getImage(path) {
     return window.location.origin + "/" + path;
 }
 
+function normalizeHub(value) {
+    const hub = String(value || "").trim().toLowerCase();
+    return hub;
+}
+
+function isStarHubCharacter(character) {
+    const hub = normalizeHub(character?.hub);
+
+    return (
+        hub === "star" ||
+        hub === "starhub" ||
+        hub === "star hub" ||
+        hub === "starsundae" ||
+        hub === "starsundae character hub"
+    );
+}
+
 function asArray(value) {
     return Array.isArray(value) ? value : [];
 }
@@ -95,7 +113,7 @@ function updateCount(showing, total) {
     if (!characterCount) return;
 
     if (total === 0) {
-        characterCount.textContent = "No public characters yet.";
+        characterCount.textContent = "No StarHub public characters yet.";
         return;
     }
 
@@ -294,7 +312,7 @@ async function loadCharacters() {
             return;
         }
 
-        allCharacters = data;
+        allCharacters = data.filter(isStarHubCharacter);
         renderCharacters(allCharacters);
     } catch (error) {
         console.error(error);
