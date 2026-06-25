@@ -92,7 +92,8 @@
         </aside>
     </section>
 
-    <nav class="tabs" id="tabs">
+    <div class="profile-dashboard">
+        <nav class="tabs" id="tabs">
         <button class="tab-button active" data-tab="overview">Overview</button>
         <button class="tab-button" data-tab="gallery">Gallery</button>
         <button class="tab-button" data-tab="references">References</button>
@@ -102,12 +103,28 @@
         <button class="tab-button" data-tab="lore">Lore</button>
         <button class="tab-button" data-tab="nsfw">🔞 Mature Gallery</button>
         <button class="tab-button" data-tab="admin">🔧 Admin</button>
-    </nav>
+        </nav>
+
+        <div class="profile-dashboard-content">
 
     <section id="overview" class="tab-panel active">
         <div class="content-grid">
-            <div class="content-card wide-card"><h2>Introduction</h2><p id="introduction">—</p></div>
-            <div class="content-card wide-card"><h2>Summary</h2><p id="summary">—</p></div>
+            <div class="content-card dashboard-main-ref-card">
+                <h2>Main Ref</h2>
+                <img id="dashboardMainRef" class="dashboard-main-ref" src="../images/placeholder.png" alt="Character image">
+            </div>
+            <div class="content-card dashboard-intro-card"><h2>Introduction</h2><p id="introduction">—</p></div>
+            <div class="content-card dashboard-summary-card"><h2>Summary</h2><p id="summary">—</p></div>
+            <div class="content-card dashboard-quick-card">
+                <h2>Quick Facts</h2>
+                <p><strong>Species:</strong> <span id="dashboardSpecies">—</span></p>
+                <p><strong>Gender:</strong> <span id="dashboardGender">—</span></p>
+                <p><strong>Pronouns:</strong> <span id="dashboardPronouns">—</span></p>
+                <p><strong>Age:</strong> <span id="dashboardAge">—</span></p>
+                <p><strong>Height:</strong> <span id="dashboardHeight">—</span></p>
+                <p><strong>Occupation:</strong> <span id="dashboardOccupation">—</span></p>
+                <p><strong>Status:</strong> <span id="dashboardStatus">—</span></p>
+            </div>
             <div class="content-card"><h2>Personality</h2><p id="personality">—</p></div>
             <div class="content-card"><h2>MBTI</h2><p id="mbti">—</p></div>
            <div class="content-card"><h2>Design Notes</h2><p id="designNotes">—</p></div>
@@ -210,6 +227,9 @@
             <button id="copyLine">Copy Line</button>
         </div>
     </section>
+
+        </div>
+    </div>
 
     <div class="profile-nav">
         <a id="prevCharacter" href="../index.html">← Previous</a>
@@ -826,7 +846,8 @@ document.body.classList.remove(
     "layout-classic",
     "layout-visual-novel",
     "layout-magazine",
-    "layout-minimal"
+    "layout-minimal",
+    "layout-dashboard"
 );
 
 const layoutClass = "layout-" + (character.layout || "Default")
@@ -853,6 +874,13 @@ document.body.classList.add(layoutClass);
     setText("occupation", character.occupation);
     setText("folder", character.folder);
     setText("status", character.status);
+    setText("dashboardSpecies", character.species);
+    setText("dashboardGender", character.gender);
+    setText("dashboardPronouns", character.pronouns);
+    setText("dashboardAge", character.age);
+    setText("dashboardHeight", character.height);
+    setText("dashboardOccupation", character.occupation);
+    setText("dashboardStatus", character.status);
     setText("artValue", formatMoney(calculateCharacterValue(character)), "$0");
 
     setText("introduction", character.introduction, "No introduction yet.");
@@ -894,6 +922,12 @@ document.body.classList.add(layoutClass);
     if (mainRef) {
         mainRef.src = getHubImage(character, character.mainRef || character.icon) || getImage("images/placeholder.png");
         mainRef.alt = `${character.name || "Character"} reference`;
+    }
+
+    const dashboardMainRef = document.getElementById("dashboardMainRef");
+    if (dashboardMainRef) {
+        dashboardMainRef.src = getHubImage(character, character.mainRef || character.icon) || getImage("images/placeholder.png");
+        dashboardMainRef.alt = `${character.name || "Character"} image`;
     }
 
     renderImages("galleryGrid", character.gallery, character.name);
