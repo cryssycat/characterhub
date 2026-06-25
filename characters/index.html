@@ -121,12 +121,12 @@
                 <p><strong>Gender:</strong> <span id="dashboardGender">—</span></p>
                 <p><strong>Pronouns:</strong> <span id="dashboardPronouns">—</span></p>
                 <p><strong>Age:</strong> <span id="dashboardAge">—</span></p>
+                <p><strong>Birthday:</strong> <span id="dashboardBirthday">—</span></p>
                 <p><strong>Height:</strong> <span id="dashboardHeight">—</span></p>
                 <p><strong>Occupation:</strong> <span id="dashboardOccupation">—</span></p>
+                <p><strong>Folder:</strong> <span id="dashboardFolder">—</span></p>
                 <p><strong>Status:</strong> <span id="dashboardStatus">—</span></p>
-                <p><strong>Value:</strong> <span id="artValue">—</span></p>
-          
-                
+                <p><strong>Art Value:</strong> <span id="dashboardArtValue">$0</span></p>
             </div>
             <div class="content-card"><h2>Personality</h2><p id="personality">—</p></div>
             <div class="content-card"><h2>MBTI</h2><p id="mbti">—</p></div>
@@ -881,10 +881,14 @@ document.body.classList.add(layoutClass);
     setText("dashboardGender", character.gender);
     setText("dashboardPronouns", character.pronouns);
     setText("dashboardAge", character.age);
+    setText("dashboardBirthday", character.birthday);
     setText("dashboardHeight", character.height);
     setText("dashboardOccupation", character.occupation);
+    setText("dashboardFolder", character.folder);
     setText("dashboardStatus", character.status);
-    setText("artValue", formatMoney(calculateCharacterValue(character)), "$0");
+    const calculatedArtValue = formatMoney(calculateCharacterValue(character));
+    setText("artValue", calculatedArtValue, "$0");
+    setText("dashboardArtValue", calculatedArtValue, "$0");
 
     setText("introduction", character.introduction, "No introduction yet.");
     setText("summary", character.summary, "No summary yet.");
@@ -913,6 +917,12 @@ document.body.classList.add(layoutClass);
 
     renderCreditPills("mainCreditPills", character.credits);
     renderCreditPills("creditsPills", character.credits);
+
+
+    const dashboardArtValue = document.getElementById("dashboardArtValue");
+    if (dashboardArtValue) {
+        dashboardArtValue.textContent = formatMoney(calculateCharacterValue(character));
+    }
 
     renderTags("tags", character.tags);
     renderCharacterWorlds(character.worlds);
