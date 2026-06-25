@@ -1,0 +1,437 @@
+/*==================================================
+    SUNDAE THEME
+    Sweet • Pastel • Ice Cream
+==================================================*/
+
+
+/*==================================================
+    COLOR PALETTE
+==================================================*/
+
+:root{
+
+    --sundae-sky:#D9ECFF;
+    --sundae-cloud:#F4FAFF;
+    --sundae-blue:#9ACDFF;
+
+    --sundae-pink:#FFC7E6;
+    --sundae-peach:#FFD9B3;
+
+    --sundae-cream:#FFF7F0;
+
+    --sundae-brown:#B69B8C;
+    --sundae-cocoa:#7B5A4D;
+
+    --sundae-red:#FF8FA3;
+    --sundae-green:#94D6A4;
+
+    --sundae-white:#FFFFFF;
+
+    --outline:#9B8A85;
+
+    --shadow:rgba(154,205,255,.25);
+
+}
+
+
+/*==================================================
+    BODY
+==================================================*/
+
+body{
+
+    background:
+        linear-gradient(
+            180deg,
+            var(--sundae-sky),
+            var(--sundae-cloud)
+        );
+
+    color:var(--sundae-cocoa);
+
+    font-family:
+        "Nunito",
+        "Comfortaa",
+        sans-serif;
+
+    min-height:100vh;
+
+    line-height:1.6;
+
+}
+
+
+/*==================================================
+    HEADINGS
+==================================================*/
+
+h1,
+h2,
+h3,
+h4{
+
+    color:var(--sundae-blue);
+
+    font-weight:700;
+
+    letter-spacing:.5px;
+
+}
+
+h1{
+
+    font-size:2.6rem;
+
+}
+
+h2{
+
+    font-size:1.8rem;
+
+}
+
+h3{
+
+    font-size:1.25rem;
+
+}
+
+
+/*==================================================
+    LINKS
+==================================================*/
+
+a{
+
+    color:var(--sundae-blue);
+
+    text-decoration:none;
+
+    transition:.2s;
+
+}
+
+a:hover{
+
+    color:var(--sundae-pink);
+
+}
+
+
+/*==================================================
+    CARDS
+==================================================*/
+
+.content-card,
+.profile-card,
+.relationship-card,
+.image-card,
+.quick-facts{
+
+    background:var(--sundae-white);
+
+    border:2px solid #E6F2FF;
+
+    border-radius:24px;
+
+    box-shadow:
+        0 4px 16px var(--shadow);
+
+    padding:24px;
+
+}
+
+
+/*==================================================
+    BUTTONS
+==================================================*/
+
+button,
+.btn{
+
+    background:var(--sundae-blue);
+
+    color:white;
+
+    border:none;
+
+    border-radius:999px;
+
+    padding:.7rem 1.5rem;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+    transition:.2s;
+
+}
+
+button:hover,
+.btn:hover{
+
+    background:var(--sundae-pink);
+
+}
+
+button:active,
+.btn:active{
+
+    transform:translateY(1px);
+
+}
+
+
+/*==================================================
+    TABS
+==================================================*/
+
+.tab-button{
+
+    background:white;
+
+    color:var(--sundae-cocoa);
+
+    border:2px solid #DCEEFF;
+
+    border-radius:999px;
+
+    padding:.65rem 1.4rem;
+
+    transition:.2s;
+
+}
+
+.tab-button.active,
+.tab-button:hover{
+
+    background:var(--sundae-blue);
+
+    color:white;
+
+}
+
+
+/*==================================================
+    TAGS
+==================================================*/
+
+.tag{
+
+    display:inline-block;
+
+    background:var(--sundae-pink);
+
+    color:var(--sundae-cocoa);
+
+    border-radius:999px;
+
+    padding:.35rem .85rem;
+
+    font-size:.85rem;
+
+    border:2px solid #FFDDEB;
+
+}
+
+.tag.blue{
+
+    background:var(--sundae-blue);
+
+}
+
+.tag.peach{
+
+    background:var(--sundae-peach);
+
+}
+
+.tag.green{
+
+    background:var(--sundae-green);
+
+}
+
+.tag.red{
+
+    background:var(--sundae-red);
+
+}
+
+.tag.white{
+
+    background:white;
+
+}
+
+
+/*==================================================
+    INPUTS
+==================================================*/
+
+input,
+textarea,
+select{
+
+    background:white;
+
+    border:2px solid #DCEEFF;
+
+    border-radius:12px;
+
+    padding:.75rem;
+
+    color:var(--sundae-cocoa);
+
+}
+
+input:focus,
+textarea:focus,
+select:focus{
+
+    outline:none;
+
+    border-color:var(--sundae-blue);
+
+    box-shadow:
+        0 0 0 3px rgba(154,205,255,.25);
+
+}
+
+
+/*==================================================
+    GALLERY IMAGES
+==================================================*/
+
+.image-card img{
+
+    border-radius:18px;
+
+    border:3px solid white;
+
+    box-shadow:
+        0 3px 12px rgba(154,205,255,.25);
+
+}
+
+.main-ref{
+
+    border-radius:26px;
+
+    border:4px solid white;
+
+    box-shadow:
+        0 6px 18px rgba(154,205,255,.25);
+
+}
+
+
+/*==================================================
+    QUICK FACTS
+==================================================*/
+
+.quick-facts strong{
+
+    color:var(--sundae-blue);
+
+}
+
+
+/*==================================================
+    CREDIT PILLS
+==================================================*/
+
+.credit-pill{
+
+    background:var(--sundae-cloud);
+
+    border:2px solid #E6F2FF;
+
+    color:var(--sundae-cocoa);
+
+    border-radius:999px;
+
+    padding:.4rem .9rem;
+
+}
+
+
+/*==================================================
+    SCROLLBAR
+==================================================*/
+
+::-webkit-scrollbar{
+
+    width:10px;
+
+}
+
+::-webkit-scrollbar-track{
+
+    background:var(--sundae-cloud);
+
+}
+
+::-webkit-scrollbar-thumb{
+
+    background:var(--sundae-blue);
+
+    border-radius:999px;
+
+    border:2px solid var(--sundae-cloud);
+
+}
+
+
+/*==================================================
+    HELPERS
+==================================================*/
+
+.text-center{
+
+    text-align:center;
+
+}
+
+.round{
+
+    border-radius:16px;
+
+}
+
+.soft-shadow{
+
+    box-shadow:
+        0 4px 16px var(--shadow);
+
+}
+
+.bg-blue{
+
+    background:var(--sundae-sky);
+
+}
+
+.bg-cloud{
+
+    background:var(--sundae-cloud);
+
+}
+
+.bg-pink{
+
+    background:var(--sundae-pink);
+
+}
+
+.bg-peach{
+
+    background:var(--sundae-peach);
+
+}
+
+.bg-white{
+
+    background:white;
+
+}
