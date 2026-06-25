@@ -1415,11 +1415,11 @@ body.layout-dashboard #overview .content-grid {
     grid-template-columns: 280px minmax(0, 1fr) minmax(260px, 360px);
     grid-template-areas:
         "image intro intro"
-        "image quick summary"
-        "image personality design"
-        "image likes dislikes"
-        "image hobbies fears"
-        "image mbti theme";
+        "quick personality summary"
+        "quick design summary"
+        "likes dislikes summary"
+        "hobbies fears summary"
+        "mbti theme summary";
     gap: 22px;
     align-items: stretch;
 }
@@ -1542,4 +1542,13 @@ body:not(.layout-dashboard) .dashboard-quick-card {
         max-height: 520px;
         object-fit: contain;
     }
+}
+
+
+body.layout-dashboard .dashboard-main-ref-card {
+    align-self: start;
+}
+
+body.layout-dashboard .dashboard-quick-card {
+    align-self: start;
 }
