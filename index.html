@@ -887,7 +887,9 @@ document.body.classList.add(layoutClass);
     setText("dashboardFolder", character.folder);
     setText("dashboardStatus", character.status);
     setText("dashboardArtValue", formatMoney(calculateCharacterValue(character)), "$0");
-    setText("artValue", formatMoney(calculateCharacterValue(character)), "$0");
+    const calculatedArtValue = formatMoney(calculateCharacterValue(character));
+    setText("artValue", calculatedArtValue, "$0");
+    setText("dashboardArtValue", calculatedArtValue, "$0");
 
     setText("introduction", character.introduction, "No introduction yet.");
     setText("summary", character.summary, "No summary yet.");
