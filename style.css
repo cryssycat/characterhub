@@ -1361,3 +1361,185 @@ body::after{
   .world-title-card{flex-direction:column;text-align:center;}
   .world-quick-card{grid-template-columns:1fr;}
 }
+
+
+
+/* ==========================================
+   DASHBOARD CHARACTER LAYOUT
+   Backend option: Layout = Dashboard
+========================================== */
+
+body.layout-dashboard .profile-page {
+    max-width: 1450px;
+}
+
+body.layout-dashboard .profile-card {
+    display: none !important;
+}
+
+body.layout-dashboard .profile-dashboard {
+    display: grid;
+    grid-template-columns: 170px minmax(0, 1fr);
+    gap: 24px;
+    align-items: start;
+}
+
+body.layout-dashboard .profile-dashboard-content {
+    min-width: 0;
+}
+
+body.layout-dashboard .tabs {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    gap: 12px;
+    position: sticky;
+    top: 20px;
+}
+
+body.layout-dashboard .tab-button {
+    width: 100%;
+    text-align: center;
+    border-radius: 22px;
+    padding: 14px 16px;
+}
+
+body.layout-dashboard .tab-panel {
+    width: 100%;
+}
+
+body.layout-dashboard #overview .content-grid {
+    display: grid;
+    grid-template-columns: 280px minmax(0, 1fr) minmax(260px, 360px);
+    grid-template-areas:
+        "image intro intro"
+        "image quick summary"
+        "image personality design"
+        "image likes dislikes"
+        "image hobbies fears"
+        "image mbti theme";
+    gap: 22px;
+    align-items: stretch;
+}
+
+body.layout-dashboard .dashboard-main-ref-card {
+    grid-area: image;
+}
+
+body.layout-dashboard .dashboard-intro-card {
+    grid-area: intro;
+}
+
+body.layout-dashboard .dashboard-quick-card {
+    grid-area: quick;
+}
+
+body.layout-dashboard .dashboard-summary-card {
+    grid-area: summary;
+}
+
+body.layout-dashboard #overview .content-card:has(#personality) {
+    grid-area: personality;
+}
+
+body.layout-dashboard #overview .content-card:has(#designNotes) {
+    grid-area: design;
+}
+
+body.layout-dashboard #overview .content-card:has(#likes) {
+    grid-area: likes;
+}
+
+body.layout-dashboard #overview .content-card:has(#dislikes) {
+    grid-area: dislikes;
+}
+
+body.layout-dashboard #overview .content-card:has(#hobbies) {
+    grid-area: hobbies;
+}
+
+body.layout-dashboard #overview .content-card:has(#fears) {
+    grid-area: fears;
+}
+
+body.layout-dashboard #overview .content-card:has(#mbti) {
+    grid-area: mbti;
+}
+
+body.layout-dashboard #overview .content-card:has(#themeSong) {
+    grid-area: theme;
+}
+
+body.layout-dashboard .dashboard-main-ref {
+    width: 100%;
+    height: 360px;
+    object-fit: cover;
+    object-position: center top;
+    border-radius: 22px;
+    background: rgba(255,255,255,.65);
+    border: 1px solid rgba(255,255,255,.85);
+    box-shadow: 0 0 25px rgba(255,170,215,.22);
+}
+
+body.layout-dashboard .dashboard-quick-card {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+body.layout-dashboard .dashboard-quick-card strong {
+    color: #ff8fc3;
+}
+
+body.layout-dashboard .wide-card {
+    grid-column: auto;
+}
+
+body:not(.layout-dashboard) .dashboard-main-ref-card,
+body:not(.layout-dashboard) .dashboard-quick-card {
+    display: none;
+}
+
+@media (max-width: 900px) {
+    body.layout-dashboard .profile-dashboard {
+        grid-template-columns: 1fr;
+    }
+
+    body.layout-dashboard .tabs {
+        position: static;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-bottom: 25px;
+    }
+
+    body.layout-dashboard .tab-button {
+        width: auto;
+        border-radius: 999px;
+    }
+
+    body.layout-dashboard #overview .content-grid {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "image"
+            "intro"
+            "quick"
+            "summary"
+            "personality"
+            "design"
+            "likes"
+            "dislikes"
+            "hobbies"
+            "fears"
+            "mbti"
+            "theme";
+    }
+
+    body.layout-dashboard .dashboard-main-ref {
+        height: auto;
+        max-height: 520px;
+        object-fit: contain;
+    }
+}
