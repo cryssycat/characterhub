@@ -1415,15 +1415,26 @@ body.layout-dashboard #overview .content-grid {
     grid-template-columns: 280px minmax(0, 1fr) minmax(260px, 360px);
     grid-template-areas:
         "image intro intro"
-        "quick personality summary"
-        "quick design summary"
-        "likes dislikes summary"
-        "hobbies fears summary"
-        "mbti theme summary";
+    "quick personality quote"
+    "quick design lore"
+    "likes dislikes trivia"
+    "hobbies fears trivia"
+    "mbti theme trivia";
     gap: 22px;
     align-items: stretch;
 }
 
+body.layout-dashboard #overview .content-card:has(#quote) {
+    grid-area: quote;
+}
+
+body.layout-dashboard #overview .content-card:has(#lore) {
+    grid-area: lore;
+}
+
+body.layout-dashboard #overview .content-card:has(#trivia) {
+    grid-area: trivia;
+}
 body.layout-dashboard .dashboard-main-ref-card {
     grid-area: image;
 }
