@@ -7,6 +7,211 @@
 <title>Character | StarHub</title>
 
 <link rel="stylesheet" href="../style.css?v=500">
+
+<style id="hard-dashboard-layout-fix">
+/* HARD DASHBOARD FIX — kept inside characters/index.html so older CSS cannot override it */
+
+body.layout-dashboard .profile-card {
+    display: none !important;
+}
+
+body.layout-dashboard .profile-dashboard {
+    width: 92%;
+    max-width: 1320px;
+    margin: 0 auto;
+    display: grid !important;
+    grid-template-columns: 170px minmax(0, 1fr) !important;
+    gap: 24px !important;
+    align-items: start !important;
+}
+
+body.layout-dashboard .profile-dashboard-content {
+    width: 100% !important;
+    min-width: 0 !important;
+}
+
+body.layout-dashboard .tabs {
+    margin: 0 !important;
+    width: 150px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    flex-wrap: nowrap !important;
+    gap: 12px !important;
+    position: sticky !important;
+    top: 20px !important;
+}
+
+body.layout-dashboard .tab-button {
+    width: 100% !important;
+    border-radius: 22px !important;
+    padding: 14px 16px !important;
+}
+
+body.layout-dashboard .tab-panel {
+    width: 100% !important;
+}
+
+body.layout-dashboard #overview.active {
+    display: block !important;
+}
+
+body.layout-dashboard #overview .content-grid {
+    display: none !important;
+}
+
+body.layout-dashboard #overview.active > .dashboard-overview-grid,
+body.layout-dashboard .dashboard-overview-grid {
+    display: grid !important;
+    grid-template-columns: 300px minmax(0, 1fr) minmax(0, 1fr) !important;
+    grid-template-areas:
+        "image intro summary"
+        "quick character personal" !important;
+    gap: 18px !important;
+    align-items: stretch !important;
+}
+
+body.layout-dashboard .dashboard-main-ref-card {
+    grid-area: image !important;
+}
+
+body.layout-dashboard .dashboard-intro-card {
+    grid-area: intro !important;
+}
+
+body.layout-dashboard .dashboard-summary-card {
+    grid-area: summary !important;
+}
+
+body.layout-dashboard .dashboard-quick-card {
+    grid-area: quick !important;
+}
+
+body.layout-dashboard .dashboard-character-card {
+    grid-area: character !important;
+}
+
+body.layout-dashboard .dashboard-personal-card {
+    grid-area: personal !important;
+}
+
+body.layout-dashboard .dashboard-main-ref-card,
+body.layout-dashboard .dashboard-intro-card,
+body.layout-dashboard .dashboard-summary-card,
+body.layout-dashboard .dashboard-quick-card,
+body.layout-dashboard .dashboard-character-card,
+body.layout-dashboard .dashboard-personal-card {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    border-radius: 24px !important;
+    padding: 24px !important;
+    min-width: 0 !important;
+}
+
+body.layout-dashboard .dashboard-main-ref {
+    width: 100% !important;
+    aspect-ratio: 1 / 1 !important;
+    height: auto !important;
+    max-height: none !important;
+    object-fit: cover !important;
+    object-position: center top !important;
+    display: block !important;
+}
+
+body.layout-dashboard .dashboard-intro-card,
+body.layout-dashboard .dashboard-summary-card {
+    min-height: 300px !important;
+}
+
+body.layout-dashboard .dashboard-quick-card,
+body.layout-dashboard .dashboard-character-card,
+body.layout-dashboard .dashboard-personal-card {
+    min-height: 300px !important;
+}
+
+body.layout-dashboard .dashboard-character-card,
+body.layout-dashboard .dashboard-personal-card {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 18px !important;
+}
+
+body.layout-dashboard .dashboard-quick-card {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 8px !important;
+}
+
+body.layout-dashboard .dashboard-quick-card p {
+    display: block !important;
+    line-height: 1.35 !important;
+}
+
+body.layout-dashboard .dashboard-subsection {
+    padding-bottom: 14px !important;
+    border-bottom: 1px solid rgba(255,255,255,.45) !important;
+}
+
+body.layout-dashboard .dashboard-subsection:last-of-type {
+    border-bottom: none !important;
+}
+
+body.layout-dashboard .dashboard-mini-grid,
+body.layout-dashboard .dashboard-list-grid {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 16px !important;
+}
+
+/* Hide empty tabs from JS */
+.tab-button[style*="display: none"] {
+    display: none !important;
+}
+
+@media (max-width: 1050px) {
+    body.layout-dashboard #overview.active > .dashboard-overview-grid,
+    body.layout-dashboard .dashboard-overview-grid {
+        grid-template-columns: 280px minmax(0, 1fr) !important;
+        grid-template-areas:
+            "image intro"
+            "quick summary"
+            "character personal" !important;
+    }
+}
+
+@media (max-width: 800px) {
+    body.layout-dashboard .profile-dashboard {
+        grid-template-columns: 1fr !important;
+    }
+
+    body.layout-dashboard .tabs {
+        position: static !important;
+        width: auto !important;
+        flex-direction: row !important;
+        flex-wrap: wrap !important;
+        justify-content: center !important;
+        margin-bottom: 20px !important;
+    }
+
+    body.layout-dashboard .tab-button {
+        width: auto !important;
+        border-radius: 999px !important;
+    }
+
+    body.layout-dashboard #overview.active > .dashboard-overview-grid,
+    body.layout-dashboard .dashboard-overview-grid {
+        grid-template-columns: 1fr !important;
+        grid-template-areas:
+            "image"
+            "intro"
+            "summary"
+            "quick"
+            "character"
+            "personal" !important;
+    }
+}
+</style>
+
 </head>
 
 <body>
@@ -435,23 +640,69 @@ function money(value) {
     });
 }
 
+function extractMoneyValue(value) {
+    if (value === undefined || value === null) return 0;
+
+    if (typeof value === "number") {
+        return Number.isNaN(value) ? 0 : value;
+    }
+
+    const text = String(value);
+
+    const match = text.match(/\$\s*([0-9]+(?:\.[0-9]{1,2})?)/);
+
+    if (!match) return 0;
+
+    const number = Number(match[1]);
+
+    return Number.isNaN(number) ? 0 : number;
+}
+
+function stripMoneyFromLabel(value) {
+    return cleanText(value)
+        .replace(/\s*[|•\-–—]*\s*\$\s*[0-9]+(?:\.[0-9]{1,2})?\s*/g, "")
+        .trim();
+}
+
+function getImageItemValue(item) {
+    if (!item) return 0;
+
+    if (typeof item === "string") {
+        return extractMoneyValue(item);
+    }
+
+    return (
+        extractMoneyValue(item.value) ||
+        extractMoneyValue(item.price) ||
+        extractMoneyValue(item.artValue) ||
+        extractMoneyValue(item.label) ||
+        extractMoneyValue(item.title) ||
+        extractMoneyValue(item.name)
+    );
+}
+
 function calculateCharacterValue(character) {
-    if (character.artValue !== undefined && character.artValue !== null && character.artValue !== "") {
-        return character.artValue;
-    }
+    const directValue =
+        extractMoneyValue(character.artValue) ||
+        extractMoneyValue(character.value) ||
+        extractMoneyValue(character.worth) ||
+        extractMoneyValue(character.artWorth);
 
-    if (character.value !== undefined && character.value !== null && character.value !== "") {
-        return character.value;
-    }
+    if (directValue > 0) return directValue;
 
-    if (Array.isArray(character.gallery)) {
-        return character.gallery.reduce((total, item) => {
-            const value = Number(item.value || item.price || 0);
-            return total + (Number.isNaN(value) ? 0 : value);
-        }, 0);
-    }
+    const galleryValue = Array.isArray(character.gallery)
+        ? character.gallery.reduce((total, item) => total + getImageItemValue(item), 0)
+        : 0;
 
-    return 0;
+    const referenceValue = Array.isArray(character.references)
+        ? character.references.reduce((total, item) => total + getImageItemValue(item), 0)
+        : 0;
+
+    const nsfwValue = Array.isArray(character.nsfwGallery)
+        ? character.nsfwGallery.reduce((total, item) => total + getImageItemValue(item), 0)
+        : 0;
+
+    return galleryValue + referenceValue + nsfwValue;
 }
 
 function renderTags(id, items) {
@@ -480,15 +731,18 @@ function normalizeImageItem(item) {
         return {
             url: item,
             label: "",
-            credits: []
+            credits: [],
+            value: extractMoneyValue(item)
         };
     }
 
+    const rawLabel = item.label || item.title || item.name || "";
+
     return {
         url: item.url || item.src || item.image || "",
-        label: item.label || item.title || "",
+        label: stripMoneyFromLabel(rawLabel),
         credits: Array.isArray(item.credits) ? item.credits : [],
-        value: item.value || item.price || ""
+        value: getImageItemValue(item)
     };
 }
 
@@ -814,15 +1068,27 @@ function fillCharacter(character) {
         "layout-dashboard"
     );
 
-    const layout = cleanText(character.layout || "Dashboard")
+    const rawLayout = cleanText(character.layout || "Dashboard");
+    const layout = rawLayout
         .toLowerCase()
         .replace(/\s+/g, "-");
 
-    document.body.classList.add(`layout-${layout}`);
+    const allowedLayouts = new Set([
+        "default",
+        "classic",
+        "visual-novel",
+        "magazine",
+        "minimal",
+        "dashboard"
+    ]);
+
+    document.body.classList.add(
+        allowedLayouts.has(layout) ? `layout-${layout}` : "layout-dashboard"
+    );
 
     const mainImage = character.mainRef || character.icon || "";
 
-    setText("characterName", character.name, "Unnamed");
+    setText("characterName", stripMoneyFromLabel(character.name), "Unnamed");
     setText("characterSpecies", character.species, "Unknown Species");
 
     setImage("mainRef", character, mainImage);
