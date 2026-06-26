@@ -13,7 +13,7 @@ body {
     background:
         radial-gradient(circle at top, rgba(255,255,255,.45), transparent 30%),
         linear-gradient(180deg,#b7d4ff 0%,#a7caff 50%,#addbff 100%);
-}
+
 
 body::before {
     content: "";
@@ -2037,4 +2037,53 @@ body.layout-dashboard .dashboard-character-card p {
     height: 100%;
     object-fit: cover;
     display: block;
+}
+
+
+.companion-page {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.companion-top-row {
+    display: grid;
+    grid-template-columns: 320px minmax(0, 1fr);
+    gap: 24px;
+    align-items: stretch;
+}
+
+.companion-image-card,
+.companion-facts-card,
+.companion-summary-card {
+    background: rgba(255,255,255,.55);
+    border: 1px solid rgba(255,255,255,.75);
+    border-radius: 24px;
+    padding: 22px;
+}
+
+.companion-image {
+    width: 100%;
+    max-height: 320px;
+    object-fit: contain;
+    display: block;
+}
+
+.companion-facts-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px 18px;
+}
+
+.companion-summary-card {
+    margin-top: 24px;
+}
+
+@media (max-width: 800px) {
+    .companion-top-row {
+        grid-template-columns: 1fr;
+    }
+
+    .companion-facts-grid {
+        grid-template-columns: 1fr;
+    }
 }
