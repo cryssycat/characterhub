@@ -163,6 +163,29 @@ body.layout-dashboard .dashboard-list-grid {
     gap: 16px !important;
 }
 
+
+/* Relationship cards */
+.relationship-card {
+    display: flex !important;
+    align-items: center !important;
+    gap: 18px !important;
+}
+
+.relationship-image-wrap {
+    width: 90px !important;
+    height: 90px !important;
+    flex: 0 0 90px !important;
+    border-radius: 18px !important;
+    overflow: hidden !important;
+}
+
+.relationship-image {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    display: block !important;
+}
+
 /* Hide empty tabs from JS */
 .tab-button[style*="display: none"] {
     display: none !important;
@@ -296,8 +319,11 @@ body.layout-dashboard .dashboard-list-grid {
                         <p><strong>Folder:</strong> <span id="dashboardFolder">—</span></p>
                         <p><strong>Status:</strong> <span id="dashboardStatus">—</span></p>
                         <p><strong>Art Value:</strong> <span id="dashboardArtValue">$0</span></p>
-                           <h3>Tags</h3><div id="tags" class="tag-list"></div>
-</div>
+
+                        <div class="dashboard-subsection dashboard-tags-section">
+                            <h3>Tags</h3>
+                            <div id="dashboardTags" class="tag-list"></div>
+                        </div>
                     </div>
 
                     <div class="content-card dashboard-character-card">
