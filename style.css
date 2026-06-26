@@ -2113,3 +2113,68 @@ body.layout-dashboard .dashboard-main-ref {
             "personal";
     }
 }
+
+
+
+/* ==========================================
+   FIX: DASHBOARD OVERVIEW BALANCE
+   Character + Personal together, Intro/Summary wider
+========================================== */
+
+body.layout-dashboard .profile-dashboard-content {
+    max-width: 1180px !important;
+    width: 100% !important;
+}
+
+body.layout-dashboard #overview.active .dashboard-overview-grid {
+    display: grid !important;
+    grid-template-columns: 260px minmax(0, 1fr) minmax(0, 1fr) !important;
+    grid-template-areas:
+        "image intro intro"
+        "quick summary summary"
+        "quick character personal" !important;
+    gap: 18px !important;
+    align-items: stretch !important;
+}
+
+body.layout-dashboard .dashboard-intro-card,
+body.layout-dashboard .dashboard-summary-card {
+    min-height: 170px;
+}
+
+body.layout-dashboard .dashboard-character-card,
+body.layout-dashboard .dashboard-personal-card {
+    min-height: 300px;
+}
+
+body.layout-dashboard .dashboard-personal-card {
+    align-self: stretch !important;
+}
+
+body.layout-dashboard .dashboard-list-grid {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 18px !important;
+    height: 100%;
+}
+
+body.layout-dashboard .dashboard-list-grid > div {
+    min-width: 0;
+}
+
+@media (max-width: 900px) {
+    body.layout-dashboard #overview.active .dashboard-overview-grid {
+        grid-template-columns: 1fr !important;
+        grid-template-areas:
+            "image"
+            "intro"
+            "summary"
+            "quick"
+            "character"
+            "personal" !important;
+    }
+
+    body.layout-dashboard .dashboard-list-grid {
+        grid-template-columns: 1fr !important;
+    }
+}
