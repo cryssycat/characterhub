@@ -1017,35 +1017,53 @@ function slugifyRelationshipName(name = "") {
 }
 
 function parseRelationshipEntry(entry) {
-  const parts = String(entry)
-    .split("|")
-    .map(part => part.trim());
+    if (typeof entry === "object" && entry !== null) {
+        const rawSlug = cleanText(entry.slug || entry.Slug || "");
 
-  const name = parts[0] || "";
-  const relationship = parts[1] || "";
-  const slugRaw = parts[2] || "";
-  const notes = parts[3] || "";
-  const image = parts[4] || "";
+        let hub = "";
+        let slug = rawSlug;
 
-  let hub = "";
-  let slug = "";
+        if (rawSlug.includes(":")) {
+            const parts = rawSlug.split(":");
+            hub = normalizeHub(parts[0]);
+            slug = parts.slice(1).join(":").trim();
+        }
 
-  if (slugRaw.includes(":")) {
-    const split = slugRaw.split(":");
-    hub = normalizeHub(split[0]);
-    slug = split.slice(1).join(":").trim();
-  } else {
-    slug = slugRaw || slugifyRelationshipName(name);
-  }
+        return {
+            name: cleanText(entry.name || entry.Name),
+            relationship: cleanText(entry.relationship || entry.type || entry.Type),
+            hub,
+            slug,
+            notes: cleanText(entry.notes || entry.Notes),
+            image: cleanText(entry.image || entry.Image || entry.icon || entry.Icon)
+        };
+    }
 
-  return {
-    name,
-    relationship,
-    hub,
-    slug,
-    notes,
-    image
-  };
+    const parts = String(entry).split("|").map(part => part.trim());
+
+    const name = parts[0] || "";
+    const relationship = parts[1] || "";
+    const slugRaw = parts[2] || "";
+    const notes = parts[3] || "";
+    const image = parts[4] || "";
+
+    let hub = "";
+    let slug = slugRaw;
+
+    if (slugRaw.includes(":")) {
+        const split = slugRaw.split(":");
+        hub = normalizeHub(split[0]);
+        slug = split.slice(1).join(":").trim();
+    }
+
+    return {
+        name,
+        relationship,
+        hub,
+        slug: slug || slugifyRelationshipName(name),
+        notes,
+        image
+    };
 }
 
 function getCharacterSlug(character) {
