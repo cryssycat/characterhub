@@ -1640,7 +1640,7 @@ body.layout-dashboard .relationship-card {
 
 body.layout-dashboard .dashboard-main-ref-card {
     grid-area: image;
-    padding: 22px;
+    padding: 20px;
 }
 
 body.layout-dashboard .dashboard-main-ref {
@@ -1650,7 +1650,7 @@ body.layout-dashboard .dashboard-main-ref {
     max-height: none !important;
     object-fit: cover !important;
     object-position: center top;
-    border-radius: 20px;
+    border-radius: 0px;
 }
 
 body.layout-dashboard .dashboard-quick-card {
