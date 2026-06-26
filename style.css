@@ -2000,13 +2000,6 @@ body.layout-dashboard .dashboard-character-card p {
     line-height: 1.7;
 }
 
-body:not(.layout-dashboard) .dashboard-overview-grid {
-    display: none !important;
-}
-
-body:not(.layout-dashboard) #overview .content-grid {
-    display: grid;
-}
 
 @media (max-width: 900px) {
     body.layout-dashboard #overview .dashboard-overview-grid {
@@ -2032,3 +2025,91 @@ body:not(.layout-dashboard) #overview .content-grid {
     }
 }
 
+
+
+
+/* ==========================================
+   FIX: DASHBOARD OVERVIEW VISIBILITY
+   This overrides older rules that accidentally hid the new overview.
+========================================== */
+
+#overview.active .dashboard-overview-grid {
+    display: grid !important;
+}
+
+body.layout-dashboard #overview.active .dashboard-overview-grid {
+    display: grid !important;
+    grid-template-columns: 260px minmax(0, 1fr) minmax(260px, 360px);
+    grid-template-areas:
+        "image intro intro"
+        "quick summary summary"
+        "quick character personal";
+    gap: 18px;
+    align-items: stretch;
+}
+
+body.layout-dashboard #overview .content-grid {
+    display: none !important;
+}
+
+body.layout-dashboard .dashboard-main-ref-card {
+    grid-area: image !important;
+}
+
+body.layout-dashboard .dashboard-intro-card {
+    grid-area: intro !important;
+}
+
+body.layout-dashboard .dashboard-summary-card {
+    grid-area: summary !important;
+}
+
+body.layout-dashboard .dashboard-quick-card {
+    grid-area: quick !important;
+}
+
+body.layout-dashboard .dashboard-character-card {
+    grid-area: character !important;
+}
+
+body.layout-dashboard .dashboard-personal-card {
+    grid-area: personal !important;
+}
+
+body.layout-dashboard .dashboard-main-ref-card,
+body.layout-dashboard .dashboard-intro-card,
+body.layout-dashboard .dashboard-summary-card,
+body.layout-dashboard .dashboard-quick-card,
+body.layout-dashboard .dashboard-character-card,
+body.layout-dashboard .dashboard-personal-card {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+body.layout-dashboard .dashboard-character-card,
+body.layout-dashboard .dashboard-personal-card {
+    display: flex !important;
+}
+
+body.layout-dashboard .dashboard-main-ref {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    height: auto !important;
+    max-height: none !important;
+    object-fit: cover !important;
+    object-position: center top;
+}
+
+@media (max-width: 900px) {
+    body.layout-dashboard #overview.active .dashboard-overview-grid {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "image"
+            "intro"
+            "summary"
+            "quick"
+            "character"
+            "personal";
+    }
+}
