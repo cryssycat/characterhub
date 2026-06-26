@@ -920,10 +920,6 @@ function renderCompanionTabs(character) {
     const hasFamiliar = hasCompanionData(character, "familiar");
     const hasHearthling = hasCompanionData(character, "hearthling");
 
-    setOptionalTab("familiarTabButton", "familiar", hasFamiliar);
-    setOptionalTab("hearthlingTabButton", "hearthling", hasHearthling);
-    ensureVisibleActiveTab();
-
     if (hasFamiliar) {
         setText("familiarName", character.familiarName, "Familiar");
         setText("familiarSpecies", character.familiarSpecies);
@@ -949,6 +945,131 @@ function renderCompanionTabs(character) {
         setText("hearthlingSummary", character.hearthlingSummary, "No hearthling summary yet.");
         fillCompanionImage("hearthlingImage", character, character.hearthlingImage, `${character.hearthlingName || "Hearthling"} image`);
     }
+}
+
+
+function hasTextValue(value) {
+    return value !== undefined && value !== null && String(value).trim() !== "";
+}
+
+function hasArrayItems(value) {
+    return Array.isArray(value) && value.length > 0;
+}
+
+function hasImages(value) {
+    return Array.isArray(value) && value.length > 0;
+}
+
+function hasFavoriteData(character) {
+    const fav = character?.favorites || {};
+    return [
+        fav.food,
+        fav.drink,
+        fav.color,
+        fav.season,
+        fav.flower,
+        fav.scent,
+        fav.music,
+        fav.animal
+    ].some(hasTextValue);
+}
+
+function hasCreditsData(character) {
+    const credits = character?.credits || {};
+    return [
+        credits.owner,
+        credits.designer,
+        credits.artist,
+        credits.colorist,
+        credits.permissions,
+        credits.tradeStatus,
+        credits.resaleStatus
+    ].some(hasTextValue) || hasArrayItems(credits.baseMakers);
+}
+
+function hasLoreData(character) {
+    return [
+        character?.trivia,
+        character?.quotes,
+        character?.lore
+    ].some(hasTextValue);
+}
+
+function hasOverviewData(character) {
+    return [
+        character?.mainRef,
+        character?.icon,
+        character?.introduction,
+        character?.summary,
+        character?.personality,
+        character?.mbti,
+        character?.designNotes,
+        character?.themeSong,
+        character?.species,
+        character?.gender,
+        character?.pronouns,
+        character?.age,
+        character?.birthday,
+        character?.height,
+        character?.occupation,
+        character?.folder,
+        character?.status
+    ].some(hasTextValue) ||
+    hasArrayItems(character?.likes) ||
+    hasArrayItems(character?.dislikes) ||
+    hasArrayItems(character?.hobbies) ||
+    hasArrayItems(character?.fears);
+}
+
+function setTabVisibility(tabName, shouldShow) {
+    const button = document.querySelector(`.tab-button[data-tab="${tabName}"]`);
+    const panel = document.getElementById(tabName);
+
+    if (button) button.style.display = shouldShow ? "" : "none";
+    if (!shouldShow && panel) panel.classList.remove("active");
+}
+
+function resetToFirstVisibleTab() {
+    const activeButton = document.querySelector(".tab-button.active");
+    const activePanel = document.querySelector(".tab-panel.active");
+
+    if (activeButton && activePanel && activeButton.style.display !== "none") {
+        return;
+    }
+
+    document.querySelectorAll(".tab-button").forEach(button => button.classList.remove("active"));
+    document.querySelectorAll(".tab-panel").forEach(panel => panel.classList.remove("active"));
+
+    const firstVisibleButton = Array.from(document.querySelectorAll(".tab-button"))
+        .find(button => button.style.display !== "none");
+
+    if (!firstVisibleButton) return;
+
+    firstVisibleButton.classList.add("active");
+
+    const firstPanel = document.getElementById(firstVisibleButton.dataset.tab);
+    if (firstPanel) firstPanel.classList.add("active");
+}
+
+function updateOptionalTabs(character) {
+    setTabVisibility("overview", hasOverviewData(character));
+    setTabVisibility("gallery", hasImages(character?.gallery));
+    setTabVisibility("references", hasImages(character?.references));
+    setTabVisibility("relationships", hasArrayItems(character?.relationships));
+    setTabVisibility("favorites", hasFavoriteData(character));
+    setTabVisibility("credits", hasCreditsData(character));
+    setTabVisibility("lore", hasLoreData(character));
+    setTabVisibility("nsfw", hasImages(character?.nsfwGallery));
+
+    setTabVisibility("familiar", hasCompanionData(character, "familiar"));
+    setTabVisibility("hearthling", hasCompanionData(character, "hearthling"));
+
+    const adminButton = document.querySelector('.tab-button[data-tab="admin"]');
+    const adminPanel = document.getElementById("admin");
+    if (adminButton) adminButton.style.display = "none";
+    if (adminPanel) adminPanel.classList.remove("active");
+
+    resetToFirstVisibleTab();
 }
 
 function setupTabs() {
@@ -1142,6 +1263,7 @@ document.body.classList.add(layoutClass);
     renderCompanionTabs(character);
 
     renderAuTabs(character);
+    updateOptionalTabs(character);
     setupTabs();
 
     setupPrevNext();
