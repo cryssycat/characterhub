@@ -1477,7 +1477,7 @@ body.layout-dashboard .dashboard-main-ref {
     height: 360px;
     object-fit: cover;
     object-position: center top;
-    border-radius: 22px;
+    border-radius: 0px;
     background: rgba(255,255,255,.65);
     border: 1px solid rgba(255,255,255,.85);
     box-shadow: 0 0 25px rgba(255,170,215,.22);
