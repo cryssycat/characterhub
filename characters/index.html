@@ -575,25 +575,20 @@ function getImage(path, base = window.location.origin) {
     return cleanBase + "/" + path;
 }
 
-function normalizeHub(rawHub = "") {
-  const hub = String(rawHub || "").trim().toLowerCase();
+function normalizeHub(value) {
+    const hub = String(value || "").trim().toLowerCase();
 
-  if (["star", "starhub", "star hub", "characterhub", "character hub"].includes(hub)) return "StarHub";
-  if (["luna", "lunahub", "luna hub", "lunabrew", "luna brew"].includes(hub)) return "LunaHub";
+    if (hub === "star" || hub === "starhub" || hub === "star hub") return "StarHub";
+    if (hub === "luna" || hub === "lunahub" || hub === "luna hub") return "LunaHub";
+    if (
+        hub === "shared" ||
+        hub === "sharedhub" ||
+        hub === "shared hub" ||
+        hub === "starbrewshared" ||
+        hub === "starbrew shared"
+    ) return "SharedHub";
 
-  if (
-    [
-      "shared",
-      "sharedhub",
-      "shared hub",
-      "starbrewshared",
-      "starbrew shared"
-    ].includes(hub)
-  ) {
-    return "SharedHub";
-  }
-
-  return "";
+    return "StarHub";
 }
 
 function getHubBase(character) {
@@ -811,7 +806,7 @@ function updateOptionalTabs(character) {
     setTabVisible("overview", hasOverviewData(character));
     setTabVisible("gallery", hasArray(character.gallery));
     setTabVisible("references", hasArray(character.references));
-    setTabVisible("relationships", hasRelationshipsData(character));
+    setTabVisible("relationships", hasArray(character.relationships) || hasText(character.relationships));
     setTabVisible("favorites", hasFavoriteData(character));
     setTabVisible("credits", hasCreditsData(character));
     setTabVisible("lore", hasLoreData(character));
@@ -896,19 +891,6 @@ function hasCompanionData(character, type) {
         character[`${prefix}Image`],
         character[`${prefix}Summary`]
     ].some(hasText);
-}
-
-
-function hasRelationshipsData(character) {
-    const raw =
-        character.Relationships ||
-        character.relationships ||
-        character.Relationship ||
-        character.relationship ||
-        "";
-
-    if (Array.isArray(raw)) return raw.length > 0;
-    return hasText(raw);
 }
 
 /* ------------------------------
@@ -996,10 +978,10 @@ function renderCreditPills(credits) {
 }
 
 function normalizeHub(rawHub = "") {
-  const hub = String(rawHub || "").trim().toLowerCase();
+  const hub = String(rawHub).trim().toLowerCase();
 
-  if (["star", "starhub", "star hub", "characterhub", "character hub"].includes(hub)) return "StarHub";
-  if (["luna", "lunahub", "luna hub", "lunabrew", "luna brew"].includes(hub)) return "LunaHub";
+  if (["star", "starhub", "characterhub"].includes(hub)) return "StarHub";
+  if (["luna", "lunahub", "lunabrew"].includes(hub)) return "LunaHub";
 
   if (
     [
@@ -1013,7 +995,7 @@ function normalizeHub(rawHub = "") {
     return "SharedHub";
   }
 
-  return "";
+  return hub || "";
 }
 
 function getHubUrl(hub) {
@@ -1095,17 +1077,13 @@ function findRelatedCharacter(rel, allCharacters = []) {
   const wantedSlug = String(rel.slug || "").trim().toLowerCase();
   const wantedHub = normalizeHub(rel.hub);
 
-  if (!wantedSlug) return null;
-
   return allCharacters.find(character => {
     const characterSlug = getCharacterSlug(character);
-    const characterNameSlug = slugifyRelationshipName(character.Name || character.name || "");
     const characterHub = getCharacterHub(character);
 
     const slugMatches =
       characterSlug === wantedSlug ||
-      characterNameSlug === wantedSlug ||
-      cleanText(character.slug).toLowerCase() === wantedSlug;
+      slugifyRelationshipName(character.Name || character.name) === wantedSlug;
 
     const hubMatches =
       !wantedHub ||
@@ -1113,7 +1091,7 @@ function findRelatedCharacter(rel, allCharacters = []) {
       characterHub === wantedHub;
 
     return slugMatches && hubMatches;
-  }) || null;
+  });
 }
 
 function getRelationshipImage(rel, relatedCharacter) {
@@ -1144,15 +1122,13 @@ function getRelationshipProfileUrl(rel, relatedCharacter) {
   const base = getHubUrl(hub);
   const slug = rel.slug || getCharacterSlug(relatedCharacter);
 
-  if (!slug) return "";
-
   return `${base}/characters/?slug=${encodeURIComponent(slug)}`;
 }
 
 function renderRelationships(character, allCharacters = []) {
   const container = document.getElementById("relationshipsGrid");
 
-  if (!container || !character) return;
+  if (!container) return;
 
   const rawRelationships =
     character.Relationships ||
@@ -1191,29 +1167,29 @@ function renderRelationships(character, allCharacters = []) {
         <div class="relationship-image-wrap">
           ${
             image
-              ? `<img class="relationship-image" src="${escapeHtml(image)}" alt="${escapeHtml(displayName)}">`
+              ? `<img class="relationship-image" src="${image}" alt="${displayName}">`
               : `<div class="relationship-image placeholder"></div>`
           }
         </div>
 
         <div class="relationship-info">
-          <h3>${escapeHtml(displayName)}</h3>
+          <h3>${displayName}</h3>
 
           ${
             rel.relationship
-              ? `<p class="relationship-type">${escapeHtml(rel.relationship)}</p>`
+              ? `<p class="relationship-type">${rel.relationship}</p>`
               : ""
           }
 
           ${
             rel.notes
-              ? `<p class="relationship-notes">${escapeHtml(rel.notes)}</p>`
+              ? `<p class="relationship-notes">${rel.notes}</p>`
               : ""
           }
 
           ${
             profileUrl
-              ? `<a class="relationship-button" href="${escapeHtml(profileUrl)}">View Profile</a>`
+              ? `<a class="relationship-button" href="${profileUrl}">View Profile</a>`
               : ""
           }
         </div>
@@ -1221,11 +1197,7 @@ function renderRelationships(character, allCharacters = []) {
     `;
   }).join("");
 
-  container.innerHTML = `
-    <div class="relationship-grid">
-      ${html}
-    </div>
-  `;
+  container.innerHTML = html;
 }
 
 function renderFavorites(character) {
