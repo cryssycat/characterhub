@@ -298,6 +298,8 @@ body.layout-dashboard .dashboard-list-grid {
                         <p><strong>Folder:</strong> <span id="dashboardFolder">—</span></p>
                         <p><strong>Status:</strong> <span id="dashboardStatus">—</span></p>
                         <p><strong>Art Value:</strong> <span id="dashboardArtValue">$0</span></p>
+                        <p><strong>Tags:</strong><span id=dashboardTags" class="tag-list"></span></p>
+</div>
                     </div>
 
                     <div class="content-card dashboard-character-card">
@@ -1345,7 +1347,8 @@ function fillCharacter(character) {
     setText("dashboardArtValue", artValue, "$0");
 
     renderTags("tags", character.tags);
-
+    renderTags("dashboardTags", character.tags);
+    
     setText("introduction", character.introduction, "No introduction yet.");
     setText("summary", character.summary, "No summary yet.");
     setText("personality", character.personality, "No personality notes yet.");
