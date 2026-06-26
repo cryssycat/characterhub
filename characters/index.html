@@ -110,13 +110,23 @@
         <div class="profile-dashboard-content">
 
     <section id="overview" class="tab-panel active">
-        <div class="content-grid">
+        <div class="dashboard-overview-grid">
+
             <div class="content-card dashboard-main-ref-card">
                 <h2>Main Ref</h2>
                 <img id="dashboardMainRef" class="dashboard-main-ref" src="../images/placeholder.png" alt="Character image">
             </div>
-            <div class="content-card dashboard-intro-card"><h2>Introduction</h2><p id="introduction">—</p></div>
-            <div class="content-card dashboard-summary-card"><h2>Summary</h2><p id="summary">—</p></div>
+
+            <div class="content-card dashboard-intro-card">
+                <h2>Introduction</h2>
+                <p id="introduction">—</p>
+            </div>
+
+            <div class="content-card dashboard-summary-card">
+                <h2>Summary</h2>
+                <p id="summary">—</p>
+            </div>
+
             <div class="content-card dashboard-quick-card">
                 <h2>Quick Facts</h2>
                 <p><strong>Species:</strong> <span id="dashboardSpecies">—</span></p>
@@ -130,14 +140,59 @@
                 <p><strong>Status:</strong> <span id="dashboardStatus">—</span></p>
                 <p><strong>Art Value:</strong> <span id="dashboardArtValue">$0</span></p>
             </div>
-            <div class="content-card"><h2>Personality</h2><p id="personality">—</p></div>
-            <div class="content-card"><h2>MBTI</h2><p id="mbti">—</p></div>
-           <div class="content-card"><h2>Design Notes</h2><p id="designNotes">—</p></div>
-            <div class="content-card"><h2>Theme Song</h2><p id="themeSong">—</p></div>
-            <div class="content-card"><h2>Likes</h2><div id="likes" class="tag-list"></div></div>
-            <div class="content-card"><h2>Dislikes</h2><div id="dislikes" class="tag-list"></div></div>
-            <div class="content-card"><h2>Hobbies</h2><div id="hobbies" class="tag-list"></div></div>
-            <div class="content-card"><h2>Fears</h2><div id="fears" class="tag-list"></div></div>
+
+            <div class="content-card dashboard-character-card">
+                <h2>Character</h2>
+
+                <div class="dashboard-subsection">
+                    <h3>Personality</h3>
+                    <p id="personality">—</p>
+                </div>
+
+                <div class="dashboard-subsection">
+                    <h3>Design Notes</h3>
+                    <p id="designNotes">—</p>
+                </div>
+
+                <div class="dashboard-mini-grid">
+                    <div>
+                        <h3>MBTI</h3>
+                        <p id="mbti">—</p>
+                    </div>
+
+                    <div>
+                        <h3>Theme Song</h3>
+                        <p id="themeSong">—</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-card dashboard-personal-card">
+                <h2>Personal</h2>
+
+                <div class="dashboard-list-grid">
+                    <div>
+                        <h3>Likes</h3>
+                        <div id="likes" class="tag-list"></div>
+                    </div>
+
+                    <div>
+                        <h3>Dislikes</h3>
+                        <div id="dislikes" class="tag-list"></div>
+                    </div>
+
+                    <div>
+                        <h3>Hobbies</h3>
+                        <div id="hobbies" class="tag-list"></div>
+                    </div>
+
+                    <div>
+                        <h3>Fears</h3>
+                        <div id="fears" class="tag-list"></div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </section>
 
