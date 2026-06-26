@@ -1062,6 +1062,8 @@ function getCharacterSlug(character) {
 }
 
 function getCharacterHub(character) {
+  if (!character) return "";
+
   return normalizeHub(
     character.hub ||
     character.Hub ||
@@ -1118,9 +1120,11 @@ function getRelationshipImage(rel, relatedCharacter) {
 }
 
 function getRelationshipProfileUrl(rel, relatedCharacter) {
-  const hub = rel.hub || getCharacterHub(relatedCharacter);
+  const hub = rel?.hub || getCharacterHub(relatedCharacter) || "StarHub";
   const base = getHubUrl(hub);
-  const slug = rel.slug || getCharacterSlug(relatedCharacter);
+  const slug = rel?.slug || getCharacterSlug(relatedCharacter);
+
+  if (!slug) return "";
 
   return `${base}/characters/?slug=${encodeURIComponent(slug)}`;
 }
@@ -1197,7 +1201,11 @@ function renderRelationships(character, allCharacters = []) {
     `;
   }).join("");
 
-  container.innerHTML = html;
+  container.innerHTML = `
+    <div class="relationship-grid">
+      ${html}
+    </div>
+  `;
 }
 
 function renderFavorites(character) {
