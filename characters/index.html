@@ -101,6 +101,8 @@
         <button class="tab-button" data-tab="favorites">Favorites</button>
         <button class="tab-button" data-tab="credits">Credits</button>
         <button class="tab-button" data-tab="lore">Lore</button>
+        <button id="familiarTabButton" class="tab-button optional-companion-tab" data-tab="familiar">Familiar</button>
+        <button id="hearthlingTabButton" class="tab-button optional-companion-tab" data-tab="hearthling">Hearthling</button>
         <button class="tab-button" data-tab="nsfw">🔞 Mature Gallery</button>
         <button class="tab-button" data-tab="admin">🔧 Admin</button>
         </nav>
@@ -194,6 +196,63 @@
             <div class="content-card"><h2>Trivia</h2><p id="trivia">—</p></div>
             <div class="content-card"><h2>Quote</h2><p id="quotes">—</p></div>
             <div class="content-card wide-card"><h2>Lore</h2><p id="loreText">—</p></div>
+        </div>
+    </section>
+
+
+    <section id="familiar" class="tab-panel companion-tab-panel">
+        <div class="companion-page">
+            <div class="companion-top-row">
+                <div class="companion-image-card">
+                    <img id="familiarImage" class="companion-image" src="../images/placeholder.png" alt="Familiar image">
+                </div>
+
+                <div class="companion-facts-card">
+                    <h2 id="familiarName">Familiar</h2>
+                    <div class="companion-facts-grid">
+                        <p><strong>Species:</strong> <span id="familiarSpecies">—</span></p>
+                        <p><strong>Bond Type:</strong> <span id="familiarBondType">—</span></p>
+                        <p><strong>Personality:</strong> <span id="familiarPersonality">—</span></p>
+                        <p><strong>Magic:</strong> <span id="familiarMagic">—</span></p>
+                        <p><strong>Ability:</strong> <span id="familiarAbility">—</span></p>
+                        <p><strong>Accessory:</strong> <span id="familiarAccessory">—</span></p>
+                        <p><strong>Favorite Treat:</strong> <span id="familiarFavoriteTreat">—</span></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="companion-summary-card">
+                <h2>Summary</h2>
+                <p id="familiarSummary">—</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="hearthling" class="tab-panel companion-tab-panel">
+        <div class="companion-page">
+            <div class="companion-top-row">
+                <div class="companion-image-card">
+                    <img id="hearthlingImage" class="companion-image" src="../images/placeholder.png" alt="Hearthling image">
+                </div>
+
+                <div class="companion-facts-card">
+                    <h2 id="hearthlingName">Hearthling</h2>
+                    <div class="companion-facts-grid">
+                        <p><strong>Species:</strong> <span id="hearthlingSpecies">—</span></p>
+                        <p><strong>Body Type:</strong> <span id="hearthlingBodyType">—</span></p>
+                        <p><strong>Magic:</strong> <span id="hearthlingMagic">—</span></p>
+                        <p><strong>Wisp:</strong> <span id="hearthlingWisp">—</span></p>
+                        <p><strong>Mutation:</strong> <span id="hearthlingMutation">—</span></p>
+                        <p><strong>Companion:</strong> <span id="hearthlingCompanion">—</span></p>
+                        <p><strong>Rarity:</strong> <span id="hearthlingRarity">—</span></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="companion-summary-card">
+                <h2>Summary</h2>
+                <p id="hearthlingSummary">—</p>
+            </div>
         </div>
     </section>
 
@@ -760,6 +819,83 @@ function renderAuTabs(character) {
     });
 }
 
+
+function hasCompanionData(character, type) {
+    const prefix = type === "familiar" ? "familiar" : "hearthling";
+    return Boolean(
+        character?.[`${prefix}Name`] ||
+        character?.[`${prefix}Image`] ||
+        character?.[`${prefix}Summary`]
+    );
+}
+
+function setOptionalTab(tabId, panelId, shouldShow) {
+    const tab = document.getElementById(tabId);
+    const panel = document.getElementById(panelId);
+
+    if (tab) tab.style.display = shouldShow ? "" : "none";
+    if (!shouldShow && panel) panel.classList.remove("active");
+}
+
+function ensureVisibleActiveTab() {
+    const activeButton = document.querySelector(".tab-button.active");
+    const activePanel = document.querySelector(".tab-panel.active");
+
+    if (activeButton && activeButton.style.display !== "none" && activePanel) return;
+
+    document.querySelectorAll(".tab-button").forEach(btn => btn.classList.remove("active"));
+    document.querySelectorAll(".tab-panel").forEach(panel => panel.classList.remove("active"));
+
+    const overviewButton = document.querySelector('[data-tab="overview"]');
+    const overviewPanel = document.getElementById("overview");
+
+    if (overviewButton) overviewButton.classList.add("active");
+    if (overviewPanel) overviewPanel.classList.add("active");
+}
+
+function fillCompanionImage(id, character, path, fallbackAlt) {
+    const img = document.getElementById(id);
+    if (!img) return;
+
+    img.src = getHubImage(character, path) || getImage("../images/placeholder.png");
+    img.alt = fallbackAlt || "Companion image";
+}
+
+function renderCompanionTabs(character) {
+    const hasFamiliar = hasCompanionData(character, "familiar");
+    const hasHearthling = hasCompanionData(character, "hearthling");
+
+    setOptionalTab("familiarTabButton", "familiar", hasFamiliar);
+    setOptionalTab("hearthlingTabButton", "hearthling", hasHearthling);
+    ensureVisibleActiveTab();
+
+    if (hasFamiliar) {
+        setText("familiarName", character.familiarName, "Familiar");
+        setText("familiarSpecies", character.familiarSpecies);
+        setText("familiarBondType", character.familiarBondType);
+        setText("familiarPersonality", character.familiarPersonality);
+        setText("familiarMagic", character.familiarMagic);
+        setText("familiarAbility", character.familiarAbility);
+        setText("familiarAccessory", character.familiarAccessory);
+        setText("familiarFavoriteTreat", character.familiarFavoriteTreat);
+        setText("familiarSummary", character.familiarSummary, "No familiar summary yet.");
+        fillCompanionImage("familiarImage", character, character.familiarImage, `${character.familiarName || "Familiar"} image`);
+    }
+
+    if (hasHearthling) {
+        setText("hearthlingName", character.hearthlingName, "Hearthling");
+        setText("hearthlingSpecies", character.hearthlingSpecies);
+        setText("hearthlingBodyType", character.hearthlingBodyType);
+        setText("hearthlingMagic", character.hearthlingMagic);
+        setText("hearthlingWisp", character.hearthlingWisp);
+        setText("hearthlingMutation", character.hearthlingMutation);
+        setText("hearthlingCompanion", character.hearthlingCompanion);
+        setText("hearthlingRarity", character.hearthlingRarity);
+        setText("hearthlingSummary", character.hearthlingSummary, "No hearthling summary yet.");
+        fillCompanionImage("hearthlingImage", character, character.hearthlingImage, `${character.hearthlingName || "Hearthling"} image`);
+    }
+}
+
 function setupTabs() {
     const buttons = document.querySelectorAll(".tab-button");
 
@@ -947,6 +1083,8 @@ document.body.classList.add(layoutClass);
     renderImages("referencesGrid", character.references, character.name);
     renderNSFWImages(character.nsfwGallery, character.name);
     renderRelationships(character.relationships);
+
+    renderCompanionTabs(character);
 
     renderAuTabs(character);
     setupTabs();
