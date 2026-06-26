@@ -649,7 +649,9 @@ function extractMoneyValue(value) {
 
     const text = String(value);
 
-    const match = text.match(/\$\s*([0-9]+(?:\.[0-9]{1,2})?)/);
+const match =
+    text.match(/\[\s*\$?\s*([0-9]+(?:\.[0-9]{1,2})?)\s*\]/) ||
+    text.match(/\$\s*([0-9]+(?:\.[0-9]{1,2})?)/);
 
     if (!match) return 0;
 
@@ -660,7 +662,10 @@ function extractMoneyValue(value) {
 
 function stripMoneyFromLabel(value) {
     return cleanText(value)
-        .replace(/\s*[|•\-–—]*\s*\$\s*[0-9]+(?:\.[0-9]{1,2})?\s*/g, "")
+        // Remove [$25], [25], [$25.50], etc.
+        .replace(/\s*\[\s*\$?\s*\d+(?:\.\d{1,2})?\s*\]\s*/g, "")
+        // Also remove legacy "| $25" formats if they exist
+        .replace(/\s*[|•\-–—]\s*\$?\s*\d+(?:\.\d{1,2})?\s*/g, "")
         .trim();
 }
 
