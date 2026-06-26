@@ -977,32 +977,231 @@ function renderCreditPills(credits) {
     `;
 }
 
-function renderRelationships(relationships) {
-    const grid = document.getElementById("relationshipsGrid");
-    if (!grid) return;
+function normalizeHub(rawHub = "") {
+  const hub = String(rawHub).trim().toLowerCase();
 
-    grid.innerHTML = "";
+  if (["star", "starhub", "characterhub"].includes(hub)) return "StarHub";
+  if (["luna", "lunahub", "lunabrew"].includes(hub)) return "LunaHub";
 
-    if (!Array.isArray(relationships) || relationships.length === 0) {
-        grid.innerHTML = "<p class='loading'>No relationships yet.</p>";
-        return;
-    }
+  if (
+    [
+      "shared",
+      "sharedhub",
+      "shared hub",
+      "starbrewshared",
+      "starbrew shared"
+    ].includes(hub)
+  ) {
+    return "SharedHub";
+  }
 
-    relationships.forEach(rel => {
-        const card = document.createElement("div");
-        card.className = "relationship-card relationship-preview-card";
+  return hub || "";
+}
 
-        const slug = rel.slug || "";
+function getHubUrl(hub) {
+  const normalized = normalizeHub(hub);
 
-        card.innerHTML = `
-            <h3>${escapeHtml(rel.name || "Unnamed")}</h3>
-            <p class="relationship-type">${escapeHtml(rel.type || "Connection")}</p>
-            ${rel.notes ? `<p>${escapeHtml(rel.notes)}</p>` : ""}
-            ${slug ? `<a href="index.html?slug=${encodeURIComponent(slug)}">View Profile →</a>` : ""}
-        `;
+  if (normalized === "StarHub") return "https://characterhub.pages.dev";
+  if (normalized === "LunaHub") return "https://lunabrew.pages.dev";
+  if (normalized === "SharedHub") return "https://starbrewshared.pages.dev";
 
-        grid.appendChild(card);
-    });
+  return "https://characterhub.pages.dev";
+}
+
+function slugifyRelationshipName(name = "") {
+  return String(name)
+    .trim()
+    .toLowerCase()
+    .replace(/[^\w\s-]/g, "")
+    .replace(/\s+/g, "-");
+}
+
+function parseRelationshipEntry(entry) {
+  const parts = String(entry)
+    .split("|")
+    .map(part => part.trim());
+
+  const name = parts[0] || "";
+  const relationship = parts[1] || "";
+  const slugRaw = parts[2] || "";
+  const notes = parts[3] || "";
+  const image = parts[4] || "";
+
+  let hub = "";
+  let slug = "";
+
+  if (slugRaw.includes(":")) {
+    const split = slugRaw.split(":");
+    hub = normalizeHub(split[0]);
+    slug = split.slice(1).join(":").trim();
+  } else {
+    slug = slugRaw || slugifyRelationshipName(name);
+  }
+
+  return {
+    name,
+    relationship,
+    hub,
+    slug,
+    notes,
+    image
+  };
+}
+
+function getCharacterSlug(character) {
+  return String(
+    character.slug ||
+    character.Slug ||
+    character.id ||
+    character.Name ||
+    character.name ||
+    ""
+  )
+    .trim()
+    .toLowerCase();
+}
+
+function getCharacterHub(character) {
+  return normalizeHub(
+    character.hub ||
+    character.Hub ||
+    character.site ||
+    character.Site ||
+    character.source ||
+    character.Source ||
+    ""
+  );
+}
+
+function findRelatedCharacter(rel, allCharacters = []) {
+  const wantedSlug = String(rel.slug || "").trim().toLowerCase();
+  const wantedHub = normalizeHub(rel.hub);
+
+  return allCharacters.find(character => {
+    const characterSlug = getCharacterSlug(character);
+    const characterHub = getCharacterHub(character);
+
+    const slugMatches =
+      characterSlug === wantedSlug ||
+      slugifyRelationshipName(character.Name || character.name) === wantedSlug;
+
+    const hubMatches =
+      !wantedHub ||
+      !characterHub ||
+      characterHub === wantedHub;
+
+    return slugMatches && hubMatches;
+  });
+}
+
+function getRelationshipImage(rel, relatedCharacter) {
+  if (rel.image) return rel.image;
+
+  if (!relatedCharacter) return "";
+
+  const rawImage =
+    relatedCharacter.Icon ||
+    relatedCharacter.icon ||
+    relatedCharacter["Main Ref"] ||
+    relatedCharacter.mainRef ||
+    relatedCharacter.Image ||
+    relatedCharacter.image ||
+    "";
+
+  if (!rawImage) return "";
+
+  if (typeof getHubImage === "function") {
+    return getHubImage(relatedCharacter, rawImage);
+  }
+
+  return rawImage;
+}
+
+function getRelationshipProfileUrl(rel, relatedCharacter) {
+  const hub = rel.hub || getCharacterHub(relatedCharacter);
+  const base = getHubUrl(hub);
+  const slug = rel.slug || getCharacterSlug(relatedCharacter);
+
+  return `${base}/characters/?character=${encodeURIComponent(slug)}`;
+}
+
+function renderRelationships(character, allCharacters = []) {
+  const container = document.querySelector("#relationshipsContent, #relationships, [data-tab='relationships']");
+
+  if (!container) return;
+
+  const rawRelationships =
+    character.Relationships ||
+    character.relationships ||
+    character.Relationship ||
+    character.relationship ||
+    "";
+
+  const entries = Array.isArray(rawRelationships)
+    ? rawRelationships
+    : String(rawRelationships)
+        .split("\n")
+        .map(item => item.trim())
+        .filter(Boolean);
+
+  if (!entries.length) {
+    container.innerHTML = "";
+    return;
+  }
+
+  const html = entries.map(entry => {
+    const rel = parseRelationshipEntry(entry);
+    const relatedCharacter = findRelatedCharacter(rel, allCharacters);
+
+    const image = getRelationshipImage(rel, relatedCharacter);
+    const profileUrl = getRelationshipProfileUrl(rel, relatedCharacter);
+
+    const displayName =
+      rel.name ||
+      relatedCharacter?.Name ||
+      relatedCharacter?.name ||
+      "Unknown Character";
+
+    return `
+      <article class="relationship-card">
+        <div class="relationship-image-wrap">
+          ${
+            image
+              ? `<img class="relationship-image" src="${image}" alt="${displayName}">`
+              : `<div class="relationship-image placeholder"></div>`
+          }
+        </div>
+
+        <div class="relationship-info">
+          <h3>${displayName}</h3>
+
+          ${
+            rel.relationship
+              ? `<p class="relationship-type">${rel.relationship}</p>`
+              : ""
+          }
+
+          ${
+            rel.notes
+              ? `<p class="relationship-notes">${rel.notes}</p>`
+              : ""
+          }
+
+          ${
+            profileUrl
+              ? `<a class="relationship-button" href="${profileUrl}">View Profile</a>`
+              : ""
+          }
+        </div>
+      </article>
+    `;
+  }).join("");
+
+  container.innerHTML = `
+    <div class="relationship-grid">
+      ${html}
+    </div>
+  `;
 }
 
 function renderFavorites(character) {
