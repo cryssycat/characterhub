@@ -1335,6 +1335,7 @@ function fillCharacter(character) {
     );
 
     const rawLayout = cleanText(character.layout || "Dashboard");
+    console.log("Layout from character:", character.layout, character.Layout, rawLayout);
     const layout = rawLayout
         .toLowerCase()
         .replace(/\s+/g, "-");
