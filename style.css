@@ -3088,3 +3088,245 @@ body.layout-dossier .companion-summary-card p {
         grid-template-columns: 1fr !important;
     }
 }
+
+
+/* ==========================================
+   CARD LAYOUT
+   Notion: Layout = Card
+========================================== */
+
+body.layout-card .profile-card{
+    display:none!important;
+}
+
+body.layout-card .profile-dashboard{
+    width:min(620px,94vw)!important;
+    margin:0 auto 80px!important;
+    display:block!important;
+}
+
+body.layout-card .profile-dashboard-content{
+    width:100%!important;
+}
+
+/* Tabs */
+
+body.layout-card .tabs{
+    position:static!important;
+    display:flex!important;
+    justify-content:center!important;
+    flex-wrap:wrap!important;
+    gap:8px!important;
+    margin:18px auto 26px!important;
+}
+
+body.layout-card .tab-button{
+    width:auto!important;
+    padding:7px 14px!important;
+    border-radius:999px!important;
+}
+
+/* Main Card */
+
+body.layout-card .dashboard-overview-grid{
+    display:flex!important;
+    flex-direction:column!important;
+    gap:16px!important;
+
+    background:var(--card-bg);
+    border:2px solid var(--card-border);
+    border-radius:28px;
+
+    overflow:hidden;
+
+    box-shadow:
+        var(--card-shadow),
+        inset 0 1px rgba(255,255,255,.45);
+}
+
+/* ---------- IMAGE ---------- */
+
+body.layout-card .dashboard-main-ref-card{
+
+    order:1;
+
+    padding:18px!important;
+
+    background:transparent!important;
+
+    border:none!important;
+
+    box-shadow:none!important;
+}
+
+body.layout-card .dashboard-main-ref-card h2{
+    display:none;
+}
+
+body.layout-card .dashboard-main-ref{
+
+    width:100%!important;
+
+    aspect-ratio:4/5;
+
+    object-fit:contain;
+
+    border-radius:18px;
+
+    background:rgba(255,255,255,.18);
+
+    border:2px solid var(--card-border);
+}
+
+/* ---------- QUICK FACTS ---------- */
+
+body.layout-card .dashboard-quick-card{
+
+    order:2;
+
+    margin:0 18px;
+
+    border-radius:16px!important;
+
+    background:var(--card-bg-soft)!important;
+
+    border:1px solid var(--card-border)!important;
+}
+
+body.layout-card .dashboard-quick-card h2{
+
+    text-align:center;
+
+    text-transform:uppercase;
+
+    letter-spacing:.18em;
+
+    color:var(--accent-color);
+}
+
+body.layout-card .dashboard-quick-card p{
+
+    display:grid;
+
+    grid-template-columns:120px 1fr;
+
+    gap:10px;
+
+    margin:8px 0;
+}
+
+/* ---------- CHARACTER ---------- */
+
+body.layout-card .dashboard-character-card{
+
+    order:3;
+
+    margin:0 18px;
+
+    border-radius:16px!important;
+
+    background:var(--card-bg-soft)!important;
+}
+
+body.layout-card .dashboard-character-card h2{
+
+    text-align:center;
+
+    color:var(--accent-color);
+
+    text-transform:uppercase;
+
+    letter-spacing:.15em;
+}
+
+/* ---------- PERSONAL ---------- */
+
+body.layout-card .dashboard-personal-card{
+
+    order:4;
+
+    margin:0 18px 18px;
+
+    border-radius:16px!important;
+
+    background:var(--card-bg-soft)!important;
+}
+
+body.layout-card .dashboard-personal-card h2{
+
+    text-align:center;
+
+    color:var(--accent-color);
+
+    text-transform:uppercase;
+
+    letter-spacing:.15em;
+}
+
+/* ---------- Hide Intro/Summary ---------- */
+
+body.layout-card .dashboard-intro-card,
+body.layout-card .dashboard-summary-card{
+    display:none!important;
+}
+
+/* ---------- Gallery ---------- */
+
+body.layout-card .gallery-grid{
+
+    grid-template-columns:
+        repeat(auto-fit,minmax(130px,1fr));
+
+    gap:14px;
+}
+
+body.layout-card .image-card{
+
+    border-radius:18px;
+
+    overflow:hidden;
+}
+
+body.layout-card .image-card img{
+
+    height:165px;
+
+    object-fit:cover;
+}
+
+/* ---------- Relationships ---------- */
+
+body.layout-card .relationship-card{
+
+    border-radius:18px!important;
+}
+
+/* ---------- Familiar ---------- */
+
+body.layout-card .companion-top-row{
+
+    grid-template-columns:220px 1fr!important;
+}
+
+body.layout-card .companion-image{
+
+    border-radius:18px;
+}
+
+/* ---------- Mobile ---------- */
+
+@media(max-width:650px){
+
+body.layout-card .dashboard-quick-card p{
+
+grid-template-columns:1fr;
+
+}
+
+body.layout-card .companion-top-row{
+
+grid-template-columns:1fr!important;
+
+}
+
+}
