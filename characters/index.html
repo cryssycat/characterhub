@@ -498,6 +498,11 @@ body.layout-dashboard .dashboard-list-grid {
                         <h2>Summary</h2>
                         <p id="familiarSummary">No familiar summary yet.</p>
                     </div>
+
+                    <div class="companion-summary-card companion-gallery-card">
+                        <h2>Familiar Gallery</h2>
+                        <div id="familiarGalleryGrid" class="gallery-grid"></div>
+                    </div>
                 </div>
             </section>
 
@@ -527,6 +532,11 @@ body.layout-dashboard .dashboard-list-grid {
                     <div class="companion-summary-card">
                         <h2>Summary</h2>
                         <p id="hearthlingSummary">No hearthling summary yet.</p>
+                    </div>
+
+                    <div class="companion-summary-card companion-gallery-card">
+                        <h2>Hearthling Gallery</h2>
+                        <div id="hearthlingGalleryGrid" class="gallery-grid"></div>
                     </div>
                 </div>
             </section>
@@ -916,7 +926,7 @@ function hasCompanionData(character, type) {
         character[`${prefix}Name`],
         character[`${prefix}Image`],
         character[`${prefix}Summary`]
-    ].some(hasText);
+    ].some(hasText) || hasArray(character[`${prefix}Gallery`]);
 }
 
 /* ------------------------------
@@ -1292,6 +1302,8 @@ function renderCompanion(character) {
         setImage("familiarImage", character, character.familiarImage);
     }
 
+    renderImages("familiarGalleryGrid", character.familiarGallery);
+
     if (hasCompanionData(character, "hearthling")) {
         setText("hearthlingName", character.hearthlingName, "Hearthling");
         setText("hearthlingSpecies", character.hearthlingSpecies);
@@ -1304,6 +1316,8 @@ function renderCompanion(character) {
         setText("hearthlingSummary", character.hearthlingSummary, "No hearthling summary yet.");
         setImage("hearthlingImage", character, character.hearthlingImage);
     }
+
+    renderImages("hearthlingGalleryGrid", character.hearthlingGallery);
 }
 
 function fillCharacter(character) {
