@@ -670,38 +670,144 @@ body.layout-classic .content-grid {
     grid-template-columns: 1fr;
 }
 
-body.layout-visual-novel .profile-page {
-    max-width: 1300px;
-}
+/* ===============================
+   VISUAL NOVEL LAYOUT
+================================ */
 
 body.layout-visual-novel .profile-card {
+    display: none !important;
+}
+
+body.layout-visual-novel .profile-dashboard {
+    width: min(1200px, 94vw);
+    margin: 0 auto;
+    display: block !important;
+}
+
+body.layout-visual-novel .tabs {
+    width: 100% !important;
+    margin: 22px auto 28px !important;
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    gap: 12px !important;
+    position: static !important;
+}
+
+body.layout-visual-novel .tab-button {
+    width: auto !important;
+    min-width: 120px;
+    border-radius: 14px !important;
+    padding: 12px 18px !important;
+}
+
+body.layout-visual-novel .profile-dashboard-content {
+    width: 100% !important;
+}
+
+body.layout-visual-novel #overview.active {
+    display: block !important;
+}
+
+/* Main layout */
+body.layout-visual-novel .dashboard-overview-grid {
     display: grid !important;
-    grid-template-columns: minmax(300px, 48%) minmax(280px, 52%);
-    gap: 35px;
-    align-items: center;
+    grid-template-columns: 1.1fr 1fr 1fr !important;
+    grid-template-areas:
+        "image image image"
+        "quick intro character"
+        "quick summary personal" !important;
+    gap: 18px !important;
+    align-items: stretch !important;
 }
 
-body.layout-visual-novel .main-ref {
-    max-height: 680px;
-    width: 100%;
-    object-fit: contain;
+/* Big top image */
+body.layout-visual-novel .dashboard-main-ref-card {
+    grid-area: image !important;
+    min-height: 420px !important;
+    padding: 24px !important;
 }
 
-body.layout-visual-novel .quick-facts {
-    min-height: 420px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+body.layout-visual-novel .dashboard-main-ref-card h2 {
+    display: none !important;
 }
 
-body.layout-visual-novel #overview .content-grid {
-    grid-template-columns: 1.4fr .8fr;
+body.layout-visual-novel .dashboard-main-ref {
+    width: 100% !important;
+    height: 520px !important;
+    object-fit: contain !important;
+    object-position: center !important;
+    display: block !important;
 }
 
-body.layout-visual-novel #introduction,
-body.layout-visual-novel #summary {
-    font-size: 1.05rem;
-    line-height: 1.8;
+/* Cards underneath */
+body.layout-visual-novel .dashboard-quick-card {
+    grid-area: quick !important;
+}
+
+body.layout-visual-novel .dashboard-intro-card {
+    grid-area: intro !important;
+}
+
+body.layout-visual-novel .dashboard-summary-card {
+    grid-area: summary !important;
+}
+
+body.layout-visual-novel .dashboard-character-card {
+    grid-area: character !important;
+}
+
+body.layout-visual-novel .dashboard-personal-card {
+    grid-area: personal !important;
+}
+
+body.layout-visual-novel .dashboard-main-ref-card,
+body.layout-visual-novel .dashboard-quick-card,
+body.layout-visual-novel .dashboard-intro-card,
+body.layout-visual-novel .dashboard-summary-card,
+body.layout-visual-novel .dashboard-character-card,
+body.layout-visual-novel .dashboard-personal-card {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    border-radius: 24px !important;
+    padding: 24px !important;
+}
+
+/* Make quick facts taller like your sketch */
+body.layout-visual-novel .dashboard-quick-card {
+    min-height: 360px !important;
+}
+
+/* Compact intro / summary cards */
+body.layout-visual-novel .dashboard-intro-card,
+body.layout-visual-novel .dashboard-summary-card {
+    min-height: 160px !important;
+}
+
+/* Personality/theme card */
+body.layout-visual-novel .dashboard-character-card,
+body.layout-visual-novel .dashboard-personal-card {
+    min-height: 220px !important;
+}
+
+/* Mobile */
+@media (max-width: 900px) {
+    body.layout-visual-novel .dashboard-overview-grid {
+        grid-template-columns: 1fr !important;
+        grid-template-areas:
+            "image"
+            "quick"
+            "intro"
+            "summary"
+            "character"
+            "personal" !important;
+    }
+
+    body.layout-visual-novel .dashboard-main-ref {
+        height: 360px !important;
+    }
 }
 
 body.layout-magazine .profile-page {
