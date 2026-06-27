@@ -810,93 +810,344 @@ body.layout-visual-novel .dashboard-personal-card {
     }
 }
 
-body.layout-magazine .profile-page {
-    max-width: 1450px;
-}
+/* ==========================================
+   MAGAZINE LAYOUT — EDITORIAL SPREAD
+========================================== */
 
 body.layout-magazine .profile-card {
-    display: grid !important;
-    grid-template-columns: 420px 1fr;
-    gap: 30px;
-    align-items: stretch;
-}
-
-body.layout-magazine .main-ref {
-    height: 100%;
-    max-height: 560px;
-    object-fit: cover;
-}
-
-body.layout-magazine .quick-facts {
-    display: grid;
-    align-content: center;
-}
-
-body.layout-magazine .content-grid {
-    grid-template-columns: repeat(2, minmax(280px, 1fr));
-    gap: 26px;
-}
-
-body.layout-magazine .wide-card {
-    grid-column: 1 / -1;
-}
-
-body.layout-magazine .gallery-grid {
-    grid-template-columns: repeat(auto-fit, minmax(260px, 260px));
-    justify-content: center;
-}
-
-body.layout-minimal {
-    background: #fff8fc !important;
-}
-
-body.layout-minimal::before {
     display: none !important;
 }
 
-body.layout-minimal .profile-card,
-body.layout-minimal .content-card,
-body.layout-minimal .section-title,
-body.layout-minimal .quick-facts {
-    background: rgba(255,255,255,.65) !important;
-    border: 1px solid rgba(255,255,255,.85) !important;
-    box-shadow: none !important;
-    backdrop-filter: none !important;
+body.layout-magazine .profile-dashboard {
+    width: min(1280px, 94vw) !important;
+    margin: 0 auto 90px !important;
+    display: block !important;
+}
+
+body.layout-magazine .profile-dashboard-content {
+    width: 100% !important;
+    max-width: none !important;
+}
+
+body.layout-magazine .tabs {
+    width: 100% !important;
+    margin: 22px auto 30px !important;
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: center !important;
+    flex-wrap: wrap !important;
+    gap: 10px !important;
+    position: static !important;
+}
+
+body.layout-magazine .tab-button {
+    width: auto !important;
+    border-radius: 8px !important;
+    padding: 10px 18px !important;
+    text-transform: uppercase !important;
+    letter-spacing: .08em !important;
+    font-size: .82rem !important;
+}
+
+/* Editorial overview grid */
+body.layout-magazine #overview.active .dashboard-overview-grid,
+body.layout-magazine .dashboard-overview-grid {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1.2fr) minmax(320px, .8fr) !important;
+    grid-template-areas:
+        "intro image"
+        "summary image"
+        "quick image"
+        "character personal" !important;
+    gap: 22px !important;
+    align-items: stretch !important;
+}
+
+/* Make all dashboard cards visible in magazine mode */
+body.layout-magazine .dashboard-main-ref-card,
+body.layout-magazine .dashboard-intro-card,
+body.layout-magazine .dashboard-summary-card,
+body.layout-magazine .dashboard-quick-card,
+body.layout-magazine .dashboard-character-card,
+body.layout-magazine .dashboard-personal-card {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    border-radius: 18px !important;
+    padding: 30px !important;
+}
+
+/* Grid placement */
+body.layout-magazine .dashboard-main-ref-card {
+    grid-area: image !important;
+}
+
+body.layout-magazine .dashboard-intro-card {
+    grid-area: intro !important;
+}
+
+body.layout-magazine .dashboard-summary-card {
+    grid-area: summary !important;
+}
+
+body.layout-magazine .dashboard-quick-card {
+    grid-area: quick !important;
+}
+
+body.layout-magazine .dashboard-character-card {
+    grid-area: character !important;
+}
+
+body.layout-magazine .dashboard-personal-card {
+    grid-area: personal !important;
+}
+
+/* Magazine cover image */
+body.layout-magazine .dashboard-main-ref-card {
+    min-height: 780px !important;
+    overflow: hidden !important;
+    position: relative !important;
+}
+
+body.layout-magazine .dashboard-main-ref-card h2 {
+    display: none !important;
+}
+
+body.layout-magazine .dashboard-main-ref {
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 760px !important;
+    object-fit: cover !important;
+    object-position: center top !important;
+    border-radius: 14px !important;
+    display: block !important;
+}
+
+/* Editorial typography */
+body.layout-magazine .dashboard-intro-card h2,
+body.layout-magazine .dashboard-summary-card h2,
+body.layout-magazine .dashboard-quick-card h2,
+body.layout-magazine .dashboard-character-card h2,
+body.layout-magazine .dashboard-personal-card h2 {
+    text-transform: uppercase !important;
+    letter-spacing: .08em !important;
+    font-size: .9rem !important;
+    margin-bottom: 14px !important;
+}
+
+body.layout-magazine .dashboard-intro-card p {
+    font-size: 1.25rem !important;
+    line-height: 1.85 !important;
+}
+
+body.layout-magazine .dashboard-summary-card p {
+    font-size: 1rem !important;
+    line-height: 1.75 !important;
+}
+
+body.layout-magazine .dashboard-quick-card {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 8px 18px !important;
+}
+
+body.layout-magazine .dashboard-quick-card h2,
+body.layout-magazine .dashboard-tags-section {
+    grid-column: 1 / -1 !important;
+}
+
+body.layout-magazine .dashboard-quick-card p {
+    line-height: 1.4 !important;
+}
+
+body.layout-magazine .dashboard-character-card,
+body.layout-magazine .dashboard-personal-card {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 18px !important;
+}
+
+body.layout-magazine .dashboard-mini-grid,
+body.layout-magazine .dashboard-list-grid {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 18px !important;
+}
+
+/* Gallery feels like an editorial photo spread */
+body.layout-magazine .gallery-grid {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)) !important;
+    gap: 26px !important;
+}
+
+body.layout-magazine .image-card img {
+    height: 360px !important;
+    border-radius: 14px !important;
+}
+
+body.layout-magazine .image-title {
+    text-transform: uppercase !important;
+    letter-spacing: .06em !important;
+    font-size: .82rem !important;
+}
+
+/* Lore tab like article columns */
+body.layout-magazine #lore .content-grid {
+    display: grid !important;
+    grid-template-columns: .8fr 1.4fr !important;
+    gap: 24px !important;
+}
+
+body.layout-magazine #lore .content-card:has(#trivia) {
+    grid-column: 1 / -1 !important;
+}
+
+/* Familiar / Hearthling as magazine feature cards */
+body.layout-magazine .companion-page {
+    max-width: 1120px !important;
+}
+
+body.layout-magazine .companion-top-row {
+    display: grid !important;
+    grid-template-columns: 360px minmax(0, 1fr) !important;
+    gap: 26px !important;
+}
+
+body.layout-magazine .companion-image {
+    height: 420px !important;
+    object-fit: cover !important;
+    object-position: center top !important;
+    border-radius: 14px !important;
+}
+
+body.layout-magazine .companion-facts-grid {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 12px 22px !important;
+}
+
+/* Responsive */
+@media (max-width: 950px) {
+    body.layout-magazine .dashboard-overview-grid {
+        grid-template-columns: 1fr !important;
+        grid-template-areas:
+            "image"
+            "intro"
+            "summary"
+            "quick"
+            "character"
+            "personal" !important;
+    }
+
+    body.layout-magazine .dashboard-main-ref-card {
+        min-height: auto !important;
+    }
+
+    body.layout-magazine .dashboard-main-ref {
+        min-height: 0 !important;
+        height: auto !important;
+        max-height: 720px !important;
+        object-fit: contain !important;
+    }
+
+    body.layout-magazine .dashboard-quick-card,
+    body.layout-magazine .dashboard-mini-grid,
+    body.layout-magazine .dashboard-list-grid,
+    body.layout-magazine .companion-facts-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    body.layout-magazine .companion-top-row {
+        grid-template-columns: 1fr !important;
+    }
+}
+/* MINIMAL — MUTED SOFT DOSSIER */
+
+body.layout-minimal {
+    background:
+        radial-gradient(circle at top, rgba(120,110,150,.18), transparent 35%),
+        linear-gradient(180deg, #d8d1dc 0%, #c8c0cf 100%) !important;
+    color: #4d4658 !important;
+}
+
+body.layout-minimal .profile-dashboard {
+    width: min(980px, 92vw) !important;
+    margin: 0 auto 80px !important;
+    display: block !important;
 }
 
 body.layout-minimal .profile-card {
-    display: flex !important;
-    flex-direction: column;
-    max-width: 850px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-body.layout-minimal .main-ref {
-    max-width: 520px;
-    margin-left: auto;
-    margin-right: auto;
+    display: none !important;
 }
 
 body.layout-minimal .tabs {
-    gap: 8px;
+    position: static !important;
+    display: flex !important;
+    justify-content: center !important;
+    flex-wrap: wrap !important;
+    gap: 10px !important;
+    margin: 22px auto 28px !important;
 }
 
 body.layout-minimal .tab-button {
-    background: transparent !important;
-    border: 1px solid rgba(255,190,225,.5) !important;
+    width: auto !important;
+    border-radius: 999px !important;
+    padding: 9px 16px !important;
+    background: rgba(70,60,85,.18) !important;
+    border: 1px solid rgba(255,255,255,.3) !important;
+    color: #4d4658 !important;
+    box-shadow: none !important;
 }
 
 body.layout-minimal .tab-button.active {
-    background: rgba(255,215,234,.7) !important;
+    background: rgba(70,60,85,.34) !important;
+    color: #fff !important;
 }
 
-body.layout-minimal .content-grid {
-    grid-template-columns: 1fr;
-    max-width: 850px;
-    margin-left: auto;
-    margin-right: auto;
+body.layout-minimal .dashboard-overview-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 18px !important;
 }
+
+body.layout-minimal .dashboard-main-ref-card,
+body.layout-minimal .dashboard-intro-card,
+body.layout-minimal .dashboard-summary-card,
+body.layout-minimal .dashboard-quick-card,
+body.layout-minimal .dashboard-character-card,
+body.layout-minimal .dashboard-personal-card,
+body.layout-minimal .content-card,
+body.layout-minimal .section-title {
+    display: block !important;
+    background: rgba(245,240,248,.42) !important;
+    border: 1px solid rgba(255,255,255,.36) !important;
+    border-radius: 20px !important;
+    box-shadow: 0 10px 28px rgba(55,45,70,.12) !important;
+    backdrop-filter: blur(10px) !important;
+    padding: 24px !important;
+}
+
+body.layout-minimal .dashboard-main-ref-card h2 {
+    display: none !important;
+}
+
+body.layout-minimal .dashboard-main-ref {
+    width: min(560px, 100%) !important;
+    max-height: 680px !important;
+    height: auto !important;
+    object-fit: contain !important;
+    display: block !important;
+    margin: 0 auto !important;
+    border-radius: 18px !important;
+}
+
+body.layout-minimal .dashboard-mini-grid,
+body.layout-minimal .dashboard-list-grid {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 18px !important;
+}
+
 
 @media (max-width: 850px) {
     body.layout-default .profile-card,
@@ -2391,3 +2642,393 @@ body.layout-visual-novel #overview .content-grid {
     }
 }
 
+
+
+
+/* ==========================================
+   MINI LAYOUT — COMPACT PROFILE
+========================================== */
+
+body.layout-mini .profile-card {
+    display: none !important;
+}
+
+body.layout-mini .profile-dashboard {
+    width: min(760px, 92vw) !important;
+    margin: 0 auto 70px !important;
+    display: block !important;
+}
+
+body.layout-mini .profile-dashboard-content {
+    width: 100% !important;
+    max-width: none !important;
+}
+
+body.layout-mini .tabs {
+    width: 100% !important;
+    margin: 18px auto 24px !important;
+    display: flex !important;
+    justify-content: center !important;
+    flex-wrap: wrap !important;
+    gap: 8px !important;
+    position: static !important;
+}
+
+body.layout-mini .tab-button {
+    width: auto !important;
+    padding: 8px 14px !important;
+    border-radius: 999px !important;
+    font-size: .85rem !important;
+}
+
+/* Only show the important overview pieces */
+body.layout-mini .dashboard-intro-card,
+body.layout-mini .dashboard-summary-card,
+body.layout-mini .dashboard-character-card,
+body.layout-mini .dashboard-personal-card {
+    display: none !important;
+}
+
+body.layout-mini #overview.active .dashboard-overview-grid,
+body.layout-mini .dashboard-overview-grid {
+    display: grid !important;
+    grid-template-columns: 220px minmax(0, 1fr) !important;
+    grid-template-areas:
+        "image quick" !important;
+    gap: 18px !important;
+    align-items: start !important;
+}
+
+body.layout-mini .dashboard-main-ref-card {
+    grid-area: image !important;
+    display: block !important;
+    padding: 18px !important;
+    border-radius: 22px !important;
+}
+
+body.layout-mini .dashboard-main-ref-card h2 {
+    display: none !important;
+}
+
+body.layout-mini .dashboard-main-ref {
+    width: 100% !important;
+    aspect-ratio: 1 / 1 !important;
+    height: auto !important;
+    object-fit: cover !important;
+    object-position: center top !important;
+    border-radius: 14px !important;
+}
+
+body.layout-mini .dashboard-quick-card {
+    grid-area: quick !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 6px !important;
+    padding: 20px !important;
+    border-radius: 22px !important;
+}
+
+body.layout-mini .dashboard-quick-card h2 {
+    font-size: 1.15rem !important;
+    margin-bottom: 8px !important;
+}
+
+body.layout-mini .dashboard-quick-card p {
+    display: block !important;
+    line-height: 1.35 !important;
+    font-size: .95rem !important;
+}
+
+body.layout-mini .dashboard-tags-section {
+    margin-top: 8px !important;
+}
+
+/* Hide tabs that are too text-heavy for Mini */
+body.layout-mini .tab-button[data-tab="favorites"],
+body.layout-mini .tab-button[data-tab="credits"],
+body.layout-mini .tab-button[data-tab="lore"],
+body.layout-mini .tab-button[data-tab="relationships"],
+body.layout-mini .tab-button[data-tab="familiar"],
+body.layout-mini .tab-button[data-tab="hearthling"] {
+    display: none !important;
+}
+
+body.layout-mini #favorites,
+body.layout-mini #credits,
+body.layout-mini #lore,
+body.layout-mini #relationships,
+body.layout-mini #familiar,
+body.layout-mini #hearthling {
+    display: none !important;
+}
+
+/* Small gallery */
+body.layout-mini .gallery-grid {
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)) !important;
+    gap: 14px !important;
+}
+
+body.layout-mini .image-card img {
+    height: 160px !important;
+    border-radius: 14px !important;
+}
+
+body.layout-mini .image-title {
+    font-size: .8rem !important;
+}
+
+/* Keep Mature Gallery small too */
+body.layout-mini .nsfw-overlay {
+    min-height: 160px !important;
+}
+
+/* Mobile */
+@media(max-width: 700px) {
+    body.layout-mini .dashboard-overview-grid {
+        grid-template-columns: 1fr !important;
+        grid-template-areas:
+            "image"
+            "quick" !important;
+    }
+
+    body.layout-mini .dashboard-main-ref-card {
+        max-width: 260px !important;
+        margin: 0 auto !important;
+    }
+}
+
+/* ==========================================
+   DOSSIER / ARCHIVE LAYOUT
+   Notion: Layout = Dossier
+========================================== */
+
+body.layout-dossier .profile-card {
+    display: none !important;
+}
+
+body.layout-dossier .profile-dashboard {
+    width: min(760px, 94vw) !important;
+    margin: 0 auto 80px !important;
+    display: block !important;
+}
+
+body.layout-dossier .profile-dashboard-content {
+    width: 100% !important;
+}
+
+body.layout-dossier .tabs {
+    position: static !important;
+    width: 100% !important;
+    margin: 18px auto 26px !important;
+    display: flex !important;
+    justify-content: center !important;
+    flex-wrap: wrap !important;
+    gap: 8px !important;
+}
+
+body.layout-dossier .tab-button {
+    width: auto !important;
+    border-radius: 4px !important;
+    padding: 8px 14px !important;
+    font-size: .8rem !important;
+    text-transform: uppercase !important;
+    letter-spacing: .12em !important;
+}
+
+body.layout-dossier .dashboard-overview-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 16px !important;
+}
+
+body.layout-dossier .dashboard-main-ref-card,
+body.layout-dossier .dashboard-intro-card,
+body.layout-dossier .dashboard-summary-card,
+body.layout-dossier .dashboard-quick-card,
+body.layout-dossier .dashboard-character-card,
+body.layout-dossier .dashboard-personal-card,
+body.layout-dossier .content-card,
+body.layout-dossier .section-title {
+    display: block !important;
+    background: #eee7dc !important;
+    border: 2px solid #cfc3b5 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    padding: 24px !important;
+    color: #6f675d !important;
+}
+
+/* INFO panel */
+body.layout-dossier .dashboard-intro-card {
+    order: 1 !important;
+}
+
+body.layout-dossier .dashboard-intro-card h2 {
+    text-align: center !important;
+    text-transform: uppercase !important;
+    letter-spacing: .35em !important;
+    color: #a69b8f !important;
+    border-bottom: 1px solid #cfc3b5 !important;
+    padding-bottom: 10px !important;
+    margin-bottom: 18px !important;
+}
+
+body.layout-dossier .dashboard-intro-card p {
+    line-height: 1.9 !important;
+    font-weight: 600 !important;
+}
+
+/* Summary as extra info under intro */
+body.layout-dossier .dashboard-summary-card {
+    order: 2 !important;
+}
+
+body.layout-dossier .dashboard-summary-card h2 {
+    text-align: center !important;
+    text-transform: uppercase !important;
+    letter-spacing: .25em !important;
+    color: #a69b8f !important;
+}
+
+/* Image panel */
+body.layout-dossier .dashboard-main-ref-card {
+    order: 3 !important;
+    padding: 16px !important;
+}
+
+body.layout-dossier .dashboard-main-ref-card h2 {
+    display: none !important;
+}
+
+body.layout-dossier .dashboard-main-ref {
+    width: 100% !important;
+    height: auto !important;
+    max-height: 680px !important;
+    object-fit: contain !important;
+    display: block !important;
+    border: 6px solid #e7dfd3 !important;
+    outline: 1px solid #cfc3b5 !important;
+    border-radius: 0 !important;
+}
+
+/* Quick facts as stat boxes */
+body.layout-dossier .dashboard-quick-card {
+    order: 4 !important;
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 12px !important;
+}
+
+body.layout-dossier .dashboard-quick-card h2,
+body.layout-dossier .dashboard-tags-section {
+    grid-column: 1 / -1 !important;
+}
+
+body.layout-dossier .dashboard-quick-card h2 {
+    text-align: center !important;
+    text-transform: uppercase !important;
+    letter-spacing: .35em !important;
+    color: #a69b8f !important;
+    margin-bottom: 10px !important;
+}
+
+body.layout-dossier .dashboard-quick-card p {
+    background: #e2d9ce !important;
+    border: 1px solid #cfc3b5 !important;
+    padding: 12px !important;
+    text-align: center !important;
+    line-height: 1.4 !important;
+}
+
+body.layout-dossier .dashboard-quick-card strong {
+    display: block !important;
+    color: #a69b8f !important;
+    font-size: .75rem !important;
+    text-transform: uppercase !important;
+    letter-spacing: .08em !important;
+}
+
+/* NOTES panel */
+body.layout-dossier .dashboard-character-card {
+    order: 5 !important;
+}
+
+body.layout-dossier .dashboard-character-card h2 {
+    text-align: center !important;
+    text-transform: uppercase !important;
+    letter-spacing: .35em !important;
+    color: #a69b8f !important;
+    border-bottom: 1px solid #cfc3b5 !important;
+    padding-bottom: 10px !important;
+    margin-bottom: 18px !important;
+}
+
+body.layout-dossier .dashboard-subsection {
+    background: #e2d9ce !important;
+    border: 1px solid #cfc3b5 !important;
+    padding: 18px !important;
+    margin-bottom: 14px !important;
+    text-align: center !important;
+}
+
+body.layout-dossier .dashboard-subsection h3 {
+    color: #a69b8f !important;
+    text-transform: uppercase !important;
+    letter-spacing: .14em !important;
+    margin-bottom: 10px !important;
+}
+
+/* PERSONAL = extra notes */
+body.layout-dossier .dashboard-personal-card {
+    order: 6 !important;
+}
+
+body.layout-dossier .dashboard-personal-card h2 {
+    text-align: center !important;
+    text-transform: uppercase !important;
+    letter-spacing: .35em !important;
+    color: #a69b8f !important;
+    border-bottom: 1px solid #cfc3b5 !important;
+    padding-bottom: 10px !important;
+    margin-bottom: 18px !important;
+}
+
+body.layout-dossier .dashboard-list-grid {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 14px !important;
+}
+
+body.layout-dossier .dashboard-list-grid > div {
+    background: #e2d9ce !important;
+    border: 1px solid #cfc3b5 !important;
+    padding: 18px !important;
+    text-align: center !important;
+}
+
+body.layout-dossier .tag {
+    background: #f4eee6 !important;
+    border: 1px solid #cfc3b5 !important;
+    color: #6f675d !important;
+    border-radius: 0 !important;
+}
+
+/* Small gallery style */
+body.layout-dossier .gallery-grid {
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)) !important;
+    gap: 14px !important;
+}
+
+body.layout-dossier .image-card img {
+    height: 190px !important;
+    border-radius: 0 !important;
+    border: 4px solid #e7dfd3 !important;
+    outline: 1px solid #cfc3b5 !important;
+}
+
+@media(max-width: 700px) {
+    body.layout-dossier .dashboard-quick-card {
+        grid-template-columns: 1fr !important;
+    }
+}
