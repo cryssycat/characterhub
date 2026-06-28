@@ -1,52 +1,410 @@
-<BlockRenderer
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-block={{
+<title>StarSundae Character Hub</title>
 
-type:"row",
+<link rel="stylesheet" href="./style.css?v=500">
+</head>
 
-children:[
+<body>
 
-{
+<header class="site-header">
+    <h1>⭐ StarSundae Character Hub ⭐</h1>
+    <p class="tagline">A cozy archive of characters, worlds, stories, and favorite designs.</p>
 
-type:"header",
+    <section class="creator-profile-card">
+        <div class="creator-avatar-wrap">
+            <img
+                src="images/stsr.png"
+                alt="StarSundae icon"
+                class="creator-avatar"
+                onerror="this.src='images/placeholder.png'; this.onerror=null;"
+            >
+        </div>
 
-props:{
+        <div class="creator-profile-info">
+            <p class="creator-kicker">Character Archive</p>
+            <h2>StarSundae</h2>
 
-name:"Star",
+            <p class="creator-bio">
+                Welcome to my character hub! Browse characters by folder, search by name or tags,
+                and open individual profiles for references, lore, credits, favorites, and galleries.
+            </p>
 
-avatar:"image.png"
+            <div class="creator-pills">
+                <span>⭐ Characters</span>
+                <span>🎨 Designs</span>
+                <span>📖 Lore</span>
+                <span>🌎 Worlds</span>
+            </div>
+        </div>
+    </section>
 
+    <section class="hub-description wiki-nav-card">
+        <h2>Navigation</h2>
+
+        <div class="wiki-links">
+            <a href="https://characterhub.pages.dev/worlds/">🌎 Worlds</a>
+            <a href="https://starbrewshared.pages.dev/">💞 Shared Hub</a>
+            <a href="https://lunabrew.pages.dev/">🌙 My Wife</a>
+            <a href="https://starbrewgaming.pages.dev/">🎮 Our Gaming OCs</a>
+            <a href="https://starbrew.pages.dev/">💵 Sales Hub</a>
+            <a href="https://starbrewgenerator.pages.dev/">✨ Generators</a>
+        </div>
+    </section>
+
+    <p id="characterCount" class="character-count">Loading characters...</p>
+</header>
+
+<div class="search-container">
+    <input
+        type="search"
+        id="searchInput"
+        placeholder="Search characters by name, species, folder, status, world, tag, or notes..."
+        autocomplete="off"
+    >
+</div>
+
+<main>
+    <div id="folderContainer" class="folder-container">
+        <p class="loading">Loading characters...</p>
+    </div>
+</main>
+
+<script>
+const API_URL = "https://charahub.crysthigpen.workers.dev/characters";
+
+const STAR_HUB_ALIASES = new Set([
+    "star",
+    "starhub",
+    "star hub",
+    "starsundae",
+    "starsundae character hub"
+]);
+
+const FOLDER_ORDER = [
+    "Mains",
+    "Mascots",
+    "Comfort Characters",
+    "Primary",
+    "Secondary",
+    "Tertiary",
+    "Favorites",
+    "Sentimental",
+    "Storage",
+    "Unsorted"
+];
+
+const folderContainer = document.getElementById("folderContainer");
+const searchInput = document.getElementById("searchInput");
+const characterCount = document.getElementById("characterCount");
+
+let allCharacters = [];
+
+/* ------------------------------
+   Helpers
+------------------------------ */
+
+function cleanText(value) {
+    if (value === null || value === undefined) return "";
+    if (Array.isArray(value)) return value.filter(Boolean).join(", ");
+    return String(value).trim();
 }
 
-},
-
-
-{
-
-type:"moodboard",
-
-props:{
-
-images:[
-
-"1.png",
-
-"2.png",
-
-"3.png",
-
-"4.png"
-
-]
-
+function escapeHtml(value) {
+    return cleanText(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
 }
 
+function asArray(value) {
+    return Array.isArray(value) ? value : [];
 }
 
-]
+function normalizeHub(value) {
+    return cleanText(value).toLowerCase();
+}
 
-}}
+function isStarHubCharacter(character) {
+    return STAR_HUB_ALIASES.has(normalizeHub(character?.hub));
+}
 
-data={character}
+function getImage(path) {
+    path = cleanText(path);
 
-/>
+    if (!path) return "images/placeholder.png";
+    if (path.startsWith("http")) return path;
+    if (path.startsWith("/")) return window.location.origin + path;
+
+    return window.location.origin + "/" + path;
+}
+
+function getCharacterImage(character) {
+    return getImage(
+        character.icon ||
+        character.avatar ||
+        character.image ||
+        character.mainRef ||
+        character.mainImage
+    );
+}
+
+function getFolderName(character) {
+    return cleanText(character.folder) || "Unsorted";
+}
+
+function updateCount(showing, total) {
+    if (!characterCount) return;
+
+    if (total === 0) {
+        characterCount.textContent = "No StarHub public characters yet.";
+        return;
+    }
+
+    characterCount.textContent = showing === total
+        ? `${total} character${total === 1 ? "" : "s"}`
+        : `Showing ${showing} of ${total} character${total === 1 ? "" : "s"}`;
+}
+
+/* ------------------------------
+   Grouping / sorting
+------------------------------ */
+
+function groupByFolder(characters) {
+    return characters.reduce((folders, character) => {
+        const folderName = getFolderName(character);
+
+        if (!folders[folderName]) {
+            folders[folderName] = [];
+        }
+
+        folders[folderName].push(character);
+        return folders;
+    }, {});
+}
+
+function sortFolderNames(folderNames) {
+    return folderNames.sort((a, b) => {
+        const ia = FOLDER_ORDER.indexOf(a);
+        const ib = FOLDER_ORDER.indexOf(b);
+
+        if (ia === -1 && ib === -1) return a.localeCompare(b);
+        if (ia === -1) return 1;
+        if (ib === -1) return -1;
+
+        return ia - ib;
+    });
+}
+
+function sortCharacters(characters) {
+    return [...characters].sort((a, b) => {
+        const favoriteCompare = Number(Boolean(b.favorite)) - Number(Boolean(a.favorite));
+        if (favoriteCompare !== 0) return favoriteCompare;
+
+        return cleanText(a.name).localeCompare(cleanText(b.name));
+    });
+}
+
+/* ------------------------------
+   Rendering
+------------------------------ */
+
+function createCharacterCard(character) {
+    const name = cleanText(character.name) || "Unnamed";
+    const slug = cleanText(character.slug);
+    const species = cleanText(character.species) || "Unknown Species";
+    const icon = getCharacterImage(character);
+
+    const card = document.createElement("a");
+    card.className = "character-card";
+    card.href = `characters/index.html?slug=${encodeURIComponent(slug)}`;
+
+    if (!slug) {
+        card.href = "#";
+        card.addEventListener("click", event => event.preventDefault());
+    }
+
+    card.innerHTML = `
+        ${character.favorite ? `<span class="favorite-badge">⭐ Favorite</span>` : ""}
+        <img
+            src="${escapeHtml(icon)}"
+            alt="${escapeHtml(name)}"
+            onerror="this.src='images/placeholder.png'; this.onerror=null;"
+        >
+        <h2>${escapeHtml(name)}</h2>
+        <p>${escapeHtml(species)}</p>
+    `;
+
+    return card;
+}
+
+function renderCharacters(characters) {
+    folderContainer.innerHTML = "";
+
+    if (!Array.isArray(characters) || characters.length === 0) {
+        folderContainer.innerHTML = "<p class='loading'>No characters found.</p>";
+        updateCount(0, allCharacters.length);
+        return;
+    }
+
+    const folders = groupByFolder(sortCharacters(characters));
+    const folderNames = sortFolderNames(Object.keys(folders));
+
+    folderNames.forEach(folderName => {
+        const section = document.createElement("section");
+        section.className = "folder-section";
+
+        const heading = document.createElement("div");
+        heading.className = "folder-heading";
+
+        heading.innerHTML = `
+            <div class="folder-title">
+                <span class="folder-arrow">▼</span>
+                <h2>${escapeHtml(folderName)}</h2>
+            </div>
+            <span>${folders[folderName].length} character${folders[folderName].length === 1 ? "" : "s"}</span>
+        `;
+
+        const grid = document.createElement("div");
+        grid.className = "character-grid";
+
+        folders[folderName].forEach(character => {
+            grid.appendChild(createCharacterCard(character));
+        });
+
+        heading.addEventListener("click", () => {
+            section.classList.toggle("collapsed");
+
+            const arrow = heading.querySelector(".folder-arrow");
+            if (arrow) {
+                arrow.textContent = section.classList.contains("collapsed") ? "▶" : "▼";
+            }
+        });
+
+        section.appendChild(heading);
+        section.appendChild(grid);
+        folderContainer.appendChild(section);
+    });
+
+    updateCount(characters.length, allCharacters.length);
+}
+
+/* ------------------------------
+   Search
+------------------------------ */
+
+function searchableWorlds(character) {
+    if (!Array.isArray(character.worlds)) return "";
+
+    return character.worlds
+        .map(world => {
+            if (typeof world === "string") return world;
+            return [world.name, world.slug, world.note].filter(Boolean).join(" ");
+        })
+        .join(" ");
+}
+
+function buildSearchText(character) {
+    const favorites = character.favorites || {};
+
+    return [
+        character.name,
+        character.species,
+        character.slug,
+        character.folder,
+        character.status,
+        character.gender,
+        character.pronouns,
+        character.age,
+        character.occupation,
+        character.mbti,
+        character.introduction,
+        character.summary,
+        character.personality,
+        character.designNotes,
+        character.trivia,
+        character.lore,
+        searchableWorlds(character),
+
+        favorites.food,
+        favorites.drink,
+        favorites.color,
+        favorites.season,
+        favorites.flower,
+        favorites.scent,
+        favorites.music,
+        favorites.animal,
+
+        ...asArray(character.tags),
+        ...asArray(character.likes),
+        ...asArray(character.dislikes),
+        ...asArray(character.hobbies),
+        ...asArray(character.fears)
+    ]
+        .filter(Boolean)
+        .join(" ")
+        .toLowerCase();
+}
+
+function filterCharacters() {
+    const query = cleanText(searchInput?.value).toLowerCase();
+
+    if (!query) {
+        renderCharacters(allCharacters);
+        return;
+    }
+
+    const filtered = allCharacters.filter(character => {
+        const gender = cleanText(character.gender).toLowerCase();
+
+        if (query === "male" || query === "female") {
+            return gender === query;
+        }
+
+        return buildSearchText(character).includes(query);
+    });
+
+    renderCharacters(filtered);
+}
+
+/* ------------------------------
+   Load
+------------------------------ */
+
+async function loadCharacters() {
+    try {
+        const response = await fetch(API_URL);
+        const data = await response.json();
+
+        if (!Array.isArray(data)) {
+            folderContainer.innerHTML = "<p class='loading'>The API loaded, but did not return a character list.</p>";
+            characterCount.textContent = "Could not count characters.";
+            console.error("Unexpected API response:", data);
+            return;
+        }
+
+        allCharacters = data.filter(isStarHubCharacter);
+        renderCharacters(allCharacters);
+
+    } catch (error) {
+        console.error("Character hub loading error:", error);
+        folderContainer.innerHTML = "<p class='loading'>Could not load characters.</p>";
+        characterCount.textContent = "Could not load character count.";
+    }
+}
+
+if (searchInput) {
+    searchInput.addEventListener("input", filterCharacters);
+}
+
+loadCharacters();
+</script>
+
+</body>
+</html>
