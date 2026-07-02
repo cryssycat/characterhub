@@ -10,7 +10,7 @@ body {
     font-family: 'Quicksand', sans-serif;
     color: #66547f;
     min-height: 100vh;
-    background-image: url('images/Velmoris/bg.png');
+   
 }
 
 body::before {
