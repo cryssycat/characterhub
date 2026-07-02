@@ -1321,17 +1321,16 @@ function renderCompanion(character) {
 
     renderImages("hearthlingGalleryGrid", character.hearthlingGallery);
 }
+
 function fillCharacter(character) {
     currentCharacter = character;
 
-    /* ------------------------------
-       Apply Character Custom CSS
-    ------------------------------ */
-
+    // Apply per-character custom CSS safely
     const customStyle = document.getElementById("custom-css");
-
     if (customStyle) {
-        customStyle.textContent = cleanText(character.customCSS);
+        customStyle.textContent = typeof character.customCSS === "string"
+            ? character.customCSS
+            : "";
     }
 
     document.title = `${character.name || "Character"} | StarHub`;
@@ -1343,76 +1342,11 @@ function fillCharacter(character) {
         "layout-magazine",
         "layout-minimal",
         "layout-dashboard",
-        "layout-mini",
-        "layout-dossier",
-        "layout-poke"
+         "layout-mini",
+    "layout-dossier",
+    "layout-poke",
+    "layout-default"
     );
-
-    const rawLayout = cleanText(character.layout || "Dashboard");
-
-    console.log(
-        "Layout from character:",
-        character.layout,
-        character.Layout,
-        rawLayout
-    );
-
-    const layout = rawLayout
-        .toLowerCase()
-        .replace(/\s+/g, "-");
-
-    const allowedLayouts = new Set([
-        "default",
-        "classic",
-        "visual-novel",
-        "magazine",
-        "minimal",
-        "dashboard",
-        "mini",
-        "dossier",
-        "poke"
-    ]);
-
-    document.body.classList.add(
-        allowedLayouts.has(layout)
-            ? `layout-${layout}`
-            : "layout-dashboard"
-    );
-
-    // Leave the rest of fillCharacter() exactly as it is.
-
-    const rawLayout = cleanText(character.layout || "Dashboard");
-
-    console.log(
-        "Layout from character:",
-        character.layout,
-        character.Layout,
-        rawLayout
-    );
-
-    const layout = rawLayout
-        .toLowerCase()
-        .replace(/\s+/g, "-");
-
-    const allowedLayouts = new Set([
-        "default",
-        "classic",
-        "visual-novel",
-        "magazine",
-        "minimal",
-        "dashboard",
-        "mini",
-        "dossier",
-        "poke"
-    ]);
-
-    document.body.classList.add(
-        allowedLayouts.has(layout)
-            ? `layout-${layout}`
-            : "layout-dashboard"
-    );
-
-
 
     const rawLayout = cleanText(character.layout || "Dashboard");
     console.log("Layout from character:", character.layout, character.Layout, rawLayout);
