@@ -1,50 +1,80 @@
 /* ==========================================
-   CRIMSON CATHEDRAL THEME OVERRIDE
-   Load AFTER style.css
+   CRIMSON CATHEDRAL
+   Custom CSS Override
+   Load in CharacterHub Custom CSS
 ========================================== */
+
+/* ---------- GLOBAL ---------- */
 
 body{
     background:
-        radial-gradient(circle at top, rgba(120,0,20,.18), transparent 50%),
-        linear-gradient(180deg,#0b0909,#040404) !important;
-    color:#e6dddd !important;
+        radial-gradient(circle at top, rgba(110,0,20,.22), transparent 55%),
+        linear-gradient(180deg,#120909,#050303) !important;
+    color:#efe7e7 !important;
 }
 
+/* Reduce pastel effects */
 body::before,
 body::after{
-    opacity:.12 !important;
-    filter:grayscale(1);
+    opacity:.08 !important;
+    filter:grayscale(1) brightness(.35);
 }
 
+/* ---------- HEADINGS ---------- */
+
+h1,h2,h3,h4,h5,h6,
 .site-header h1,
 .character-header h1,
 .character-card h2,
 .content-card h2,
+.content-card h3,
+.relationship-card h2,
+.relationship-card h3,
 .section-title h2,
 .quick-facts h2,
 .quick-facts h3,
 .folder-heading h2,
-.relationship-card h3,
 .image-title,
 .relationship-type,
-.creator-kicker,
-.creator-profile-info h2{
-    color:#b71f39 !important;
+.creator-profile-info h2,
+.creator-kicker{
+    color:#b71d37 !important;
 }
 
-.tagline,
-.character-header p,
+/* ---------- TEXT ---------- */
+
+body,
+p,
+li,
+td,
+th,
+span,
 .content-card p,
 .relationship-card p,
+.image-card p,
 .quick-facts,
 .quick-facts p,
-.quick-facts strong,
 .folder-heading span,
 .creator-bio,
-body,
-p,li,td{
-    color:#ded5d5 !important;
+.world-title-card p,
+.world-character-role,
+.world-character-species{
+    color:#efe7e7 !important;
 }
+
+small,
+.section-title p{
+    color:#ccb5b5 !important;
+}
+
+strong,
+.quick-facts strong,
+.content-card strong,
+.relationship-card strong{
+    color:#ffd8d8 !important;
+}
+
+/* ---------- CARDS ---------- */
 
 .character-card,
 .profile-card,
@@ -57,13 +87,58 @@ p,li,td{
 .world-quick-card,
 .creator-profile-card,
 .admin-generator,
+.profile-dashboard > *,
+.dashboard-main-ref-card,
+.dashboard-intro-card,
+.dashboard-summary-card,
+.dashboard-quick-card,
+.dashboard-character-card,
+.dashboard-personal-card,
 .companion-image-card,
 .companion-facts-card,
 .companion-summary-card{
-    background:#171212 !important;
-    border:1px solid #5d1623 !important;
-    box-shadow:0 0 24px rgba(130,10,30,.22) !important;
+    background:#171111 !important;
+    border:1px solid #5e1725 !important;
+    box-shadow:0 0 18px rgba(120,0,20,.25) !important;
 }
+
+/* ---------- IMAGES ---------- */
+
+.character-card img,
+.main-ref,
+.dashboard-main-ref,
+.image-card img,
+.relationship-preview-card img,
+.creator-avatar,
+.world-icon{
+    border:2px solid #8a2034 !important;
+    box-shadow:0 0 18px rgba(170,20,45,.28) !important;
+}
+
+/* ---------- BUTTONS ---------- */
+
+button,
+.tab-button,
+.back-button,
+.profile-nav a,
+.reveal-button{
+    background:#250d11 !important;
+    color:#f7eeee !important;
+    border:1px solid #7b2132 !important;
+}
+
+button:hover,
+.tab-button:hover,
+.tab-button.active,
+.back-button:hover,
+.profile-nav a:hover,
+.reveal-button:hover{
+    background:#aa1f3c !important;
+    color:#fff !important;
+    box-shadow:0 0 14px rgba(200,30,60,.45) !important;
+}
+
+/* ---------- TAGS ---------- */
 
 .tag,
 .artist-pill,
@@ -74,61 +149,43 @@ p,li,td{
 .gift-pill,
 .image-credit-pill,
 .creator-pills span{
-    background:#4a111b !important;
-    color:#f5e8e8 !important;
-    border:1px solid #7d1d30 !important;
+    background:#4b1019 !important;
+    color:#fff5f5 !important;
+    border:1px solid #842236 !important;
 }
 
-button,
-.tab-button,
-.back-button,
-.profile-nav a,
-.reveal-button{
-    background:#250c10 !important;
-    color:#f5eded !important;
-    border:1px solid #7d1d30 !important;
-}
-
-button:hover,
-.tab-button:hover,
-.tab-button.active,
-.back-button:hover,
-.profile-nav a:hover,
-.reveal-button:hover{
-    background:#a41e39 !important;
-    color:#fff !important;
-    box-shadow:0 0 18px rgba(200,30,60,.45) !important;
-}
-
-.character-card img,
-.main-ref,
-.dashboard-main-ref,
-.image-card img,
-.relationship-preview-card img,
-.creator-avatar,
-.world-icon{
-    border:2px solid #7d1d30 !important;
-    box-shadow:0 0 18px rgba(160,20,40,.25) !important;
-}
+/* ---------- LINKS ---------- */
 
 a{
-    color:#d94d64 !important;
+    color:#d95b72 !important;
 }
+
 a:hover{
-    color:#ff9aaa !important;
+    color:#ffb1bc !important;
 }
+
+/* ---------- LIGHTBOX ---------- */
 
 .lightbox,
 .nsfw-overlay{
-    background:rgba(10,0,0,.94) !important;
+    background:rgba(10,0,0,.95) !important;
+}
+
+/* ---------- SCROLLBAR ---------- */
+
+::-webkit-scrollbar{
+    width:10px;
 }
 
 ::-webkit-scrollbar-track{
-    background:#0d0909 !important;
+    background:#120909;
 }
+
 ::-webkit-scrollbar-thumb{
-    background:#7d1d30 !important;
+    background:#7b2132;
+    border-radius:999px;
 }
+
 ::-webkit-scrollbar-thumb:hover{
-    background:#b71f39 !important;
+    background:#b71d37;
 }
