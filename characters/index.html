@@ -1337,9 +1337,17 @@ if (!customLink) {
 }
 
 if (character.customCSS) {
-    customLink.href = character.customCSS;
+
+    const cssPath = character.customCSS.startsWith("/")
+        ? character.customCSS
+        : "/" + character.customCSS;
+
+    customLink.href = window.location.origin + cssPath;
+
 } else {
+
     customLink.removeAttribute("href");
+
 }
 
     document.title = `${character.name || "Character"} | StarHub`;
