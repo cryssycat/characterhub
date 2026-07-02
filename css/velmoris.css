@@ -11,6 +11,7 @@ body{
         radial-gradient(circle at top,rgba(120,0,20,.18),transparent 55%),
         linear-gradient(var(--g-bg2),var(--g-bg)) !important;
     color:var(--g-text)!important;
+     background-image: url('images/Velmoris/bg.png');
 }
 
 body::before,
