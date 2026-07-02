@@ -1148,7 +1148,6 @@ body.layout-minimal .dashboard-list-grid {
     gap: 18px !important;
 }
 
-
 @media (max-width: 850px) {
     body.layout-default .profile-card,
     body.layout-visual-novel .profile-card,
@@ -1248,7 +1247,6 @@ body.layout-minimal .dashboard-list-grid {
     background:linear-gradient(#ffd7ea,#d9efff);
     border-radius:999px;
 }
-
 
 /* ==========================================
    STARSUNDAE EXTRA MAGIC
@@ -1364,7 +1362,6 @@ body::after{
         0 0 35px rgba(217,239,255,.45);
 }
 
-
 .watermarked-image{
     position:relative;
     overflow:hidden;
@@ -1395,7 +1392,6 @@ body::after{
 .nsfw-overlay{
     z-index:3;
 }
-
 
 .creator-profile-card{
     width:90%;
@@ -1532,7 +1528,6 @@ body::after{
     z-index:1001;
 }
 
-
 .lightbox-image-wrap{
     position:relative;
     display:inline-block;
@@ -1563,7 +1558,6 @@ body::after{
 .content-card p{
     white-space:pre-line;
 }
-
 
 /* ===============================
    WORLD PAGE ADDITIONS
@@ -1662,7 +1656,6 @@ body::after{
     .world-quick-card{ grid-template-columns:1fr; }
 }
 
-
 .wiki-nav-card{
     text-align:center;
 }
@@ -1687,8 +1680,6 @@ body::after{
 .wiki-links a:hover{
     transform:translateY(-2px);
 }
-}
-
 
 /* WORLD PAGE ADDITIONS */
 .world-header{width:90%;max-width:1200px;margin:30px auto;text-align:center;}
@@ -1718,8 +1709,6 @@ body::after{
   .world-title-card{flex-direction:column;text-align:center;}
   .world-quick-card{grid-template-columns:1fr;}
 }
-
-
 
 /* ==========================================
    DASHBOARD CHARACTER LAYOUT
@@ -1904,7 +1893,6 @@ body:not(.layout-dashboard) .dashboard-quick-card {
     }
 }
 
-
 body.layout-dashboard .dashboard-main-ref-card {
     align-self: start;
 }
@@ -1912,8 +1900,6 @@ body.layout-dashboard .dashboard-main-ref-card {
 body.layout-dashboard .dashboard-quick-card {
     align-self: start;
 }
-
-
 
 /* Dashboard square main ref override */
 body.layout-dashboard .dashboard-main-ref-card {
@@ -1933,8 +1919,6 @@ body.layout-dashboard .dashboard-quick-card {
     align-self: start;
 }
 
-
-
 /* Final dashboard square ref + quick facts fix */
 body.layout-dashboard .dashboard-main-ref {
     width: 100%;
@@ -1948,9 +1932,6 @@ body.layout-dashboard .dashboard-main-ref {
 body.layout-dashboard .dashboard-quick-card p {
     display: block;
 }
-
-
-
 
 /* ==========================================
    DASHBOARD POLISH + ART VALUE VISIBILITY
@@ -2144,8 +2125,6 @@ body:not(.layout-dashboard) .dashboard-quick-card {
         max-width: none;
     }
 }
-
-
 
 /* ==========================================
    FINAL DASHBOARD GRID FIX
@@ -2374,7 +2353,6 @@ body.layout-dashboard .dashboard-character-card p {
     }
 }
 
-
 .relationship-card {
     display: flex;
     align-items: center;
@@ -2395,7 +2373,6 @@ body.layout-dashboard .dashboard-character-card p {
     object-fit: cover;
     display: block;
 }
-
 
 .companion-page {
     max-width: 1100px;
@@ -2444,7 +2421,6 @@ body.layout-dashboard .dashboard-character-card p {
         grid-template-columns: 1fr;
     }
 }
-
 
 /* ==========================================
    FINAL VISUAL NOVEL LAYOUT FIX
@@ -2641,9 +2617,6 @@ body.layout-visual-novel #overview .content-grid {
         grid-template-columns: 1fr !important;
     }
 }
-
-
-
 
 /* ==========================================
    MINI LAYOUT — COMPACT PROFILE
@@ -3278,7 +3251,6 @@ body.layout-poke .nsfw-overlay {
         grid-template-columns: 1fr !important;
     }
 }
-
 
 /* ==========================================
    PROFILE GRID LAYOUT
