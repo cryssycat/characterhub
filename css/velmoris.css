@@ -1,161 +1,408 @@
 /* ==========================================
-   CHARACTER PAGE CUSTOM CSS
-   Crimson Cathedral Theme
+   STARHUB CHARACTER THEME
+   Crimson Cathedral
 ========================================== */
 
-/* GENERAL PAGE */
+
+/*==========================================
+  PAGE
+==========================================*/
+
 body{
     background:
         radial-gradient(circle at top, rgba(120,0,20,.18), transparent 55%),
-        linear-gradient(#0a0a0a,#050505) !important;
-    background-attachment:fixed !important;
-    color:#e8e0e0;
+        linear-gradient(#0d0b0b, #050505);
+    color:#e8e3e3;
+    background-attachment:fixed;
 }
 
-/* HEADER */
+
+/*==========================================
+  HEADER
+==========================================*/
+
 .character-header{
-    display:flex!important;
-    flex-direction:column!important;
-    align-items:center!important;
-    justify-content:center!important;
-    gap:10px;
+    text-align:center;
 }
+
 .character-header h1{
-    margin:0;
-    display:inline-block;
-    background:#170909;
-    border:2px solid #7b0f1f;
+    background:#19090c;
+    color:#fff4f4;
+    border:2px solid #8f1d2f;
     border-radius:999px;
-    padding:.4em 1em;
-    color:#f7eaea!important;
-    box-shadow:0 0 20px rgba(170,20,40,.35);
+    padding:.5em 1.2em;
+    box-shadow:0 0 20px rgba(170,20,40,.3);
 }
-.character-header h3{
-    margin:0;
-    display:inline-block;
-    background:#170909;
-    border:2px solid #7b0f1f;
-    border-radius:999px;
-    padding:.4em 1em;
-    color:#f7eaea!important;
-    box-shadow:0 0 20px rgba(170,20,40,.35);
-}
+
 .character-header p{
-    display:inline-block;
-    background:#120808;
-    border:1px solid #5c101c;
-    border-radius:999px;
-    padding:.25em .9em;
-    color:#c9aaaa!important;
+    color:#c7b0b0;
 }
 
-/* MAIN CARDS */
+
+/*==========================================
+  PROFILE CONTAINER
+==========================================*/
+
 .profile-card,
-.content-card,
-.relationship-card,
-.section-title{
-    background:rgba(20,12,12,.92)!important;
-    border:1px solid #5f121d!important;
-    border-radius:25px!important;
-    box-shadow:0 0 25px rgba(120,0,20,.22)!important;
-}
-.content-card h2,
-.section-title h2,
-.quick-facts h2{
-    color:#f2dcdc!important;
+.profile-dashboard,
+.profile-mini,
+.profile-dossier,
+.profile-poke,
+.profile-magazine,
+.profile-visual-novel{
+    background:#161111;
+    border:1px solid #55141e;
+    border-radius:20px;
+    box-shadow:0 10px 30px rgba(0,0,0,.45);
 }
 
-h3,
-.content-card h3,
-.section-title h3,
-.relationship-card h3{
-    color:#c21f3a !important;
+
+/*==========================================
+  MAIN REFERENCE IMAGE
+==========================================*/
+
+.main-ref,
+.dashboard-main-ref{
+    border:3px solid #8a1d2e;
+    border-radius:16px;
+}
+
+
+/*==========================================
+  CONTENT CARDS
+==========================================*/
+
+.content-card,
+
+.dashboard-main-ref-card,
+.dashboard-intro-card,
+.dashboard-summary-card,
+.dashboard-quick-card,
+.dashboard-character-card,
+.dashboard-personal-card,
+
+.relationship-card,
+
+.image-card,
+
+.mini-card,
+.dossier-card,
+.magazine-card,
+.poke-card,
+.vn-card{
+
+    background:#1a1414;
+    border:1px solid #5d1621;
+    border-radius:18px;
+    box-shadow:0 0 18px rgba(140,15,35,.15);
+
+}
+
+
+/*==========================================
+  CARD TITLES
+==========================================*/
+
+.content-card h2,
+
+.dashboard-main-ref-card h2,
+.dashboard-intro-card h2,
+.dashboard-summary-card h2,
+.dashboard-quick-card h2,
+.dashboard-character-card h2,
+.dashboard-personal-card h2,
+
+.relationship-card h2,
+
+.image-card h2,
+
+.mini-card h2,
+.dossier-card h2,
+.magazine-card h2,
+.poke-card h2,
+.vn-card h2{
+
+    color:#d93b53;
+    border-bottom:1px solid #4d131c;
+    padding-bottom:.35em;
+
+}
+
+
+/*==========================================
+  PARAGRAPHS
+==========================================*/
+
+.content-card p,
+.relationship-card p,
+.image-card p{
+    color:#d8d2d2;
+    line-height:1.7;
+}
+
+
+/*==========================================
+  LINKS
+==========================================*/
+
+a{
+    color:#dd566b;
+    text-decoration:none;
+}
+
+a:hover{
+    color:#ff8a9c;
+}
+
+
+/*==========================================
+  BUTTONS
+==========================================*/
+
+button,
+.back-button,
+.profile-nav a,
+.tab-button{
+
+    background:#230d10;
+    color:#efe7e7;
+    border:1px solid #751b2c;
+    border-radius:999px;
+    transition:.2s ease;
+
+}
+
+button:hover,
+.back-button:hover,
+.profile-nav a:hover,
+.tab-button:hover{
+
+    background:#a32039;
+    color:white;
+    box-shadow:0 0 12px rgba(200,30,60,.4);
+
+}
+
+.tab-button.active{
+
+    background:#c62848;
+    color:white;
+
+}
+
+
+/*==========================================
+  QUICK FACTS
+==========================================*/
+
+.quick-facts{
+    color:#ddd6d6;
+}
+
+.quick-facts strong{
+    color:#ffbcc7;
+}
+
+
+/*==========================================
+  TAGS
+==========================================*/
+
+.tag{
+    background:#471118;
+    color:#f3e4e4;
+    border:1px solid #6d1a28;
+}
+
+
+/*==========================================
+  RELATIONSHIPS
+==========================================*/
+
+.relationship-card{
+    overflow:hidden;
+}
+
+.relationship-image{
+    border-bottom:2px solid #661928;
+}
+
+
+/*==========================================
+  GALLERY
+==========================================*/
+
+.image-card{
+    overflow:hidden;
+}
+
+.image-card img{
+    border:2px solid #6d1c2a;
+    border-radius:12px;
+}
+
+
+/*==========================================
+  SECTION TITLES
+==========================================*/
+
+.section-title{
+
+    background:#160f10;
+    border:1px solid #6d1a28;
+    border-left:5px solid #b11d3d;
+    border-radius:16px;
+    padding:1.25rem;
+
+}
+
+.section-title h2{
+    color:#e44a63;
 }
 
 .section-title p{
-    color:#b58f8f!important;
+    color:#b99f9f;
 }
 
-/* IMAGE */
-.main-ref{
-    border-radius:20px!important;
-    border:4px solid #6d1322!important;
-}
-.image-card{
-    background:#140d0d!important;
-    border-radius:20px!important;
-    border:1px solid #54111b!important;
-}
-.image-card img{
-    border-radius:15px!important;
-    border:2px solid #7b1626!important;
+
+/*==========================================
+  CREDITS
+==========================================*/
+
+.artist-pill,
+.designer-pill,
+.base-pill,
+.colorist-pill,
+.commissioner-pill,
+.gift-pill{
+
+    background:#3a1016;
+    color:#f5eaea;
+    border:1px solid #6d1c2a;
+
 }
 
-/* TABS */
-.tab-button{
-    background:#170b0b!important;
-    color:#d8bebe!important;
-    border:1px solid #631321!important;
-    border-radius:999px!important;
-    transition:.2s;
-}
-.tab-button:hover{
-    background:#6d1322!important;
-    color:#fff!important;
-}
-.tab-button.active{
-    background:#9d1830!important;
-    color:#fff!important;
+
+/*==========================================
+  TABLES
+==========================================*/
+
+table{
+    background:#181212;
+    border-collapse:collapse;
 }
 
-/* TAGS */
-.tag{
-    background:#451019!important;
-    color:#f3dddd!important;
+th{
+    background:#611827;
+    color:white;
 }
 
-/* CREDIT PILLS */
-.artist-pill{background:#6d1322!important;color:#fff!important;}
-.base-pill{background:#5b101d!important;color:#fff!important;}
-.designer-pill{background:#4a0d18!important;color:#fff!important;}
-.colorist-pill{background:#380b13!important;color:#fff!important;}
-.commissioner-pill{background:#2b090f!important;color:#f5dede!important;}
-.gift-pill{background:#1e070b!important;color:#f5dede!important;}
-
-/* BUTTONS */
-.back-button,
-.profile-nav a{
-    background:#170909!important;
-    color:#f4e4e4!important;
-    border:1px solid #6f1323!important;
-    border-radius:999px!important;
-    transition:.2s;
-}
-.back-button:hover,
-.profile-nav a:hover{
-    background:#9d1830!important;
-    color:#fff!important;
-    box-shadow:0 0 15px rgba(190,20,50,.4);
+td{
+    border:1px solid #3f1a20;
+    color:#ddd6d6;
 }
 
-/* LIGHTBOX */
+
+/*==========================================
+  LISTS
+==========================================*/
+
+ul,
+ol{
+    color:#ddd6d6;
+}
+
+li{
+    margin:.35em 0;
+}
+
+
+/*==========================================
+  BLOCKQUOTES
+==========================================*/
+
+blockquote{
+
+    background:#140d0e;
+    border-left:4px solid #b11d3d;
+    color:#d9cfcf;
+    padding:1rem;
+
+}
+
+
+/*==========================================
+  LIGHTBOX
+==========================================*/
+
 .lightbox{
-    background:rgba(5,0,0,.97)!important;
+    background:rgba(0,0,0,.96);
 }
 
-/* QUICK FACTS */
-.quick-facts strong{
-    color:#ffccd5!important;
+
+/*==========================================
+  SCROLLBARS
+==========================================*/
+
+::-webkit-scrollbar{
+    width:10px;
 }
 
-/* TEXT */
+::-webkit-scrollbar-track{
+    background:#120d0d;
+}
+
+::-webkit-scrollbar-thumb{
+    background:#751b2c;
+    border-radius:999px;
+}
+
+::-webkit-scrollbar-thumb:hover{
+    background:#b0203f;
+}
+
+
+/*==========================================
+  GLOBAL TEXT
+==========================================*/
+
+body,
 .content-card *,
 .profile-card *,
 .relationship-card *,
 .quick-facts *,
 .tab-content *,
 .character-header *{
-    color:#ddd2d2!important;
+
+    color:#e3dddd;
+
 }
-.character-header h1{color:#fff3f3!important;}
-.character-header p{color:#ceb0b0!important;}
+
+h2{
+    color:#d93b53;
+}
+
+h3{
+    color:#c62848;
+}
+
+h4{
+    color:#e6cfcf;
+}
+
+
+/*==========================================
+  MOBILE
+==========================================*/
+
+@media (max-width:768px){
+
+    .character-header h1{
+        font-size:1.7rem;
+    }
+
+    .section-title{
+        padding:1rem;
+    }
+
+}
