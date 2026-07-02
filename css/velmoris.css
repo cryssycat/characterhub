@@ -1,23 +1,67 @@
-/* ==========================================
+/* ==========================================================
+   STARHUB CUSTOM CSS
    CRIMSON CATHEDRAL
-   Custom CSS Override
-   Load in CharacterHub Custom CSS
-========================================== */
+   Comprehensive Override
+========================================================== */
 
-/* ---------- GLOBAL ---------- */
+/* ---------- ROOT ---------- */
+
+:root{
+    --g-bg:#080505;
+    --g-bg2:#140c0d;
+    --g-card:#191212;
+    --g-card2:#211617;
+    --g-border:#6c1a2b;
+    --g-border2:#8f2136;
+    --g-red:#b81d37;
+    --g-red-light:#d94863;
+    --g-text:#f2ecec;
+    --g-muted:#c8b3b3;
+}
 
 body{
     background:
-        radial-gradient(circle at top, rgba(110,0,20,.22), transparent 55%),
-        linear-gradient(180deg,#120909,#050303) !important;
-    color:#efe7e7 !important;
+        radial-gradient(circle at top,rgba(120,0,20,.18),transparent 55%),
+        linear-gradient(var(--g-bg2),var(--g-bg)) !important;
+    color:var(--g-text)!important;
 }
 
-/* Reduce pastel effects */
 body::before,
 body::after{
-    opacity:.08 !important;
+    opacity:.06!important;
     filter:grayscale(1) brightness(.35);
+}
+
+/* ---------- EVERYTHING TEXT ---------- */
+
+body,
+body p,
+body li,
+body td,
+body th,
+body span,
+body label,
+.content-card *,
+.profile-card *,
+.relationship-card *,
+.quick-facts *,
+.image-card *,
+.profile-dashboard *,
+.folder-heading *,
+.world-page *,
+.creator-profile-card *,
+.companion-page *{
+    color:var(--g-text)!important;
+}
+
+/* Secondary */
+
+small,
+.section-title p,
+.folder-heading span,
+.tagline,
+.character-header p{
+    color:var(--g-muted)!important;
 }
 
 /* ---------- HEADINGS ---------- */
@@ -28,50 +72,31 @@ h1,h2,h3,h4,h5,h6,
 .character-card h2,
 .content-card h2,
 .content-card h3,
+.content-card h4,
 .relationship-card h2,
 .relationship-card h3,
-.section-title h2,
+.relationship-card h4,
 .quick-facts h2,
 .quick-facts h3,
+.section-title h2,
 .folder-heading h2,
 .image-title,
 .relationship-type,
+.creator-kicker,
 .creator-profile-info h2,
-.creator-kicker{
-    color:#b71d37 !important;
+.world-title-card h1,
+.world-character-card h3{
+    color:var(--g-red)!important;
 }
 
-/* ---------- TEXT ---------- */
-
-body,
-p,
-li,
-td,
-th,
-span,
-.content-card p,
-.relationship-card p,
-.image-card p,
-.quick-facts,
-.quick-facts p,
-.folder-heading span,
-.creator-bio,
-.world-title-card p,
-.world-character-role,
-.world-character-species{
-    color:#efe7e7 !important;
-}
-
-small,
-.section-title p{
-    color:#ccb5b5 !important;
-}
+/* ---------- EMPHASIS ---------- */
 
 strong,
+b,
 .quick-facts strong,
 .content-card strong,
 .relationship-card strong{
-    color:#ffd8d8 !important;
+    color:#ffe0e0!important;
 }
 
 /* ---------- CARDS ---------- */
@@ -82,12 +107,14 @@ strong,
 .relationship-card,
 .image-card,
 .folder-heading,
+.section-title,
 .world-title-card,
 .world-map-card,
 .world-quick-card,
+.world-character-card,
 .creator-profile-card,
 .admin-generator,
-.profile-dashboard > *,
+.profile-dashboard>*,
 .dashboard-main-ref-card,
 .dashboard-intro-card,
 .dashboard-summary-card,
@@ -96,46 +123,34 @@ strong,
 .dashboard-personal-card,
 .companion-image-card,
 .companion-facts-card,
-.companion-summary-card{
-    background:#171111 !important;
-    border:1px solid #5e1725 !important;
-    box-shadow:0 0 18px rgba(120,0,20,.25) !important;
-}
-
-/* ---------- IMAGES ---------- */
-
-.character-card img,
-.main-ref,
-.dashboard-main-ref,
-.image-card img,
-.relationship-preview-card img,
-.creator-avatar,
-.world-icon{
-    border:2px solid #8a2034 !important;
-    box-shadow:0 0 18px rgba(170,20,45,.28) !important;
+.companion-summary-card,
+.wiki-links a{
+    background:var(--g-card)!important;
+    border:1px solid var(--g-border)!important;
+    box-shadow:0 0 20px rgba(120,0,20,.22)!important;
 }
 
 /* ---------- BUTTONS ---------- */
 
 button,
-.tab-button,
 .back-button,
 .profile-nav a,
+.tab-button,
 .reveal-button{
-    background:#250d11 !important;
-    color:#f7eeee !important;
-    border:1px solid #7b2132 !important;
+    background:var(--g-card2)!important;
+    color:var(--g-text)!important;
+    border:1px solid var(--g-border2)!important;
 }
 
 button:hover,
-.tab-button:hover,
-.tab-button.active,
 .back-button:hover,
 .profile-nav a:hover,
+.tab-button:hover,
+.tab-button.active,
 .reveal-button:hover{
-    background:#aa1f3c !important;
-    color:#fff !important;
-    box-shadow:0 0 14px rgba(200,30,60,.45) !important;
+    background:var(--g-red)!important;
+    color:#fff!important;
+    box-shadow:0 0 16px rgba(210,40,70,.45)!important;
 }
 
 /* ---------- TAGS ---------- */
@@ -149,43 +164,85 @@ button:hover,
 .gift-pill,
 .image-credit-pill,
 .creator-pills span{
-    background:#4b1019 !important;
-    color:#fff5f5 !important;
-    border:1px solid #842236 !important;
+    background:#4b111b!important;
+    border:1px solid var(--g-border2)!important;
+    color:#fff7f7!important;
 }
 
 /* ---------- LINKS ---------- */
 
 a{
-    color:#d95b72 !important;
+    color:var(--g-red-light)!important;
+}
+a:hover{
+    color:#ffb7c3!important;
 }
 
-a:hover{
-    color:#ffb1bc !important;
+/* ---------- IMAGES ---------- */
+
+img.main-ref,
+.dashboard-main-ref,
+.character-card img,
+.image-card img,
+.relationship-preview-card img,
+.relationship-image,
+.creator-avatar,
+.world-icon{
+    border:2px solid var(--g-border2)!important;
+    box-shadow:0 0 18px rgba(160,20,45,.25)!important;
+}
+
+/* ---------- INPUTS ---------- */
+
+input,
+textarea,
+select,
+#searchInput{
+    background:#160f10!important;
+    color:var(--g-text)!important;
+    border:1px solid var(--g-border)!important;
+}
+
+input::placeholder,
+textarea::placeholder{
+    color:#bca5a5!important;
+}
+
+/* ---------- TABLES ---------- */
+
+table{
+    background:var(--g-card)!important;
+}
+th{
+    background:#3a1018!important;
+}
+td{
+    border-color:#4d1820!important;
 }
 
 /* ---------- LIGHTBOX ---------- */
 
 .lightbox,
 .nsfw-overlay{
-    background:rgba(10,0,0,.95) !important;
+    background:rgba(5,0,0,.96)!important;
 }
 
 /* ---------- SCROLLBAR ---------- */
 
-::-webkit-scrollbar{
-    width:10px;
-}
-
-::-webkit-scrollbar-track{
-    background:#120909;
-}
-
+::-webkit-scrollbar{width:10px;}
+::-webkit-scrollbar-track{background:#12090a;}
 ::-webkit-scrollbar-thumb{
-    background:#7b2132;
+    background:#7a2032;
     border-radius:999px;
 }
-
 ::-webkit-scrollbar-thumb:hover{
-    background:#b71d37;
+    background:#b81d37;
+}
+
+/* ---------- REMOVE PASTELS ---------- */
+
+*[style*="#ff8fc3"],
+*[style*="#FFD7EA"],
+*[style*="#ffe7f3"]{
+    color:var(--g-red)!important;
 }
