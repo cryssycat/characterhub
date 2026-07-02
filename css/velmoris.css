@@ -7,11 +7,10 @@
 }
 
 body{
-    background:
-        linear-gradient(rgba(8,5,5,.78), rgba(8,5,5,.78)),
-        url('images/Velmoris/bg.png') fixed !important;
-    color:#efe7e7;
+       background-image: url('images/Velmoris/bg.png') !important;
+	   color: #000;
 }
+
 
 .site-header,
 .character-header {
