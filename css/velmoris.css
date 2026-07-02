@@ -406,3 +406,42 @@ h4{
     }
 
 }
+
+
+/* Main headings */
+.content-card h2,
+.relationship-card h2,
+.image-card h2,
+.section-title h2,
+.dashboard-main-ref-card h2,
+.dashboard-intro-card h2,
+.dashboard-summary-card h2,
+.dashboard-quick-card h2,
+.dashboard-character-card h2,
+.dashboard-personal-card h2,
+.mini-card h2,
+.dossier-card h2,
+.magazine-card h2,
+.poke-card h2,
+.vn-card h2{
+    color:#b11d3d !important;
+}
+
+/* Subheadings */
+.content-card h3,
+.relationship-card h3,
+.image-card h3,
+.section-title h3,
+.dashboard-main-ref-card h3,
+.dashboard-intro-card h3,
+.dashboard-summary-card h3,
+.dashboard-quick-card h3,
+.dashboard-character-card h3,
+.dashboard-personal-card h3,
+.mini-card h3,
+.dossier-card h3,
+.magazine-card h3,
+.poke-card h3,
+.vn-card h3{
+    color:#94182f !important;
+}
