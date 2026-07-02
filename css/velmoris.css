@@ -7,18 +7,9 @@
 }
 
 body{
-    background:
-        radial-gradient(circle at top,rgba(120,0,20,.18),transparent 55%),
-        linear-gradient(var(--g-bg2),var(--g-bg)) !important;
-    color:var(--g-text)!important;
-     background-image: url('images/Velmoris/bg.png');
+       background-image: url('images/Velmoris/bg.png');
 }
 
-body::before,
-body::after{
-    opacity:.06!important;
-   filter:grayscale(1) brightness(.35);
-}
 
 .site-header,
 .character-header {
