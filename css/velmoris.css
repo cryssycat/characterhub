@@ -1,447 +1,134 @@
 /* ==========================================
-   STARHUB CHARACTER THEME
-   Crimson Cathedral
+   CRIMSON CATHEDRAL THEME OVERRIDE
+   Load AFTER style.css
 ========================================== */
-
-
-/*========================================== 
-  PAGE
-==========================================*/
 
 body{
     background:
-        radial-gradient(circle at top, rgba(120,0,20,.18), transparent 55%),
-        linear-gradient(#0d0b0b, #050505);
-    color:#e8e3e3;
-    background-attachment:fixed;
+        radial-gradient(circle at top, rgba(120,0,20,.18), transparent 50%),
+        linear-gradient(180deg,#0b0909,#040404) !important;
+    color:#e6dddd !important;
 }
 
-
-/*==========================================
-  HEADER
-==========================================*/
-
-.character-header{
-    text-align:center;
+body::before,
+body::after{
+    opacity:.12 !important;
+    filter:grayscale(1);
 }
 
-.character-header h1{
-    background:#19090c;
-    color:#fff4f4;
-    border:2px solid #8f1d2f;
-    border-radius:999px;
-    padding:.5em 1.2em;
-    box-shadow:0 0 20px rgba(170,20,40,.3);
-}
-
-.character-header p{
-    color:#c7b0b0;
-}
-
-
-/*==========================================
-  PROFILE CONTAINER
-==========================================*/
-
-.profile-card,
-.profile-dashboard,
-.profile-mini,
-.profile-dossier,
-.profile-poke,
-.profile-magazine,
-.profile-visual-novel{
-    background:#161111;
-    border:1px solid #55141e;
-    border-radius:20px;
-    box-shadow:0 10px 30px rgba(0,0,0,.45);
-}
-
-
-/*==========================================
-  MAIN REFERENCE IMAGE
-==========================================*/
-
-.main-ref,
-.dashboard-main-ref{
-    border:3px solid #8a1d2e;
-    border-radius:16px;
-}
-
-
-/*==========================================
-  CONTENT CARDS
-==========================================*/
-
-.content-card,
-
-.dashboard-main-ref-card,
-.dashboard-intro-card,
-.dashboard-summary-card,
-.dashboard-quick-card,
-.dashboard-character-card,
-.dashboard-personal-card,
-
-.relationship-card,
-
-.image-card,
-
-.mini-card,
-.dossier-card,
-.magazine-card,
-.poke-card,
-.vn-card{
-
-    background:#1a1414;
-    border:1px solid #5d1621;
-    border-radius:18px;
-    box-shadow:0 0 18px rgba(140,15,35,.15);
-
-}
-
-
-/*==========================================
-  CARD TITLES
-==========================================*/
-
+.site-header h1,
+.character-header h1,
+.character-card h2,
 .content-card h2,
-
-.dashboard-main-ref-card h2,
-.dashboard-intro-card h2,
-.dashboard-summary-card h2,
-.dashboard-quick-card h2,
-.dashboard-character-card h2,
-.dashboard-personal-card h2,
-
-.relationship-card h2,
-
-.image-card h2,
-
-.mini-card h2,
-.dossier-card h2,
-.magazine-card h2,
-.poke-card h2,
-.vn-card h2{
-
-    color:#d93b53;
-    border-bottom:1px solid #4d131c;
-    padding-bottom:.35em;
-
+.section-title h2,
+.quick-facts h2,
+.quick-facts h3,
+.folder-heading h2,
+.relationship-card h3,
+.image-title,
+.relationship-type,
+.creator-kicker,
+.creator-profile-info h2{
+    color:#b71f39 !important;
 }
 
-
-/*==========================================
-  PARAGRAPHS
-==========================================*/
-
+.tagline,
+.character-header p,
 .content-card p,
 .relationship-card p,
-.image-card p{
-    color:#d8d2d2;
-    line-height:1.7;
+.quick-facts,
+.quick-facts p,
+.quick-facts strong,
+.folder-heading span,
+.creator-bio,
+body,
+p,li,td{
+    color:#ded5d5 !important;
 }
 
-
-/*==========================================
-  LINKS
-==========================================*/
-
-a{
-    color:#dd566b;
-    text-decoration:none;
+.character-card,
+.profile-card,
+.content-card,
+.relationship-card,
+.image-card,
+.folder-heading,
+.world-title-card,
+.world-map-card,
+.world-quick-card,
+.creator-profile-card,
+.admin-generator,
+.companion-image-card,
+.companion-facts-card,
+.companion-summary-card{
+    background:#171212 !important;
+    border:1px solid #5d1623 !important;
+    box-shadow:0 0 24px rgba(130,10,30,.22) !important;
 }
 
-a:hover{
-    color:#ff8a9c;
+.tag,
+.artist-pill,
+.base-pill,
+.designer-pill,
+.colorist-pill,
+.commissioner-pill,
+.gift-pill,
+.image-credit-pill,
+.creator-pills span{
+    background:#4a111b !important;
+    color:#f5e8e8 !important;
+    border:1px solid #7d1d30 !important;
 }
-
-
-/*==========================================
-  BUTTONS
-==========================================*/
 
 button,
+.tab-button,
 .back-button,
 .profile-nav a,
-.tab-button{
-
-    background:#230d10;
-    color:#efe7e7;
-    border:1px solid #751b2c;
-    border-radius:999px;
-    transition:.2s ease;
-
+.reveal-button{
+    background:#250c10 !important;
+    color:#f5eded !important;
+    border:1px solid #7d1d30 !important;
 }
 
 button:hover,
+.tab-button:hover,
+.tab-button.active,
 .back-button:hover,
 .profile-nav a:hover,
-.tab-button:hover{
-
-    background:#a32039;
-    color:white;
-    box-shadow:0 0 12px rgba(200,30,60,.4);
-
+.reveal-button:hover{
+    background:#a41e39 !important;
+    color:#fff !important;
+    box-shadow:0 0 18px rgba(200,30,60,.45) !important;
 }
 
-.tab-button.active{
-
-    background:#c62848;
-    color:white;
-
+.character-card img,
+.main-ref,
+.dashboard-main-ref,
+.image-card img,
+.relationship-preview-card img,
+.creator-avatar,
+.world-icon{
+    border:2px solid #7d1d30 !important;
+    box-shadow:0 0 18px rgba(160,20,40,.25) !important;
 }
 
-
-/*==========================================
-  QUICK FACTS
-==========================================*/
-
-.quick-facts{
-    color:#ddd6d6;
+a{
+    color:#d94d64 !important;
+}
+a:hover{
+    color:#ff9aaa !important;
 }
 
-.quick-facts strong{
-    color:#ffbcc7;
-}
-
-
-/*==========================================
-  TAGS
-==========================================*/
-
-.tag{
-    background:#471118;
-    color:#f3e4e4;
-    border:1px solid #6d1a28;
-}
-
-
-/*==========================================
-  RELATIONSHIPS
-==========================================*/
-
-.relationship-card{
-    overflow:hidden;
-}
-
-.relationship-image{
-    border-bottom:2px solid #661928;
-}
-
-
-/*==========================================
-  GALLERY
-==========================================*/
-
-.image-card{
-    overflow:hidden;
-}
-
-.image-card img{
-    border:2px solid #6d1c2a;
-    border-radius:12px;
-}
-
-
-/*==========================================
-  SECTION TITLES
-==========================================*/
-
-.section-title{
-
-    background:#160f10;
-    border:1px solid #6d1a28;
-    border-left:5px solid #b11d3d;
-    border-radius:16px;
-    padding:1.25rem;
-
-}
-
-.section-title h2{
-    color:#e44a63;
-}
-
-.section-title p{
-    color:#b99f9f;
-}
-
-
-/*==========================================
-  CREDITS
-==========================================*/
-
-.artist-pill,
-.designer-pill,
-.base-pill,
-.colorist-pill,
-.commissioner-pill,
-.gift-pill{
-
-    background:#3a1016;
-    color:#f5eaea;
-    border:1px solid #6d1c2a;
-
-}
-
-
-/*==========================================
-  TABLES
-==========================================*/
-
-table{
-    background:#181212;
-    border-collapse:collapse;
-}
-
-th{
-    background:#611827;
-    color:white;
-}
-
-td{
-    border:1px solid #3f1a20;
-    color:#ddd6d6;
-}
-
-
-/*==========================================
-  LISTS
-==========================================*/
-
-ul,
-ol{
-    color:#ddd6d6;
-}
-
-li{
-    margin:.35em 0;
-}
-
-
-/*==========================================
-  BLOCKQUOTES
-==========================================*/
-
-blockquote{
-
-    background:#140d0e;
-    border-left:4px solid #b11d3d;
-    color:#d9cfcf;
-    padding:1rem;
-
-}
-
-
-/*==========================================
-  LIGHTBOX
-==========================================*/
-
-.lightbox{
-    background:rgba(0,0,0,.96);
-}
-
-
-/*==========================================
-  SCROLLBARS
-==========================================*/
-
-::-webkit-scrollbar{
-    width:10px;
+.lightbox,
+.nsfw-overlay{
+    background:rgba(10,0,0,.94) !important;
 }
 
 ::-webkit-scrollbar-track{
-    background:#120d0d;
+    background:#0d0909 !important;
 }
-
 ::-webkit-scrollbar-thumb{
-    background:#751b2c;
-    border-radius:999px;
+    background:#7d1d30 !important;
 }
-
 ::-webkit-scrollbar-thumb:hover{
-    background:#b0203f;
-}
-
-
-/*==========================================
-  GLOBAL TEXT
-==========================================*/
-
-body,
-.content-card *,
-.profile-card *,
-.relationship-card *,
-.quick-facts *,
-.tab-content *,
-.character-header *{
-
-    color:#e3dddd;
-
-}
-
-h2{
-    color:#d93b53;
-}
-
-h3{
-    color:#c62848;
-}
-
-h4{
-    color:#e6cfcf;
-}
-
-
-/*==========================================
-  MOBILE
-==========================================*/
-
-@media (max-width:768px){
-
-    .character-header h1{
-        font-size:1.7rem;
-    }
-
-    .section-title{
-        padding:1rem;
-    }
-
-}
-
-
-/* Main headings */
-.content-card h2,
-.relationship-card h2,
-.image-card h2,
-.section-title h2,
-.dashboard-main-ref-card h2,
-.dashboard-intro-card h2,
-.dashboard-summary-card h2,
-.dashboard-quick-card h2,
-.dashboard-character-card h2,
-.dashboard-personal-card h2,
-.mini-card h2,
-.dossier-card h2,
-.magazine-card h2,
-.poke-card h2,
-.vn-card h2{
-    color:#b11d3d !important;
-}
-
-/* Subheadings */
-.content-card h3,
-.relationship-card h3,
-.image-card h3,
-.section-title h3,
-.dashboard-main-ref-card h3,
-.dashboard-intro-card h3,
-.dashboard-summary-card h3,
-.dashboard-quick-card h3,
-.dashboard-character-card h3,
-.dashboard-personal-card h3,
-.mini-card h3,
-.dossier-card h3,
-.magazine-card h3,
-.poke-card h3,
-.vn-card h3{
-    color:#94182f !important;
+    background:#b71f39 !important;
 }
