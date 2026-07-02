@@ -6,10 +6,8 @@
     box-sizing: border-box;
 }
 
-body{
-       background-image: url('images/Velmoris/bg.png') !important;
-	   color: #000;
-}
+body{url('images/Velmoris/bg.png') center repeat !important; color:#efe7e7;
+  color: #000;}
 
 
 .site-header,
