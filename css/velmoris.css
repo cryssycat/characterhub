@@ -9,8 +9,8 @@
 body{
     background:
         linear-gradient(rgba(8,5,5,.78), rgba(8,5,5,.78)),
-        url('images/Velmoris/bg.png') center center / cover fixed no-repeat !important;
-    color:#efe7e7;
+        url('images/Velmoris/bg.png') fixed repeat !important;
+    color:#000000;
 }
 
 
