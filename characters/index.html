@@ -1327,12 +1327,20 @@ function fillCharacter(character) {
     currentCharacter = character;
 
     // Apply per-character custom CSS safely
-    const customStyle = document.getElementById("custom-css");
-    if (customStyle) {
-        customStyle.textContent = typeof character.customCSS === "string"
-            ? character.customCSS
-            : "";
-    }
+ let customLink = document.getElementById("custom-css-link");
+
+if (!customLink) {
+    customLink = document.createElement("link");
+    customLink.id = "custom-css-link";
+    customLink.rel = "stylesheet";
+    document.head.appendChild(customLink);
+}
+
+if (character.customCSS) {
+    customLink.href = character.customCSS;
+} else {
+    customLink.removeAttribute("href");
+}
 
     document.title = `${character.name || "Character"} | StarHub`;
 
