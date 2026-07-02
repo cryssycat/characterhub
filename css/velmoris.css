@@ -16,13 +16,7 @@ body{
 body::before,
 body::after{
     opacity:.06!important;
-    filter:grayscale(1) brightness(.35);
-    background-size: 70px 70px, 110px 110px, 320px 220px, 420px 260px, 360px 240px;
-    background-position: 0 0, 35px 40px, 0 20px, 80px 0, 160px 80px;
-    opacity: .55;
-    pointer-events: none;
-    z-index: -1;
-    animation: floatClouds 28s linear infinite;
+   filter:grayscale(1) brightness(.35);
 }
 
 .site-header,
