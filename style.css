@@ -3464,3 +3464,71 @@ max-height:700px;
 }
 
 }
+
+
+/*==========================================
+  GAME PROFILE BUTTON
+==========================================*/
+
+.profile-button{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+
+    width:100%;
+    margin-top:20px;
+    padding:14px 20px;
+
+    border-radius:18px;
+
+    background:rgba(255,255,255,.18);
+    backdrop-filter:blur(14px);
+    -webkit-backdrop-filter:blur(14px);
+
+    border:1px solid rgba(255,255,255,.28);
+
+    color:var(--text-color,#fff);
+    text-decoration:none;
+    font-weight:700;
+    font-size:.95rem;
+    letter-spacing:.03em;
+
+    box-shadow:
+        0 10px 24px rgba(0,0,0,.18),
+        inset 0 1px 0 rgba(255,255,255,.15);
+
+    transition:
+        background .25s,
+        border-color .25s,
+        transform .2s,
+        box-shadow .25s;
+}
+
+.profile-button::before{
+    content:"🎮";
+    font-size:1.05rem;
+}
+
+.profile-button:hover{
+    transform:translateY(-2px);
+
+    background:rgba(255,255,255,.28);
+
+    border-color:var(--accent,#c9a7ff);
+
+    box-shadow:
+        0 16px 36px rgba(0,0,0,.24),
+        0 0 18px rgba(201,167,255,.28);
+}
+
+.profile-button:active{
+    transform:translateY(0);
+}
+
+.profile-button:focus-visible{
+    outline:none;
+    border-color:var(--accent,#c9a7ff);
+    box-shadow:
+        0 0 0 3px rgba(201,167,255,.25);
+}
