@@ -326,6 +326,8 @@ body.layout-dashboard .dashboard-list-grid {
                             <h3>Tags</h3>
                             <div id="dashboardTags" class="tag-list"></div>
                         </div>
+
+                        <a id="gameHubLink" class="profile-button" target="_blank" style="display:none;">🎮 View Game Profile</a>
                     </div>
 
                     <div class="content-card dashboard-character-card">
@@ -573,6 +575,17 @@ const HUBS = {
     LunaHub: "https://lunabrew.pages.dev",
     SharedHub: "https://starbrewshared.pages.dev"
 };
+
+const GAME_HUBS = {
+    GameHub: "https://gamehub.pages.dev"
+};
+
+function getGameProfileURL(character){
+    if(!character || !character.gameHub || !character.gameSlug) return "";
+    const base=GAME_HUBS[character.gameHub];
+    return base ? `${base}/characters/?slug=${encodeURIComponent(character.gameSlug)}` : "";
+}
+
 
 const params = new URLSearchParams(window.location.search);
 const SLUG = params.get("slug") || "";
@@ -1445,6 +1458,17 @@ if (character.customCSS) {
     renderFavorites(character);
     renderCredits(character);
     renderCompanion(character);
+
+    const gameButton=document.getElementById("gameHubLink");
+    if(gameButton){
+        const url=getGameProfileURL(character);
+        if(url){
+            gameButton.href=url;
+            gameButton.style.display="";
+        }else{
+            gameButton.style.display="none";
+        }
+    }
 
     updateOptionalTabs(character);
 }
