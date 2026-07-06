@@ -3532,3 +3532,16 @@ max-height:700px;
     box-shadow:
         0 0 0 3px rgba(201,167,255,.25);
 }
+
+
+/* ==========================================
+   SCRAPBOOK LAYOUT
+========================================== */
+
+body.layout-scrapbook .profile-card{
+    display:none !important;
+}
+
+body.layout-scrapbook .profile-dashboard{
+    display:none !important;
+}
