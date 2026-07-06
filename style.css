@@ -3545,3 +3545,263 @@ body.layout-scrapbook .profile-card{
 body.layout-scrapbook .profile-dashboard{
     display:none !important;
 }
+
+
+/*====================================================
+    SCRAPBOOK LAYOUT
+====================================================*/
+
+body.layout-scrapbook .profile-scrapbook{
+
+    width:min(96%,1600px);
+
+    margin:30px auto;
+
+    display:grid;
+
+    grid-template-columns:
+        240px
+        minmax(0,1fr)
+        320px;
+
+    gap:24px;
+
+    align-items:start;
+
+}
+
+body.layout-scrapbook .profile-scrapbook > *{
+
+    min-width:0;
+
+}
+
+/*====================================================
+    LEFT SIDEBAR
+====================================================*/
+
+body.layout-scrapbook .scrapbook-sidebar{
+
+    position:sticky;
+
+    top:20px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:18px;
+
+}
+
+body.layout-scrapbook .scrapbook-image-card{
+
+    padding:18px;
+
+}
+
+body.layout-scrapbook .scrapbook-main-ref{
+
+    width:100%;
+
+    display:block;
+
+    aspect-ratio:1/1;
+
+    object-fit:cover;
+
+    border-radius:18px;
+
+}
+
+body.layout-scrapbook .scrapbook-tabs{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:10px;
+
+}
+
+body.layout-scrapbook .scrapbook-tabs .tab-button{
+
+    width:100%;
+
+}
+
+/*====================================================
+    CENTER COLUMN
+====================================================*/
+
+body.layout-scrapbook .scrapbook-main{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:20px;
+
+}
+
+body.layout-scrapbook .scrapbook-banner{
+
+    text-align:center;
+
+    padding:28px;
+
+}
+
+body.layout-scrapbook .scrapbook-banner h1{
+
+    margin:0;
+
+    font-size:2.4rem;
+
+}
+
+body.layout-scrapbook .scrapbook-banner p{
+
+    margin-top:8px;
+
+    opacity:.75;
+
+}
+
+body.layout-scrapbook .scrapbook-introduction,
+
+body.layout-scrapbook .scrapbook-summary{
+
+    min-height:260px;
+
+}
+
+/*====================================================
+    RIGHT COLUMN
+====================================================*/
+
+body.layout-scrapbook .scrapbook-right{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:20px;
+
+}
+
+body.layout-scrapbook .scrapbook-quickfacts p{
+
+    margin:8px 0;
+
+}
+
+/*====================================================
+    MOODBOARD
+====================================================*/
+
+body.layout-scrapbook #moodboardGrid{
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:12px;
+
+}
+
+body.layout-scrapbook .moodboard-slot{
+
+    aspect-ratio:1/1;
+
+    border-radius:16px;
+
+    overflow:hidden;
+
+    background:rgba(255,255,255,.08);
+
+}
+
+body.layout-scrapbook #moodboardGrid img{
+
+    width:100%;
+
+    height:100%;
+
+    object-fit:cover;
+
+    display:block;
+
+}
+
+/*====================================================
+    TAGS
+====================================================*/
+
+body.layout-scrapbook .scrapbook-tags{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:12px;
+
+}
+
+/*====================================================
+    GAME BUTTON
+====================================================*/
+
+body.layout-scrapbook #scrapbookGameHubLink{
+
+    width:100%;
+
+}
+
+/*====================================================
+    CONTENT CARDS
+====================================================*/
+
+body.layout-scrapbook .content-card{
+
+    border-radius:24px;
+
+}
+
+/*====================================================
+    MOBILE
+====================================================*/
+
+@media (max-width:1200px){
+
+body.layout-scrapbook .profile-scrapbook{
+
+    grid-template-columns:
+        220px
+        1fr;
+
+}
+
+body.layout-scrapbook .scrapbook-right{
+
+    grid-column:span 2;
+
+}
+
+}
+
+@media (max-width:850px){
+
+body.layout-scrapbook .profile-scrapbook{
+
+    grid-template-columns:1fr;
+
+}
+
+body.layout-scrapbook .scrapbook-sidebar{
+
+    position:static;
+
+}
+
+}
