@@ -7,7 +7,8 @@
 <title>Character | Starhub</title>
 
 <link rel="stylesheet" href="../style.css?v=500">
-
+<link id="custom-css-link" rel="stylesheet">
+    
 <style id="hard-dashboard-layout-fix">
 /* HARD DASHBOARD FIX — kept inside characters/index.html so older CSS cannot override it */
 
@@ -1339,6 +1340,37 @@ function renderCompanion(character) {
 function fillCharacter(character) {
     currentCharacter = character;
 
+    /* -----------------------------
+   Character Custom CSS
+----------------------------- */
+
+let customLink = document.getElementById("custom-css-link");
+
+if (!customLink) {
+
+    customLink = document.createElement("link");
+    customLink.id = "custom-css-link";
+    customLink.rel = "stylesheet";
+
+    document.head.appendChild(customLink);
+
+}
+
+if (character.customCSS) {
+
+    const cssPath = character.customCSS.startsWith("/")
+        ? character.customCSS
+        : "/" + character.customCSS;
+
+    customLink.href = window.location.origin + cssPath;
+
+} else {
+
+    customLink.removeAttribute("href");
+
+}
+
+    
     document.title = `${character.name || "Character"} | StarHub`;
 
     document.body.classList.remove(
