@@ -395,6 +395,7 @@ body.layout-dashboard .dashboard-list-grid {
                 </div>
 
                 <div id="galleryGrid" class="gallery-grid"></div>
+                <div id="auGalleriesContainer"></div>
             </section>
 
             <!-- REFERENCES -->
@@ -1007,6 +1008,70 @@ function renderImages(id, images, mature = false) {
         grid.innerHTML = "<p class='loading'>No images yet.</p>";
     }
 }
+    function renderAUGalleries(auGalleries) {
+
+    const container = document.getElementById("auGalleriesContainer");
+
+    if (!container) return;
+
+    container.innerHTML = "";
+
+    if (!Array.isArray(auGalleries) || !auGalleries.length) return;
+
+    auGalleries.forEach(group => {
+
+        const section = document.createElement("section");
+        section.className = "au-gallery-section";
+
+        const title = document.createElement("h2");
+        title.className = "au-gallery-title";
+        title.textContent = group.name || "Alternate Universe";
+
+        const grid = document.createElement("div");
+        grid.className = "gallery-grid";
+
+        (group.images || []).forEach(raw => {
+
+            const item = normalizeImageItem(raw);
+
+            if (!item || !item.url) return;
+
+            const imageUrl = getHubImage(currentCharacter, item.url);
+
+            const card = document.createElement("div");
+            card.className = "image-card";
+
+            card.innerHTML = `
+                <div class="watermarked-image">
+                    <img
+                        src="${escapeHtml(imageUrl)}"
+                        alt="${escapeHtml(item.label || group.name)}">
+                </div>
+
+                ${
+                    item.label
+                        ? `<p class="image-title">${escapeHtml(item.label)}</p>`
+                        : ""
+                }
+
+                ${renderCreditPills(item.credits)}
+            `;
+
+            card.querySelector("img")
+                .addEventListener("click", () => openLightbox(imageUrl));
+
+            grid.appendChild(card);
+
+        });
+
+        section.appendChild(title);
+        section.appendChild(grid);
+
+        container.appendChild(section);
+
+    });
+
+}
 
 function renderCreditPills(credits) {
     if (!Array.isArray(credits) || credits.length === 0) return "";
@@ -1458,6 +1523,7 @@ if (character.customCSS) {
     setText("trivia", character.trivia, "No trivia yet.");
 
     renderImages("galleryGrid", character.gallery);
+    renderAUGalleries(character.auGalleries);
     renderImages("referencesGrid", character.references);
     renderImages("nsfwGalleryGrid", character.nsfwGallery, true);
     renderRelationships(character, allCharacters);
