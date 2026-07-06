@@ -236,8 +236,42 @@ body.layout-dashboard .dashboard-list-grid {
     }
 }
 
-    body.layout-scrapbook .profile-dashboard-content{
-    display:none !important;
+/* Scrapbook layout: reuse the dashboard tabs/panels, but hide the
+   Overview panel (scrapbook already shows its own intro/summary/
+   quick facts/moodboard cards) and restyle the nav + panels to sit
+   inside the scrapbook page instead of the dashboard grid. */
+
+body.layout-scrapbook #overview {
+    display: none !important;
+}
+
+body.layout-scrapbook .profile-dashboard-content {
+    display: block !important;
+    width: 100% !important;
+    min-width: 0 !important;
+}
+
+body.layout-scrapbook #scrapbookTabContainer {
+    width: 92%;
+    max-width: 1320px;
+    margin: 32px auto 0 !important;
+}
+
+body.layout-scrapbook #scrapbookTabContainer .tabs {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    gap: 10px !important;
+    width: 100% !important;
+    margin: 0 0 20px 0 !important;
+    position: static !important;
+}
+
+body.layout-scrapbook #scrapbookTabContainer .tab-button {
+    width: auto !important;
+    border-radius: 999px !important;
+    padding: 10px 20px !important;
 }
 </style>
 
@@ -983,8 +1017,35 @@ function resetToFirstVisibleTab() {
     if (panel) panel.classList.add("active");
 }
 
+function relocateTabsForLayout(layout) {
+    const scrapbookContainer = document.getElementById("scrapbookTabContainer");
+    const dashboardSection = document.querySelector(".profile-dashboard");
+    const tabsNav = document.getElementById("tabs");
+    const dashboardContent = document.querySelector(".profile-dashboard-content");
+
+    if (!scrapbookContainer || !dashboardSection || !tabsNav || !dashboardContent) return;
+
+    if (layout === "scrapbook") {
+        if (tabsNav.parentElement !== scrapbookContainer) {
+            scrapbookContainer.appendChild(tabsNav);
+        }
+        if (dashboardContent.parentElement !== scrapbookContainer) {
+            scrapbookContainer.appendChild(dashboardContent);
+        }
+    } else {
+        if (tabsNav.parentElement !== dashboardSection) {
+            dashboardSection.insertBefore(tabsNav, dashboardSection.firstChild);
+        }
+        if (dashboardContent.parentElement !== dashboardSection) {
+            dashboardSection.appendChild(dashboardContent);
+        }
+    }
+}
+
 function updateOptionalTabs(character) {
-    setTabVisible("overview", hasOverviewData(character));
+    const isScrapbook = document.body.classList.contains("layout-scrapbook");
+
+    setTabVisible("overview", !isScrapbook && hasOverviewData(character));
     setTabVisible("gallery", hasArray(character.gallery));
     setTabVisible("references", hasArray(character.references));
     setTabVisible("relationships", hasArray(character.relationships) || hasText(character.relationships));
@@ -1535,6 +1596,8 @@ function fillCharacter(character) {
     document.body.classList.add(
         allowedLayouts.has(layout) ? `layout-${layout}` : "layout-dashboard"
     );
+
+    relocateTabsForLayout(allowedLayouts.has(layout) ? layout : "dashboard");
 
     const mainImage = character.mainRef || character.icon || "";
 
