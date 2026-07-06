@@ -3614,17 +3614,23 @@ body.layout-scrapbook .scrapbook-main-ref{
 
 }
 
-body.layout-scrapbook .scrapbook-tabs{
+body.layout-scrapbook #scrapbookTabContainer{
 
     display:flex;
-
     flex-direction:column;
-
     gap:10px;
 
 }
 
-body.layout-scrapbook .scrapbook-tabs .tab-button{
+body.layout-scrapbook #scrapbookTabContainer .tabs{
+
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+
+}
+
+body.layout-scrapbook #scrapbookTabContainer .tab-button{
 
     width:100%;
 
