@@ -188,7 +188,14 @@ body.layout-dashboard .dashboard-list-grid {
     display: block !important;
 }
 
-/* Hide empty tabs from JS */
+.moodboard-image {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    display: block !important;
+    cursor: pointer !important;
+}
+
 .tab-button[style*="display: none"] {
     display: none !important;
 }
@@ -964,6 +971,37 @@ function normalizeImageItem(item) {
         credits: Array.isArray(item.credits) ? item.credits : [],
         value: getImageItemValue(item)
     };
+}
+
+function renderMoodboard(moodboard) {
+    const grid = document.getElementById("moodboardGrid");
+    if (!grid) return;
+
+    const slotCount = 4;
+    const items = Array.isArray(moodboard) ? moodboard.slice(0, slotCount) : [];
+
+    grid.innerHTML = "";
+
+    for (let i = 0; i < slotCount; i++) {
+        const slot = document.createElement("div");
+        slot.className = "moodboard-slot";
+
+        const item = normalizeImageItem(items[i]);
+
+        if (item && item.url) {
+            const imageUrl = getHubImage(currentCharacter, item.url);
+
+            const img = document.createElement("img");
+            img.className = "moodboard-image";
+            img.src = imageUrl;
+            img.alt = item.label || (currentCharacter && currentCharacter.name) || "Moodboard image";
+            img.addEventListener("click", () => openLightbox(imageUrl));
+
+            slot.appendChild(img);
+        }
+
+        grid.appendChild(slot);
+    }
 }
 
 /* ------------------------------
