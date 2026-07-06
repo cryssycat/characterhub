@@ -3506,7 +3506,7 @@ max-height:700px;
 }
 
 .profile-button::before{
-    content:"🎮";
+    content:"";
     font-size:1.05rem;
 }
 
