@@ -235,6 +235,10 @@ body.layout-dashboard .dashboard-list-grid {
             "personal" !important;
     }
 }
+
+    body.layout-scrapbook .profile-dashboard-content{
+    display:none !important;
+}
 </style>
 
 </head>
@@ -682,6 +686,7 @@ body.layout-dashboard .dashboard-list-grid {
     </aside>
 
 </section>
+    <div id="scrapbookTabContainer"></div>
 </main>
 
 <div id="lightbox" class="lightbox">
@@ -1525,15 +1530,6 @@ if (character.customCSS) {
     "layout-default",
    "layout-scrapbook"
     );
-if (document.body.classList.contains("layout-scrapbook")) {
-
-    const originalTabs = document.querySelector(".profile-dashboard .tabs");
-    const scrapbookTabs = document.getElementById("scrapbookTabContainer");
-
-    if (originalTabs && scrapbookTabs && !scrapbookTabs.hasChildNodes()) {
-        scrapbookTabs.appendChild(originalTabs);
-    }
-
 }
     const rawLayout = cleanText(character.layout || "Dashboard");
     console.log("Layout from character:", character.layout, character.Layout, rawLayout);
