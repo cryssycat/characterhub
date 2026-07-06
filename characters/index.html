@@ -4,11 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Character | StarHub</title>
+<title>Character | Starhub</title>
 
-<link rel="stylesheet" href="../style.css">
-
-<style id="custom-css"></style>
+<link rel="stylesheet" href="../style.css?v=500">
 
 <style id="hard-dashboard-layout-fix">
 /* HARD DASHBOARD FIX — kept inside characters/index.html so older CSS cannot override it */
@@ -188,14 +186,7 @@ body.layout-dashboard .dashboard-list-grid {
     display: block !important;
 }
 
-.moodboard-image {
-    width: 100% !important;
-    height: 100% !important;
-    object-fit: cover !important;
-    display: block !important;
-    cursor: pointer !important;
-}
-
+/* Hide empty tabs from JS */
 .tab-button[style*="display: none"] {
     display: none !important;
 }
@@ -241,44 +232,6 @@ body.layout-dashboard .dashboard-list-grid {
             "character"
             "personal" !important;
     }
-}
-
-/* Scrapbook layout: reuse the dashboard tabs/panels, but hide the
-   Overview panel (scrapbook already shows its own intro/summary/
-   quick facts/moodboard cards) and restyle the nav + panels to sit
-   inside the scrapbook page instead of the dashboard grid. */
-
-body.layout-scrapbook #overview {
-    display: none !important;
-}
-
-body.layout-scrapbook .profile-dashboard-content {
-    display: block !important;
-    width: 100% !important;
-    min-width: 0 !important;
-}
-
-body.layout-scrapbook #scrapbookTabContainer {
-    width: 92%;
-    max-width: 1320px;
-    margin: 32px auto 0 !important;
-}
-
-body.layout-scrapbook #scrapbookTabContainer .tabs {
-    display: flex !important;
-    flex-direction: row !important;
-    flex-wrap: wrap !important;
-    justify-content: center !important;
-    gap: 10px !important;
-    width: 100% !important;
-    margin: 0 0 20px 0 !important;
-    position: static !important;
-}
-
-body.layout-scrapbook #scrapbookTabContainer .tab-button {
-    width: auto !important;
-    border-radius: 999px !important;
-    padding: 10px 20px !important;
 }
 </style>
 
@@ -366,13 +319,16 @@ body.layout-scrapbook #scrapbookTabContainer .tab-button {
                         <p><strong>Folder:</strong> <span id="dashboardFolder">—</span></p>
                         <p><strong>Status:</strong> <span id="dashboardStatus">—</span></p>
                         <p><strong>Art Value:</strong> <span id="dashboardArtValue">$0</span></p>
-
+<a
+    id="gameHubLink"
+    class="profile-button"
+    style="display:none;">
+    🎮 View Game Character
+</a>
                         <div class="dashboard-subsection dashboard-tags-section">
                             <h3>Tags</h3>
                             <div id="dashboardTags" class="tag-list"></div>
                         </div>
-
-                        <a id="gameHubLink" class="profile-button" target="_blank" style="display:none;">View Game Profile</a>
                     </div>
 
                     <div class="content-card dashboard-character-card">
@@ -602,132 +558,6 @@ body.layout-scrapbook #scrapbookTabContainer .tab-button {
 
         </div>
     </section>
-
-<section class="profile-scrapbook">
-
-    <!-- LEFT SIDEBAR -->
-    <aside class="scrapbook-sidebar">
-
-        <div class="content-card scrapbook-image-card">
-            <img id="scrapbookMainRef"
-                 class="scrapbook-main-ref"
-                 src="../images/placeholder.png"
-                 alt="Character">
-        </div>
-
-
-    </aside>
-
-
-
-    <!-- CENTER COLUMN -->
-
-    <main class="scrapbook-main">
-
-        <div class="content-card scrapbook-banner">
-
-            <h1 id="scrapbookName">
-                Character Name
-            </h1>
-
-            <p id="scrapbookSpecies">
-                Species
-            </p>
-
-        </div>
-
-
-
-        <div class="content-card scrapbook-introduction">
-
-            <h2>Introduction</h2>
-
-            <p id="scrapbookIntroduction">
-                No introduction yet.
-            </p>
-
-        </div>
-
-
-
-        <div class="content-card scrapbook-summary">
-
-            <h2>Summary</h2>
-
-            <p id="scrapbookSummary">
-                No summary yet.
-            </p>
-
-        </div>
-
-    </main>
-
-
-
-    <!-- RIGHT COLUMN -->
-
-    <aside class="scrapbook-right">
-
-        <div class="content-card scrapbook-quickfacts">
-
-            <h2>Quick Facts</h2>
-
-            <p><strong>Species:</strong> <span id="scrapbookFactSpecies">—</span></p>
-            <p><strong>Gender:</strong> <span id="scrapbookFactGender">—</span></p>
-            <p><strong>Pronouns:</strong> <span id="scrapbookFactPronouns">—</span></p>
-            <p><strong>Age:</strong> <span id="scrapbookFactAge">—</span></p>
-            <p><strong>Birthday:</strong> <span id="scrapbookFactBirthday">—</span></p>
-            <p><strong>Height:</strong> <span id="scrapbookFactHeight">—</span></p>
-            <p><strong>Occupation:</strong> <span id="scrapbookFactOccupation">—</span></p>
-            <p><strong>Status:</strong> <span id="scrapbookFactStatus">—</span></p>
-
-        </div>
-
-
-
-        <div class="content-card scrapbook-moodboard">
-
-            <h2>Moodboard</h2>
-
-            <div id="moodboardGrid">
-
-                <div class="moodboard-slot"></div>
-                <div class="moodboard-slot"></div>
-                <div class="moodboard-slot"></div>
-                <div class="moodboard-slot"></div>
-
-            </div>
-
-        </div>
-
-
-
-        <div class="content-card scrapbook-tags">
-
-            <h2>Tags</h2>
-
-            <div id="scrapbookTags"
-                 class="tag-list">
-
-            </div>
-
-        </div>
-
-
-
-        <a id="scrapbookGameHubLink"
-           class="profile-button"
-           target="_blank"
-           style="display:none;">
-
-            🎮 View Game Profile
-
-        </a>
-
-    </aside>
-
-</section>
-    <div id="scrapbookTabContainer"></div>
 </main>
 
 <div id="lightbox" class="lightbox">
@@ -748,12 +578,12 @@ const HUBS = {
 };
 
 const GAME_HUBS = {
-    GameHub: "https://gamehub.pages.dev"
+    GameHub: "https://starbrewgaming.pages.dev"
 };
 
-function getGameProfileURL(character){
-    if(!character || !character.gameHub || !character.gameSlug) return "";
-    const base=GAME_HUBS[character.gameHub];
+function getGameProfileURL(character) {
+    if (!character || !character.gameHub || !character.gameSlug) return "";
+    const base = GAME_HUBS[character.gameHub];
     return base ? `${base}/characters/?slug=${encodeURIComponent(character.gameSlug)}` : "";
 }
 
@@ -973,37 +803,6 @@ function normalizeImageItem(item) {
     };
 }
 
-function renderMoodboard(moodboard) {
-    const grid = document.getElementById("moodboardGrid");
-    if (!grid) return;
-
-    const slotCount = 4;
-    const items = Array.isArray(moodboard) ? moodboard.slice(0, slotCount) : [];
-
-    grid.innerHTML = "";
-
-    for (let i = 0; i < slotCount; i++) {
-        const slot = document.createElement("div");
-        slot.className = "moodboard-slot";
-
-        const item = normalizeImageItem(items[i]);
-
-        if (item && item.url) {
-            const imageUrl = getHubImage(currentCharacter, item.url);
-
-            const img = document.createElement("img");
-            img.className = "moodboard-image";
-            img.src = imageUrl;
-            img.alt = item.label || (currentCharacter && currentCharacter.name) || "Moodboard image";
-            img.addEventListener("click", () => openLightbox(imageUrl));
-
-            slot.appendChild(img);
-        }
-
-        grid.appendChild(slot);
-    }
-}
-
 /* ------------------------------
    Tabs
 ------------------------------ */
@@ -1055,35 +854,8 @@ function resetToFirstVisibleTab() {
     if (panel) panel.classList.add("active");
 }
 
-function relocateTabsForLayout(layout) {
-    const scrapbookContainer = document.getElementById("scrapbookTabContainer");
-    const dashboardSection = document.querySelector(".profile-dashboard");
-    const tabsNav = document.getElementById("tabs");
-    const dashboardContent = document.querySelector(".profile-dashboard-content");
-
-    if (!scrapbookContainer || !dashboardSection || !tabsNav || !dashboardContent) return;
-
-    if (layout === "scrapbook") {
-        if (tabsNav.parentElement !== scrapbookContainer) {
-            scrapbookContainer.appendChild(tabsNav);
-        }
-        if (dashboardContent.parentElement !== scrapbookContainer) {
-            scrapbookContainer.appendChild(dashboardContent);
-        }
-    } else {
-        if (tabsNav.parentElement !== dashboardSection) {
-            dashboardSection.insertBefore(tabsNav, dashboardSection.firstChild);
-        }
-        if (dashboardContent.parentElement !== dashboardSection) {
-            dashboardSection.appendChild(dashboardContent);
-        }
-    }
-}
-
 function updateOptionalTabs(character) {
-    const isScrapbook = document.body.classList.contains("layout-scrapbook");
-
-    setTabVisible("overview", !isScrapbook && hasOverviewData(character));
+    setTabVisible("overview", hasOverviewData(character));
     setTabVisible("gallery", hasArray(character.gallery));
     setTabVisible("references", hasArray(character.references));
     setTabVisible("relationships", hasArray(character.relationships) || hasText(character.relationships));
@@ -1565,37 +1337,7 @@ function renderCompanion(character) {
 }
 
 function fillCharacter(character) {
-
-    console.log(character);
-
     currentCharacter = character;
-
-    /* -----------------------------
-       Custom CSS
-    ----------------------------- */
-
-    let customLink = document.getElementById("custom-css-link");
-
-    if (!customLink) {
-        customLink = document.createElement("link");
-        customLink.id = "custom-css-link";
-        customLink.rel = "stylesheet";
-        document.head.appendChild(customLink);
-    }
-
-    if (character.customCSS) {
-
-        const cssPath = character.customCSS.startsWith("/")
-            ? character.customCSS
-            : "/" + character.customCSS;
-
-        customLink.href = window.location.origin + cssPath;
-
-    } else {
-
-        customLink.removeAttribute("href");
-
-    }
 
     document.title = `${character.name || "Character"} | StarHub`;
 
@@ -1607,13 +1349,11 @@ function fillCharacter(character) {
         "layout-minimal",
         "layout-dashboard",
         "layout-mini",
-        "layout-dossier",
         "layout-poke",
-        "layout-scrapbook"
+        "layout-dossier"
     );
 
     const rawLayout = cleanText(character.layout || "Dashboard");
-
     const layout = rawLayout
         .toLowerCase()
         .replace(/\s+/g, "-");
@@ -1626,182 +1366,83 @@ function fillCharacter(character) {
         "minimal",
         "dashboard",
         "mini",
-        "dossier",
         "poke",
-        "scrapbook"
+        "dossier"
     ]);
 
     document.body.classList.add(
         allowedLayouts.has(layout) ? `layout-${layout}` : "layout-dashboard"
     );
 
-    relocateTabsForLayout(allowedLayouts.has(layout) ? layout : "dashboard");
-
     const mainImage = character.mainRef || character.icon || "";
 
-/* ==========================================
-   HEADER
-========================================== */
+    setText("characterName", stripMoneyFromLabel(character.name), "Unnamed");
+    setText("characterSpecies", character.species, "Unknown Species");
 
-setText(
-    "characterName",
-    stripMoneyFromLabel(character.name),
-    "Unnamed"
-);
+    setImage("mainRef", character, mainImage);
+    setImage("dashboardMainRef", character, mainImage);
 
-setText(
-    "characterSpecies",
-    character.species,
-    "Unknown Species"
-);
+    setText("species", character.species);
+    setText("gender", character.gender);
+    setText("pronouns", character.pronouns);
+    setText("age", character.age);
+    setText("birthday", character.birthday);
+    setText("height", character.height);
+    setText("occupation", character.occupation);
+    setText("folder", character.folder);
+    setText("status", character.status);
 
-/* ==========================================
-   SCRAPBOOK HEADER
-========================================== */
+    setText("dashboardSpecies", character.species);
+    setText("dashboardGender", character.gender);
+    setText("dashboardPronouns", character.pronouns);
+    setText("dashboardAge", character.age);
+    setText("dashboardBirthday", character.birthday);
+    setText("dashboardHeight", character.height);
+    setText("dashboardOccupation", character.occupation);
+    setText("dashboardFolder", character.folder);
+    setText("dashboardStatus", character.status);
 
-setText(
-    "scrapbookName",
-    stripMoneyFromLabel(character.name),
-    "Unnamed"
-);
+    const artValue = money(calculateCharacterValue(character));
+    setText("artValue", artValue, "$0");
+    setText("dashboardArtValue", artValue, "$0");
 
-setText(
-    "scrapbookSpecies",
-    character.species,
-    "Unknown Species"
-);
+    renderTags("tags", character.tags);
+    renderTags("dashboardTags", character.tags);
+    
+    setText("introduction", character.introduction, "No introduction yet.");
+    setText("summary", character.summary, "No summary yet.");
+    setText("personality", character.personality, "No personality notes yet.");
+    setText("designNotes", character.designNotes, "No design notes yet.");
+    setText("mbti", character.mbti);
+    setText("themeSong", character.themeSong);
 
-/* ==========================================
-   IMAGES
-========================================== */
+    renderTags("likes", character.likes);
+    renderTags("dislikes", character.dislikes);
+    renderTags("hobbies", character.hobbies);
+    renderTags("fears", character.fears);
 
-setImage("mainRef", character, mainImage);
-setImage("dashboardMainRef", character, mainImage);
-setImage("scrapbookMainRef", character, mainImage);
+    setText("quotes", character.quotes, "No quote yet.");
+    setText("loreText", character.lore, "No lore yet.");
+    setText("trivia", character.trivia, "No trivia yet.");
 
-/* ==========================================
-   DEFAULT QUICK FACTS
-========================================== */
+    renderImages("galleryGrid", character.gallery);
+    renderImages("referencesGrid", character.references);
+    renderImages("nsfwGalleryGrid", character.nsfwGallery, true);
+    renderRelationships(character, allCharacters);
+    renderFavorites(character);
+    renderCredits(character);
+    renderCompanion(character);
 
-setText("species", character.species);
-setText("gender", character.gender);
-setText("pronouns", character.pronouns);
-setText("age", character.age);
-setText("birthday", character.birthday);
-setText("height", character.height);
-setText("occupation", character.occupation);
-setText("folder", character.folder);
-setText("status", character.status);
-
-/* ==========================================
-   DASHBOARD QUICK FACTS
-========================================== */
-
-setText("dashboardSpecies", character.species);
-setText("dashboardGender", character.gender);
-setText("dashboardPronouns", character.pronouns);
-setText("dashboardAge", character.age);
-setText("dashboardBirthday", character.birthday);
-setText("dashboardHeight", character.height);
-setText("dashboardOccupation", character.occupation);
-setText("dashboardFolder", character.folder);
-setText("dashboardStatus", character.status);
-
-/* ==========================================
-   SCRAPBOOK QUICK FACTS
-========================================== */
-
-setText("scrapbookFactSpecies", character.species);
-setText("scrapbookFactGender", character.gender);
-setText("scrapbookFactPronouns", character.pronouns);
-setText("scrapbookFactAge", character.age);
-setText("scrapbookFactBirthday", character.birthday);
-setText("scrapbookFactHeight", character.height);
-setText("scrapbookFactOccupation", character.occupation);
-setText("scrapbookFactStatus", character.status);
-
-/* ==========================================
-   ART VALUE
-========================================== */
-
-const artValue = money(calculateCharacterValue(character));
-
-setText("artValue", artValue, "$0");
-setText("dashboardArtValue", artValue, "$0");
-
-/* ==========================================
-   TAGS
-========================================== */
-
-renderTags("tags", character.tags);
-renderTags("dashboardTags", character.tags);
-renderTags("scrapbookTags", character.tags);
-
-/* ==========================================
-   TEXT
-========================================== */
-
-setText("introduction", character.introduction, "No introduction yet.");
-setText("scrapbookIntroduction", character.introduction, "No introduction yet.");
-
-setText("summary", character.summary, "No summary yet.");
-setText("scrapbookSummary", character.summary, "No summary yet.");
-
-setText("personality", character.personality, "No personality notes yet.");
-setText("designNotes", character.designNotes, "No design notes yet.");
-
-setText("mbti", character.mbti);
-setText("themeSong", character.themeSong);
-
-/* ==========================================
-   PERSONAL
-========================================== */
-
-renderTags("likes", character.likes);
-renderTags("dislikes", character.dislikes);
-renderTags("hobbies", character.hobbies);
-renderTags("fears", character.fears);
-
-/* ==========================================
-   LORE
-========================================== */
-
-setText("quotes", character.quotes, "No quote yet.");
-setText("loreText", character.lore, "No lore yet.");
-setText("trivia", character.trivia, "No trivia yet.");
-
-   /* ==========================================
-   GALLERIES
-========================================== */
-
-renderImages("galleryGrid", character.gallery);
-
-renderImages("referencesGrid", character.references);
-
-renderImages("nsfwGalleryGrid", character.nsfwGallery, true);
-
-renderMoodboard(character.moodboard);
-
-/* ==========================================
-   OTHER SECTIONS
-========================================== */
-
-renderRelationships(character, allCharacters);
-
-renderFavorites(character);
-
-renderCredits(character);
-
-renderCompanion(character);
-
-    const gameButton=document.getElementById("gameHubLink");
-    if(gameButton){
-        const url=getGameProfileURL(character);
-        if(url){
-            gameButton.href=url;
-            gameButton.style.display="";
-        }else{
-            gameButton.style.display="none";
+    const gameButton = document.getElementById("gameHubLink");
+    if (gameButton) {
+        const url = getGameProfileURL(character);
+        if (url) {
+            gameButton.href = url;
+            gameButton.target = "_blank";
+            gameButton.rel = "noopener";
+            gameButton.style.display = "";
+        } else {
+            gameButton.style.display = "none";
         }
     }
 
