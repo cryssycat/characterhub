@@ -1515,30 +1515,11 @@ function fillCharacter(character) {
 
     const rawLayout = cleanText(character.layout || "Dashboard");
 
-    const layout = rawLayout
-        .toLowerCase()
-        .replace(/\s+/g, "-");
-
-    const allowedLayouts = new Set([
-        "default",
-        "classic",
-        "visual-novel",
-        "magazine",
-        "minimal",
-        "dashboard",
-        "mini",
-        "dossier",
-        "poke",
-        "scrapbook"
-    ]);
-
-    document.body.classList.add(
+     document.body.classList.add(
         allowedLayouts.has(layout)
             ? `layout-${layout}`
             : "layout-dashboard"
     );
-
-    const rawLayout = cleanText(character.layout || "Dashboard");
     console.log("Layout from character:", character.layout, character.Layout, rawLayout);
     const layout = rawLayout
         .toLowerCase()
