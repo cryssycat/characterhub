@@ -1525,7 +1525,16 @@ if (character.customCSS) {
     "layout-default",
    "layout-scrapbook"
     );
+if (document.body.classList.contains("layout-scrapbook")) {
 
+    const originalTabs = document.querySelector(".profile-dashboard .tabs");
+    const scrapbookTabs = document.getElementById("scrapbookTabContainer");
+
+    if (originalTabs && scrapbookTabs && !scrapbookTabs.hasChildNodes()) {
+        scrapbookTabs.appendChild(originalTabs);
+    }
+
+}
     const rawLayout = cleanText(character.layout || "Dashboard");
     console.log("Layout from character:", character.layout, character.Layout, rawLayout);
     const layout = rawLayout
