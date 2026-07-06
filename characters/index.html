@@ -1696,15 +1696,8 @@ setText("scrapbookFactStatus", character.status);
     renderImages("galleryGrid", character.gallery);
     renderImages("referencesGrid", character.references);
     renderImages("nsfwGalleryGrid", character.nsfwGallery, true);
-    renderMoodboard(
-    character.moodboard
-);
-    renderRelationships(character, allCharacters);
-    renderFavorites(character);
-    renderCredits(character);
-    renderCompanion(character);
-
-    function renderMoodboard(images){
+    renderMoodboard(character.moodboard);
+     function renderMoodboard(images){
 
     const grid =
         document.getElementById("moodboardGrid");
@@ -1761,6 +1754,12 @@ setText("scrapbookFactStatus", character.status);
     }
 
 }
+    renderRelationships(character, allCharacters);
+    renderFavorites(character);
+    renderCredits(character);
+    renderCompanion(character);
+
+   
 
     const gameButton=document.getElementById("gameHubLink");
     if(gameButton){
