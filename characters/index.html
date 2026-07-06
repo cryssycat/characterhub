@@ -1470,26 +1470,7 @@ function renderCredits(character) {
     setText("creditTradeStatus", c.tradeStatus);
     setText("creditResaleStatus", c.resaleStatus);
 }
-const scrapbookGameButton =
-    document.getElementById("scrapbookGameHubLink");
 
-if (scrapbookGameButton) {
-
-    const url = getGameProfileURL(character);
-
-    if (url) {
-
-        scrapbookGameButton.href = url;
-
-        scrapbookGameButton.style.display = "";
-
-    } else {
-
-        scrapbookGameButton.style.display = "none";
-
-    }
-
-}
 function renderCompanion(character) {
     if (hasCompanionData(character, "familiar")) {
         setText("familiarName", character.familiarName, "Familiar");
@@ -1523,6 +1504,28 @@ function renderCompanion(character) {
 }
 
 function fillCharacter(character) {
+
+    const scrapbookGameButton =
+    document.getElementById("scrapbookGameHubLink");
+
+if (scrapbookGameButton) {
+
+    const url = getGameProfileURL(character);
+
+    if (url) {
+
+        scrapbookGameButton.href = url;
+
+        scrapbookGameButton.style.display = "";
+
+    } else {
+
+        scrapbookGameButton.style.display = "none";
+
+    }
+
+}
+    
     console.log(character);
     currentCharacter = character;
 
