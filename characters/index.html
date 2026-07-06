@@ -1470,7 +1470,26 @@ function renderCredits(character) {
     setText("creditTradeStatus", c.tradeStatus);
     setText("creditResaleStatus", c.resaleStatus);
 }
+const scrapbookGameButton =
+    document.getElementById("scrapbookGameHubLink");
 
+if (scrapbookGameButton) {
+
+    const url = getGameProfileURL(character);
+
+    if (url) {
+
+        scrapbookGameButton.href = url;
+
+        scrapbookGameButton.style.display = "";
+
+    } else {
+
+        scrapbookGameButton.style.display = "none";
+
+    }
+
+}
 function renderCompanion(character) {
     if (hasCompanionData(character, "familiar")) {
         setText("familiarName", character.familiarName, "Familiar");
@@ -1574,10 +1593,29 @@ if (character.customCSS) {
 
     setText("characterName", stripMoneyFromLabel(character.name), "Unnamed");
     setText("characterSpecies", character.species, "Unknown Species");
+    /* ==========================================
+   SCRAPBOOK HEADER
+========================================== */
+
+setText(
+    "scrapbookName",
+    stripMoneyFromLabel(character.name),
+    "Unnamed"
+);
+
+setText(
+    "scrapbookSpecies",
+    character.species,
+    "Unknown Species"
+);
 
     setImage("mainRef", character, mainImage);
     setImage("dashboardMainRef", character, mainImage);
-
+setImage(
+    "scrapbookMainRef",
+    character,
+    mainImage
+);
     setText("species", character.species);
     setText("gender", character.gender);
     setText("pronouns", character.pronouns);
@@ -1597,16 +1635,47 @@ if (character.customCSS) {
     setText("dashboardOccupation", character.occupation);
     setText("dashboardFolder", character.folder);
     setText("dashboardStatus", character.status);
+/* ==========================================
+   SCRAPBOOK QUICK FACTS
+========================================== */
 
+setText("scrapbookFactSpecies", character.species);
+
+setText("scrapbookFactGender", character.gender);
+
+setText("scrapbookFactPronouns", character.pronouns);
+
+setText("scrapbookFactAge", character.age);
+
+setText("scrapbookFactBirthday", character.birthday);
+
+setText("scrapbookFactHeight", character.height);
+
+setText("scrapbookFactOccupation", character.occupation);
+
+setText("scrapbookFactStatus", character.status);
     const artValue = money(calculateCharacterValue(character));
     setText("artValue", artValue, "$0");
     setText("dashboardArtValue", artValue, "$0");
 
     renderTags("tags", character.tags);
     renderTags("dashboardTags", character.tags);
-    
+    renderTags(
+    "scrapbookTags",
+    character.tags
+);
     setText("introduction", character.introduction, "No introduction yet.");
+    setText(
+    "scrapbookIntroduction",
+    character.introduction,
+    "No introduction yet."
+);
     setText("summary", character.summary, "No summary yet.");
+    setText(
+    "scrapbookSummary",
+    character.summary,
+    "No summary yet."
+);
     setText("personality", character.personality, "No personality notes yet.");
     setText("designNotes", character.designNotes, "No design notes yet.");
     setText("mbti", character.mbti);
@@ -1624,10 +1693,71 @@ if (character.customCSS) {
     renderImages("galleryGrid", character.gallery);
     renderImages("referencesGrid", character.references);
     renderImages("nsfwGalleryGrid", character.nsfwGallery, true);
+    renderMoodboard(
+    character.moodboard
+);
     renderRelationships(character, allCharacters);
     renderFavorites(character);
     renderCredits(character);
     renderCompanion(character);
+
+    function renderMoodboard(images){
+
+    const grid =
+        document.getElementById("moodboardGrid");
+
+    if(!grid) return;
+
+    grid.innerHTML = "";
+
+    const list =
+        Array.isArray(images)
+            ? images.slice(0,4)
+            : [];
+
+    list.forEach(raw=>{
+
+        const item =
+            normalizeImageItem(raw);
+
+        if(!item || !item.url)
+            return;
+
+        const img =
+            document.createElement("img");
+
+        img.src =
+            getHubImage(
+                currentCharacter,
+                item.url
+            );
+
+        img.alt = "";
+
+        img.loading = "lazy";
+
+        img.addEventListener(
+            "click",
+            ()=>openLightbox(img.src)
+        );
+
+        grid.appendChild(img);
+
+    });
+
+    while(grid.children.length < 4){
+
+        const div =
+            document.createElement("div");
+
+        div.className =
+            "moodboard-slot";
+
+        grid.appendChild(div);
+
+    }
+
+}
 
     const gameButton=document.getElementById("gameHubLink");
     if(gameButton){
