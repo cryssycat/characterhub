@@ -3816,3 +3816,24 @@ body.layout-scrapbook .scrapbook-sidebar{
 }
 
 }
+
+
+.au-gallery-section{
+
+    margin-top:50px;
+
+}
+
+.au-gallery-title{
+
+    margin:0 0 18px;
+
+    font-size:1.6rem;
+
+    font-weight:700;
+
+    border-bottom:2px solid rgba(255,255,255,.15);
+
+    padding-bottom:10px;
+
+}
