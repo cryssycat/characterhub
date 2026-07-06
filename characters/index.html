@@ -1515,12 +1515,6 @@ function fillCharacter(character) {
 
     const rawLayout = cleanText(character.layout || "Dashboard");
 
-     document.body.classList.add(
-        allowedLayouts.has(layout)
-            ? `layout-${layout}`
-            : "layout-dashboard"
-    );
-    console.log("Layout from character:", character.layout, character.Layout, rawLayout);
     const layout = rawLayout
         .toLowerCase()
         .replace(/\s+/g, "-");
@@ -1698,13 +1692,6 @@ renderFavorites(character);
 renderCredits(character);
 
 renderCompanion(character);
-    
-    renderRelationships(character, allCharacters);
-    renderFavorites(character);
-    renderCredits(character);
-    renderCompanion(character);
-
-   
 
     const gameButton=document.getElementById("gameHubLink");
     if(gameButton){
