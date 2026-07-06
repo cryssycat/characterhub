@@ -1467,53 +1467,36 @@ function renderCompanion(character) {
 
 function fillCharacter(character) {
 
-    const scrapbookGameButton =
-    document.getElementById("scrapbookGameHubLink");
+    console.log(character);
 
-if (scrapbookGameButton) {
+    currentCharacter = character;
 
-    const url = getGameProfileURL(character);
+    /* -----------------------------
+       Custom CSS
+    ----------------------------- */
 
-    if (url) {
+    let customLink = document.getElementById("custom-css-link");
 
-        scrapbookGameButton.href = url;
+    if (!customLink) {
+        customLink = document.createElement("link");
+        customLink.id = "custom-css-link";
+        customLink.rel = "stylesheet";
+        document.head.appendChild(customLink);
+    }
 
-        scrapbookGameButton.style.display = "";
+    if (character.customCSS) {
+
+        const cssPath = character.customCSS.startsWith("/")
+            ? character.customCSS
+            : "/" + character.customCSS;
+
+        customLink.href = window.location.origin + cssPath;
 
     } else {
 
-        scrapbookGameButton.style.display = "none";
+        customLink.removeAttribute("href");
 
     }
-
-}
-    
-    console.log(character);
-    currentCharacter = character;
-
-    // Apply per-character custom CSS safely
- let customLink = document.getElementById("custom-css-link");
-
-if (!customLink) {
-    customLink = document.createElement("link");
-    customLink.id = "custom-css-link";
-    customLink.rel = "stylesheet";
-    document.head.appendChild(customLink);
-}
-
-if (character.customCSS) {
-
-    const cssPath = character.customCSS.startsWith("/")
-        ? character.customCSS
-        : "/" + character.customCSS;
-
-    customLink.href = window.location.origin + cssPath;
-
-} else {
-
-    customLink.removeAttribute("href");
-
-}
 
     document.title = `${character.name || "Character"} | StarHub`;
 
@@ -1524,11 +1507,35 @@ if (character.customCSS) {
         "layout-magazine",
         "layout-minimal",
         "layout-dashboard",
-         "layout-mini",
-    "layout-dossier",
-    "layout-poke",
-    "layout-default",
-   "layout-scrapbook"
+        "layout-mini",
+        "layout-dossier",
+        "layout-poke",
+        "layout-scrapbook"
+    );
+
+    const rawLayout = cleanText(character.layout || "Dashboard");
+
+    const layout = rawLayout
+        .toLowerCase()
+        .replace(/\s+/g, "-");
+
+    const allowedLayouts = new Set([
+        "default",
+        "classic",
+        "visual-novel",
+        "magazine",
+        "minimal",
+        "dashboard",
+        "mini",
+        "dossier",
+        "poke",
+        "scrapbook"
+    ]);
+
+    document.body.classList.add(
+        allowedLayouts.has(layout)
+            ? `layout-${layout}`
+            : "layout-dashboard"
     );
 
     const rawLayout = cleanText(character.layout || "Dashboard");
@@ -1556,9 +1563,23 @@ if (character.customCSS) {
 
     const mainImage = character.mainRef || character.icon || "";
 
-    setText("characterName", stripMoneyFromLabel(character.name), "Unnamed");
-    setText("characterSpecies", character.species, "Unknown Species");
-    /* ==========================================
+/* ==========================================
+   HEADER
+========================================== */
+
+setText(
+    "characterName",
+    stripMoneyFromLabel(character.name),
+    "Unnamed"
+);
+
+setText(
+    "characterSpecies",
+    character.species,
+    "Unknown Species"
+);
+
+/* ==========================================
    SCRAPBOOK HEADER
 ========================================== */
 
@@ -1574,148 +1595,129 @@ setText(
     "Unknown Species"
 );
 
-    setImage("mainRef", character, mainImage);
-    setImage("dashboardMainRef", character, mainImage);
-setImage(
-    "scrapbookMainRef",
-    character,
-    mainImage
-);
-    setText("species", character.species);
-    setText("gender", character.gender);
-    setText("pronouns", character.pronouns);
-    setText("age", character.age);
-    setText("birthday", character.birthday);
-    setText("height", character.height);
-    setText("occupation", character.occupation);
-    setText("folder", character.folder);
-    setText("status", character.status);
+/* ==========================================
+   IMAGES
+========================================== */
 
-    setText("dashboardSpecies", character.species);
-    setText("dashboardGender", character.gender);
-    setText("dashboardPronouns", character.pronouns);
-    setText("dashboardAge", character.age);
-    setText("dashboardBirthday", character.birthday);
-    setText("dashboardHeight", character.height);
-    setText("dashboardOccupation", character.occupation);
-    setText("dashboardFolder", character.folder);
-    setText("dashboardStatus", character.status);
+setImage("mainRef", character, mainImage);
+setImage("dashboardMainRef", character, mainImage);
+setImage("scrapbookMainRef", character, mainImage);
+
+/* ==========================================
+   DEFAULT QUICK FACTS
+========================================== */
+
+setText("species", character.species);
+setText("gender", character.gender);
+setText("pronouns", character.pronouns);
+setText("age", character.age);
+setText("birthday", character.birthday);
+setText("height", character.height);
+setText("occupation", character.occupation);
+setText("folder", character.folder);
+setText("status", character.status);
+
+/* ==========================================
+   DASHBOARD QUICK FACTS
+========================================== */
+
+setText("dashboardSpecies", character.species);
+setText("dashboardGender", character.gender);
+setText("dashboardPronouns", character.pronouns);
+setText("dashboardAge", character.age);
+setText("dashboardBirthday", character.birthday);
+setText("dashboardHeight", character.height);
+setText("dashboardOccupation", character.occupation);
+setText("dashboardFolder", character.folder);
+setText("dashboardStatus", character.status);
+
 /* ==========================================
    SCRAPBOOK QUICK FACTS
 ========================================== */
 
 setText("scrapbookFactSpecies", character.species);
-
 setText("scrapbookFactGender", character.gender);
-
 setText("scrapbookFactPronouns", character.pronouns);
-
 setText("scrapbookFactAge", character.age);
-
 setText("scrapbookFactBirthday", character.birthday);
-
 setText("scrapbookFactHeight", character.height);
-
 setText("scrapbookFactOccupation", character.occupation);
-
 setText("scrapbookFactStatus", character.status);
-    const artValue = money(calculateCharacterValue(character));
-    setText("artValue", artValue, "$0");
-    setText("dashboardArtValue", artValue, "$0");
 
-    renderTags("tags", character.tags);
-    renderTags("dashboardTags", character.tags);
-    renderTags(
-    "scrapbookTags",
-    character.tags
-);
-    setText("introduction", character.introduction, "No introduction yet.");
-    setText(
-    "scrapbookIntroduction",
-    character.introduction,
-    "No introduction yet."
-);
-    setText("summary", character.summary, "No summary yet.");
-    setText(
-    "scrapbookSummary",
-    character.summary,
-    "No summary yet."
-);
-    setText("personality", character.personality, "No personality notes yet.");
-    setText("designNotes", character.designNotes, "No design notes yet.");
-    setText("mbti", character.mbti);
-    setText("themeSong", character.themeSong);
+/* ==========================================
+   ART VALUE
+========================================== */
 
-    renderTags("likes", character.likes);
-    renderTags("dislikes", character.dislikes);
-    renderTags("hobbies", character.hobbies);
-    renderTags("fears", character.fears);
+const artValue = money(calculateCharacterValue(character));
 
-    setText("quotes", character.quotes, "No quote yet.");
-    setText("loreText", character.lore, "No lore yet.");
-    setText("trivia", character.trivia, "No trivia yet.");
+setText("artValue", artValue, "$0");
+setText("dashboardArtValue", artValue, "$0");
 
-    renderImages("galleryGrid", character.gallery);
-    renderImages("referencesGrid", character.references);
-    renderImages("nsfwGalleryGrid", character.nsfwGallery, true);
-    renderMoodboard(character.moodboard);
-     function renderMoodboard(images){
+/* ==========================================
+   TAGS
+========================================== */
 
-    const grid =
-        document.getElementById("moodboardGrid");
+renderTags("tags", character.tags);
+renderTags("dashboardTags", character.tags);
+renderTags("scrapbookTags", character.tags);
 
-    if(!grid) return;
+/* ==========================================
+   TEXT
+========================================== */
 
-    grid.innerHTML = "";
+setText("introduction", character.introduction, "No introduction yet.");
+setText("scrapbookIntroduction", character.introduction, "No introduction yet.");
 
-    const list =
-        Array.isArray(images)
-            ? images.slice(0,4)
-            : [];
+setText("summary", character.summary, "No summary yet.");
+setText("scrapbookSummary", character.summary, "No summary yet.");
 
-    list.forEach(raw=>{
+setText("personality", character.personality, "No personality notes yet.");
+setText("designNotes", character.designNotes, "No design notes yet.");
 
-        const item =
-            normalizeImageItem(raw);
+setText("mbti", character.mbti);
+setText("themeSong", character.themeSong);
 
-        if(!item || !item.url)
-            return;
+/* ==========================================
+   PERSONAL
+========================================== */
 
-        const img =
-            document.createElement("img");
+renderTags("likes", character.likes);
+renderTags("dislikes", character.dislikes);
+renderTags("hobbies", character.hobbies);
+renderTags("fears", character.fears);
 
-        img.src =
-            getHubImage(
-                currentCharacter,
-                item.url
-            );
+/* ==========================================
+   LORE
+========================================== */
 
-        img.alt = "";
+setText("quotes", character.quotes, "No quote yet.");
+setText("loreText", character.lore, "No lore yet.");
+setText("trivia", character.trivia, "No trivia yet.");
 
-        img.loading = "lazy";
+   /* ==========================================
+   GALLERIES
+========================================== */
 
-        img.addEventListener(
-            "click",
-            ()=>openLightbox(img.src)
-        );
+renderImages("galleryGrid", character.gallery);
 
-        grid.appendChild(img);
+renderImages("referencesGrid", character.references);
 
-    });
+renderImages("nsfwGalleryGrid", character.nsfwGallery, true);
 
-    while(grid.children.length < 4){
+renderMoodboard(character.moodboard);
 
-        const div =
-            document.createElement("div");
+/* ==========================================
+   OTHER SECTIONS
+========================================== */
 
-        div.className =
-            "moodboard-slot";
+renderRelationships(character, allCharacters);
 
-        grid.appendChild(div);
+renderFavorites(character);
 
-    }
+renderCredits(character);
 
-}
+renderCompanion(character);
+    
     renderRelationships(character, allCharacters);
     renderFavorites(character);
     renderCredits(character);
