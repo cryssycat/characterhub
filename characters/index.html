@@ -558,7 +558,171 @@ body.layout-dashboard .dashboard-list-grid {
         </div>
     </section>
 
-    <section class="profile-scrapbook">
+<section class="profile-scrapbook">
+
+    <!-- LEFT SIDEBAR -->
+    <aside class="scrapbook-sidebar">
+
+        <div class="content-card scrapbook-image-card">
+            <img id="scrapbookMainRef"
+                 class="scrapbook-main-ref"
+                 src="../images/placeholder.png"
+                 alt="Character">
+        </div>
+
+        <nav class="scrapbook-tabs">
+
+            <button class="tab-button active" data-tab="overview">
+                Overview
+            </button>
+
+            <button class="tab-button" data-tab="gallery">
+                Gallery
+            </button>
+
+            <button class="tab-button" data-tab="references">
+                References
+            </button>
+
+            <button class="tab-button" data-tab="relationships">
+                Relationships
+            </button>
+
+            <button class="tab-button" data-tab="favorites">
+                Favorites
+            </button>
+
+            <button class="tab-button" data-tab="credits">
+                Credits
+            </button>
+
+            <button class="tab-button" data-tab="lore">
+                Lore
+            </button>
+
+            <button class="tab-button" data-tab="familiar">
+                Familiar
+            </button>
+
+            <button class="tab-button" data-tab="hearthling">
+                Hearthling
+            </button>
+
+            <button class="tab-button" data-tab="nsfw">
+                🔞 Mature Gallery
+            </button>
+
+        </nav>
+
+    </aside>
+
+
+
+    <!-- CENTER COLUMN -->
+
+    <main class="scrapbook-main">
+
+        <div class="content-card scrapbook-banner">
+
+            <h1 id="scrapbookName">
+                Character Name
+            </h1>
+
+            <p id="scrapbookSpecies">
+                Species
+            </p>
+
+        </div>
+
+
+
+        <div class="content-card scrapbook-introduction">
+
+            <h2>Introduction</h2>
+
+            <p id="scrapbookIntroduction">
+                No introduction yet.
+            </p>
+
+        </div>
+
+
+
+        <div class="content-card scrapbook-summary">
+
+            <h2>Summary</h2>
+
+            <p id="scrapbookSummary">
+                No summary yet.
+            </p>
+
+        </div>
+
+    </main>
+
+
+
+    <!-- RIGHT COLUMN -->
+
+    <aside class="scrapbook-right">
+
+        <div class="content-card scrapbook-quickfacts">
+
+            <h2>Quick Facts</h2>
+
+            <p><strong>Species:</strong> <span id="scrapbookFactSpecies">—</span></p>
+            <p><strong>Gender:</strong> <span id="scrapbookFactGender">—</span></p>
+            <p><strong>Pronouns:</strong> <span id="scrapbookFactPronouns">—</span></p>
+            <p><strong>Age:</strong> <span id="scrapbookFactAge">—</span></p>
+            <p><strong>Birthday:</strong> <span id="scrapbookFactBirthday">—</span></p>
+            <p><strong>Height:</strong> <span id="scrapbookFactHeight">—</span></p>
+            <p><strong>Occupation:</strong> <span id="scrapbookFactOccupation">—</span></p>
+            <p><strong>Status:</strong> <span id="scrapbookFactStatus">—</span></p>
+
+        </div>
+
+
+
+        <div class="content-card scrapbook-moodboard">
+
+            <h2>Moodboard</h2>
+
+            <div id="moodboardGrid">
+
+                <div class="moodboard-slot"></div>
+                <div class="moodboard-slot"></div>
+                <div class="moodboard-slot"></div>
+                <div class="moodboard-slot"></div>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="content-card scrapbook-tags">
+
+            <h2>Tags</h2>
+
+            <div id="scrapbookTags"
+                 class="tag-list">
+
+            </div>
+
+        </div>
+
+
+
+        <a id="scrapbookGameHubLink"
+           class="profile-button"
+           target="_blank"
+           style="display:none;">
+
+            🎮 View Game Profile
+
+        </a>
+
+    </aside>
 
 </section>
 </main>
