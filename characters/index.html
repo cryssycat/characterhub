@@ -1458,7 +1458,10 @@ function renderCredits(character) {
 }
 
 function renderCompanion(character) {
+
+    // Familiar
     if (hasCompanionData(character, "familiar")) {
+
         setText("familiarName", character.familiarName, "Familiar");
         setText("familiarSpecies", character.familiarSpecies);
         setText("familiarBondType", character.familiarBondType);
@@ -1468,12 +1471,15 @@ function renderCompanion(character) {
         setText("familiarAccessory", character.familiarAccessory);
         setText("familiarFavoriteTreat", character.familiarFavoriteTreat);
         setText("familiarSummary", character.familiarSummary, "No familiar summary yet.");
+
         setImage("familiarImage", character, character.familiarImage);
     }
 
     renderImages("familiarGalleryGrid", character.familiarGallery);
 
+    // Hearthling
     if (hasCompanionData(character, "hearthling")) {
+
         setText("hearthlingName", character.hearthlingName, "Hearthling");
         setText("hearthlingSpecies", character.hearthlingSpecies);
         setText("hearthlingBodyType", character.hearthlingBodyType);
@@ -1483,48 +1489,31 @@ function renderCompanion(character) {
         setText("hearthlingCompanion", character.hearthlingCompanion);
         setText("hearthlingRarity", character.hearthlingRarity);
         setText("hearthlingSummary", character.hearthlingSummary, "No hearthling summary yet.");
+
         setImage("hearthlingImage", character, character.hearthlingImage);
     }
 
     renderImages("hearthlingGalleryGrid", character.hearthlingGallery);
 
-
+    // Mount
     if (hasCompanionData(character, "mount")) {
 
-    setText("mountName", character.mountName, "Mount");
+        setText("mountName", character.mountName, "Mount");
+        setText("mountSpecies", character.mountSpecies);
+        setText("mountBreed", character.mountBreed);
+        setText("mountTemperament", character.mountTemperament);
+        setText("mountMagic", character.mountMagic);
+        setText("mountRole", character.mountRole);
+        setText("mountEquipment", character.mountEquipment);
+        setText("mountBond", character.mountBond);
+        setText("mountSummary", character.mountSummary, "No mount summary yet.");
 
-    setText("mountSpecies", character.mountSpecies);
+        setImage("mountImage", character, character.mountImage);
+    }
 
-    setText("mountBreed", character.mountBreed);
-
-    setText("mountTemperament", character.mountTemperament);
-
-    setText("mountMagic", character.mountMagic);
-
-    setText("mountRole", character.mountRole);
-
-    setText("mountEquipment", character.mountEquipment);
-
-    setText("mountBond", character.mountBond);
-
-    setText(
-        "mountSummary",
-        character.mountSummary,
-        "No mount summary yet."
-    );
-
-    setImage(
-        "mountImage",
-        character,
-        character.mountImage
-    );
+    renderImages("mountGalleryGrid", character.mountGallery);
 
 }
-
-renderImages(
-    "mountGalleryGrid",
-    character.mountGallery
-);
 
 function fillCharacter(character) {
     currentCharacter = character;
