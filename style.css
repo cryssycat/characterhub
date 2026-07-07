@@ -3493,7 +3493,7 @@ max-height:700px;
 
     border:1px solid rgba(255,255,255,.28);
 
-    color:var(--text-color,#fff);
+    color:var(--text-color,#000);
     text-decoration:none;
     font-weight:700;
     font-size:.95rem;
