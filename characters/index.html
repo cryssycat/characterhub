@@ -257,6 +257,17 @@ body.layout-dashboard .dashboard-list-grid {
 
         <aside class="quick-facts">
             <h2>Quick Facts</h2>
+            <div id="musicPlayerCard" class="content-card" style="display:none;">
+
+    <h2>🎵 Theme Song</h2>
+
+    <audio
+        id="themeSongPlayer"
+        controls
+        preload="none">
+    </audio>
+
+</div>
             <p><strong>Species:</strong> <span id="species">—</span></p>
             <p><strong>Gender:</strong> <span id="gender">—</span></p>
             <p><strong>Pronouns:</strong> <span id="pronouns">—</span></p>
@@ -1518,6 +1529,23 @@ function renderCompanion(character) {
 function fillCharacter(character) {
     currentCharacter = character;
 
+const playerCard = document.getElementById("musicPlayerCard");
+const player = document.getElementById("themeSongPlayer");
+
+if (character.themeSongFile) {
+
+    player.src = getHubImage(character, character.themeSongFile);
+
+    playerCard.style.display = "";
+
+} else {
+
+    playerCard.style.display = "none";
+
+}
+
+
+    
     /* -----------------------------
    Character Custom CSS
 ----------------------------- */
