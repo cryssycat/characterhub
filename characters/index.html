@@ -1538,6 +1538,18 @@ function fillCharacter(character) {
 const playerCard = document.getElementById("musicPlayerCard");
 const player = document.getElementById("themeSongPlayer");
 
+    const hasSong = character.themeSongFile &&
+                character.themeSongFile.trim() !== "";
+
+playerCard.style.display = hasSong ? "" : "none";
+
+if (hasSong) {
+    player.src = getHubImage(character, character.themeSongFile);
+} else {
+    player.removeAttribute("src");
+    player.load(); // clears the player
+}
+    
 if (character.themeSongFile) {
 
     player.src = getHubImage(character, character.themeSongFile);
