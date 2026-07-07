@@ -283,7 +283,9 @@ body.layout-dashboard .dashboard-list-grid {
             <button class="tab-button" data-tab="credits">Credits</button>
             <button class="tab-button" data-tab="lore">Lore</button>
             <button class="tab-button" data-tab="familiar">Familiar</button>
+            <button class="tab-button" data-tab="mount">Mount</button>
             <button class="tab-button" data-tab="hearthling">Hearthling</button>
+            
             <button class="tab-button" data-tab="nsfw">🔞 Mature Gallery</button>
         </nav>
 
@@ -548,6 +550,84 @@ body.layout-dashboard .dashboard-list-grid {
                 </div>
             </section>
 
+<section id="mount" class="tab-panel companion-tab-panel">
+
+    <div class="companion-page">
+
+        <div class="companion-top-row">
+
+            <div class="companion-image-card">
+                <img
+                    id="mountImage"
+                    class="companion-image"
+                    src="../images/placeholder.png"
+                    alt="Mount image">
+            </div>
+
+            <div class="companion-facts-card">
+
+                <h2 id="mountName">Mount</h2>
+
+                <div class="companion-facts-grid">
+
+                    <p><strong>Species:</strong>
+                        <span id="mountSpecies">—</span>
+                    </p>
+
+                    <p><strong>Breed:</strong>
+                        <span id="mountBreed">—</span>
+                    </p>
+
+                    <p><strong>Temperament:</strong>
+                        <span id="mountTemperament">—</span>
+                    </p>
+
+                    <p><strong>Magic:</strong>
+                        <span id="mountMagic">—</span>
+                    </p>
+
+                    <p><strong>Role:</strong>
+                        <span id="mountRole">—</span>
+                    </p>
+
+                    <p><strong>Equipment:</strong>
+                        <span id="mountEquipment">—</span>
+                    </p>
+
+                    <p><strong>Bond:</strong>
+                        <span id="mountBond">—</span>
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="companion-summary-card">
+
+            <h2>Summary</h2>
+
+            <p id="mountSummary">
+                No mount summary yet.
+            </p>
+
+        </div>
+
+        <div class="companion-summary-card companion-gallery-card">
+
+            <h2>Mount Gallery</h2>
+
+            <div id="mountGalleryGrid" class="gallery-grid"></div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+            
             <!-- NSFW -->
             <section id="nsfw" class="tab-panel">
                 <div class="section-title">
@@ -866,6 +946,7 @@ function updateOptionalTabs(character) {
     setTabVisible("lore", hasLoreData(character));
     setTabVisible("familiar", hasCompanionData(character, "familiar"));
     setTabVisible("hearthling", hasCompanionData(character, "hearthling"));
+    setTabVisible("mount", hasCompanionData(character, "mount"));
     setTabVisible("nsfw", hasArray(character.nsfwGallery));
 
     resetToFirstVisibleTab();
@@ -938,13 +1019,19 @@ function hasLoreData(character) {
 }
 
 function hasCompanionData(character, type) {
-    const prefix = type === "familiar" ? "familiar" : "hearthling";
+
+    const prefix = type;
 
     return [
+
         character[`${prefix}Name`],
         character[`${prefix}Image`],
         character[`${prefix}Summary`]
-    ].some(hasText) || hasArray(character[`${prefix}Gallery`]);
+
+    ].some(hasText)
+
+    || hasArray(character[`${prefix}Gallery`]);
+
 }
 
 /* ------------------------------
@@ -1401,6 +1488,43 @@ function renderCompanion(character) {
 
     renderImages("hearthlingGalleryGrid", character.hearthlingGallery);
 }
+
+    if (hasCompanionData(character, "mount")) {
+
+    setText("mountName", character.mountName, "Mount");
+
+    setText("mountSpecies", character.mountSpecies);
+
+    setText("mountBreed", character.mountBreed);
+
+    setText("mountTemperament", character.mountTemperament);
+
+    setText("mountMagic", character.mountMagic);
+
+    setText("mountRole", character.mountRole);
+
+    setText("mountEquipment", character.mountEquipment);
+
+    setText("mountBond", character.mountBond);
+
+    setText(
+        "mountSummary",
+        character.mountSummary,
+        "No mount summary yet."
+    );
+
+    setImage(
+        "mountImage",
+        character,
+        character.mountImage
+    );
+
+}
+
+renderImages(
+    "mountGalleryGrid",
+    character.mountGallery
+);
 
 function fillCharacter(character) {
     currentCharacter = character;
