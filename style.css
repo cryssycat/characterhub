@@ -3533,7 +3533,7 @@ max-height:700px;
 
 .profile-button:focus-visible{
     outline:none;
-    border-color:var(--accent,#c9a7ff);
+    border-color:var(--accent,#000000);
     box-shadow:
         0 0 0 3px rgba(201,167,255,.25);
 }
