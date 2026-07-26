@@ -3,410 +3,1261 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Character Archive</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    /* ---- moonlit glassmorphism tokens ---- */
+    --bg-base: #0A0C14;
+    --blob-a: #3A4270;
+    --blob-b: #2E3654;
+    --blob-c: #454E78;
+    --glass: rgba(255,255,255,0.04);
+    --glass-strong: rgba(255,255,255,0.06);
+    --glass-border: rgba(210,215,235,0.14);
+    --ink: #E6E8F0;
+    --ink-soft: #8B90A8;
+    --accent: #C7CCE0;
+    --card-shadow: 0 8px 32px -12px rgba(0,0,0,0.55);
+    --radius: 20px;
+    --radius-sm: 12px;
+    --font-display: "Plus Jakarta Sans", sans-serif;
+    --font-body: "Plus Jakarta Sans", sans-serif;
+    --font-mono: "JetBrains Mono", monospace;
+  }
 
-<title>StarSundae Character Hub</title>
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+  body{
+    margin:0;
+    background: var(--bg-base);
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+  }
+  a{ color: inherit; text-decoration: none; }
+  ::selection{ background: var(--accent); color: #0A0C14; }
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+  }
 
-<link rel="stylesheet" href="./style.css?v=500">
-    <style id="custom-css"></style>
+  /* ---------------- Ambient background blobs ---------------- */
+  .blob{
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(100px);
+    opacity: 0.35;
+    z-index: -1;
+    pointer-events: none;
+  }
+  .blob-1{ width: 480px; height: 480px; background: var(--blob-a); top: -140px; left: -100px; }
+  .blob-2{ width: 420px; height: 420px; background: var(--blob-b); top: 30%; right: -140px; }
+  .blob-3{ width: 380px; height: 380px; background: var(--blob-c); bottom: -160px; left: 20%; }
+
+  /* ---------------- Top nav ---------------- */
+  .topbar{
+    position: sticky; top:0; z-index: 40;
+    display:flex; align-items:center; justify-content:space-between;
+    padding: 16px 32px;
+    margin: 16px;
+    background: var(--glass-strong);
+    backdrop-filter: blur(20px) saturate(140%);
+    -webkit-backdrop-filter: blur(20px) saturate(140%);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius);
+    box-shadow: var(--card-shadow);
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .brand{
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 20px;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+  }
+  .brand small{
+    display:block;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    font-weight: 400;
+    margin-top: 2px;
+  }
+  nav.top-links{ display:flex; gap: 8px; flex-wrap: wrap; }
+  nav.top-links a{
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--ink-soft);
+    padding: 8px 16px;
+    border-radius: 999px;
+    transition: background .15s ease, color .15s ease;
+  }
+  nav.top-links a:hover{ background: rgba(199,204,224,0.08); color: var(--ink); }
+  nav.top-links a.active{ background: var(--accent); color: #0A0C14; }
+
+  main{ max-width: 1120px; margin: 0 auto; padding: 24px 32px 100px; }
+
+  /* ---------------- Profile hero (per-database mini profile) ---------------- */
+  .profile-hero{
+    display:flex; gap: 28px; align-items:center; flex-wrap: wrap;
+    padding: 32px;
+    margin: 24px 0 20px;
+    background: var(--glass-strong);
+    backdrop-filter: blur(20px) saturate(140%);
+    -webkit-backdrop-filter: blur(20px) saturate(140%);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius);
+    box-shadow: var(--card-shadow);
+  }
+  .profile-hero .avatar{
+    width: 140px; height: 140px; flex-shrink: 0;
+    border-radius: var(--radius-sm); overflow: hidden;
+    border: 1px solid var(--glass-border);
+    background: rgba(255,255,255,0.03);
+  }
+  .profile-hero .avatar img{ width:100%; height:100%; object-fit: cover; display:block; }
+  .profile-hero .info{ flex: 1; min-width: 240px; }
+  .profile-hero .eyebrow{
+    font-family: var(--font-mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--accent);
+  }
+  .profile-hero h2{
+    font-family: var(--font-display); font-size: clamp(24px, 4vw, 32px); font-weight: 800;
+    letter-spacing: -0.02em; margin: 4px 0 10px; color: var(--ink);
+  }
+  .profile-hero .welcome{
+    color: var(--ink-soft); font-size: 14px; line-height: 1.65; max-width: 62ch; margin-bottom: 16px;
+  }
+  .profile-links{ display:flex; flex-wrap: wrap; gap: 8px; }
+  .profile-links a{
+    font-family: var(--font-body); font-size: 13px; font-weight: 500;
+    padding: 8px 16px; border-radius: 999px;
+    background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); color: var(--ink);
+    transition: background .15s ease, border-color .15s ease, color .15s ease;
+  }
+  .profile-links a:hover{ background: var(--accent); color: #0A0C14; border-color: transparent; }
+
+  /* ---------------- Secondary nav grid ---------------- */
+  .nav-section{ margin: 0 0 28px; }
+  .nav-section h3{
+    font-family: var(--font-mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase;
+    color: var(--ink-soft); margin: 0 0 12px; font-weight: 500;
+  }
+  .nav-grid{
+    display:grid; grid-template-columns: repeat(auto-fill, minmax(170px,1fr)); gap: 12px;
+  }
+  .nav-grid a{
+    display:flex; align-items:center; gap: 8px;
+    padding: 14px 16px;
+    background: var(--glass);
+    backdrop-filter: blur(14px) saturate(140%);
+    -webkit-backdrop-filter: blur(14px) saturate(140%);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-sm);
+    font-size: 14px; font-weight: 500; color: var(--ink);
+    transition: transform .15s ease, border-color .15s ease, background .15s ease;
+  }
+  .nav-grid a:hover{ transform: translateY(-3px); border-color: rgba(199,204,224,0.3); background: var(--glass-strong); }
+
+  /* ---------------- Landing ---------------- */
+  .archive-head{ margin: 24px 0 28px; }
+  .archive-head h1{
+    font-family: var(--font-display);
+    font-size: clamp(32px, 5vw, 48px);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin: 0 0 8px;
+    color: var(--ink);
+  }
+  .archive-head p{ color: var(--ink-soft); margin: 0; max-width: 60ch; font-size: 15px; }
+
+  .drawers{
+    display:flex; flex-wrap: wrap; gap: 8px;
+    margin: 24px 0 32px;
+    padding: 6px;
+    background: var(--glass);
+    backdrop-filter: blur(16px) saturate(140%);
+    -webkit-backdrop-filter: blur(16px) saturate(140%);
+    border: 1px solid var(--glass-border);
+    border-radius: 999px;
+    width: fit-content;
+  }
+  .drawer-tab{
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 500;
+    padding: 9px 18px;
+    background: transparent;
+    border: none;
+    border-radius: 999px;
+    cursor: pointer;
+    color: var(--ink-soft);
+    transition: background .15s ease, color .15s ease;
+  }
+  .drawer-tab.active{
+    background: var(--accent);
+    color: #0A0C14;
+  }
+  .drawer-tab .count{ opacity: .65; margin-left: 4px; }
+
+  .card-grid{
+    display:grid;
+    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+    gap: 20px;
+  }
+  .char-card{
+    display:block;
+    background: var(--glass-strong);
+    backdrop-filter: blur(18px) saturate(140%);
+    -webkit-backdrop-filter: blur(18px) saturate(140%);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius);
+    box-shadow: var(--card-shadow);
+    padding: 12px 12px 16px;
+    transition: transform .2s ease, box-shadow .2s ease, background .2s ease, border-color .2s ease;
+  }
+  .char-card:hover{
+    transform: translateY(-6px);
+    box-shadow: 0 20px 40px -16px rgba(0,0,0,0.7);
+    background: var(--glass-strong);
+    border-color: rgba(199,204,224,0.3);
+  }
+  .char-card .photo{
+    position: relative;
+    aspect-ratio: 4/5;
+    overflow:hidden;
+    background: rgba(255,255,255,0.03);
+    border-radius: var(--radius-sm);
+  }
+  .char-card .photo img{ width:100%; height:100%; object-fit: cover; display:block; }
+  .char-card .meta{ padding-top: 12px; }
+  .char-card .meta .name{
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 16px;
+    letter-spacing: -0.01em;
+    line-height: 1.25;
+    color: var(--ink);
+  }
+  .char-card .meta .tag{
+    font-size: 12px; color: var(--ink-soft); margin-top: 3px;
+  }
+  .empty-state{
+    font-family: var(--font-mono); font-size: 13px; color: var(--ink-soft);
+    padding: 40px 0;
+  }
+
+  /* ---------------- Picker (root route) ---------------- */
+  .picker-grid{
+    display:grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 20px;
+    max-width: 640px;
+  }
+  .picker-card{
+    display:block;
+    background: var(--glass-strong);
+    backdrop-filter: blur(18px) saturate(140%);
+    -webkit-backdrop-filter: blur(18px) saturate(140%);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius);
+    box-shadow: var(--card-shadow);
+    padding: 28px 24px;
+    text-align: center;
+    transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+  }
+  .picker-card:hover{
+    transform: translateY(-6px);
+    box-shadow: 0 20px 40px -16px rgba(0,0,0,0.7);
+    border-color: rgba(199,204,224,0.3);
+  }
+  .picker-card .name{
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 18px;
+    color: var(--ink);
+  }
+  .picker-card .sub{
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-top: 6px;
+  }
+
+  /* ---------------- Worlds browser ---------------- */
+  .world-search{
+    padding: 24px;
+    margin: 0 0 28px;
+    background: var(--glass);
+    backdrop-filter: blur(16px) saturate(140%);
+    -webkit-backdrop-filter: blur(16px) saturate(140%);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius);
+  }
+  .world-search h3{
+    font-family: var(--font-display); font-size: 16px; font-weight: 700; margin: 0 0 4px; color: var(--ink);
+  }
+  .world-search p{ margin: 0 0 14px; font-size: 13px; color: var(--ink-soft); }
+  .world-search input{
+    width: 100%; max-width: 360px;
+    font-family: var(--font-body); font-size: 14px;
+    padding: 10px 16px; border-radius: 999px;
+    background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); color: var(--ink);
+  }
+  .world-search input::placeholder{ color: var(--ink-soft); }
+  .world-search input:focus{ outline: none; border-color: var(--accent); }
+
+  .world-grid{
+    display:grid; grid-template-columns: repeat(auto-fill, minmax(220px,1fr)); gap: 20px;
+  }
+  .world-card{
+    display:block;
+    background: var(--glass-strong);
+    backdrop-filter: blur(18px) saturate(140%);
+    -webkit-backdrop-filter: blur(18px) saturate(140%);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius);
+    box-shadow: var(--card-shadow);
+    overflow: hidden;
+    transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+  }
+  .world-card:hover{ transform: translateY(-6px); box-shadow: 0 20px 40px -16px rgba(0,0,0,0.7); border-color: rgba(199,204,224,0.3); }
+  .world-card .banner{ aspect-ratio: 16/10; background: rgba(255,255,255,0.03); overflow:hidden; }
+  .world-card .banner img{ width:100%; height:100%; object-fit: cover; display:block; }
+  .world-card .body{ padding: 16px 18px 20px; }
+  .world-card .name{ font-family: var(--font-display); font-weight: 700; font-size: 18px; color: var(--ink); margin-bottom: 6px; }
+  .world-card .desc{ font-size: 13px; color: var(--ink-soft); line-height: 1.55; margin-bottom: 12px; }
+  .world-card .pill-row{ display:flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+  .world-card .pill-row .pill{
+    font-size: 11px; font-weight: 500; padding: 4px 11px; border-radius: 999px;
+    background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); color: var(--ink);
+  }
+  .world-card .view-link{ font-size: 13px; font-weight: 600; color: var(--accent); }
+
+  /* ---------------- World detail page ---------------- */
+  .world-hero{
+    border-radius: var(--radius); overflow: hidden; margin-bottom: 60px;
+    border: 1px solid var(--glass-border); box-shadow: var(--card-shadow);
+    position: relative;
+  }
+  .world-hero .banner{ aspect-ratio: 21/8; background: rgba(255,255,255,0.03); }
+  .world-hero .banner img{ width:100%; height:100%; object-fit: cover; display:block; }
+  .world-hero .id-card{
+    position: absolute; left: 24px; right: 24px; bottom: -48px;
+    display:flex; align-items:center; gap: 18px;
+    padding: 18px 24px;
+    background: var(--glass-strong);
+    backdrop-filter: blur(20px) saturate(140%);
+    -webkit-backdrop-filter: blur(20px) saturate(140%);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-sm);
+    box-shadow: var(--card-shadow);
+  }
+  .world-hero .id-card .icon{ width: 56px; height: 56px; border-radius: 50%; overflow:hidden; flex-shrink:0; background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); }
+  .world-hero .id-card .icon img{ width:100%; height:100%; object-fit: cover; }
+  .world-hero .id-card h1{ font-family: var(--font-display); font-size: clamp(20px,3vw,26px); font-weight: 700; margin: 0 0 2px; color: var(--ink); }
+  .world-hero .id-card .desc{ font-size: 13px; color: var(--ink-soft); }
+
+  .world-info{
+    display:flex; flex-wrap: wrap; gap: 28px; justify-content: space-between;
+    padding: 24px; margin-bottom: 24px;
+    background: var(--glass); border: 1px solid var(--glass-border); border-radius: var(--radius);
+  }
+  .world-info .group h4{
+    font-family: var(--font-mono); font-size: 10px; letter-spacing: .08em; text-transform: uppercase;
+    color: var(--ink-soft); margin: 0 0 8px; font-weight: 500;
+  }
+  .world-info .group .status-line{ font-size: 14px; color: var(--ink); margin-bottom: 4px; }
+  .world-info .group .pill-row{ display:flex; flex-wrap: wrap; gap: 6px; }
+  .world-info .group .pill-row .pill{
+    font-size: 11px; font-weight: 500; padding: 4px 11px; border-radius: 999px;
+    background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); color: var(--ink);
+  }
+
+  .world-char-summary{ font-size: 13px; color: var(--ink-soft); margin: -8px 0 18px; }
+  .world-char-grid{ display:grid; grid-template-columns: repeat(auto-fill, minmax(150px,1fr)); gap: 16px; }
+  .world-char-card{
+    background: rgba(255,255,255,0.035); border: 1px solid var(--glass-border);
+    border-radius: var(--radius-sm); overflow:hidden; text-align: center;
+    transition: transform .15s ease, border-color .15s ease;
+  }
+  .world-char-card:hover{ transform: translateY(-3px); border-color: rgba(199,204,224,0.25); }
+  .world-char-card .hub-tag{
+    font-family: var(--font-mono); font-size: 10px; letter-spacing: .04em;
+    padding: 6px 0; color: var(--accent);
+  }
+  .world-char-card .photo{ aspect-ratio: 4/5; background: rgba(255,255,255,0.03); }
+  .world-char-card .photo img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .world-char-card .meta{ padding: 10px 12px 14px; }
+  .world-char-card .meta .name{ font-family: var(--font-display); font-weight:700; font-size:14px; color: var(--accent); }
+  .world-char-card .meta .species{ font-size: 11px; color: var(--ink-soft); margin-top: 3px; }
+  .world-char-card .meta .role{ font-size: 12px; font-weight: 600; color: var(--ink); margin-top: 2px; }
+
+  .world-actions{ display:flex; gap: 10px; justify-content:center; margin: 32px 0 8px; }
+
+  /* ---------------- Character page ---------------- */
+  .char-hero{
+    display:flex; gap: 28px; align-items:flex-end; flex-wrap: wrap;
+    margin-bottom: 36px; padding: 24px;
+    background: var(--glass-strong);
+    backdrop-filter: blur(20px) saturate(140%);
+    -webkit-backdrop-filter: blur(20px) saturate(140%);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius);
+    box-shadow: var(--card-shadow);
+  }
+  .char-hero .portrait{
+    width: 170px; aspect-ratio: 4/5; border-radius: var(--radius-sm); overflow:hidden;
+    flex-shrink:0; background: rgba(255,255,255,0.03);
+    border: 1px solid var(--glass-border);
+  }
+  .char-hero .portrait img{ width:100%; height:100%; object-fit:cover; }
+  .char-hero h1{
+    font-family: var(--font-display); font-size: clamp(28px,4vw,40px);
+    font-weight: 700; letter-spacing: -0.02em; margin: 0 0 4px;
+    color: var(--ink);
+  }
+  .char-hero .tagline{ color: var(--ink-soft); font-size: 15px; }
+  .char-hero .folder-pill{
+    display:inline-block; margin-top:12px;
+    font-family: var(--font-mono); font-size: 10px; letter-spacing:.08em; text-transform:uppercase;
+    padding: 5px 12px; border-radius: 999px;
+    background: var(--accent); color: #0A0C14;
+  }
+
+  .block{
+    margin-bottom: 24px;
+    padding: 24px;
+    background: var(--glass);
+    backdrop-filter: blur(16px) saturate(140%);
+    -webkit-backdrop-filter: blur(16px) saturate(140%);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius);
+  }
+  .block h2{
+    font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--accent); margin: 0 0 16px;
+    font-weight: 500;
+  }
+
+  .kv-grid{ display:grid; grid-template-columns: repeat(auto-fill, minmax(160px,1fr)); gap: 16px 26px; }
+  .kv-grid .item .k{ font-family: var(--font-mono); font-size: 10px; text-transform:uppercase; letter-spacing:.08em; color: var(--ink-soft); }
+  .kv-grid .item .v{ font-size: 16px; margin-top: 3px; font-weight: 600; color: var(--ink); }
+
+  .chip-list{ display:flex; flex-wrap:wrap; gap: 8px; }
+  .chip-list .chip{
+    background: rgba(255,255,255,0.05); border:1px solid var(--glass-border); border-radius: 999px;
+    padding: 7px 16px; font-size: 13px; font-weight: 500; color: var(--ink);
+  }
+
+  .prose{ max-width: 68ch; line-height: 1.75; font-size: 15px; color: var(--ink); font-weight: 400; }
+
+  .quote-list{ display:flex; flex-direction:column; gap: 12px; }
+  .quote-list .q{
+    font-family: var(--font-display); font-weight: 500; font-style: italic; font-size: 17px;
+    padding: 14px 18px; border-radius: var(--radius-sm);
+    background: rgba(255,255,255,0.03); border-left: 3px solid var(--accent);
+    color: var(--ink);
+  }
+
+  .gallery-grid{ display:grid; grid-template-columns: repeat(auto-fill, minmax(150px,1fr)); gap: 16px; }
+  .gallery-item{ display:flex; flex-direction:column; gap: 6px; }
+  .gallery-item img{
+    width:100%; aspect-ratio: 1; object-fit: cover; border-radius: var(--radius-sm); cursor: pointer;
+    border: 1px solid var(--glass-border);
+    transition: transform .15s ease, border-color .15s ease;
+  }
+  .gallery-item img:hover{ transform: scale(1.03); border-color: rgba(199,204,224,0.3); }
+  .img-caption{ font-size: 11px; color: var(--ink-soft); text-align: center; line-height: 1.35; }
+  .gallery-caption{ font-size: 13px; color: var(--ink-soft); margin-bottom: 14px; }
+
+  .value-pill{
+    display:inline-flex; align-items:center; gap: 5px; margin-top:12px; margin-left: 8px;
+    font-family: var(--font-mono); font-size: 11px; letter-spacing:.04em;
+    padding: 5px 12px; border-radius: 999px;
+    background: rgba(199,204,224,0.08); color: var(--accent); border: 1px solid rgba(199,204,224,0.25);
+  }
+
+  .nsfw-warning{
+    border: 1px dashed var(--accent); border-radius: var(--radius-sm);
+    padding: 32px; text-align:center; background: rgba(199,204,224,0.03);
+  }
+  .nsfw-warning p{ margin: 0 0 16px; color: var(--ink-soft); font-size: 14px; }
+  .btn{
+    font-family: var(--font-body); font-size: 13px; font-weight: 600;
+    background: var(--accent); color: #0A0C14; border:none; padding: 11px 24px;
+    border-radius: 999px; cursor:pointer;
+    transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
+  }
+  .btn:hover{ transform: translateY(-1px); box-shadow: 0 8px 20px -8px rgba(199,204,224,0.35); background: #DADEED; }
+
+  .relationship-grid{ display:grid; grid-template-columns: repeat(auto-fill, minmax(150px,1fr)); gap: 14px; }
+  .rel-card{
+    background: rgba(255,255,255,0.035); border: 1px solid var(--glass-border);
+    border-radius: var(--radius-sm); overflow:hidden;
+    transition: transform .15s ease, border-color .15s ease;
+  }
+  .rel-card:hover{ transform: translateY(-3px); border-color: rgba(199,204,224,0.25); }
+  .rel-card .photo{ aspect-ratio: 4/5; background: rgba(255,255,255,0.03); }
+  .rel-card .photo img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .rel-card .meta{ padding: 10px 12px 12px; }
+  .rel-card .meta .name{ font-family: var(--font-display); font-weight:600; font-size:14px; color: var(--ink); }
+  .rel-card .meta .label{ font-family: var(--font-mono); font-size: 10px; text-transform:uppercase; letter-spacing:.06em; color: var(--accent); margin-top:3px; }
+
+  /* ---------------- Static pages ---------------- */
+  .static-page{
+    padding: 28px;
+    background: var(--glass);
+    backdrop-filter: blur(16px) saturate(140%);
+    -webkit-backdrop-filter: blur(16px) saturate(140%);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius);
+  }
+  .static-page h1{
+    font-family: var(--font-display); font-size: clamp(28px,4vw,40px); font-weight: 700;
+    letter-spacing: -0.02em; margin: 0 0 20px; color: var(--ink);
+  }
+  .static-page .prose{ max-width: 74ch; }
+  .static-page .prose h2{
+    font-family: var(--font-display); font-size: 20px; font-weight: 600; margin: 28px 0 10px;
+    color: var(--ink);
+  }
+  .static-page .prose ul{ padding-left: 20px; line-height:1.8; }
+
+  /* ---------------- Lightbox ---------------- */
+  .lightbox{
+    position: fixed; inset:0; background: rgba(4,5,10,0.85);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    z-index: 100;
+    display:flex; align-items:center; justify-content:center; padding: 40px;
+    cursor: zoom-out;
+  }
+  .lightbox img{ max-width:100%; max-height:100%; border-radius: var(--radius-sm); box-shadow: 0 20px 60px rgba(0,0,0,.7); }
+
+  .back-link{
+    display:inline-flex; align-items:center; gap:6px;
+    font-family: var(--font-body); font-size: 13px; font-weight: 500;
+    color: var(--ink-soft); margin-bottom: 20px;
+  }
+  .back-link:hover{ color: var(--accent); }
+
+  .loading, .error-state{
+    font-family: var(--font-mono); font-size: 13px; color: var(--ink-soft); padding: 60px 0; text-align:center;
+  }
+
+  footer{
+    text-align:center; padding: 32px; font-family: var(--font-mono); font-size: 11px;
+    color: var(--ink-soft); letter-spacing: .06em;
+  }
+</style>
 </head>
-
 <body>
 
-<header class="site-header">
-    <h1>⭐ StarSundae Character Hub ⭐</h1>
-    <p class="tagline">A cozy archive of characters, worlds, stories, and favorite designs.</p>
+<div class="blob blob-1"></div>
+<div class="blob blob-2"></div>
+<div class="blob blob-3"></div>
 
-    <section class="creator-profile-card">
-        <div class="creator-avatar-wrap">
-            <img
-                src="images/stsr.png"
-                alt="StarSundae icon"
-                class="creator-avatar"
-                onerror="this.src='images/placeholder.png'; this.onerror=null;"
-            >
-        </div>
-
-        <div class="creator-profile-info">
-            <p class="creator-kicker">Character Archive</p>
-            <h2>StarSundae</h2>
-
-            <p class="creator-bio">
-                Welcome to my character hub! Browse characters by folder, search by name or tags,
-                and open individual profiles for references, lore, credits, favorites, and galleries.
-            </p>
-
-            <div class="creator-pills">
-                <span>⭐ Characters</span>
-                <span>🎨 Designs</span>
-                <span>📖 Lore</span>
-                <span>🌎 Worlds</span>
-            </div>
-        </div>
-    </section>
-
-    <section class="hub-description wiki-nav-card">
-        <h2>Navigation</h2>
-
-        <div class="wiki-links">
-            <a href="https://characterhub.pages.dev/worlds/">🌎 Worlds</a>
-            <a href="https://starbrewshared.pages.dev/">💞 Shared Hub</a>
-            <a href="https://lunabrew.pages.dev/">🌙 My Wife</a>
-            <a href="https://starbrewgaming.pages.dev/">🎮 Our Gaming OCs</a>
-            <a href="https://starbrew.pages.dev/">💵 Sales Hub</a>
-            <a href="https://starsundae.pages.dev/">🖌️ Star Sundae Commissions</a>
-            <a href="https://starbrewgenerator.pages.dev/">✨ Generators</a>
-        </div>
-    </section>
-
-    <p id="characterCount" class="character-count">Loading characters...</p>
-</header>
-
-<div class="search-container">
-    <input
-        type="search"
-        id="searchInput"
-        placeholder="Search characters by name, species, folder, status, world, tag, or notes..."
-        autocomplete="off"
-    >
+<div class="topbar">
+  <a href="#/" class="brand">Character Archive<small>Living Index</small></a>
+  <nav class="top-links" id="topNav">
+    <a href="#/luna">Luna Characters</a>
+    <a href="#/star">Star Characters</a>
+    <a href="#/worlds">Worlds</a>
+    <a href="#/rp-rules">RP Rules</a>
+    <a href="#/meet-the-owner">Meet the Owner</a>
+  </nav>
 </div>
 
-<main>
-    <div id="folderContainer" class="folder-container">
-        <p class="loading">Loading characters...</p>
-    </div>
-</main>
+<main id="app"></main>
+
+<style id="charCustomCss"></style>
+
+<footer>maintained by hand &middot; last dusted off recently</footer>
 
 <script>
-const API_URL = "https://charahub.crysthigpen.workers.dev/characters";
+/* ============================================================
+   SET YOUR WORKER URL HERE
+   ============================================================ */
+const API_BASE = "https://silent-hill-f680.crysthigpen.workers.dev";
 
-const STAR_HUB_ALIASES = new Set([
-    "star",
-    "starhub",
-    "star hub",
-    "starsundae",
-    "starsundae character hub"
-]);
+// Maps route keys to page titles, plus the mini-profile shown at the top of
+// each landing page. Add more here if you add more DBs/pages later.
+//
+// profile.avatar  - full image URL for the little portrait
+// profile.eyebrow - small label above the name (e.g. "CHARACTER ARCHIVE")
+// profile.name    - the big name/title
+// profile.welcome - short paragraph under the name
+// profile.links   - pill buttons under the welcome text (icon is optional,
+//                   any emoji or short text works); href can be an internal
+//                   "#/..." route or an external URL
+// nav             - the secondary "Navigation" grid of link cards below the
+//                   hero; same shape as profile.links, leave empty/omit to
+//                   skip the section entirely
+const SOURCES = {
+  luna: {
+    title: "Luna Characters",
+    profile: {
+      avatar: "", // e.g. "https://raw.githubusercontent.com/USER/REPO/main/luna-avatar.png"
+      eyebrow: "Character Archive",
+      name: "Luna",
+      welcome: "Welcome to my character hub! Browse characters by folder, search by name or tags, and open individual profiles for references, lore, credits, favorites, and galleries.",
+      links: [
+        { icon: "⭐", label: "Characters", href: "#/luna" },
+        { icon: "🎨", label: "Designs", href: "#" },
+        { icon: "📖", label: "Lore", href: "#" },
+        { icon: "🌎", label: "Worlds", href: "#/worlds" },
+      ],
+    },
+    nav: [
+      { icon: "🌎", label: "Worlds", href: "#/worlds" },
+      { icon: "💞", label: "Shared Hub", href: "#" },
+    ],
+  },
+  star: {
+    title: "Star Characters",
+    profile: {
+      avatar: "", // e.g. "https://raw.githubusercontent.com/USER/REPO/main/star-avatar.png"
+      eyebrow: "Character Archive",
+      name: "StarSundae",
+      welcome: "Welcome to my character hub! Browse characters by folder, search by name or tags, and open individual profiles for references, lore, credits, favorites, and galleries.",
+      links: [
+        { icon: "⭐", label: "Characters", href: "#/star" },
+        { icon: "🎨", label: "Designs", href: "#" },
+        { icon: "📖", label: "Lore", href: "#" },
+        { icon: "🌎", label: "Worlds", href: "#/worlds" },
+      ],
+    },
+    nav: [
+      { icon: "🌎", label: "Worlds", href: "#/worlds" },
+      { icon: "💞", label: "Shared Hub", href: "#" },
+      { icon: "🌙", label: "My Wife", href: "#" },
+      { icon: "🎮", label: "Our Gaming OCs", href: "#" },
+      { icon: "💵", label: "Sales Hub", href: "#" },
+      { icon: "🖌️", label: "Star Sundae Commissions", href: "#" },
+      { icon: "✨", label: "Generators", href: "#" },
+    ],
+  },
+};
 
-const FOLDER_ORDER = [
-    "Mains",
-    "Mascots",
-    "Comfort Characters",
-    "Primary",
-    "Secondary",
-    "Tertiary",
-    "Favorites",
-    "Sentimental",
-    "Storage",
-    "Unsorted"
+const app = document.getElementById("app");
+const topNav = document.getElementById("topNav");
+
+// cache per-source lists so navigating back doesn't re-fetch every time
+const cache = { bySource: {}, chars: new Map(), worldsList: null, worlds: new Map() };
+
+const HUB_ICON = { LunaHub: "🌙", StarHub: "⭐", SharedHub: "💞" };
+
+function escapeHtml(str){
+  return String(str).replace(/[&<>"']/g, (c) => ({
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+  }[c]));
+}
+
+function accentHex(name){
+  return { Rose:"#FF7FA6", Sage:"#4FCE9C", Gold:"#F2B84B", Ink:"#6C63FF", Sky:"#4EC3F0" }[name] || "#6C63FF";
+}
+
+async function apiGet(path){
+  const res = await fetch(`${API_BASE}${path}`);
+  if(!res.ok) throw new Error(`Request failed (${res.status})`);
+  return res.json();
+}
+
+/* ---------------- Router ---------------- */
+function router(){
+  const hash = location.hash.replace(/^#\/?/, "");
+  const [route, query] = hash.split("?");
+  const params = new URLSearchParams(query || "");
+
+  document.querySelectorAll("#topNav a").forEach(a => a.classList.remove("active"));
+
+  if(route !== "character"){
+    document.getElementById("charCustomCss").textContent = "";
+  }
+
+  if(!route){
+    renderPicker();
+  } else if(SOURCES[route]){
+    document.querySelector(`#topNav a[href="#/${route}"]`)?.classList.add("active");
+    renderLanding(route, SOURCES[route].title);
+  } else if(route === "worlds"){
+    document.querySelector('#topNav a[href="#/worlds"]').classList.add("active");
+    renderWorldsList();
+  } else if(route === "world"){
+    renderWorldDetail(params.get("slug"));
+  } else if(route === "rp-rules"){
+    document.querySelector('#topNav a[href="#/rp-rules"]').classList.add("active");
+    renderRpRules();
+  } else if(route === "meet-the-owner"){
+    document.querySelector('#topNav a[href="#/meet-the-owner"]').classList.add("active");
+    renderMeetOwner();
+  } else if(route === "character"){
+    renderCharacter(params.get("slug"));
+  } else {
+    app.innerHTML = `<p class="error-state">Page not found.</p>`;
+  }
+  window.scrollTo(0,0);
+}
+window.addEventListener("hashchange", router);
+
+/* ---------------- Root picker ---------------- */
+function renderPicker(){
+  app.innerHTML = `
+    <div class="archive-head">
+      <h1>The Archive</h1>
+      <p>Choose a set of files to open.</p>
+    </div>
+    <div class="picker-grid">
+      ${Object.entries(SOURCES).map(([key, s]) => `
+        <a class="picker-card" href="#/${key}">
+          <div class="name">${escapeHtml(s.title)}</div>
+          <div class="sub">Open drawer</div>
+        </a>`).join("")}
+    </div>
+  `;
+}
+
+/* ---------------- Profile hero + secondary nav (per-source) ---------------- */
+function renderProfileHero(profile){
+  if(!profile) return "";
+  return `
+    <div class="profile-hero">
+      ${profile.avatar ? `<div class="avatar"><img src="${escapeHtml(profile.avatar)}" alt="${escapeHtml(profile.name || "")}"></div>` : ""}
+      <div class="info">
+        ${profile.eyebrow ? `<div class="eyebrow">${escapeHtml(profile.eyebrow)}</div>` : ""}
+        ${profile.name ? `<h2>${escapeHtml(profile.name)}</h2>` : ""}
+        ${profile.welcome ? `<div class="welcome">${escapeHtml(profile.welcome)}</div>` : ""}
+        ${profile.links && profile.links.length ? `
+          <div class="profile-links">
+            ${profile.links.map(l => `<a href="${escapeHtml(l.href)}">${l.icon ? escapeHtml(l.icon) + " " : ""}${escapeHtml(l.label)}</a>`).join("")}
+          </div>` : ""}
+      </div>
+    </div>`;
+}
+
+function renderNavSection(navLinks){
+  if(!navLinks || navLinks.length === 0) return "";
+  return `
+    <div class="nav-section">
+      <h3>Navigation</h3>
+      <div class="nav-grid">
+        ${navLinks.map(l => `<a href="${escapeHtml(l.href)}">${l.icon ? escapeHtml(l.icon) + " " : ""}${escapeHtml(l.label)}</a>`).join("")}
+      </div>
+    </div>`;
+}
+
+/* ---------------- Worlds browser (landing page for all worlds) ---------------- */
+async function renderWorldsList(){
+  app.innerHTML = `
+    <div class="archive-head">
+      <h1>🌎 Worlds</h1>
+      <p>Browse shared worlds, settings, AUs, and story spaces.</p>
+    </div>
+    <div class="world-search">
+      <h3>World Browser</h3>
+      <p>Search by world name, slug, genre, theme, era, status, or description.</p>
+      <input id="worldSearch" type="text" placeholder="Search worlds...">
+    </div>
+    <div id="worldGrid" class="loading">Pulling up the atlas…</div>
+  `;
+
+  try{
+    if(!cache.worldsList){
+      cache.worldsList = await apiGet(`/api/worlds`);
+    }
+    const worlds = cache.worldsList;
+
+    function paintWorlds(list){
+      const grid = document.getElementById("worldGrid");
+      if(list.length === 0){
+        grid.className = "";
+        grid.innerHTML = `<p class="empty-state">No worlds match that search.</p>`;
+        return;
+      }
+      grid.className = "world-grid";
+      grid.innerHTML = list.map((w) => `
+        <a class="world-card" href="#/world?slug=${encodeURIComponent(w.slug)}">
+          <div class="banner">${w.banner ? `<img src="${escapeHtml(w.banner)}" alt="${escapeHtml(w.name)}" loading="lazy">` : ""}</div>
+          <div class="body">
+            <div class="name">${escapeHtml(w.name)}</div>
+            ${w.shortDescription ? `<div class="desc">${escapeHtml(w.shortDescription)}</div>` : ""}
+            <div class="pill-row">
+              ${w.genre.map(g => `<span class="pill">${escapeHtml(g)}</span>`).join("")}
+              ${w.theme.map(t => `<span class="pill">${escapeHtml(t)}</span>`).join("")}
+            </div>
+            <div class="view-link">View World &rarr;</div>
+          </div>
+        </a>`).join("");
+    }
+
+    const searchInput = document.getElementById("worldSearch");
+    searchInput.addEventListener("input", () => {
+      const q = searchInput.value.trim().toLowerCase();
+      if(!q){ paintWorlds(worlds); return; }
+      const filtered = worlds.filter(w => {
+        const haystack = [w.name, w.slug, w.era, w.status, w.shortDescription, ...w.genre, ...w.theme]
+          .filter(Boolean).join(" ").toLowerCase();
+        return haystack.includes(q);
+      });
+      paintWorlds(filtered);
+    });
+
+    paintWorlds(worlds);
+  } catch(err){
+    document.getElementById("worldGrid").outerHTML = `<p class="error-state">Couldn't reach the atlas: ${escapeHtml(err.message)}</p>`;
+  }
+}
+
+/* ---------------- World detail page ---------------- */
+const WORLD_TABS = [
+  { id: "overview", label: "Overview", types: ["Overview"] },
+  { id: "culture", label: "Culture", types: ["Culture"] },
+  { id: "magic", label: "Magic System", types: ["Magic System"] },
+  { id: "tech", label: "Technology", types: ["Technology"] },
+  { id: "economy", label: "Economy", types: ["Economy"] },
+  { id: "trivia", label: "Trivia", types: ["Trivia"] },
 ];
 
-const folderContainer = document.getElementById("folderContainer");
-const searchInput = document.getElementById("searchInput");
-const characterCount = document.getElementById("characterCount");
+async function renderWorldDetail(slug){
+  if(!slug){ app.innerHTML = `<p class="error-state">Missing world.</p>`; return; }
+  app.innerHTML = `<p class="loading">Opening the world file…</p>`;
+  document.getElementById("charCustomCss").textContent = "";
 
-let allCharacters = [];
-
-/* ------------------------------
-   Helpers
------------------------------- */
-
-function cleanText(value) {
-    if (value === null || value === undefined) return "";
-    if (Array.isArray(value)) return value.filter(Boolean).join(", ");
-    return String(value).trim();
-}
-
-function escapeHtml(value) {
-    return cleanText(value)
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;")
-        .replaceAll('"', "&quot;")
-        .replaceAll("'", "&#039;");
-}
-
-function asArray(value) {
-    return Array.isArray(value) ? value : [];
-}
-
-function normalizeHub(value) {
-    return cleanText(value).toLowerCase();
-}
-
-function isStarHubCharacter(character) {
-    return STAR_HUB_ALIASES.has(normalizeHub(character?.hub));
-}
-
-function getImage(path) {
-    path = cleanText(path);
-
-    if (!path) return "images/placeholder.png";
-    if (path.startsWith("http")) return path;
-    if (path.startsWith("/")) return window.location.origin + path;
-
-    return window.location.origin + "/" + path;
-}
-
-function getCharacterImage(character) {
-    return getImage(
-        character.icon ||
-        character.avatar ||
-        character.image ||
-        character.mainRef ||
-        character.mainImage
-    );
-}
-
-function getFolderName(character) {
-    return cleanText(character.folder) || "Unsorted";
-}
-
-function updateCount(showing, total) {
-    if (!characterCount) return;
-
-    if (total === 0) {
-        characterCount.textContent = "No StarHub public characters yet.";
-        return;
+  try{
+    let data = cache.worlds.get(slug);
+    if(!data){
+      data = await apiGet(`/api/world?slug=${encodeURIComponent(slug)}`);
+      cache.worlds.set(slug, data);
     }
 
-    characterCount.textContent = showing === total
-        ? `${total} character${total === 1 ? "" : "s"}`
-        : `Showing ${showing} of ${total} character${total === 1 ? "" : "s"}`;
-}
+    document.getElementById("charCustomCss").textContent = data.customCss || "";
 
-/* ------------------------------
-   Grouping / sorting
------------------------------- */
+    const backButtons = `
+      <div class="world-actions">
+        <a class="btn" href="#/worlds">&larr; Back to Worlds</a>
+        <a class="btn" href="#/">&larr; Back to Hub</a>
+      </div>`;
 
-function groupByFolder(characters) {
-    return characters.reduce((folders, character) => {
-        const folderName = getFolderName(character);
+    app.innerHTML = `
+      <div class="world-page">
+        ${backButtons}
+        <div class="world-hero">
+          <div class="banner">${data.banner ? `<img src="${escapeHtml(data.banner)}" alt="${escapeHtml(data.name)}">` : ""}</div>
+          <div class="id-card">
+            ${data.icon ? `<div class="icon"><img src="${escapeHtml(data.icon)}" alt=""></div>` : ""}
+            <div>
+              <h1>${escapeHtml(data.name)}</h1>
+              ${data.shortDescription ? `<div class="desc">${escapeHtml(data.shortDescription)}</div>` : ""}
+            </div>
+          </div>
+        </div>
 
-        if (!folders[folderName]) {
-            folders[folderName] = [];
-        }
+        <div class="world-info">
+          <div class="group">
+            <h4>World Info</h4>
+            ${data.status ? `<div class="status-line">Status: ${escapeHtml(data.status)}</div>` : ""}
+            ${data.era ? `<div class="status-line">Era: ${escapeHtml(data.era)}</div>` : ""}
+          </div>
+          ${data.genre.length ? `
+          <div class="group">
+            <h4>Genre</h4>
+            <div class="pill-row">${data.genre.map(g => `<span class="pill">${escapeHtml(g)}</span>`).join("")}</div>
+          </div>` : ""}
+          ${data.theme.length ? `
+          <div class="group">
+            <h4>Theme</h4>
+            <div class="pill-row">${data.theme.map(t => `<span class="pill">${escapeHtml(t)}</span>`).join("")}</div>
+          </div>` : ""}
+        </div>
 
-        folders[folderName].push(character);
-        return folders;
-    }, {});
-}
+        <div id="worldTabs" class="drawers"></div>
+        <div id="worldPanels"></div>
 
-function sortFolderNames(folderNames) {
-    return folderNames.sort((a, b) => {
-        const ia = FOLDER_ORDER.indexOf(a);
-        const ib = FOLDER_ORDER.indexOf(b);
-
-        if (ia === -1 && ib === -1) return a.localeCompare(b);
-        if (ia === -1) return 1;
-        if (ib === -1) return -1;
-
-        return ia - ib;
-    });
-}
-
-function sortCharacters(characters) {
-    return [...characters].sort((a, b) => {
-        const favoriteCompare = Number(Boolean(b.favorite)) - Number(Boolean(a.favorite));
-        if (favoriteCompare !== 0) return favoriteCompare;
-
-        return cleanText(a.name).localeCompare(cleanText(b.name));
-    });
-}
-
-/* ------------------------------
-   Rendering
------------------------------- */
-
-function createCharacterCard(character) {
-    const name = cleanText(character.name) || "Unnamed";
-    const slug = cleanText(character.slug);
-    const species = cleanText(character.species) || "Unknown Species";
-    const icon = getCharacterImage(character);
-
-    const card = document.createElement("a");
-    card.className = "character-card";
-    card.href = `characters/index.html?slug=${encodeURIComponent(slug)}`;
-
-    if (!slug) {
-        card.href = "#";
-        card.addEventListener("click", event => event.preventDefault());
-    }
-
-    card.innerHTML = `
-        ${character.favorite ? `<span class="favorite-badge">⭐ Favorite</span>` : ""}
-        <img
-            src="${escapeHtml(icon)}"
-            alt="${escapeHtml(name)}"
-            onerror="this.src='images/placeholder.png'; this.onerror=null;"
-        >
-        <h2>${escapeHtml(name)}</h2>
-        <p>${escapeHtml(species)}</p>
+        ${backButtons}
+      </div>
     `;
 
-    return card;
-}
+    const tabsEl = document.getElementById("worldTabs");
+    const panelsEl = document.getElementById("worldPanels");
 
-function renderCharacters(characters) {
-    folderContainer.innerHTML = "";
+    const contentTabs = WORLD_TABS
+      .map(tab => ({ ...tab, block: data.textBlocks.find(b => tab.types.includes(b.type)) }))
+      .filter(tab => tab.block);
 
-    if (!Array.isArray(characters) || characters.length === 0) {
-        folderContainer.innerHTML = "<p class='loading'>No characters found.</p>";
-        updateCount(0, allCharacters.length);
-        return;
+    const hasGallery = data.gallery && data.gallery.length > 0;
+    const hasCharacters = data.characters && data.characters.length > 0;
+
+    const allTabs = [
+      ...contentTabs,
+      ...(hasGallery ? [{ id: "gallery", label: "Gallery" }] : []),
+      ...(hasCharacters ? [{ id: "characters", label: "Characters" }] : []),
+    ];
+
+    if(allTabs.length === 0){
+      tabsEl.remove();
+      panelsEl.innerHTML = `<p class="empty-state">No blocks filed for this world yet.</p>`;
+      return;
     }
 
-    const folders = groupByFolder(sortCharacters(characters));
-    const folderNames = sortFolderNames(Object.keys(folders));
+    tabsEl.innerHTML = allTabs.map((tab, i) =>
+      `<button class="drawer-tab ${i===0 ? "active":""}" data-tab="${tab.id}">${escapeHtml(tab.label)}</button>`
+    ).join("");
 
-    folderNames.forEach(folderName => {
-        const section = document.createElement("section");
-        section.className = "folder-section";
+    panelsEl.innerHTML = allTabs.map((tab, i) => {
+      let inner = "";
+      if(tab.block){
+        inner = `<div class="prose">${escapeHtml(tab.block.text).replace(/\n/g,"<br>")}</div>`;
+      } else if(tab.id === "gallery"){
+        inner = `
+          <div class="gallery-grid">
+            ${data.gallery.map(img => `
+              <div class="gallery-item">
+                <img src="${escapeHtml(img.url)}" loading="lazy">
+                ${img.caption ? `<div class="img-caption">${escapeHtml(img.caption)}</div>` : ""}
+              </div>`).join("")}
+          </div>`;
+      } else if(tab.id === "characters"){
+        const counts = data.hubCounts;
+        inner = `
+          <div class="world-char-summary">${data.characters.length} character${data.characters.length === 1 ? "" : "s"} linked — ${counts.StarHub || 0} StarHub, ${counts.LunaHub || 0} LunaHub, ${counts.SharedHub || 0} SharedHub.</div>
+          <div class="world-char-grid">
+            ${data.characters.map(c => `
+              <a class="world-char-card" href="#/character?slug=${encodeURIComponent(c.slug)}">
+                <div class="hub-tag">${HUB_ICON[c.hub] || ""} ${escapeHtml(c.hub)}</div>
+                <div class="photo">${c.cardImage ? `<img src="${escapeHtml(c.cardImage)}" alt="${escapeHtml(c.name)}">` : ""}</div>
+                <div class="meta">
+                  <div class="name">${escapeHtml(c.name)}</div>
+                  ${c.species ? `<div class="species">${escapeHtml(c.species)}</div>` : ""}
+                  ${c.role ? `<div class="role">${escapeHtml(c.role)}</div>` : ""}
+                </div>
+              </a>`).join("")}
+          </div>`;
+      }
+      return `<div class="tab-panel" data-panel="${tab.id}" ${i===0 ? "" : "hidden"}>${inner}</div>`;
+    }).join("");
 
-        const heading = document.createElement("div");
-        heading.className = "folder-heading";
+    if(hasGallery) wireGalleryClicks(panelsEl);
 
-        heading.innerHTML = `
-            <div class="folder-title">
-                <span class="folder-arrow">▼</span>
-                <h2>${escapeHtml(folderName)}</h2>
-            </div>
-            <span>${folders[folderName].length} character${folders[folderName].length === 1 ? "" : "s"}</span>
-        `;
+    tabsEl.addEventListener("click", (e) => {
+      const btn = e.target.closest(".drawer-tab");
+      if(!btn) return;
+      tabsEl.querySelectorAll(".drawer-tab").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      panelsEl.querySelectorAll(".tab-panel").forEach(panel => {
+        panel.hidden = panel.dataset.panel !== btn.dataset.tab;
+      });
+    });
+  } catch(err){
+    app.innerHTML = `<p class="error-state">Couldn't open that world: ${escapeHtml(err.message)}</p>`;
+  }
+}
 
-        const grid = document.createElement("div");
-        grid.className = "character-grid";
+/* ---------------- Landing page (per-source) ---------------- */
+async function renderLanding(sourceKey, title){
+  const source = SOURCES[sourceKey];
 
-        folders[folderName].forEach(character => {
-            grid.appendChild(createCharacterCard(character));
-        });
+  app.innerHTML = `
+    ${renderProfileHero(source.profile)}
+    ${renderNavSection(source.nav)}
+    <div class="archive-head">
+      <h1>${escapeHtml(title)}</h1>
+      <p>Every character, sorted into their drawer. Click a card to open the full file.</p>
+    </div>
+    <div id="drawers" class="drawers"></div>
+    <div id="cardGrid" class="loading">Pulling files from the drawers…</div>
+  `;
 
-        heading.addEventListener("click", () => {
-            section.classList.toggle("collapsed");
+  try{
+    if(!cache.bySource[sourceKey]){
+      cache.bySource[sourceKey] = await apiGet(`/api/characters?source=${encodeURIComponent(sourceKey)}`);
+    }
+    const chars = cache.bySource[sourceKey];
 
-            const arrow = heading.querySelector(".folder-arrow");
-            if (arrow) {
-                arrow.textContent = section.classList.contains("collapsed") ? "▶" : "▼";
-            }
-        });
+    const folders = ["All", ...Array.from(new Set(chars.map(c => c.folder)))];
+    const drawers = document.getElementById("drawers");
+    drawers.innerHTML = folders.map((f,i) => {
+      const count = f === "All" ? chars.length : chars.filter(c => c.folder === f).length;
+      return `<button class="drawer-tab ${i===0 ? "active":""}" data-folder="${escapeHtml(f)}">${escapeHtml(f)} <span class="count">${count}</span></button>`;
+    }).join("");
 
-        section.appendChild(heading);
-        section.appendChild(grid);
-        folderContainer.appendChild(section);
+    function paintGrid(folder){
+      const list = folder === "All" ? chars : chars.filter(c => c.folder === folder);
+      const grid = document.getElementById("cardGrid");
+      grid.className = "card-grid";
+      if(list.length === 0){
+        grid.className = "";
+        grid.innerHTML = `<p class="empty-state">Nothing filed here yet.</p>`;
+        return;
+      }
+      grid.innerHTML = list.map((c) => {
+        return `
+        <a class="char-card" href="#/character?slug=${encodeURIComponent(c.slug)}">
+          <div class="photo">
+            ${c.cardImage ? `<img src="${escapeHtml(c.cardImage)}" alt="${escapeHtml(c.name)}" loading="lazy">` : ""}
+          </div>
+          <div class="meta">
+            <div class="name">${escapeHtml(c.name)}</div>
+            ${c.tagline ? `<div class="tag">${escapeHtml(c.tagline)}</div>` : ""}
+          </div>
+        </a>`;
+      }).join("");
+    }
+
+    drawers.addEventListener("click", (e) => {
+      const btn = e.target.closest(".drawer-tab");
+      if(!btn) return;
+      drawers.querySelectorAll(".drawer-tab").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      paintGrid(btn.dataset.folder);
     });
 
-    updateCount(characters.length, allCharacters.length);
+    paintGrid("All");
+  } catch(err){
+    document.getElementById("cardGrid").outerHTML = `<p class="error-state">Couldn't reach the archive: ${escapeHtml(err.message)}</p>`;
+  }
 }
 
-/* ------------------------------
-   Search
------------------------------- */
+/* ---------------- Character page ---------------- */
+const CHAR_TABS = [
+  { id: "profile", label: "Profile", types: ["Profile Info","Likes","Dislikes","Hobbies","Appearances","Backstory","Trivia","Quotes","Relationships","Voice & Playlist"] },
+  { id: "gallery", label: "Gallery", types: ["Gallery"] },
+  { id: "nsfw", label: "NSFW Gallery", types: ["NSFW Gallery"] },
+  { id: "au", label: "AU Galleries", types: ["AU Gallery 1", "AU Gallery 2", "AU Gallery 3"] },
+];
 
-function searchableWorlds(character) {
-    if (!Array.isArray(character.worlds)) return "";
+// Holds the raw block data for any NSFW galleries on the current character page,
+// so the reveal button can look up images/captions without re-escaping JSON into HTML.
+let nsfwRegistry = [];
 
-    return character.worlds
-        .map(world => {
-            if (typeof world === "string") return world;
-            return [world.name, world.slug, world.note].filter(Boolean).join(" ");
-        })
-        .join(" ");
-}
+async function renderCharacter(slug){
+  if(!slug){ app.innerHTML = `<p class="error-state">Missing character.</p>`; return; }
+  app.innerHTML = `<p class="loading">Opening the file…</p>`;
+  document.getElementById("charCustomCss").textContent = ""; // clear the previous character's styles immediately
+  nsfwRegistry = [];
 
-function buildSearchText(character) {
-    const favorites = character.favorites || {};
-
-    return [
-        character.name,
-        character.species,
-        character.slug,
-        character.folder,
-        character.status,
-        character.gender,
-        character.pronouns,
-        character.age,
-        character.occupation,
-        character.mbti,
-        character.introduction,
-        character.summary,
-        character.personality,
-        character.designNotes,
-        character.trivia,
-        character.lore,
-        searchableWorlds(character),
-
-        favorites.food,
-        favorites.drink,
-        favorites.color,
-        favorites.season,
-        favorites.flower,
-        favorites.scent,
-        favorites.music,
-        favorites.animal,
-
-        ...asArray(character.tags),
-        ...asArray(character.likes),
-        ...asArray(character.dislikes),
-        ...asArray(character.hobbies),
-        ...asArray(character.fears)
-    ]
-        .filter(Boolean)
-        .join(" ")
-        .toLowerCase();
-}
-
-function filterCharacters() {
-    const query = cleanText(searchInput?.value).toLowerCase();
-
-    if (!query) {
-        renderCharacters(allCharacters);
-        return;
+  try{
+    let data = cache.chars.get(slug);
+    if(!data){
+      data = await apiGet(`/api/character?slug=${encodeURIComponent(slug)}`);
+      cache.chars.set(slug, data);
     }
 
-    const filtered = allCharacters.filter(character => {
-        const gender = cleanText(character.gender).toLowerCase();
+    document.getElementById("charCustomCss").textContent = data.customCss || "";
 
-        if (query === "male" || query === "female") {
-            return gender === query;
-        }
+    const accent = accentHex(data.accentColor);
+    const valuePill = data.totalValue > 0
+      ? `<span class="value-pill">$${data.totalValue.toFixed(2)}</span>`
+      : "";
 
-        return buildSearchText(character).includes(query);
+    app.innerHTML = `
+      <div class="character-page">
+      <a class="back-link" href="#/">&larr; Back to the archive</a>
+      <div class="char-hero" style="--accent:${accent}">
+        <div class="portrait">${data.cardImage ? `<img src="${escapeHtml(data.cardImage)}" alt="${escapeHtml(data.name)}">` : ""}</div>
+        <div>
+          <h1>${escapeHtml(data.name)}</h1>
+          ${data.tagline ? `<div class="tagline">${escapeHtml(data.tagline)}</div>` : ""}
+          <span class="folder-pill">${escapeHtml(data.folder)}</span>
+          ${valuePill}
+        </div>
+      </div>
+      <div id="charTabs" class="drawers"></div>
+      <div id="tabPanels" style="--accent:${accent}"></div>
+      </div>
+    `;
+
+    const tabsEl = document.getElementById("charTabs");
+    const panelsEl = document.getElementById("tabPanels");
+
+    const tabsWithContent = CHAR_TABS
+      .map(tab => ({ ...tab, blocks: data.blocks.filter(b => tab.types.includes(b.type)) }))
+      .filter(tab => tab.blocks.length > 0);
+
+    if(tabsWithContent.length === 0){
+      tabsEl.remove();
+      panelsEl.innerHTML = `<p class="empty-state">No blocks filed for this character yet.</p>`;
+      return;
+    }
+
+    tabsEl.innerHTML = tabsWithContent.map((tab, i) =>
+      `<button class="drawer-tab ${i===0 ? "active":""}" data-tab="${tab.id}">${escapeHtml(tab.label)}</button>`
+    ).join("");
+
+    panelsEl.innerHTML = tabsWithContent.map((tab, i) => `
+      <div class="tab-panel" data-panel="${tab.id}" ${i===0 ? "" : "hidden"}>
+        ${tab.blocks.map(renderBlock).join("")}
+      </div>
+    `).join("");
+
+    wireGalleryClicks(panelsEl);
+    wireNsfwWarnings(panelsEl);
+
+    tabsEl.addEventListener("click", (e) => {
+      const btn = e.target.closest(".drawer-tab");
+      if(!btn) return;
+      tabsEl.querySelectorAll(".drawer-tab").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      panelsEl.querySelectorAll(".tab-panel").forEach(panel => {
+        panel.hidden = panel.dataset.panel !== btn.dataset.tab;
+      });
     });
-
-    renderCharacters(filtered);
+  } catch(err){
+    app.innerHTML = `<p class="error-state">Couldn't open that file: ${escapeHtml(err.message)}</p>`;
+  }
 }
 
-/* ------------------------------
-   Load
------------------------------- */
-
-async function loadCharacters() {
-    try {
-        const response = await fetch(API_URL);
-        const data = await response.json();
-
-        if (!Array.isArray(data)) {
-            folderContainer.innerHTML = "<p class='loading'>The API loaded, but did not return a character list.</p>";
-            characterCount.textContent = "Could not count characters.";
-            console.error("Unexpected API response:", data);
-            return;
-        }
-
-        allCharacters = data.filter(isStarHubCharacter);
-        renderCharacters(allCharacters);
-
-    } catch (error) {
-        console.error("Character hub loading error:", error);
-        folderContainer.innerHTML = "<p class='loading'>Could not load characters.</p>";
-        characterCount.textContent = "Could not load character count.";
+function renderBlock(block){
+  switch(block.type){
+    case "Profile Info":
+      return section("Profile", `
+        <div class="kv-grid">
+          ${block.fields.map(f => `<div class="item"><div class="k">${escapeHtml(f.key || "—")}</div><div class="v">${escapeHtml(f.value)}</div></div>`).join("")}
+        </div>`);
+    case "Likes":
+    case "Dislikes":
+    case "Hobbies":
+    case "Trivia":
+      return section(block.type, `
+        <div class="chip-list">${block.items.map(i => `<span class="chip">${escapeHtml(i)}</span>`).join("")}</div>`);
+    case "Quotes":
+      return section("Quotes", `
+        <div class="quote-list">${block.items.map(q => `<div class="q">"${escapeHtml(q)}"</div>`).join("")}</div>`);
+    case "Appearances":
+    case "Backstory":
+    case "Voice & Playlist":
+      return section(block.type, `<div class="prose">${escapeHtml(block.text).replace(/\n/g,"<br>")}</div>`);
+    case "Relationships":
+      return section("Relationships", `
+        <div class="relationship-grid">
+          ${block.relationships.map(r => `
+            <a class="rel-card" href="#/character?slug=${encodeURIComponent(r.slug)}">
+              <div class="photo">${r.cardImage ? `<img src="${escapeHtml(r.cardImage)}" alt="${escapeHtml(r.name)}">` : ""}</div>
+              <div class="meta">
+                <div class="name">${escapeHtml(r.name)}</div>
+                <div class="label">${escapeHtml(r.label)}</div>
+              </div>
+            </a>`).join("")}
+        </div>`);
+    case "NSFW Gallery": {
+      const idx = nsfwRegistry.push(block) - 1;
+      return section("NSFW Gallery", `
+        <div class="nsfw-warning" data-idx="${idx}">
+          <p>This block contains NSFW content.</p>
+          <button class="btn reveal-nsfw">Show anyway</button>
+        </div>`);
     }
+    case "Gallery":
+    case "AU Gallery 1":
+    case "AU Gallery 2":
+    case "AU Gallery 3":
+      return section(block.type, renderGalleryGrid(block));
+    default:
+      return section(block.type, `<div class="prose">${escapeHtml(block.text || "")}</div>`);
+  }
 }
 
-if (searchInput) {
-    searchInput.addEventListener("input", filterCharacters);
+function renderGalleryGrid(block){
+  return `
+    ${block.caption ? `<div class="gallery-caption">${escapeHtml(block.caption)}</div>` : ""}
+    <div class="gallery-grid">
+      ${block.images.map(img => `
+        <div class="gallery-item">
+          <img src="${escapeHtml(img.url)}" loading="lazy">
+          ${img.caption ? `<div class="img-caption">${escapeHtml(img.caption)}</div>` : ""}
+        </div>`).join("")}
+    </div>`;
 }
 
-loadCharacters();
+function section(title, inner){
+  return `<div class="block"><h2>${escapeHtml(title)}</h2>${inner}</div>`;
+}
+
+function wireGalleryClicks(root){
+  root.querySelectorAll(".gallery-item img").forEach(img => {
+    img.addEventListener("click", () => openLightbox(img.src));
+  });
+}
+
+function wireNsfwWarnings(root){
+  root.querySelectorAll(".nsfw-warning").forEach(box => {
+    const btn = box.querySelector(".reveal-nsfw");
+    btn.addEventListener("click", () => {
+      const block = nsfwRegistry[Number(box.dataset.idx)];
+      box.outerHTML = renderGalleryGrid(block);
+      wireGalleryClicks(root);
+    }, { once: true });
+  });
+}
+
+function openLightbox(src){
+  const box = document.createElement("div");
+  box.className = "lightbox";
+  box.innerHTML = `<img src="${src}">`;
+  box.addEventListener("click", () => box.remove());
+  document.body.appendChild(box);
+}
+
+/* ---------------- Static: RP Rules ----------------
+   Edit the HTML inside .prose below directly to update your rules. */
+function renderRpRules(){
+  app.innerHTML = `
+    <div class="static-page">
+      <a class="back-link" href="#/">&larr; Back to the archive</a>
+      <h1>RP Rules</h1>
+      <div class="prose">
+        <h2>General</h2>
+        <ul>
+          <li>Be respectful out of character, always.</li>
+          <li>Ask before starting ships, major plot events, or character death.</li>
+          <li>Fade to black for anything NSFW unless pre-arranged.</li>
+        </ul>
+
+        <h2>Characters</h2>
+        <ul>
+          <li>Characters here are mine unless stated otherwise — ask before writing them in your own fics/art.</li>
+          <li>AUs are separate continuities. Don't assume AU canon carries over to main canon.</li>
+        </ul>
+
+        <h2>Boundaries</h2>
+        <ul>
+          <li>DNI list and hard limits available on request.</li>
+          <li>I reserve the right to drop a thread that isn't working for me.</li>
+        </ul>
+      </div>
+    </div>
+  `;
+}
+
+/* ---------------- Static: Meet the Owner ----------------
+   Edit the HTML inside .prose below directly. */
+function renderMeetOwner(){
+  app.innerHTML = `
+    <div class="static-page">
+      <a class="back-link" href="#/">&larr; Back to the archive</a>
+      <h1>Meet the Owner</h1>
+      <div class="prose">
+        <p>Hi, I'm Crys — welcome to the archive. This is where all my characters, their lore, and their relationships live.</p>
+        <h2>Find me elsewhere</h2>
+        <ul>
+          <li>Twitter/X: @yourhandle</li>
+          <li>Discord: yourhandle</li>
+        </ul>
+      </div>
+    </div>
+  `;
+}
+
+router();
 </script>
-
 </body>
 </html>
