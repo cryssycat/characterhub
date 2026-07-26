@@ -478,6 +478,7 @@
   }
   .gallery-item img:hover{ transform: scale(1.03); border-color: rgba(199,204,224,0.3); }
   .img-caption{ font-size: 11px; color: var(--ink-soft); text-align: center; line-height: 1.35; }
+  .img-credits{ font-size: 10px; color: var(--ink-soft); opacity: .7; text-align: center; line-height: 1.3; font-family: var(--font-mono); }
   .gallery-caption{ font-size: 13px; color: var(--ink-soft); margin-bottom: 14px; }
 
   .value-pill{
@@ -924,6 +925,7 @@ async function renderWorldDetail(slug){
               <div class="gallery-item">
                 <img src="${escapeHtml(img.url)}" loading="lazy">
                 ${img.caption ? `<div class="img-caption">${escapeHtml(img.caption)}</div>` : ""}
+                ${img.credits ? `<div class="img-credits">${escapeHtml(img.credits)}</div>` : ""}
               </div>`).join("")}
           </div>`;
       } else if(tab.id === "characters"){
@@ -1174,6 +1176,7 @@ function renderGalleryGrid(block){
         <div class="gallery-item">
           <img src="${escapeHtml(img.url)}" loading="lazy">
           ${img.caption ? `<div class="img-caption">${escapeHtml(img.caption)}</div>` : ""}
+          ${img.credits ? `<div class="img-credits">${escapeHtml(img.credits)}</div>` : ""}
         </div>`).join("")}
     </div>`;
 }
