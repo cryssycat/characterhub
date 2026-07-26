@@ -8,18 +8,18 @@
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root{
-    /* ---- moonlit glassmorphism tokens ---- */
-    --bg-base: #0A0C14;
-    --blob-a: #3A4270;
-    --blob-b: #2E3654;
-    --blob-c: #454E78;
-    --glass: rgba(255,255,255,0.04);
-    --glass-strong: rgba(255,255,255,0.06);
-    --glass-border: rgba(210,215,235,0.14);
-    --ink: #E6E8F0;
-    --ink-soft: #8B90A8;
-    --accent: #C7CCE0;
-    --card-shadow: 0 8px 32px -12px rgba(0,0,0,0.55);
+    /* ---- glassmorphism minimalist tokens ---- */
+    --bg-base: #EEF1F8;
+    --blob-a: #C3CCFF;
+    --blob-b: #FFD3E4;
+    --blob-c: #C6F3E6;
+    --glass: rgba(255,255,255,0.5);
+    --glass-strong: rgba(255,255,255,0.68);
+    --glass-border: rgba(255,255,255,0.65);
+    --ink: #1B1D2B;
+    --ink-soft: #666B7E;
+    --accent: #6C63FF;
+    --card-shadow: 0 8px 32px -12px rgba(28,30,50,0.18);
     --radius: 20px;
     --radius-sm: 12px;
     --font-display: "Plus Jakarta Sans", sans-serif;
@@ -34,12 +34,11 @@
     background: var(--bg-base);
     color: var(--ink);
     font-family: var(--font-body);
-    font-weight: 400;
     -webkit-font-smoothing: antialiased;
     min-height: 100vh;
   }
   a{ color: inherit; text-decoration: none; }
-  ::selection{ background: var(--accent); color: #0A0C14; }
+  ::selection{ background: var(--accent); color: #fff; }
   @media (prefers-reduced-motion: reduce){
     *{ animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
   }
@@ -48,8 +47,8 @@
   .blob{
     position: fixed;
     border-radius: 50%;
-    filter: blur(100px);
-    opacity: 0.35;
+    filter: blur(80px);
+    opacity: 0.55;
     z-index: -1;
     pointer-events: none;
   }
@@ -64,20 +63,17 @@
     padding: 16px 32px;
     margin: 16px;
     background: var(--glass-strong);
-    backdrop-filter: blur(20px) saturate(140%);
-    -webkit-backdrop-filter: blur(20px) saturate(140%);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
     border: 1px solid var(--glass-border);
     border-radius: var(--radius);
     box-shadow: var(--card-shadow);
-    flex-wrap: wrap;
-    gap: 12px;
   }
   .brand{
     font-family: var(--font-display);
-    font-weight: 700;
+    font-weight: 800;
     font-size: 20px;
     letter-spacing: -0.01em;
-    color: var(--ink);
   }
   .brand small{
     display:block;
@@ -89,92 +85,29 @@
     font-weight: 400;
     margin-top: 2px;
   }
-  nav.top-links{ display:flex; gap: 8px; flex-wrap: wrap; }
+  nav.top-links{ display:flex; gap: 8px; }
   nav.top-links a{
     font-family: var(--font-body);
     font-size: 13px;
-    font-weight: 500;
+    font-weight: 600;
     color: var(--ink-soft);
     padding: 8px 16px;
     border-radius: 999px;
     transition: background .15s ease, color .15s ease;
   }
-  nav.top-links a:hover{ background: rgba(199,204,224,0.08); color: var(--ink); }
-  nav.top-links a.active{ background: var(--accent); color: #0A0C14; }
+  nav.top-links a:hover{ background: rgba(108,99,255,0.1); color: var(--ink); }
+  nav.top-links a.active{ background: var(--accent); color: #fff; }
 
   main{ max-width: 1120px; margin: 0 auto; padding: 24px 32px 100px; }
-
-  /* ---------------- Profile hero (per-database mini profile) ---------------- */
-  .profile-hero{
-    display:flex; gap: 28px; align-items:center; flex-wrap: wrap;
-    padding: 32px;
-    margin: 24px 0 20px;
-    background: var(--glass-strong);
-    backdrop-filter: blur(20px) saturate(140%);
-    -webkit-backdrop-filter: blur(20px) saturate(140%);
-    border: 1px solid var(--glass-border);
-    border-radius: var(--radius);
-    box-shadow: var(--card-shadow);
-  }
-  .profile-hero .avatar{
-    width: 140px; height: 140px; flex-shrink: 0;
-    border-radius: var(--radius-sm); overflow: hidden;
-    border: 1px solid var(--glass-border);
-    background: rgba(255,255,255,0.03);
-  }
-  .profile-hero .avatar img{ width:100%; height:100%; object-fit: cover; display:block; }
-  .profile-hero .info{ flex: 1; min-width: 240px; }
-  .profile-hero .eyebrow{
-    font-family: var(--font-mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase;
-    color: var(--accent);
-  }
-  .profile-hero h2{
-    font-family: var(--font-display); font-size: clamp(24px, 4vw, 32px); font-weight: 800;
-    letter-spacing: -0.02em; margin: 4px 0 10px; color: var(--ink);
-  }
-  .profile-hero .welcome{
-    color: var(--ink-soft); font-size: 14px; line-height: 1.65; max-width: 62ch; margin-bottom: 16px;
-  }
-  .profile-links{ display:flex; flex-wrap: wrap; gap: 8px; }
-  .profile-links a{
-    font-family: var(--font-body); font-size: 13px; font-weight: 500;
-    padding: 8px 16px; border-radius: 999px;
-    background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); color: var(--ink);
-    transition: background .15s ease, border-color .15s ease, color .15s ease;
-  }
-  .profile-links a:hover{ background: var(--accent); color: #0A0C14; border-color: transparent; }
-
-  /* ---------------- Secondary nav grid ---------------- */
-  .nav-section{ margin: 0 0 28px; }
-  .nav-section h3{
-    font-family: var(--font-mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase;
-    color: var(--ink-soft); margin: 0 0 12px; font-weight: 500;
-  }
-  .nav-grid{
-    display:grid; grid-template-columns: repeat(auto-fill, minmax(170px,1fr)); gap: 12px;
-  }
-  .nav-grid a{
-    display:flex; align-items:center; gap: 8px;
-    padding: 14px 16px;
-    background: var(--glass);
-    backdrop-filter: blur(14px) saturate(140%);
-    -webkit-backdrop-filter: blur(14px) saturate(140%);
-    border: 1px solid var(--glass-border);
-    border-radius: var(--radius-sm);
-    font-size: 14px; font-weight: 500; color: var(--ink);
-    transition: transform .15s ease, border-color .15s ease, background .15s ease;
-  }
-  .nav-grid a:hover{ transform: translateY(-3px); border-color: rgba(199,204,224,0.3); background: var(--glass-strong); }
 
   /* ---------------- Landing ---------------- */
   .archive-head{ margin: 24px 0 28px; }
   .archive-head h1{
     font-family: var(--font-display);
     font-size: clamp(32px, 5vw, 48px);
-    font-weight: 700;
+    font-weight: 800;
     letter-spacing: -0.02em;
     margin: 0 0 8px;
-    color: var(--ink);
   }
   .archive-head p{ color: var(--ink-soft); margin: 0; max-width: 60ch; font-size: 15px; }
 
@@ -183,8 +116,8 @@
     margin: 24px 0 32px;
     padding: 6px;
     background: var(--glass);
-    backdrop-filter: blur(16px) saturate(140%);
-    -webkit-backdrop-filter: blur(16px) saturate(140%);
+    backdrop-filter: blur(16px) saturate(160%);
+    -webkit-backdrop-filter: blur(16px) saturate(160%);
     border: 1px solid var(--glass-border);
     border-radius: 999px;
     width: fit-content;
@@ -192,7 +125,7 @@
   .drawer-tab{
     font-family: var(--font-body);
     font-size: 13px;
-    font-weight: 500;
+    font-weight: 600;
     padding: 9px 18px;
     background: transparent;
     border: none;
@@ -203,9 +136,9 @@
   }
   .drawer-tab.active{
     background: var(--accent);
-    color: #0A0C14;
+    color: #fff;
   }
-  .drawer-tab .count{ opacity: .65; margin-left: 4px; }
+  .drawer-tab .count{ opacity: .7; margin-left: 4px; }
 
   .card-grid{
     display:grid;
@@ -215,286 +148,104 @@
   .char-card{
     display:block;
     background: var(--glass-strong);
-    backdrop-filter: blur(18px) saturate(140%);
-    -webkit-backdrop-filter: blur(18px) saturate(140%);
+    backdrop-filter: blur(18px) saturate(180%);
+    -webkit-backdrop-filter: blur(18px) saturate(180%);
     border: 1px solid var(--glass-border);
     border-radius: var(--radius);
     box-shadow: var(--card-shadow);
     padding: 12px 12px 16px;
-    transition: transform .2s ease, box-shadow .2s ease, background .2s ease, border-color .2s ease;
+    transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
   }
   .char-card:hover{
     transform: translateY(-6px);
-    box-shadow: 0 20px 40px -16px rgba(0,0,0,0.7);
+    box-shadow: 0 20px 40px -16px rgba(28,30,50,0.3);
     background: var(--glass-strong);
-    border-color: rgba(199,204,224,0.3);
   }
   .char-card .photo{
     position: relative;
     aspect-ratio: 4/5;
     overflow:hidden;
-    background: rgba(255,255,255,0.03);
+    background: rgba(255,255,255,0.4);
     border-radius: var(--radius-sm);
   }
   .char-card .photo img{ width:100%; height:100%; object-fit: cover; display:block; }
   .char-card .meta{ padding-top: 12px; }
   .char-card .meta .name{
     font-family: var(--font-display);
-    font-weight: 600;
+    font-weight: 700;
     font-size: 16px;
     letter-spacing: -0.01em;
     line-height: 1.25;
-    color: var(--ink);
   }
   .char-card .meta .tag{
     font-size: 12px; color: var(--ink-soft); margin-top: 3px;
   }
-  .char-card .meta .tag-chips{
-    display:flex; flex-wrap: wrap; gap: 5px; margin-top: 8px;
-  }
-  .char-card .meta .tag-chips .tag-chip{
-    font-family: var(--font-mono); font-size: 10px; letter-spacing: .02em;
-    padding: 3px 9px; border-radius: 999px;
-    background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); color: var(--accent);
-  }
-  .tag-search{
-    display:flex; align-items:center; gap: 10px;
-    margin: 0 0 20px;
-    flex-wrap: wrap;
-  }
-  .tag-search input{
-    width: 100%; max-width: 320px;
-    font-family: var(--font-body); font-size: 14px;
-    padding: 10px 16px; border-radius: 999px;
-    background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); color: var(--ink);
-  }
-  .tag-search input::placeholder{ color: var(--ink-soft); }
-  .tag-search input:focus{ outline: none; border-color: var(--accent); }
-  .tag-search .clear-btn{
-    font-family: var(--font-mono); font-size: 11px; color: var(--ink-soft);
-    padding: 6px 12px; border-radius: 999px; border: 1px solid var(--glass-border);
-    background: transparent; cursor: pointer;
-    transition: background .15s ease, color .15s ease;
-  }
-  .tag-search .clear-btn:hover{ background: rgba(255,255,255,0.06); color: var(--ink); }
   .empty-state{
     font-family: var(--font-mono); font-size: 13px; color: var(--ink-soft);
     padding: 40px 0;
   }
-
-  /* ---------------- Picker (root route) ---------------- */
-  .picker-grid{
-    display:grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 20px;
-    max-width: 640px;
-  }
-  .picker-card{
-    display:block;
-    background: var(--glass-strong);
-    backdrop-filter: blur(18px) saturate(140%);
-    -webkit-backdrop-filter: blur(18px) saturate(140%);
-    border: 1px solid var(--glass-border);
-    border-radius: var(--radius);
-    box-shadow: var(--card-shadow);
-    padding: 28px 24px;
-    text-align: center;
-    transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
-  }
-  .picker-card:hover{
-    transform: translateY(-6px);
-    box-shadow: 0 20px 40px -16px rgba(0,0,0,0.7);
-    border-color: rgba(199,204,224,0.3);
-  }
-  .picker-card .name{
-    font-family: var(--font-display);
-    font-weight: 700;
-    font-size: 18px;
-    color: var(--ink);
-  }
-  .picker-card .sub{
-    font-family: var(--font-mono);
-    font-size: 11px;
-    letter-spacing: .08em;
-    text-transform: uppercase;
-    color: var(--ink-soft);
-    margin-top: 6px;
-  }
-
-  /* ---------------- Worlds browser ---------------- */
-  .world-search{
-    padding: 24px;
-    margin: 0 0 28px;
-    background: var(--glass);
-    backdrop-filter: blur(16px) saturate(140%);
-    -webkit-backdrop-filter: blur(16px) saturate(140%);
-    border: 1px solid var(--glass-border);
-    border-radius: var(--radius);
-  }
-  .world-search h3{
-    font-family: var(--font-display); font-size: 16px; font-weight: 700; margin: 0 0 4px; color: var(--ink);
-  }
-  .world-search p{ margin: 0 0 14px; font-size: 13px; color: var(--ink-soft); }
-  .world-search input{
-    width: 100%; max-width: 360px;
-    font-family: var(--font-body); font-size: 14px;
-    padding: 10px 16px; border-radius: 999px;
-    background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); color: var(--ink);
-  }
-  .world-search input::placeholder{ color: var(--ink-soft); }
-  .world-search input:focus{ outline: none; border-color: var(--accent); }
-
-  .world-grid{
-    display:grid; grid-template-columns: repeat(auto-fill, minmax(220px,1fr)); gap: 20px;
-  }
-  .world-card{
-    display:block;
-    background: var(--glass-strong);
-    backdrop-filter: blur(18px) saturate(140%);
-    -webkit-backdrop-filter: blur(18px) saturate(140%);
-    border: 1px solid var(--glass-border);
-    border-radius: var(--radius);
-    box-shadow: var(--card-shadow);
-    overflow: hidden;
-    transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
-  }
-  .world-card:hover{ transform: translateY(-6px); box-shadow: 0 20px 40px -16px rgba(0,0,0,0.7); border-color: rgba(199,204,224,0.3); }
-  .world-card .banner{ aspect-ratio: 16/10; background: rgba(255,255,255,0.03); overflow:hidden; }
-  .world-card .banner img{ width:100%; height:100%; object-fit: cover; display:block; }
-  .world-card .body{ padding: 16px 18px 20px; }
-  .world-card .name{ font-family: var(--font-display); font-weight: 700; font-size: 18px; color: var(--ink); margin-bottom: 6px; }
-  .world-card .desc{ font-size: 13px; color: var(--ink-soft); line-height: 1.55; margin-bottom: 12px; }
-  .world-card .pill-row{ display:flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
-  .world-card .pill-row .pill{
-    font-size: 11px; font-weight: 500; padding: 4px 11px; border-radius: 999px;
-    background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); color: var(--ink);
-  }
-  .world-card .view-link{ font-size: 13px; font-weight: 600; color: var(--accent); }
-
-  /* ---------------- World detail page ---------------- */
-  .world-hero{
-    border-radius: var(--radius); overflow: hidden; margin-bottom: 60px;
-    border: 1px solid var(--glass-border); box-shadow: var(--card-shadow);
-    position: relative;
-  }
-  .world-hero .banner{ aspect-ratio: 21/8; background: rgba(255,255,255,0.03); }
-  .world-hero .banner img{ width:100%; height:100%; object-fit: cover; display:block; }
-  .world-hero .id-card{
-    position: absolute; left: 24px; right: 24px; bottom: -48px;
-    display:flex; align-items:center; gap: 18px;
-    padding: 18px 24px;
-    background: var(--glass-strong);
-    backdrop-filter: blur(20px) saturate(140%);
-    -webkit-backdrop-filter: blur(20px) saturate(140%);
-    border: 1px solid var(--glass-border);
-    border-radius: var(--radius-sm);
-    box-shadow: var(--card-shadow);
-  }
-  .world-hero .id-card .icon{ width: 56px; height: 56px; border-radius: 50%; overflow:hidden; flex-shrink:0; background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); }
-  .world-hero .id-card .icon img{ width:100%; height:100%; object-fit: cover; }
-  .world-hero .id-card h1{ font-family: var(--font-display); font-size: clamp(20px,3vw,26px); font-weight: 700; margin: 0 0 2px; color: var(--ink); }
-  .world-hero .id-card .desc{ font-size: 13px; color: var(--ink-soft); }
-
-  .world-info{
-    display:flex; flex-wrap: wrap; gap: 28px; justify-content: space-between;
-    padding: 24px; margin-bottom: 24px;
-    background: var(--glass); border: 1px solid var(--glass-border); border-radius: var(--radius);
-  }
-  .world-info .group h4{
-    font-family: var(--font-mono); font-size: 10px; letter-spacing: .08em; text-transform: uppercase;
-    color: var(--ink-soft); margin: 0 0 8px; font-weight: 500;
-  }
-  .world-info .group .status-line{ font-size: 14px; color: var(--ink); margin-bottom: 4px; }
-  .world-info .group .pill-row{ display:flex; flex-wrap: wrap; gap: 6px; }
-  .world-info .group .pill-row .pill{
-    font-size: 11px; font-weight: 500; padding: 4px 11px; border-radius: 999px;
-    background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); color: var(--ink);
-  }
-
-  .world-char-summary{ font-size: 13px; color: var(--ink-soft); margin: -8px 0 18px; }
-  .world-char-grid{ display:grid; grid-template-columns: repeat(auto-fill, minmax(150px,1fr)); gap: 16px; }
-  .world-char-card{
-    background: rgba(255,255,255,0.035); border: 1px solid var(--glass-border);
-    border-radius: var(--radius-sm); overflow:hidden; text-align: center;
-    transition: transform .15s ease, border-color .15s ease;
-  }
-  .world-char-card:hover{ transform: translateY(-3px); border-color: rgba(199,204,224,0.25); }
-  .world-char-card .hub-tag{
-    font-family: var(--font-mono); font-size: 10px; letter-spacing: .04em;
-    padding: 6px 0; color: var(--accent);
-  }
-  .world-char-card .photo{ aspect-ratio: 4/5; background: rgba(255,255,255,0.03); }
-  .world-char-card .photo img{ width:100%; height:100%; object-fit:cover; display:block; }
-  .world-char-card .meta{ padding: 10px 12px 14px; }
-  .world-char-card .meta .name{ font-family: var(--font-display); font-weight:700; font-size:14px; color: var(--accent); }
-  .world-char-card .meta .species{ font-size: 11px; color: var(--ink-soft); margin-top: 3px; }
-  .world-char-card .meta .role{ font-size: 12px; font-weight: 600; color: var(--ink); margin-top: 2px; }
-
-  .world-actions{ display:flex; gap: 10px; justify-content:center; margin: 32px 0 8px; }
 
   /* ---------------- Character page ---------------- */
   .char-hero{
     display:flex; gap: 28px; align-items:flex-end; flex-wrap: wrap;
     margin-bottom: 36px; padding: 24px;
     background: var(--glass-strong);
-    backdrop-filter: blur(20px) saturate(140%);
-    -webkit-backdrop-filter: blur(20px) saturate(140%);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
     border: 1px solid var(--glass-border);
     border-radius: var(--radius);
     box-shadow: var(--card-shadow);
   }
   .char-hero .portrait{
     width: 170px; aspect-ratio: 4/5; border-radius: var(--radius-sm); overflow:hidden;
-    flex-shrink:0; background: rgba(255,255,255,0.03);
+    flex-shrink:0; background: rgba(255,255,255,0.4);
     border: 1px solid var(--glass-border);
   }
   .char-hero .portrait img{ width:100%; height:100%; object-fit:cover; }
   .char-hero h1{
     font-family: var(--font-display); font-size: clamp(28px,4vw,40px);
-    font-weight: 700; letter-spacing: -0.02em; margin: 0 0 4px;
-    color: var(--ink);
+    font-weight: 800; letter-spacing: -0.02em; margin: 0 0 4px;
   }
   .char-hero .tagline{ color: var(--ink-soft); font-size: 15px; }
   .char-hero .folder-pill{
     display:inline-block; margin-top:12px;
     font-family: var(--font-mono); font-size: 10px; letter-spacing:.08em; text-transform:uppercase;
     padding: 5px 12px; border-radius: 999px;
-    background: var(--accent); color: #0A0C14;
+    background: var(--accent, #6C63FF); color: #fff;
   }
 
   .block{
     margin-bottom: 24px;
     padding: 24px;
     background: var(--glass);
-    backdrop-filter: blur(16px) saturate(140%);
-    -webkit-backdrop-filter: blur(16px) saturate(140%);
+    backdrop-filter: blur(16px) saturate(160%);
+    -webkit-backdrop-filter: blur(16px) saturate(160%);
     border: 1px solid var(--glass-border);
     border-radius: var(--radius);
   }
   .block h2{
     font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
-    color: var(--accent); margin: 0 0 16px;
+    color: var(--accent, #6C63FF); margin: 0 0 16px;
     font-weight: 500;
   }
 
   .kv-grid{ display:grid; grid-template-columns: repeat(auto-fill, minmax(160px,1fr)); gap: 16px 26px; }
   .kv-grid .item .k{ font-family: var(--font-mono); font-size: 10px; text-transform:uppercase; letter-spacing:.08em; color: var(--ink-soft); }
-  .kv-grid .item .v{ font-size: 16px; margin-top: 3px; font-weight: 600; color: var(--ink); }
+  .kv-grid .item .v{ font-size: 16px; margin-top: 3px; font-weight: 600; }
 
   .chip-list{ display:flex; flex-wrap:wrap; gap: 8px; }
   .chip-list .chip{
-    background: rgba(255,255,255,0.05); border:1px solid var(--glass-border); border-radius: 999px;
-    padding: 7px 16px; font-size: 13px; font-weight: 500; color: var(--ink);
+    background: rgba(255,255,255,0.65); border:1px solid var(--glass-border); border-radius: 999px;
+    padding: 7px 16px; font-size: 13px; font-weight: 500;
   }
 
-  .prose{ max-width: 68ch; line-height: 1.75; font-size: 15px; color: var(--ink); font-weight: 400; }
+  .prose{ max-width: 68ch; line-height: 1.75; font-size: 15px; color: var(--ink); }
 
   .quote-list{ display:flex; flex-direction:column; gap: 12px; }
   .quote-list .q{
     font-family: var(--font-display); font-weight: 500; font-style: italic; font-size: 17px;
     padding: 14px 18px; border-radius: var(--radius-sm);
-    background: rgba(255,255,255,0.03); border-left: 3px solid var(--accent);
-    color: var(--ink);
+    background: rgba(255,255,255,0.5); border-left: 3px solid var(--accent, #6C63FF);
   }
 
   .gallery-grid{ display:grid; grid-template-columns: repeat(auto-fill, minmax(150px,1fr)); gap: 16px; }
@@ -502,80 +253,78 @@
   .gallery-item img{
     width:100%; aspect-ratio: 1; object-fit: cover; border-radius: var(--radius-sm); cursor: pointer;
     border: 1px solid var(--glass-border);
-    transition: transform .15s ease, border-color .15s ease;
+    transition: transform .15s ease;
   }
-  .gallery-item img:hover{ transform: scale(1.03); border-color: rgba(199,204,224,0.3); }
+  .gallery-item img:hover{ transform: scale(1.03); }
   .img-caption{ font-size: 11px; color: var(--ink-soft); text-align: center; line-height: 1.35; }
-  .img-credits{ font-size: 10px; color: var(--ink-soft); opacity: .7; text-align: center; line-height: 1.3; font-family: var(--font-mono); }
   .gallery-caption{ font-size: 13px; color: var(--ink-soft); margin-bottom: 14px; }
 
   .value-pill{
     display:inline-flex; align-items:center; gap: 5px; margin-top:12px; margin-left: 8px;
     font-family: var(--font-mono); font-size: 11px; letter-spacing:.04em;
     padding: 5px 12px; border-radius: 999px;
-    background: rgba(199,204,224,0.08); color: var(--accent); border: 1px solid rgba(199,204,224,0.25);
+    background: rgba(47,158,110,0.12); color: #1F8A5C; border: 1px solid rgba(47,158,110,0.35);
   }
 
   .nsfw-warning{
-    border: 1px dashed var(--accent); border-radius: var(--radius-sm);
-    padding: 32px; text-align:center; background: rgba(199,204,224,0.03);
+    border: 1px dashed var(--accent, #6C63FF); border-radius: var(--radius-sm);
+    padding: 32px; text-align:center; background: rgba(108,99,255,0.06);
   }
   .nsfw-warning p{ margin: 0 0 16px; color: var(--ink-soft); font-size: 14px; }
   .btn{
     font-family: var(--font-body); font-size: 13px; font-weight: 600;
-    background: var(--accent); color: #0A0C14; border:none; padding: 11px 24px;
+    background: var(--accent, #6C63FF); color: #fff; border:none; padding: 11px 24px;
     border-radius: 999px; cursor:pointer;
-    transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
+    transition: transform .15s ease, box-shadow .15s ease;
   }
-  .btn:hover{ transform: translateY(-1px); box-shadow: 0 8px 20px -8px rgba(199,204,224,0.35); background: #DADEED; }
+  .btn:hover{ transform: translateY(-1px); box-shadow: 0 8px 20px -8px rgba(108,99,255,0.6); }
 
   .relationship-grid{ display:grid; grid-template-columns: repeat(auto-fill, minmax(150px,1fr)); gap: 14px; }
   .rel-card{
-    background: rgba(255,255,255,0.035); border: 1px solid var(--glass-border);
+    background: rgba(255,255,255,0.55); border: 1px solid var(--glass-border);
     border-radius: var(--radius-sm); overflow:hidden;
-    transition: transform .15s ease, border-color .15s ease;
+    transition: transform .15s ease;
   }
-  .rel-card:hover{ transform: translateY(-3px); border-color: rgba(199,204,224,0.25); }
-  .rel-card .photo{ aspect-ratio: 4/5; background: rgba(255,255,255,0.03); }
+  .rel-card:hover{ transform: translateY(-3px); }
+  .rel-card .photo{ aspect-ratio: 4/5; background: rgba(255,255,255,0.4); }
   .rel-card .photo img{ width:100%; height:100%; object-fit:cover; display:block; }
   .rel-card .meta{ padding: 10px 12px 12px; }
-  .rel-card .meta .name{ font-family: var(--font-display); font-weight:600; font-size:14px; color: var(--ink); }
-  .rel-card .meta .label{ font-family: var(--font-mono); font-size: 10px; text-transform:uppercase; letter-spacing:.06em; color: var(--accent); margin-top:3px; }
+  .rel-card .meta .name{ font-family: var(--font-display); font-weight:700; font-size:14px; }
+  .rel-card .meta .label{ font-family: var(--font-mono); font-size: 10px; text-transform:uppercase; letter-spacing:.06em; color: var(--accent, #6C63FF); margin-top:3px; }
 
   /* ---------------- Static pages ---------------- */
   .static-page{
     padding: 28px;
     background: var(--glass);
-    backdrop-filter: blur(16px) saturate(140%);
-    -webkit-backdrop-filter: blur(16px) saturate(140%);
+    backdrop-filter: blur(16px) saturate(160%);
+    -webkit-backdrop-filter: blur(16px) saturate(160%);
     border: 1px solid var(--glass-border);
     border-radius: var(--radius);
   }
   .static-page h1{
-    font-family: var(--font-display); font-size: clamp(28px,4vw,40px); font-weight: 700;
-    letter-spacing: -0.02em; margin: 0 0 20px; color: var(--ink);
+    font-family: var(--font-display); font-size: clamp(28px,4vw,40px); font-weight: 800;
+    letter-spacing: -0.02em; margin: 0 0 20px;
   }
   .static-page .prose{ max-width: 74ch; }
   .static-page .prose h2{
-    font-family: var(--font-display); font-size: 20px; font-weight: 600; margin: 28px 0 10px;
-    color: var(--ink);
+    font-family: var(--font-display); font-size: 20px; font-weight: 700; margin: 28px 0 10px;
   }
   .static-page .prose ul{ padding-left: 20px; line-height:1.8; }
 
   /* ---------------- Lightbox ---------------- */
   .lightbox{
-    position: fixed; inset:0; background: rgba(4,5,10,0.85);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    position: fixed; inset:0; background: rgba(20,20,35,0.75);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     z-index: 100;
     display:flex; align-items:center; justify-content:center; padding: 40px;
     cursor: zoom-out;
   }
-  .lightbox img{ max-width:100%; max-height:100%; border-radius: var(--radius-sm); box-shadow: 0 20px 60px rgba(0,0,0,.7); }
+  .lightbox img{ max-width:100%; max-height:100%; border-radius: var(--radius-sm); box-shadow: 0 20px 60px rgba(0,0,0,.5); }
 
   .back-link{
     display:inline-flex; align-items:center; gap:6px;
-    font-family: var(--font-body); font-size: 13px; font-weight: 500;
+    font-family: var(--font-body); font-size: 13px; font-weight: 600;
     color: var(--ink-soft); margin-bottom: 20px;
   }
   .back-link:hover{ color: var(--accent); }
@@ -599,9 +348,7 @@
 <div class="topbar">
   <a href="#/" class="brand">Character Archive<small>Living Index</small></a>
   <nav class="top-links" id="topNav">
-    <a href="#/luna">Luna Characters</a>
-    <a href="#/star">Star Characters</a>
-    <a href="#/worlds">Worlds</a>
+    <a href="#/">Home</a>
     <a href="#/rp-rules">RP Rules</a>
     <a href="#/meet-the-owner">Meet the Owner</a>
   </nav>
@@ -617,74 +364,13 @@
 /* ============================================================
    SET YOUR WORKER URL HERE
    ============================================================ */
-const API_BASE = "https://silent-hill-f680.crysthigpen.workers.dev";
-
-// Maps route keys to page titles, plus the mini-profile shown at the top of
-// each landing page. Add more here if you add more DBs/pages later.
-//
-// profile.avatar  - full image URL for the little portrait
-// profile.eyebrow - small label above the name (e.g. "CHARACTER ARCHIVE")
-// profile.name    - the big name/title
-// profile.welcome - short paragraph under the name
-// profile.links   - pill buttons under the welcome text (icon is optional,
-//                   any emoji or short text works); href can be an internal
-//                   "#/..." route or an external URL
-// nav             - the secondary "Navigation" grid of link cards below the
-//                   hero; same shape as profile.links, leave empty/omit to
-//                   skip the section entirely
-const SOURCES = {
-  luna: {
-    title: "Luna Characters",
-    profile: {
-      avatar: "", // e.g. "https://raw.githubusercontent.com/USER/REPO/main/luna-avatar.png"
-      eyebrow: "Character Archive",
-      name: "Luna",
-      welcome: "Welcome to my character hub! Browse characters by folder, search by name or tags, and open individual profiles for references, lore, credits, favorites, and galleries.",
-      links: [
-        { icon: "⭐", label: "Characters", href: "#/luna" },
-        { icon: "🎨", label: "Designs", href: "#" },
-        { icon: "📖", label: "Lore", href: "#" },
-        { icon: "🌎", label: "Worlds", href: "#/worlds" },
-      ],
-    },
-    nav: [
-      { icon: "🌎", label: "Worlds", href: "#/worlds" },
-      { icon: "💞", label: "Shared Hub", href: "#" },
-    ],
-  },
-  star: {
-    title: "Star Characters",
-    profile: {
-      avatar: "", // e.g. "https://raw.githubusercontent.com/USER/REPO/main/star-avatar.png"
-      eyebrow: "Character Archive",
-      name: "StarSundae",
-      welcome: "Welcome to my character hub! Browse characters by folder, search by name or tags, and open individual profiles for references, lore, credits, favorites, and galleries.",
-      links: [
-        { icon: "⭐", label: "Characters", href: "#/star" },
-        { icon: "🎨", label: "Designs", href: "#" },
-        { icon: "📖", label: "Lore", href: "#" },
-        { icon: "🌎", label: "Worlds", href: "#/worlds" },
-      ],
-    },
-    nav: [
-      { icon: "🌎", label: "Worlds", href: "#/worlds" },
-      { icon: "💞", label: "Shared Hub", href: "#" },
-      { icon: "🌙", label: "My Wife", href: "#" },
-      { icon: "🎮", label: "Our Gaming OCs", href: "#" },
-      { icon: "💵", label: "Sales Hub", href: "#" },
-      { icon: "🖌️", label: "Star Sundae Commissions", href: "#" },
-      { icon: "✨", label: "Generators", href: "#" },
-    ],
-  },
-};
+const API_BASE = "https://YOUR-WORKER-SUBDOMAIN.workers.dev";
 
 const app = document.getElementById("app");
 const topNav = document.getElementById("topNav");
 
-// cache per-source lists so navigating back doesn't re-fetch every time
-const cache = { bySource: {}, chars: new Map(), worldsList: null, worlds: new Map() };
-
-const HUB_ICON = { LunaHub: "🌙", StarHub: "⭐", SharedHub: "💞" };
+// simple cache so navigating back doesn't re-fetch every time
+const cache = { characters: null, chars: new Map() };
 
 function escapeHtml(str){
   return String(str).replace(/[&<>"']/g, (c) => ({
@@ -715,15 +401,8 @@ function router(){
   }
 
   if(!route){
-    renderPicker();
-  } else if(SOURCES[route]){
-    document.querySelector(`#topNav a[href="#/${route}"]`)?.classList.add("active");
-    renderLanding(route, SOURCES[route].title);
-  } else if(route === "worlds"){
-    document.querySelector('#topNav a[href="#/worlds"]').classList.add("active");
-    renderWorldsList();
-  } else if(route === "world"){
-    renderWorldDetail(params.get("slug"));
+    document.querySelector('#topNav a[href="#/"]').classList.add("active");
+    renderLanding();
   } else if(route === "rp-rules"){
     document.querySelector('#topNav a[href="#/rp-rules"]').classList.add("active");
     renderRpRules();
@@ -739,283 +418,22 @@ function router(){
 }
 window.addEventListener("hashchange", router);
 
-/* ---------------- Root picker ---------------- */
-function renderPicker(){
+/* ---------------- Landing page ---------------- */
+async function renderLanding(){
   app.innerHTML = `
     <div class="archive-head">
       <h1>The Archive</h1>
-      <p>Choose a set of files to open.</p>
-    </div>
-    <div class="picker-grid">
-      ${Object.entries(SOURCES).map(([key, s]) => `
-        <a class="picker-card" href="#/${key}">
-          <div class="name">${escapeHtml(s.title)}</div>
-          <div class="sub">Open drawer</div>
-        </a>`).join("")}
-    </div>
-  `;
-}
-
-/* ---------------- Profile hero + secondary nav (per-source) ---------------- */
-function renderProfileHero(profile){
-  if(!profile) return "";
-  return `
-    <div class="profile-hero">
-      ${profile.avatar ? `<div class="avatar"><img src="${escapeHtml(profile.avatar)}" alt="${escapeHtml(profile.name || "")}"></div>` : ""}
-      <div class="info">
-        ${profile.eyebrow ? `<div class="eyebrow">${escapeHtml(profile.eyebrow)}</div>` : ""}
-        ${profile.name ? `<h2>${escapeHtml(profile.name)}</h2>` : ""}
-        ${profile.welcome ? `<div class="welcome">${escapeHtml(profile.welcome)}</div>` : ""}
-        ${profile.links && profile.links.length ? `
-          <div class="profile-links">
-            ${profile.links.map(l => `<a href="${escapeHtml(l.href)}">${l.icon ? escapeHtml(l.icon) + " " : ""}${escapeHtml(l.label)}</a>`).join("")}
-          </div>` : ""}
-      </div>
-    </div>`;
-}
-
-function renderNavSection(navLinks){
-  if(!navLinks || navLinks.length === 0) return "";
-  return `
-    <div class="nav-section">
-      <h3>Navigation</h3>
-      <div class="nav-grid">
-        ${navLinks.map(l => `<a href="${escapeHtml(l.href)}">${l.icon ? escapeHtml(l.icon) + " " : ""}${escapeHtml(l.label)}</a>`).join("")}
-      </div>
-    </div>`;
-}
-
-/* ---------------- Worlds browser (landing page for all worlds) ---------------- */
-async function renderWorldsList(){
-  app.innerHTML = `
-    <div class="archive-head">
-      <h1>🌎 Worlds</h1>
-      <p>Browse shared worlds, settings, AUs, and story spaces.</p>
-    </div>
-    <div class="world-search">
-      <h3>World Browser</h3>
-      <p>Search by world name, slug, genre, theme, era, status, or description.</p>
-      <input id="worldSearch" type="text" placeholder="Search worlds...">
-    </div>
-    <div id="worldGrid" class="loading">Pulling up the atlas…</div>
-  `;
-
-  try{
-    if(!cache.worldsList){
-      cache.worldsList = await apiGet(`/api/worlds`);
-    }
-    const worlds = cache.worldsList;
-
-    function paintWorlds(list){
-      const grid = document.getElementById("worldGrid");
-      if(list.length === 0){
-        grid.className = "";
-        grid.innerHTML = `<p class="empty-state">No worlds match that search.</p>`;
-        return;
-      }
-      grid.className = "world-grid";
-      grid.innerHTML = list.map((w) => `
-        <a class="world-card" href="#/world?slug=${encodeURIComponent(w.slug)}">
-          <div class="banner">${w.banner ? `<img src="${escapeHtml(w.banner)}" alt="${escapeHtml(w.name)}" loading="lazy">` : ""}</div>
-          <div class="body">
-            <div class="name">${escapeHtml(w.name)}</div>
-            ${w.shortDescription ? `<div class="desc">${escapeHtml(w.shortDescription)}</div>` : ""}
-            <div class="pill-row">
-              ${w.genre.map(g => `<span class="pill">${escapeHtml(g)}</span>`).join("")}
-              ${w.theme.map(t => `<span class="pill">${escapeHtml(t)}</span>`).join("")}
-            </div>
-            <div class="view-link">View World &rarr;</div>
-          </div>
-        </a>`).join("");
-    }
-
-    const searchInput = document.getElementById("worldSearch");
-    searchInput.addEventListener("input", () => {
-      const q = searchInput.value.trim().toLowerCase();
-      if(!q){ paintWorlds(worlds); return; }
-      const filtered = worlds.filter(w => {
-        const haystack = [w.name, w.slug, w.era, w.status, w.shortDescription, ...w.genre, ...w.theme]
-          .filter(Boolean).join(" ").toLowerCase();
-        return haystack.includes(q);
-      });
-      paintWorlds(filtered);
-    });
-
-    paintWorlds(worlds);
-  } catch(err){
-    document.getElementById("worldGrid").outerHTML = `<p class="error-state">Couldn't reach the atlas: ${escapeHtml(err.message)}</p>`;
-  }
-}
-
-/* ---------------- World detail page ---------------- */
-const WORLD_TABS = [
-  { id: "overview", label: "Overview", types: ["Overview"] },
-  { id: "culture", label: "Culture", types: ["Culture"] },
-  { id: "magic", label: "Magic System", types: ["Magic System"] },
-  { id: "tech", label: "Technology", types: ["Technology"] },
-  { id: "economy", label: "Economy", types: ["Economy"] },
-  { id: "trivia", label: "Trivia", types: ["Trivia"] },
-];
-
-async function renderWorldDetail(slug){
-  if(!slug){ app.innerHTML = `<p class="error-state">Missing world.</p>`; return; }
-  app.innerHTML = `<p class="loading">Opening the world file…</p>`;
-  document.getElementById("charCustomCss").textContent = "";
-
-  try{
-    let data = cache.worlds.get(slug);
-    if(!data){
-      data = await apiGet(`/api/world?slug=${encodeURIComponent(slug)}`);
-      cache.worlds.set(slug, data);
-    }
-
-    document.getElementById("charCustomCss").textContent = data.customCss || "";
-
-    const backButtons = `
-      <div class="world-actions">
-        <a class="btn" href="#/worlds">&larr; Back to Worlds</a>
-        <a class="btn" href="#/">&larr; Back to Hub</a>
-      </div>`;
-
-    app.innerHTML = `
-      <div class="world-page">
-        ${backButtons}
-        <div class="world-hero">
-          <div class="banner">${data.banner ? `<img src="${escapeHtml(data.banner)}" alt="${escapeHtml(data.name)}">` : ""}</div>
-          <div class="id-card">
-            ${data.icon ? `<div class="icon"><img src="${escapeHtml(data.icon)}" alt=""></div>` : ""}
-            <div>
-              <h1>${escapeHtml(data.name)}</h1>
-              ${data.shortDescription ? `<div class="desc">${escapeHtml(data.shortDescription)}</div>` : ""}
-            </div>
-          </div>
-        </div>
-
-        <div class="world-info">
-          <div class="group">
-            <h4>World Info</h4>
-            ${data.status ? `<div class="status-line">Status: ${escapeHtml(data.status)}</div>` : ""}
-            ${data.era ? `<div class="status-line">Era: ${escapeHtml(data.era)}</div>` : ""}
-          </div>
-          ${data.genre.length ? `
-          <div class="group">
-            <h4>Genre</h4>
-            <div class="pill-row">${data.genre.map(g => `<span class="pill">${escapeHtml(g)}</span>`).join("")}</div>
-          </div>` : ""}
-          ${data.theme.length ? `
-          <div class="group">
-            <h4>Theme</h4>
-            <div class="pill-row">${data.theme.map(t => `<span class="pill">${escapeHtml(t)}</span>`).join("")}</div>
-          </div>` : ""}
-        </div>
-
-        <div id="worldTabs" class="drawers"></div>
-        <div id="worldPanels"></div>
-
-        ${backButtons}
-      </div>
-    `;
-
-    const tabsEl = document.getElementById("worldTabs");
-    const panelsEl = document.getElementById("worldPanels");
-
-    const contentTabs = WORLD_TABS
-      .map(tab => ({ ...tab, block: data.textBlocks.find(b => tab.types.includes(b.type)) }))
-      .filter(tab => tab.block);
-
-    const hasGallery = data.gallery && data.gallery.length > 0;
-    const hasCharacters = data.characters && data.characters.length > 0;
-
-    const allTabs = [
-      ...contentTabs,
-      ...(hasGallery ? [{ id: "gallery", label: "Gallery" }] : []),
-      ...(hasCharacters ? [{ id: "characters", label: "Characters" }] : []),
-    ];
-
-    if(allTabs.length === 0){
-      tabsEl.remove();
-      panelsEl.innerHTML = `<p class="empty-state">No blocks filed for this world yet.</p>`;
-      return;
-    }
-
-    tabsEl.innerHTML = allTabs.map((tab, i) =>
-      `<button class="drawer-tab ${i===0 ? "active":""}" data-tab="${tab.id}">${escapeHtml(tab.label)}</button>`
-    ).join("");
-
-    panelsEl.innerHTML = allTabs.map((tab, i) => {
-      let inner = "";
-      if(tab.block){
-        inner = `<div class="prose">${escapeHtml(tab.block.text).replace(/\n/g,"<br>")}</div>`;
-      } else if(tab.id === "gallery"){
-        inner = `
-          <div class="gallery-grid">
-            ${data.gallery.map(img => `
-              <div class="gallery-item">
-                <img src="${escapeHtml(img.url)}" loading="lazy">
-                ${img.caption ? `<div class="img-caption">${escapeHtml(img.caption)}</div>` : ""}
-                ${img.credits ? `<div class="img-credits">${escapeHtml(img.credits)}</div>` : ""}
-              </div>`).join("")}
-          </div>`;
-      } else if(tab.id === "characters"){
-        const counts = data.hubCounts;
-        inner = `
-          <div class="world-char-summary">${data.characters.length} character${data.characters.length === 1 ? "" : "s"} linked — ${counts.StarHub || 0} StarHub, ${counts.LunaHub || 0} LunaHub, ${counts.SharedHub || 0} SharedHub.</div>
-          <div class="world-char-grid">
-            ${data.characters.map(c => `
-              <a class="world-char-card" href="#/character?slug=${encodeURIComponent(c.slug)}">
-                <div class="hub-tag">${HUB_ICON[c.hub] || ""} ${escapeHtml(c.hub)}</div>
-                <div class="photo">${c.cardImage ? `<img src="${escapeHtml(c.cardImage)}" alt="${escapeHtml(c.name)}">` : ""}</div>
-                <div class="meta">
-                  <div class="name">${escapeHtml(c.name)}</div>
-                  ${c.species ? `<div class="species">${escapeHtml(c.species)}</div>` : ""}
-                  ${c.role ? `<div class="role">${escapeHtml(c.role)}</div>` : ""}
-                </div>
-              </a>`).join("")}
-          </div>`;
-      }
-      return `<div class="tab-panel" data-panel="${tab.id}" ${i===0 ? "" : "hidden"}>${inner}</div>`;
-    }).join("");
-
-    if(hasGallery) wireGalleryClicks(panelsEl);
-
-    tabsEl.addEventListener("click", (e) => {
-      const btn = e.target.closest(".drawer-tab");
-      if(!btn) return;
-      tabsEl.querySelectorAll(".drawer-tab").forEach(b => b.classList.remove("active"));
-      btn.classList.add("active");
-      panelsEl.querySelectorAll(".tab-panel").forEach(panel => {
-        panel.hidden = panel.dataset.panel !== btn.dataset.tab;
-      });
-    });
-  } catch(err){
-    app.innerHTML = `<p class="error-state">Couldn't open that world: ${escapeHtml(err.message)}</p>`;
-  }
-}
-
-/* ---------------- Landing page (per-source) ---------------- */
-async function renderLanding(sourceKey, title){
-  const source = SOURCES[sourceKey];
-
-  app.innerHTML = `
-    ${renderProfileHero(source.profile)}
-    ${renderNavSection(source.nav)}
-    <div class="archive-head">
-      <h1>${escapeHtml(title)}</h1>
       <p>Every character, sorted into their drawer. Click a card to open the full file.</p>
-    </div>
-    <div class="tag-search">
-      <input id="tagSearch" type="text" placeholder="Search tags... (e.g. Needs Lore, Mated)">
-      <button id="tagSearchClear" class="clear-btn" hidden>Clear</button>
     </div>
     <div id="drawers" class="drawers"></div>
     <div id="cardGrid" class="loading">Pulling files from the drawers…</div>
   `;
 
   try{
-    if(!cache.bySource[sourceKey]){
-      cache.bySource[sourceKey] = await apiGet(`/api/characters?source=${encodeURIComponent(sourceKey)}`);
+    if(!cache.characters){
+      cache.characters = await apiGet("/api/characters");
     }
-    const chars = cache.bySource[sourceKey];
+    const chars = cache.characters;
 
     const folders = ["All", ...Array.from(new Set(chars.map(c => c.folder)))];
     const drawers = document.getElementById("drawers");
@@ -1024,24 +442,13 @@ async function renderLanding(sourceKey, title){
       return `<button class="drawer-tab ${i===0 ? "active":""}" data-folder="${escapeHtml(f)}">${escapeHtml(f)} <span class="count">${count}</span></button>`;
     }).join("");
 
-    let currentFolder = "All";
-    let currentQuery = "";
-
-    function matchesQuery(c, q){
-      if(!q) return true;
-      return (c.tags || []).some(t => t.toLowerCase().includes(q));
-    }
-
-    function paintGrid(){
-      const q = currentQuery.trim().toLowerCase();
-      const list = chars
-        .filter(c => currentFolder === "All" || c.folder === currentFolder)
-        .filter(c => matchesQuery(c, q));
+    function paintGrid(folder){
+      const list = folder === "All" ? chars : chars.filter(c => c.folder === folder);
       const grid = document.getElementById("cardGrid");
       grid.className = "card-grid";
       if(list.length === 0){
         grid.className = "";
-        grid.innerHTML = `<p class="empty-state">${q ? "No characters match that tag." : "Nothing filed here yet."}</p>`;
+        grid.innerHTML = `<p class="empty-state">Nothing filed here yet.</p>`;
         return;
       }
       grid.innerHTML = list.map((c) => {
@@ -1053,10 +460,6 @@ async function renderLanding(sourceKey, title){
           <div class="meta">
             <div class="name">${escapeHtml(c.name)}</div>
             ${c.tagline ? `<div class="tag">${escapeHtml(c.tagline)}</div>` : ""}
-            ${c.tags && c.tags.length ? `
-              <div class="tag-chips">
-                ${c.tags.map(t => `<span class="tag-chip">${escapeHtml(t)}</span>`).join("")}
-              </div>` : ""}
           </div>
         </a>`;
       }).join("");
@@ -1067,26 +470,10 @@ async function renderLanding(sourceKey, title){
       if(!btn) return;
       drawers.querySelectorAll(".drawer-tab").forEach(b => b.classList.remove("active"));
       btn.classList.add("active");
-      currentFolder = btn.dataset.folder;
-      paintGrid();
+      paintGrid(btn.dataset.folder);
     });
 
-    const tagSearchInput = document.getElementById("tagSearch");
-    const tagSearchClear = document.getElementById("tagSearchClear");
-    tagSearchInput.addEventListener("input", () => {
-      currentQuery = tagSearchInput.value;
-      tagSearchClear.hidden = currentQuery.trim().length === 0;
-      paintGrid();
-    });
-    tagSearchClear.addEventListener("click", () => {
-      tagSearchInput.value = "";
-      currentQuery = "";
-      tagSearchClear.hidden = true;
-      paintGrid();
-      tagSearchInput.focus();
-    });
-
-    paintGrid();
+    paintGrid("All");
   } catch(err){
     document.getElementById("cardGrid").outerHTML = `<p class="error-state">Couldn't reach the archive: ${escapeHtml(err.message)}</p>`;
   }
@@ -1096,8 +483,11 @@ async function renderLanding(sourceKey, title){
 const CHAR_TABS = [
   { id: "profile", label: "Profile", types: ["Profile Info","Likes","Dislikes","Hobbies","Appearances","Backstory","Trivia","Quotes","Relationships","Voice & Playlist"] },
   { id: "gallery", label: "Gallery", types: ["Gallery"] },
+  { id: "reference", label: "Reference Gallery", types: ["Reference Gallery"] },
   { id: "nsfw", label: "NSFW Gallery", types: ["NSFW Gallery"] },
   { id: "au", label: "AU Galleries", types: ["AU Gallery 1", "AU Gallery 2", "AU Gallery 3"] },
+  { id: "mount", label: "Mount", types: ["Mount Profile", "Mount Gallery"] },
+  { id: "familiar", label: "Familiar", types: ["Familiar Profile", "Familiar Gallery"] },
 ];
 
 // Holds the raw block data for any NSFW galleries on the current character page,
@@ -1188,6 +578,16 @@ function renderBlock(block){
         <div class="kv-grid">
           ${block.fields.map(f => `<div class="item"><div class="k">${escapeHtml(f.key || "—")}</div><div class="v">${escapeHtml(f.value)}</div></div>`).join("")}
         </div>`);
+    case "Mount Profile":
+      return section("Mount", `
+        <div class="kv-grid">
+          ${block.fields.map(f => `<div class="item"><div class="k">${escapeHtml(f.key || "—")}</div><div class="v">${escapeHtml(f.value)}</div></div>`).join("")}
+        </div>`);
+    case "Familiar Profile":
+      return section("Familiar", `
+        <div class="kv-grid">
+          ${block.fields.map(f => `<div class="item"><div class="k">${escapeHtml(f.key || "—")}</div><div class="v">${escapeHtml(f.value)}</div></div>`).join("")}
+        </div>`);
     case "Likes":
     case "Dislikes":
     case "Hobbies":
@@ -1222,9 +622,12 @@ function renderBlock(block){
         </div>`);
     }
     case "Gallery":
+    case "Reference Gallery":
     case "AU Gallery 1":
     case "AU Gallery 2":
     case "AU Gallery 3":
+    case "Mount Gallery":
+    case "Familiar Gallery":
       return section(block.type, renderGalleryGrid(block));
     default:
       return section(block.type, `<div class="prose">${escapeHtml(block.text || "")}</div>`);
@@ -1239,7 +642,6 @@ function renderGalleryGrid(block){
         <div class="gallery-item">
           <img src="${escapeHtml(img.url)}" loading="lazy">
           ${img.caption ? `<div class="img-caption">${escapeHtml(img.caption)}</div>` : ""}
-          ${img.credits ? `<div class="img-credits">${escapeHtml(img.credits)}</div>` : ""}
         </div>`).join("")}
     </div>`;
 }
