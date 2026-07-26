@@ -249,6 +249,34 @@
   .char-card .meta .tag{
     font-size: 12px; color: var(--ink-soft); margin-top: 3px;
   }
+  .char-card .meta .tag-chips{
+    display:flex; flex-wrap: wrap; gap: 5px; margin-top: 8px;
+  }
+  .char-card .meta .tag-chips .tag-chip{
+    font-family: var(--font-mono); font-size: 10px; letter-spacing: .02em;
+    padding: 3px 9px; border-radius: 999px;
+    background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); color: var(--accent);
+  }
+  .tag-search{
+    display:flex; align-items:center; gap: 10px;
+    margin: 0 0 20px;
+    flex-wrap: wrap;
+  }
+  .tag-search input{
+    width: 100%; max-width: 320px;
+    font-family: var(--font-body); font-size: 14px;
+    padding: 10px 16px; border-radius: 999px;
+    background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); color: var(--ink);
+  }
+  .tag-search input::placeholder{ color: var(--ink-soft); }
+  .tag-search input:focus{ outline: none; border-color: var(--accent); }
+  .tag-search .clear-btn{
+    font-family: var(--font-mono); font-size: 11px; color: var(--ink-soft);
+    padding: 6px 12px; border-radius: 999px; border: 1px solid var(--glass-border);
+    background: transparent; cursor: pointer;
+    transition: background .15s ease, color .15s ease;
+  }
+  .tag-search .clear-btn:hover{ background: rgba(255,255,255,0.06); color: var(--ink); }
   .empty-state{
     font-family: var(--font-mono); font-size: 13px; color: var(--ink-soft);
     padding: 40px 0;
@@ -975,6 +1003,10 @@ async function renderLanding(sourceKey, title){
       <h1>${escapeHtml(title)}</h1>
       <p>Every character, sorted into their drawer. Click a card to open the full file.</p>
     </div>
+    <div class="tag-search">
+      <input id="tagSearch" type="text" placeholder="Search tags... (e.g. Needs Lore, Mated)">
+      <button id="tagSearchClear" class="clear-btn" hidden>Clear</button>
+    </div>
     <div id="drawers" class="drawers"></div>
     <div id="cardGrid" class="loading">Pulling files from the drawers…</div>
   `;
@@ -992,13 +1024,24 @@ async function renderLanding(sourceKey, title){
       return `<button class="drawer-tab ${i===0 ? "active":""}" data-folder="${escapeHtml(f)}">${escapeHtml(f)} <span class="count">${count}</span></button>`;
     }).join("");
 
-    function paintGrid(folder){
-      const list = folder === "All" ? chars : chars.filter(c => c.folder === folder);
+    let currentFolder = "All";
+    let currentQuery = "";
+
+    function matchesQuery(c, q){
+      if(!q) return true;
+      return (c.tags || []).some(t => t.toLowerCase().includes(q));
+    }
+
+    function paintGrid(){
+      const q = currentQuery.trim().toLowerCase();
+      const list = chars
+        .filter(c => currentFolder === "All" || c.folder === currentFolder)
+        .filter(c => matchesQuery(c, q));
       const grid = document.getElementById("cardGrid");
       grid.className = "card-grid";
       if(list.length === 0){
         grid.className = "";
-        grid.innerHTML = `<p class="empty-state">Nothing filed here yet.</p>`;
+        grid.innerHTML = `<p class="empty-state">${q ? "No characters match that tag." : "Nothing filed here yet."}</p>`;
         return;
       }
       grid.innerHTML = list.map((c) => {
@@ -1010,6 +1053,10 @@ async function renderLanding(sourceKey, title){
           <div class="meta">
             <div class="name">${escapeHtml(c.name)}</div>
             ${c.tagline ? `<div class="tag">${escapeHtml(c.tagline)}</div>` : ""}
+            ${c.tags && c.tags.length ? `
+              <div class="tag-chips">
+                ${c.tags.map(t => `<span class="tag-chip">${escapeHtml(t)}</span>`).join("")}
+              </div>` : ""}
           </div>
         </a>`;
       }).join("");
@@ -1020,10 +1067,26 @@ async function renderLanding(sourceKey, title){
       if(!btn) return;
       drawers.querySelectorAll(".drawer-tab").forEach(b => b.classList.remove("active"));
       btn.classList.add("active");
-      paintGrid(btn.dataset.folder);
+      currentFolder = btn.dataset.folder;
+      paintGrid();
     });
 
-    paintGrid("All");
+    const tagSearchInput = document.getElementById("tagSearch");
+    const tagSearchClear = document.getElementById("tagSearchClear");
+    tagSearchInput.addEventListener("input", () => {
+      currentQuery = tagSearchInput.value;
+      tagSearchClear.hidden = currentQuery.trim().length === 0;
+      paintGrid();
+    });
+    tagSearchClear.addEventListener("click", () => {
+      tagSearchInput.value = "";
+      currentQuery = "";
+      tagSearchClear.hidden = true;
+      paintGrid();
+      tagSearchInput.focus();
+    });
+
+    paintGrid();
   } catch(err){
     document.getElementById("cardGrid").outerHTML = `<p class="error-state">Couldn't reach the archive: ${escapeHtml(err.message)}</p>`;
   }
