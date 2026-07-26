@@ -729,15 +729,23 @@ window.addEventListener("hashchange", router);
 
 /* ---------------- Root picker ---------------- */
 function renderPicker(){
+  // Explicit picker entries: the two character drawers plus a Worlds selector.
+  // Character drawers come from SOURCES (luna/star); Worlds is added manually
+  // since it isn't one of the character sources.
+  const pickerItems = [
+    ...Object.entries(SOURCES).map(([key, s]) => ({ href: `#/${key}`, name: s.title })),
+    { href: "#/worlds", name: "Worlds" },
+  ];
+
   app.innerHTML = `
     <div class="archive-head">
       <h1>The Archive</h1>
       <p>Choose a set of files to open.</p>
     </div>
     <div class="picker-grid">
-      ${Object.entries(SOURCES).map(([key, s]) => `
-        <a class="picker-card" href="#/${key}">
-          <div class="name">${escapeHtml(s.title)}</div>
+      ${pickerItems.map(item => `
+        <a class="picker-card" href="${item.href}">
+          <div class="name">${escapeHtml(item.name)}</div>
           <div class="sub">Open drawer</div>
         </a>`).join("")}
     </div>
